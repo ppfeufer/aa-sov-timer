@@ -27,8 +27,6 @@
     <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/datetime.js' %}"></script>
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
-{#    <script type="application/javascript" src="{% static 'aasrp/js/aa-srp.min.js' %}"></script>#}
-
     <script type="application/javascript">
     const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm'
 
@@ -40,15 +38,101 @@
                 cache: false
             },
             columns: [
-                {data: 'event_type'},
-                {data: 'solar_system_name'},
-                {data: 'constellation_name'},
-                {data: 'region_name'},
-                {data: 'defender_name'},
-                {#{data: 'adm'},#}
-                {data: 'start_time', render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
-                {data: null},
-                {data: 'defender_score'},
+                {
+                    data: 'event_type',
+                    className: "aa-sovtimer-event-type"
+                },
+                {
+                    data: 'solar_system_name',
+                    className: "aa-sovtimer-system"
+                },
+                {
+                    data: 'constellation_name',
+                    className: "aa-sovtimer-constellation"
+                },
+                {
+                    data: 'region_name',
+                    className: "aa-sovtimer-region"
+                },
+                {
+                    data: 'defender_name',
+                    className: "aa-sovtimer-defender"
+                },
+                {#{#}
+                {#    data: 'adm', #}
+                {#    className: "aa-sovtimer-adm"#}
+                {# },#}
+                {
+                    data: 'start_time',
+                    className: "aa-sovtimer-start-time",
+                    render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)
+                },
+                {
+                    data: 'remaining',
+                    className: "aa-sovtimer-remaining-time",
+                    render: function(data, type, row, meta) {
+                        $('#time-' + meta.row).html('');
+
+                        var secondsRemaining = data;
+                        var isElapsed = false;
+                        var prefix = '';
+
+                        if(secondsRemaining <= 0) {
+                            isElapsed = true;
+                            prefix = '-';
+                            secondsRemaining = Math.abs(secondsRemaining)
+                        }
+
+                        // set the interval
+                        countdownIntervalId = setInterval(function() {
+                            // execute code each second
+                            $('#time-' + meta.row).html('');
+
+                            if(secondsRemaining <= 0) {
+                                isElapsed = true;
+                                prefix = '-';
+                                secondsRemaining = Math.abs(secondsRemaining)
+                            }
+
+                            if(isElapsed === true) {
+                                secondsRemaining++; // increment with one second each second
+                            } else {
+                                secondsRemaining--; // decrement with one second each second
+                            }
+
+                            var days    = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days from
+                            var hours   = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
+                            var minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
+                            var seconds = Math.floor(secondsRemaining / 1) % 60; // seconds
+
+                            // leading zero ...
+                            if(hours < 10) {hours = '0' + hours;}
+                            if(minutes < 10) {minutes = '0' + minutes;}
+                            if(seconds < 10) {seconds = '0' + seconds;}
+
+                            var countdown = '';
+
+                            if(isElapsed === true) {
+                                countdown += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">'
+                            } else {
+                                countdown += '<span class="aa-sovtimer-remaining ">'
+                            }
+
+                            countdown += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+                            countdown += '</span>';
+
+                            $('#time-' + meta.row).html(countdown);
+                        }, 1000);
+
+                        var returnValue = '<span id="time-' + meta.row + '"></span>';
+
+                        return returnValue;
+                    }
+                },
+                {
+                    data: 'defender_score',
+                    className: "aa-sovtimer-defender-score"
+                },
             ],
             order: [[5, "asc"]],
             filterDropDown: {

@@ -16,6 +16,8 @@ from sovtimer.app_settings import avoid_cdn
 
 from allianceauth.services.hooks import get_extension_logger
 
+import datetime as dt
+
 from eveuniverse.models import EveRegion, EveConstellation, EveSolarSystem
 
 from sovtimer.providers import esi
@@ -65,15 +67,23 @@ def dashboard_data(request) -> JsonResponse:
                 alliance_id=campaign["defender_id"]
             ).results()
 
-            defender_name = alliance_esi["name"]
+            defender_name = '<a href="https://evemaps.dotlan.net/search?q={defender_name}" target="_blank" rel="noopener noreferer">{defender_name}</a>'.format(
+                defender_name=alliance_esi["name"]
+            )
 
             eve_solar_system = EveSolarSystem.objects.get(
                 id=campaign["solar_system_id"]
             )
 
-            solar_system_name = eve_solar_system.name
-            constellation_name = eve_solar_system.eve_constellation.name
-            region_name = eve_solar_system.eve_constellation.eve_region.name
+            solar_system_name = '<a href="https://evemaps.dotlan.net/search?q={solar_system_name}" target="_blank" rel="noopener noreferer">{solar_system_name}</a>'.format(
+                solar_system_name=eve_solar_system.name
+            )
+            constellation_name = '<a href="https://evemaps.dotlan.net/search?q={constellation_name}" target="_blank" rel="noopener noreferer">{constellation_name}</a>'.format(
+                constellation_name=eve_solar_system.eve_constellation.name
+            )
+            region_name = '<a href="https://evemaps.dotlan.net/search?q={region_name}" target="_blank" rel="noopener noreferer">{region_name}</a>'.format(
+                region_name=eve_solar_system.eve_constellation.eve_region.name
+            )
 
             # structure_adm = 1
             # for structure in sovereignty_structures_esi:
@@ -83,6 +93,10 @@ def dashboard_data(request) -> JsonResponse:
             #         structure_adm = structure["vulnerability_occupancy_level"]
 
             start_time = campaign["start_time"].replace(tzinfo=None)
+
+            remaing = dt.timedelta(
+                seconds=(start_time.timestamp() - dt.datetime.now().timestamp())
+            ).total_seconds()
 
             data.append(
                 {
@@ -104,6 +118,7 @@ def dashboard_data(request) -> JsonResponse:
                     "structure_id": campaign["structure_id"],
                     "region_name": region_name,
                     # "adm": structure_adm,
+                    "remaining": remaing,
                 }
             )
 
