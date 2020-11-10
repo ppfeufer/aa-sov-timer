@@ -77,22 +77,10 @@
                         var isElapsed = false;
                         var prefix = '';
 
-                        if(secondsRemaining <= 0) {
-                            isElapsed = true;
-                            prefix = '-';
-                            secondsRemaining = Math.abs(secondsRemaining)
-                        }
-
                         // set the interval
                         countdownIntervalId = setInterval(function() {
                             // execute code each second
                             $('#time-' + meta.row).html('');
-
-                            if(secondsRemaining <= 0) {
-                                isElapsed = true;
-                                prefix = '-';
-                                secondsRemaining = Math.abs(secondsRemaining)
-                            }
 
                             if(isElapsed === true) {
                                 secondsRemaining++; // increment with one second each second
@@ -100,8 +88,14 @@
                                 secondsRemaining--; // decrement with one second each second
                             }
 
-                            var days    = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days from
-                            var hours   = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
+                            if(secondsRemaining <= 0) {
+                                isElapsed = true;
+                                prefix = '-';
+                                secondsRemaining = Math.abs(secondsRemaining)
+                            }
+
+                            var days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days from
+                            var hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
                             var minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
                             var seconds = Math.floor(secondsRemaining / 1) % 60; // seconds
 
