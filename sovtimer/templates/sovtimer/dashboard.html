@@ -121,6 +121,7 @@
                             countdown += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
                             countdown += '</span>';
 
+                            $('#time-' + meta.row).html('');
                             $('#time-' + meta.row).html(countdown);
                         }, 1000);
 
