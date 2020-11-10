@@ -94,7 +94,7 @@ def dashboard_data(request) -> JsonResponse:
 
             start_time = campaign["start_time"].replace(tzinfo=None)
 
-            remaing = dt.timedelta(
+            remaining = dt.timedelta(
                 seconds=(start_time.timestamp() - dt.datetime.now().timestamp())
             ).total_seconds()
 
@@ -118,7 +118,8 @@ def dashboard_data(request) -> JsonResponse:
                     "structure_id": campaign["structure_id"],
                     "region_name": region_name,
                     # "adm": structure_adm,
-                    "remaining": remaing,
+                    "remaining_time": "",
+                    "remaining_time_in_seconds": remaining,
                 }
             )
 
