@@ -9,14 +9,14 @@
 {% endblock %}
 
 {% block sovtimer_body %}
-
+    {% include 'sovtimer/partials/dashboard/table.html' %}
 {% endblock %}
 
 {% block extra_css %}
     {% include 'bundles/datatables-css.html' %}
 
-{#    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-bootstrap-fix.min.css' %}" type="text/css">#}
-{#    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-sovtimer.min.css' %}" type="text/css">#}
+    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-sov-timer.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}
@@ -29,64 +29,62 @@
 
 {#    <script type="application/javascript" src="{% static 'aasrp/js/aa-srp.min.js' %}"></script>#}
 
-{#    <script type="application/javascript">#}
-{#    const DATETIME_FORMAT = 'YYYY-MMM-DD HH:mm'#}
-{##}
-{#    $(document).ready(function () {#}
-{#        $('#tab_aasrp_active_srp_links').DataTable({#}
-{#            ajax: {#}
-{#                url: "{% url 'aasrp:active_srp_links_data' %}",#}
-{#                dataSrc: '',#}
-{#                cache: false#}
-{#            },#}
-{#            columns: [#}
-{#                {data: 'srp_name'},#}
-{#                {data: 'creator'},#}
-{#                {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},#}
-{#                {data: 'fleet_commander'},#}
-{#                {data: 'fleet_doctrine'},#}
-{#                {data: 'aar_link'},#}
-{#                {data: 'srp_code'},#}
-{#                {data: 'srp_status'},#}
-{#                {data: 'pending_requests'},#}
-{#            ],#}
-{#            order: [[1, "asc"]],#}
-{#        });#}
-{##}
-{#        $('#tab_aasrp_pending_user_srp_requests').DataTable({#}
-{#            ajax: {#}
-{#                url: "{% url 'aasrp:pending_user_srp_requests_data' %}",#}
-{#                dataSrc: '',#}
-{#                cache: false#}
-{#            },#}
-{#            columns: [#}
-{#                {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},#}
-{#                {data: 'character'},#}
-{#                {data: 'fleet_name'},#}
-{#                {data: 'srp_code'},#}
-{#                {data: 'request_code'},#}
-{#                {data: 'ship'},#}
-{#                {data: 'zkb_link'},#}
-{#                {data: 'zbk_loss_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},#}
-{#                {data: 'payout_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},#}
-{#                {data: 'request_status'},#}
-{#            ],#}
-{#            order: [[0, "desc"]],#}
-{#            filterDropDown: {#}
-{#                columns: [#}
-{#                    {#}
-{#                        idx: 3,#}
-{#                    },#}
-{#                    {#}
-{#                        idx: 7,#}
-{#                    }#}
-{#                ],#}
-{#                autoSize: false,#}
-{#                bootstrap: true#}
-{#            },#}
-{#        });#}
-{#    });#}
-{#    </script>#}
+    <script type="application/javascript">
+    const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm'
+
+    $(document).ready(function () {
+        var sov_campaign_table = $('.aa-sovtimer-campaigns').DataTable({
+            ajax: {
+                url: "{% url 'sovtimer:dashboard_data' %}",
+                dataSrc: '',
+                cache: false
+            },
+            columns: [
+                {data: 'event_type'},
+                {data: 'solar_system_name'},
+                {data: 'constellation_name'},
+                {data: 'region_name'},
+                {data: 'defender_name'},
+                {#{data: 'adm'},#}
+                {data: 'start_time', render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},
+                {data: null},
+                {data: 'defender_score'},
+            ],
+            order: [[5, "asc"]],
+            filterDropDown: {
+                columns: [
+                    {
+                        idx: 0,
+                    },
+                    {
+                        idx: 1,
+                    },
+                    {
+                        idx: 2,
+                    },
+                    {
+                        idx: 3,
+                    },
+                    {
+                        idx: 4,
+                    },
+                    /*
+                    {
+                        idx: 5,
+                    }
+                    */
+                ],
+                autoSize: false,
+                bootstrap: true
+            },
+            paging: false
+        });
+
+        setInterval(function() {
+            sov_campaign_table.ajax.reload();
+        }, 30000 );
+    });
+    </script>
 {% endblock %}
 
 {% block extra_script %}
