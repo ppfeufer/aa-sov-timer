@@ -1,0 +1,93 @@
+{% extends 'sovtimer/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block sovtimer_header %}
+    {% translate "Sovereignty Timer" as translated_header %}
+    {% include 'sovtimer/partials/header/h1.html' with header_text=translated_header %}
+{% endblock %}
+
+{% block sovtimer_body %}
+
+{% endblock %}
+
+{% block extra_css %}
+    {% include 'bundles/datatables-css.html' %}
+
+{#    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-bootstrap-fix.min.css' %}" type="text/css">#}
+{#    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-sovtimer.min.css' %}" type="text/css">#}
+{% endblock %}
+
+{% block extra_javascript %}
+    {% include 'bundles/datatables-js.html' %}
+    {% include 'bundles/moment-js.html' with locale=True %}
+
+    <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
+    <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/datetime.js' %}"></script>
+    <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
+
+{#    <script type="application/javascript" src="{% static 'aasrp/js/aa-srp.min.js' %}"></script>#}
+
+{#    <script type="application/javascript">#}
+{#    const DATETIME_FORMAT = 'YYYY-MMM-DD HH:mm'#}
+{##}
+{#    $(document).ready(function () {#}
+{#        $('#tab_aasrp_active_srp_links').DataTable({#}
+{#            ajax: {#}
+{#                url: "{% url 'aasrp:active_srp_links_data' %}",#}
+{#                dataSrc: '',#}
+{#                cache: false#}
+{#            },#}
+{#            columns: [#}
+{#                {data: 'srp_name'},#}
+{#                {data: 'creator'},#}
+{#                {data: 'fleet_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},#}
+{#                {data: 'fleet_commander'},#}
+{#                {data: 'fleet_doctrine'},#}
+{#                {data: 'aar_link'},#}
+{#                {data: 'srp_code'},#}
+{#                {data: 'srp_status'},#}
+{#                {data: 'pending_requests'},#}
+{#            ],#}
+{#            order: [[1, "asc"]],#}
+{#        });#}
+{##}
+{#        $('#tab_aasrp_pending_user_srp_requests').DataTable({#}
+{#            ajax: {#}
+{#                url: "{% url 'aasrp:pending_user_srp_requests_data' %}",#}
+{#                dataSrc: '',#}
+{#                cache: false#}
+{#            },#}
+{#            columns: [#}
+{#                {data: 'request_time',render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)},#}
+{#                {data: 'character'},#}
+{#                {data: 'fleet_name'},#}
+{#                {data: 'srp_code'},#}
+{#                {data: 'request_code'},#}
+{#                {data: 'ship'},#}
+{#                {data: 'zkb_link'},#}
+{#                {data: 'zbk_loss_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},#}
+{#                {data: 'payout_amount', render: $.fn.dataTable.render.number( ',', '.', 2 ), className: "text-right"},#}
+{#                {data: 'request_status'},#}
+{#            ],#}
+{#            order: [[0, "desc"]],#}
+{#            filterDropDown: {#}
+{#                columns: [#}
+{#                    {#}
+{#                        idx: 3,#}
+{#                    },#}
+{#                    {#}
+{#                        idx: 7,#}
+{#                    }#}
+{#                ],#}
+{#                autoSize: false,#}
+{#                bootstrap: true#}
+{#            },#}
+{#        });#}
+{#    });#}
+{#    </script>#}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock extra_script %}

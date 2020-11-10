@@ -1,0 +1,17 @@
+{% extends 'allianceauth/base.html' %}
+
+{% load i18n %}
+
+{% block page_title %}{% translate "Sovereignty Timer" %}{% endblock %}
+
+{% block content %}
+    <div class="aa-srp">
+        <div class="aa-sovtimer-header">
+            {% block sovtimer_header %}{% endblock %}
+        </div>
+
+        <div class="aa-sovtimer-body">
+            {% block sovtimer_body %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
