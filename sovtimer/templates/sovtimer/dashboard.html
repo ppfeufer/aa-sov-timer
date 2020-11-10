@@ -28,26 +28,25 @@
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
 
     <script type="application/javascript">
-    const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm'
+    $(document).ready(function() {
+        const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm'
 
-    $(document).ready(function () {
         var secondsToRemainingTime = function(secondsRemaining) {
             var isElapsed = false;
             var prefix = '';
 
-            if(secondsRemaining <= 0) {
+            if(secondsRemaining < 0) {
                 isElapsed = true;
                 prefix = '-';
-                secondsRemaining = Math.abs(secondsRemaining)
-            }
 
-            if(isElapsed === true) {
+                secondsRemaining = Math.abs(secondsRemaining) // remove negative prefix
+
                 secondsRemaining++; // increment with one second each second
             } else {
                 secondsRemaining--; // decrement with one second each second
             }
 
-            var days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days from
+            var days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
             var hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
             var minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
             var seconds = Math.floor(secondsRemaining / 1) % 60; // seconds
@@ -62,7 +61,7 @@
             if(isElapsed === true) {
                 countdown += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">'
             } else {
-                countdown += '<span class="aa-sovtimer-remaining ">'
+                countdown += '<span class="aa-sovtimer-remaining">'
             }
 
             countdown += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
@@ -87,20 +86,20 @@
                     data: 'event_type'
                 },
                 {
-                    data: 'solar_system_name'
+                    data: 'solar_system_name_html'
                 },
                 {
-                    data: 'constellation_name'
+                    data: 'constellation_name_html'
                 },
                 {
-                    data: 'region_name'
+                    data: 'region_name_html'
                 },
                 {
-                    data: 'defender_name'
+                    data: 'defender_name_html'
                 },
-                {#{#}
-                {#    data: 'adm' #}
-                {# },#}
+                {
+                    data: 'adm'
+                 },
                 {
                     data: 'start_time',
                     render: $.fn.dataTable.render.moment(moment.ISO_8601, DATETIME_FORMAT)
@@ -116,30 +115,46 @@
                 {
                     data: 'remaining_time_in_seconds',
                 },
+                {
+                    data: 'solar_system_name',
+                },
+                {
+                    data: 'constellation_name',
+                },
+                {
+                    data: 'region_name',
+                },
+                {
+                    data: 'defender_name',
+                },
             ],
             columnDefs: [
                 {
                     visible: false,
-                    targets: [8]
+                    targets: [9, 10, 11, 12, 13]
                 }
             ],
-            order: [[5, "asc"]],
+            order: [[6, "asc"]],
             filterDropDown: {
                 columns: [
                     {
                         idx: 0,
                     },
                     {
-                        idx: 1,
+                        idx: 10,
+                        title: "{% translate 'System' %}"
                     },
                     {
-                        idx: 2,
+                        idx: 11,
+                        title: "{% translate 'Constellation' %}"
                     },
                     {
-                        idx: 3,
+                        idx: 12,
+                        title: "{% translate 'Region' %}"
                     },
                     {
-                        idx: 4,
+                        idx: 13,
+                        title: "{% translate 'Owner / Defender' %}"
                     },
                 ],
                 autoSize: false,
