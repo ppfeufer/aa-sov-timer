@@ -5,7 +5,7 @@ $(document).ready(function() {
      * convert seconds into a time string
      *
      * @param secondsRemaining
-     * @returns {{countdown: string, remaining_time_in_seconds: int}}
+     * @returns {{countdown: string, remainingTimeInSeconds: int}}
      */
     var secondsToRemainingTime = function(secondsRemaining) {
         var isElapsed = false;
@@ -19,7 +19,7 @@ $(document).ready(function() {
             countdown += '</span>';
 
             returnValue = {
-                remaining_time_in_seconds: secondsRemaining,
+                remainingTimeInSeconds: secondsRemaining,
                 countdown: countdown
             };
         } else {
@@ -62,7 +62,7 @@ $(document).ready(function() {
             countdown += '</span>';
 
             returnValue = {
-                remaining_time_in_seconds: prefix + secondsRemaining,
+                remainingTimeInSeconds: prefix + secondsRemaining,
                 countdown: countdown
             };
         }
@@ -186,7 +186,7 @@ $(document).ready(function() {
 
             var remaining = secondsToRemainingTime(d['remaining_time_in_seconds']);
 
-            d['remaining_time_in_seconds'] = remaining.remaining_time_in_seconds;
+            d['remaining_time_in_seconds'] = remaining.remainingTimeInSeconds;
             d['remaining_time'] = remaining.countdown;
 
             sov_campaign_table.row(this).data(d);
