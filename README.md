@@ -34,6 +34,17 @@ Configure your AA settings (`local.py`) as follows:
 - Add `'eveuniverse',` to `INSTALLED_APPS`
 - Add `'sovtimer',` to `INSTALLED_APPS`
 
+And setup the update task:
+
+```python
+## AA Sovereignty Timer
+# Run campaign updates every 30 seconds
+CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
+    "task": "sovtimer.tasks.run_sov_campaign_updates",
+    "schedule": 30.0,
+}
+```
+
 
 ### Step 3 - Finalize the installation
 

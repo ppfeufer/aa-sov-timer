@@ -4,24 +4,24 @@
 the views
 """
 
-from sovtimer.utils import LoggerAddTag
+
+import datetime as dt
 
 from django.contrib.auth.decorators import login_required, permission_required
-
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
+from eveuniverse.models import EveSolarSystem
+
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
+from sovtimer.models import AaSovtimerCampaigns
+from sovtimer.providers import esi
+from sovtimer.utils import LoggerAddTag
 
 from allianceauth.services.hooks import get_extension_logger
 
-import datetime as dt
-
-from eveuniverse.models import EveSolarSystem
-
-from sovtimer.providers import esi
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -54,18 +54,16 @@ def dashboard(request):
 def dashboard_data(request) -> JsonResponse:
     data = list()
 
-    sovereignty_campaigns_esi = (
-        esi.client.Sovereignty.get_sovereignty_campaigns().results()
-    )
+    sovereignty_campaigns = AaSovtimerCampaigns.objects.all()
 
-    if sovereignty_campaigns_esi:
+    if sovereignty_campaigns:
         sovereignty_structures_esi = (
             esi.client.Sovereignty.get_sovereignty_structures().results()
         )
 
-        for campaign in sovereignty_campaigns_esi:
+        for campaign in sovereignty_campaigns:
             alliance_esi = esi.client.Alliance.get_alliances_alliance_id(
-                alliance_id=campaign["defender_id"]
+                alliance_id=campaign.defender_id
             ).results()
 
             defender_name = alliance_esi["name"]
@@ -76,9 +74,7 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            eve_solar_system = EveSolarSystem.objects.get(
-                id=campaign["solar_system_id"]
-            )
+            eve_solar_system = EveSolarSystem.objects.get(id=campaign.solar_system_id)
 
             solar_system_name = eve_solar_system.name
             solar_system_name_html = (
@@ -107,22 +103,22 @@ def dashboard_data(request) -> JsonResponse:
             structure_adm = 1
             for structure in sovereignty_structures_esi:
                 if (
-                    structure["solar_system_id"] == campaign["solar_system_id"]
+                    structure["solar_system_id"] == campaign.solar_system_id
                 ) and structure["vulnerability_occupancy_level"]:
                     structure_adm = structure["vulnerability_occupancy_level"]
 
-            start_time = campaign["start_time"].replace(tzinfo=None)
+            start_time = campaign.start_time.replace(tzinfo=None)
 
             remaining_time_in_seconds = dt.timedelta(
                 seconds=(start_time.timestamp() - dt.datetime.now().timestamp())
             ).total_seconds()
 
-            attackers_score = campaign["attackers_score"]
+            attackers_score = campaign.attackers_score
             attackers_score_percent = "{:.0f}%".format(attackers_score * 100)
             if (attackers_score * 100) < 10:
                 attackers_score_percent = "0" + attackers_score_percent
 
-            defender_score = campaign["defender_score"]
+            defender_score = campaign.defender_score
             defender_score_percent = "{:.0f}%".format(defender_score * 100)
             if (defender_score * 100) < 10:
                 defender_score_percent = "0" + defender_score_percent
@@ -135,26 +131,26 @@ def dashboard_data(request) -> JsonResponse:
                     '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
-                        constellation_id=campaign["constellation_id"],
+                        constellation_id=campaign.constellation_id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
 
             data.append(
                 {
-                    "campaign_id": campaign["campaign_id"],
-                    "event_type": MAP_EVENT_TO_TYPE[campaign["event_type"]],
-                    "solar_system_id": campaign["solar_system_id"],
+                    "campaign_id": campaign.campaign_id,
+                    "event_type": MAP_EVENT_TO_TYPE[campaign.event_type],
+                    "solar_system_id": campaign.solar_system_id,
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
-                    "constellation_id": campaign["constellation_id"],
+                    "constellation_id": campaign.constellation_id,
                     "constellation_name": constellation_name,
                     "constellation_name_html": constellation_name_html,
-                    "structure_id": campaign["structure_id"],
+                    "structure_id": campaign.structure_id,
                     "region_name": region_name,
                     "region_name_html": region_name_html,
                     "attackers_score": attackers_score_percent,
-                    "defender_id": campaign["defender_id"],
+                    "defender_id": campaign.defender_id,
                     "defender_name": defender_name,
                     "defender_name_html": defender_name_html,
                     "defender_score": defender_score_percent
