@@ -1,4 +1,4 @@
-/* global aaSovtimerSettings */
+/* global aaSovtimerSettings, moment */
 
 $(document).ready(function() {
     /**
