@@ -119,9 +119,13 @@ def dashboard_data(request) -> JsonResponse:
 
             attackers_score = campaign["attackers_score"]
             attackers_score_percent = "{:.0f}%".format(attackers_score * 100)
+            if (attackers_score * 100) < 10:
+                attackers_score_percent = "0" + attackers_score_percent
 
             defender_score = campaign["defender_score"]
             defender_score_percent = "{:.0f}%".format(defender_score * 100)
+            if (defender_score * 100) < 10:
+                defender_score_percent = "0" + defender_score_percent
 
             active_campaign = _("No")
             constellation_killboard_link = ""
