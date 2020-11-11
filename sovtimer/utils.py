@@ -11,8 +11,6 @@ from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.html import format_html
 
-from sovtimer.tasks import logger
-
 
 def clean_setting(
     name: str,
