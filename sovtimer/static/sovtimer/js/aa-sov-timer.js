@@ -137,7 +137,7 @@ $(document).ready(function() {
                 targets: [9, 10, 11, 12, 13, 14]
             }
         ],
-        order: [[6, "asc"]],
+        order: [[6, 'asc']],
         filterDropDown: {
             columns: [
                 {
