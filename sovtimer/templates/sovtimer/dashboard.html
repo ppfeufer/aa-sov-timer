@@ -127,11 +127,14 @@
                 {
                     data: 'defender_name',
                 },
+                {
+                    data: 'active_campaign',
+                },
             ],
             columnDefs: [
                 {
                     visible: false,
-                    targets: [9, 10, 11, 12, 13]
+                    targets: [9, 10, 11, 12, 13, 14]
                 }
             ],
             order: [[6, "asc"]],
@@ -155,6 +158,10 @@
                     {
                         idx: 13,
                         title: "{% translate 'Owner / Defender' %}"
+                    },
+                    {
+                        idx: 14,
+                        title: "{% translate 'Active Campaign' %}"
                     },
                 ],
                 autoSize: false,
