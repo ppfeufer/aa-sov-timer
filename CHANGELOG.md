@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.2.0] - 2020-11-11
+
+### Added
+
+- Filter for active campaigns
+- zKillboard icon with link to constellation killboard on active campaigns
+
+
 ## [0.1.0] - 2020-11-10
 
 ### Added
