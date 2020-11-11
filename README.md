@@ -38,7 +38,7 @@ And setup the update task:
 
 ```python
 ## AA Sovereignty Timer
-# Run campaign updates every 30 seconds
+# Run sovereignty related updates every 30 seconds
 CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
     "task": "sovtimer.tasks.run_sov_campaign_updates",
     "schedule": 30.0,
