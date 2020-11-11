@@ -36,7 +36,8 @@ class AaSovtimerCampaigns(models.Model):
     start_time = models.DateTimeField()
     structure_id = models.PositiveIntegerField()
 
-    def sov_campaigns_from_esi(self):
+    @classmethod
+    def sov_campaigns_from_esi(cls):
         """
         get all sov campaigns from ESI
         :return:

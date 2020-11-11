@@ -71,7 +71,7 @@ def update_sov_campaigns() -> None:
 
     logger.info("Updating sov campaigns from ESI.")
 
-    campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi(AaSovtimerCampaigns)
+    campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi()
 
     if campaigns_from_esi:
         AaSovtimerCampaigns.objects.all().delete()
