@@ -15,7 +15,7 @@ from celery import shared_task
 from eveuniverse.core.esitools import is_esi_online
 
 from sovtimer import __title__
-from sovtimer.models import AaSovtimerCampaigns
+from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
 
 from allianceauth.services.hooks import get_extension_logger
@@ -60,6 +60,9 @@ def run_sov_campaign_updates() -> None:
         )
         return
 
+    logger.info("Updating sovereignty structures and campaigns from ESI.")
+
+    update_sov_structures.apply_async(priority=DEFAULT_TASK_PRIORITY)
     update_sov_campaigns.apply_async(priority=DEFAULT_TASK_PRIORITY)
 
 
@@ -94,6 +97,54 @@ def update_sov_campaigns() -> None:
 
         AaSovtimerCampaigns.objects.bulk_create(
             campaigns,
+            batch_size=500,
+            ignore_conflicts=True,
+        )
+
+
+@shared_task(**TASK_ESI_KWARGS)
+def update_sov_structures() -> None:
+    """
+    update structures
+    """
+
+    logger.info("Updating sov structures from ESI.")
+
+    structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
+
+    if structures_from_esi:
+        AaSovtimerStructures.objects.all().delete()
+        sov_structures = list()
+
+        for structure in structures_from_esi:
+            vulnerability_occupancy_level = 1
+            if structure["vulnerability_occupancy_level"]:
+                vulnerability_occupancy_level = structure[
+                    "vulnerability_occupancy_level"
+                ]
+
+            vulnerable_end_time = None
+            if structure["vulnerable_end_time"]:
+                vulnerable_end_time = structure["vulnerable_end_time"]
+
+            vulnerable_start_time = None
+            if structure["vulnerable_start_time"]:
+                vulnerable_start_time = structure["vulnerable_start_time"]
+
+            sov_structures.append(
+                AaSovtimerStructures(
+                    alliance_id=structure["alliance_id"],
+                    solar_system_id=structure["solar_system_id"],
+                    structure_id=structure["structure_id"],
+                    structure_type_id=structure["structure_type_id"],
+                    vulnerability_occupancy_level=vulnerability_occupancy_level,
+                    vulnerable_end_time=vulnerable_end_time,
+                    vulnerable_start_time=vulnerable_start_time,
+                )
+            )
+
+        AaSovtimerStructures.objects.bulk_create(
+            sov_structures,
             batch_size=500,
             ignore_conflicts=True,
         )

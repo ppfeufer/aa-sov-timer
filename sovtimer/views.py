@@ -15,7 +15,7 @@ from eveuniverse.models import EveSolarSystem
 
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
-from sovtimer.models import AaSovtimerCampaigns
+from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.providers import esi
 from sovtimer.utils import LoggerAddTag
 
@@ -51,14 +51,21 @@ def dashboard(request):
 
 
 def dashboard_data(request) -> JsonResponse:
+    """
+    ajax call
+    get dashboard data
+    :param request:
+    :return:
+    """
     data = list()
 
     sovereignty_campaigns = AaSovtimerCampaigns.objects.all()
+    sovereignty_structures = AaSovtimerStructures.objects.all()
 
-    if sovereignty_campaigns:
-        sovereignty_structures_esi = (
-            esi.client.Sovereignty.get_sovereignty_structures().results()
-        )
+    if sovereignty_campaigns and sovereignty_structures:
+        # sovereignty_structures_esi = (
+        #     esi.client.Sovereignty.get_sovereignty_structures().results()
+        # )
 
         for campaign in sovereignty_campaigns:
             alliance_esi = esi.client.Alliance.get_alliances_alliance_id(
@@ -100,11 +107,11 @@ def dashboard_data(request) -> JsonResponse:
             )
 
             structure_adm = 1
-            for structure in sovereignty_structures_esi:
+            for structure in sovereignty_structures:
                 if (
-                    structure["solar_system_id"] == campaign.solar_system_id
-                ) and structure["vulnerability_occupancy_level"]:
-                    structure_adm = structure["vulnerability_occupancy_level"]
+                    structure.solar_system_id == campaign.solar_system_id
+                ) and structure.vulnerability_occupancy_level:
+                    structure_adm = structure.vulnerability_occupancy_level
 
             start_time = campaign.start_time.replace(tzinfo=None)
 
