@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.3.0] - 2020-11-12
+
+### Changed
+
+- All relevant updates are now done via scheduled task (see README.md)
+
+### Added
+
+- Active campaigns are now highlighted
+
+
 ## [0.2.0] - 2020-11-11
 
 ### Added
