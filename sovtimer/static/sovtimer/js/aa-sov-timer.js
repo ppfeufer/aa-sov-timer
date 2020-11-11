@@ -27,7 +27,7 @@ $(document).ready(function() {
                 isElapsed = true;
                 prefix = '-';
 
-                secondsRemaining = Math.abs(secondsRemaining) // remove negative prefix
+                secondsRemaining = Math.abs(secondsRemaining); // remove negative prefix
 
                 secondsRemaining++; // increment with one second each second
             } else {
