@@ -156,6 +156,11 @@ $(document).ready(function() {
             autoSize: false,
             bootstrap: true
         },
+        createdRow: function (row, data, dataIndex) {
+            if(data['active_campaign'] === aaSovtimerSettings.translations.yes) {
+                $(row).addClass('aa-sovtimer-active-campaign active');
+            }
+        },
         paging: false
     });
 

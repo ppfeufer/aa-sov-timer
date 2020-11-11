@@ -123,7 +123,6 @@ def dashboard_data(request) -> JsonResponse:
                 defender_score_percent = "0" + defender_score_percent
 
             active_campaign = _("No")
-            constellation_killboard_link = ""
             if remaining_time_in_seconds < 0:
                 active_campaign = _("Yes")
                 constellation_killboard_link = (
@@ -134,6 +133,7 @@ def dashboard_data(request) -> JsonResponse:
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
+                defender_score_percent += constellation_killboard_link
 
             data.append(
                 {
@@ -152,8 +152,7 @@ def dashboard_data(request) -> JsonResponse:
                     "defender_id": campaign.defender_id,
                     "defender_name": defender_name,
                     "defender_name_html": defender_name_html,
-                    "defender_score": defender_score_percent
-                    + constellation_killboard_link,
+                    "defender_score": defender_score_percent,
                     "adm": structure_adm,
                     "start_time": start_time,
                     "remaining_time": "",
