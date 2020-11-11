@@ -10,17 +10,17 @@ $(document).ready(function() {
     var secondsToRemainingTime = function(secondsRemaining) {
         var isElapsed = false;
         var prefix = '';
-        var countdown = '';
+        var countdownHtml = '';
         var returnValue = {};
 
         if(secondsRemaining === 0) {
-            countdown += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">';
-            countdown += '0d 00h 00m 00s';
-            countdown += '</span>';
+            countdownHtml += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">';
+            countdownHtml += '0d 00h 00m 00s';
+            countdownHtml += '</span>';
 
             returnValue = {
                 remainingTimeInSeconds: secondsRemaining,
-                countdown: countdown
+                countdown: countdownHtml
             };
         } else {
             if(secondsRemaining < 0) {
@@ -53,17 +53,17 @@ $(document).ready(function() {
             }
 
             if(isElapsed === true) {
-                countdown += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">';
+                countdownHtml += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">';
             } else {
-                countdown += '<span class="aa-sovtimer-remaining">';
+                countdownHtml += '<span class="aa-sovtimer-remaining">';
             }
 
-            countdown += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
-            countdown += '</span>';
+            countdownHtml += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+            countdownHtml += '</span>';
 
             returnValue = {
                 remainingTimeInSeconds: prefix + secondsRemaining,
-                countdown: countdown
+                countdown: countdownHtml
             };
         }
 
