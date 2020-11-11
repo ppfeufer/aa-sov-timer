@@ -132,7 +132,7 @@ def dashboard_data(request) -> JsonResponse:
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
                         constellation_id=campaign["constellation_id"],
-                        zkb_icon='<img src="https://zkillboard.com/img/wreck.png">',
+                        zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
 
