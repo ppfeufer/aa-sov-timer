@@ -75,7 +75,7 @@ $(document).ready(function() {
      *
      * @type {jQuery}
      */
-    var sov_campaign_table = $('.aa-sovtimer-campaigns').DataTable({
+    var sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
         ajax: {
             url: aaSovtimerSettings.url.ajaxUpdate,
             dataSrc: '',
@@ -174,14 +174,14 @@ $(document).ready(function() {
      * refresh the datatable information every 30 seconds
      */
     setInterval(function() {
-        sov_campaign_table.ajax.reload();
+        sovCampaignTable.ajax.reload();
     }, 30000 );
 
     /**
      * refresh remaining time every second
      */
     setInterval(function() {
-        sov_campaign_table.rows().every(function() {
+        sovCampaignTable.rows().every(function() {
             var d = this.data();
 
             var remaining = secondsToRemainingTime(d['remaining_time_in_seconds']);
@@ -189,7 +189,7 @@ $(document).ready(function() {
             d['remaining_time_in_seconds'] = remaining.remainingTimeInSeconds;
             d['remaining_time'] = remaining.countdown;
 
-            sov_campaign_table.row(this).data(d);
+            sovCampaignTable.row(this).data(d);
         });
     }, 1000);
 });
