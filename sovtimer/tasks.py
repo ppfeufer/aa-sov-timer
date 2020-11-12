@@ -72,13 +72,13 @@ def update_sov_campaigns() -> None:
     update campaigns
     """
 
-    logger.info("Updating sov campaigns from ESI.")
-
     campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi()
 
     if campaigns_from_esi:
         AaSovtimerCampaigns.objects.all().delete()
         campaigns = list()
+
+        campaign_count = 0
 
         for campaign in campaigns_from_esi:
             campaigns.append(
@@ -95,10 +95,18 @@ def update_sov_campaigns() -> None:
                 )
             )
 
+            campaign_count += 1
+
         AaSovtimerCampaigns.objects.bulk_create(
             campaigns,
             batch_size=500,
             ignore_conflicts=True,
+        )
+
+        logger.info(
+            "{campaign_count} sovereignty campaigns updated from ESI.".format(
+                campaign_count=campaign_count
+            )
         )
 
 
@@ -108,13 +116,13 @@ def update_sov_structures() -> None:
     update structures
     """
 
-    logger.info("Updating sov structures from ESI.")
-
     structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
 
     if structures_from_esi:
         AaSovtimerStructures.objects.all().delete()
         sov_structures = list()
+
+        structure_count = 0
 
         for structure in structures_from_esi:
             vulnerability_occupancy_level = 1
@@ -143,8 +151,16 @@ def update_sov_structures() -> None:
                 )
             )
 
+            structure_count += 1
+
         AaSovtimerStructures.objects.bulk_create(
             sov_structures,
             batch_size=500,
             ignore_conflicts=True,
+        )
+
+        logger.info(
+            "{structure_count} sovereignty structures updated from ESI.".format(
+                structure_count=structure_count
+            )
         )
