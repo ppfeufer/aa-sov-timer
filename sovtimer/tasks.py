@@ -29,7 +29,7 @@ ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
 
 # params for all tasks
 TASK_DEFAULT_KWARGS = {
-    "time_limit": 15,
+    "time_limit": 10,
 }
 
 # params for tasks that make ESI calls
