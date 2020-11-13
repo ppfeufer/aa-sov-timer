@@ -12,6 +12,9 @@ from bravado.exception import (
 
 from celery import shared_task
 
+from django.core.cache import cache
+from django.db import transaction
+
 from eveuniverse.core.esitools import is_esi_online
 
 from sovtimer import __title__
@@ -26,6 +29,7 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 DEFAULT_TASK_PRIORITY = 6
 ESI_ERROR_LIMIT = 50
 ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
+ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 
 # params for all tasks
 TASK_DEFAULT_KWARGS = {
@@ -75,39 +79,40 @@ def update_sov_campaigns() -> None:
     campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi()
 
     if campaigns_from_esi:
-        AaSovtimerCampaigns.objects.all().delete()
-        campaigns = list()
+        with transaction.atomic():
+            AaSovtimerCampaigns.objects.all().delete()
+            campaigns = list()
 
-        campaign_count = 0
+            campaign_count = 0
 
-        for campaign in campaigns_from_esi:
-            campaigns.append(
-                AaSovtimerCampaigns(
-                    attackers_score=campaign["attackers_score"],
-                    campaign_id=campaign["campaign_id"],
-                    constellation_id=campaign["constellation_id"],
-                    defender_id=campaign["defender_id"],
-                    defender_score=campaign["defender_score"],
-                    event_type=campaign["event_type"],
-                    solar_system_id=campaign["solar_system_id"],
-                    start_time=campaign["start_time"],
-                    structure_id=campaign["structure_id"],
+            for campaign in campaigns_from_esi:
+                campaigns.append(
+                    AaSovtimerCampaigns(
+                        attackers_score=campaign["attackers_score"],
+                        campaign_id=campaign["campaign_id"],
+                        constellation_id=campaign["constellation_id"],
+                        defender_id=campaign["defender_id"],
+                        defender_score=campaign["defender_score"],
+                        event_type=campaign["event_type"],
+                        solar_system_id=campaign["solar_system_id"],
+                        start_time=campaign["start_time"],
+                        structure_id=campaign["structure_id"],
+                    )
+                )
+
+                campaign_count += 1
+
+            AaSovtimerCampaigns.objects.bulk_create(
+                campaigns,
+                batch_size=500,
+                ignore_conflicts=True,
+            )
+
+            logger.info(
+                "{campaign_count} sovereignty campaigns updated from ESI.".format(
+                    campaign_count=campaign_count
                 )
             )
-
-            campaign_count += 1
-
-        AaSovtimerCampaigns.objects.bulk_create(
-            campaigns,
-            batch_size=500,
-            ignore_conflicts=True,
-        )
-
-        logger.info(
-            "{campaign_count} sovereignty campaigns updated from ESI.".format(
-                campaign_count=campaign_count
-            )
-        )
 
 
 @shared_task(**TASK_ESI_KWARGS)
@@ -116,51 +121,55 @@ def update_sov_structures() -> None:
     update structures
     """
 
-    structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
+    if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:
+        structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
 
-    if structures_from_esi:
-        AaSovtimerStructures.objects.all().delete()
-        sov_structures = list()
+        if structures_from_esi:
+            with transaction.atomic():
+                AaSovtimerStructures.objects.all().delete()
+                sov_structures = list()
 
-        structure_count = 0
+                structure_count = 0
 
-        for structure in structures_from_esi:
-            vulnerability_occupancy_level = 1
-            if structure["vulnerability_occupancy_level"]:
-                vulnerability_occupancy_level = structure[
-                    "vulnerability_occupancy_level"
-                ]
+                for structure in structures_from_esi:
+                    vulnerability_occupancy_level = 1
+                    if structure["vulnerability_occupancy_level"]:
+                        vulnerability_occupancy_level = structure[
+                            "vulnerability_occupancy_level"
+                        ]
 
-            vulnerable_end_time = None
-            if structure["vulnerable_end_time"]:
-                vulnerable_end_time = structure["vulnerable_end_time"]
+                    vulnerable_end_time = None
+                    if structure["vulnerable_end_time"]:
+                        vulnerable_end_time = structure["vulnerable_end_time"]
 
-            vulnerable_start_time = None
-            if structure["vulnerable_start_time"]:
-                vulnerable_start_time = structure["vulnerable_start_time"]
+                    vulnerable_start_time = None
+                    if structure["vulnerable_start_time"]:
+                        vulnerable_start_time = structure["vulnerable_start_time"]
 
-            sov_structures.append(
-                AaSovtimerStructures(
-                    alliance_id=structure["alliance_id"],
-                    solar_system_id=structure["solar_system_id"],
-                    structure_id=structure["structure_id"],
-                    structure_type_id=structure["structure_type_id"],
-                    vulnerability_occupancy_level=vulnerability_occupancy_level,
-                    vulnerable_end_time=vulnerable_end_time,
-                    vulnerable_start_time=vulnerable_start_time,
+                    sov_structures.append(
+                        AaSovtimerStructures(
+                            alliance_id=structure["alliance_id"],
+                            solar_system_id=structure["solar_system_id"],
+                            structure_id=structure["structure_id"],
+                            structure_type_id=structure["structure_type_id"],
+                            vulnerability_occupancy_level=vulnerability_occupancy_level,
+                            vulnerable_end_time=vulnerable_end_time,
+                            vulnerable_start_time=vulnerable_start_time,
+                        )
+                    )
+
+                    structure_count += 1
+
+                AaSovtimerStructures.objects.bulk_create(
+                    sov_structures,
+                    batch_size=500,
+                    ignore_conflicts=True,
                 )
-            )
 
-            structure_count += 1
+                cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
-        AaSovtimerStructures.objects.bulk_create(
-            sov_structures,
-            batch_size=500,
-            ignore_conflicts=True,
-        )
-
-        logger.info(
-            "{structure_count} sovereignty structures updated from ESI.".format(
-                structure_count=structure_count
-            )
-        )
+                logger.info(
+                    "{structure_count} sovereignty structures updated from ESI.".format(
+                        structure_count=structure_count
+                    )
+                )
