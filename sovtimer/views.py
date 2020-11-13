@@ -6,17 +6,15 @@ the views
 
 import datetime as dt
 
+from django.core.cache import cache
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
-from eveuniverse.models import EveSolarSystem
-
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
-from sovtimer.providers import esi
 from sovtimer.utils import LoggerAddTag
 
 from allianceauth.services.hooks import get_extension_logger
@@ -32,6 +30,8 @@ MAP_EVENT_TO_TYPE = {
     "station_defense": "Station",
     "station_freeport": "Freeport",
 }
+
+CAMPAIGN_TREND_CACHE_TIME = 30
 
 
 @login_required
@@ -64,11 +64,7 @@ def dashboard_data(request) -> JsonResponse:
 
     if sovereignty_campaigns and sovereignty_structures:
         for campaign in sovereignty_campaigns:
-            alliance_esi = esi.client.Alliance.get_alliances_alliance_id(
-                alliance_id=campaign.defender_id
-            ).results()
-
-            defender_name = alliance_esi["name"]
+            defender_name = campaign.defender.name
             defender_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={defender_name}" '
                 'target="_blank" rel="noopener noreferer">{defender_name}</a>'.format(
@@ -76,9 +72,9 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            eve_solar_system = EveSolarSystem.objects.get(id=campaign.solar_system_id)
+            # eve_solar_system = EveSolarSystem.objects.get(id=campaign.solar_system_id)
 
-            solar_system_name = eve_solar_system.name
+            solar_system_name = campaign.solar_system.name
             solar_system_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={solar_system_name}" '
                 'target="_blank" rel="noopener noreferer">{solar_system_name}</a>'.format(
@@ -86,7 +82,7 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            constellation_name = eve_solar_system.eve_constellation.name
+            constellation_name = campaign.solar_system.eve_constellation.name
             constellation_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={constellation_name}" '
                 'target="_blank" rel="noopener noreferer">{constellation_name}</a>'.format(
@@ -94,7 +90,7 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            region_name = eve_solar_system.eve_constellation.eve_region.name
+            region_name = campaign.solar_system.eve_constellation.eve_region.name
             region_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={region_name}" '
                 'target="_blank" rel="noopener noreferer">{region_name}</a>'.format(
@@ -121,22 +117,89 @@ def dashboard_data(request) -> JsonResponse:
                 attackers_score_percent = "0" + attackers_score_percent
 
             defender_score = campaign.defender_score
-            defender_score_percent = "{:.0f}%".format(defender_score * 100)
+            campaign_progress_html = "{:.0f}%".format(defender_score * 100)
+
             if (defender_score * 100) < 10:
-                defender_score_percent = "0" + defender_score_percent
+                campaign_progress_html = "0" + campaign_progress_html
 
             active_campaign = _("No")
             if remaining_time_in_seconds < 0:
                 active_campaign = _("Yes")
+
+                cache_key_score_before = "sovtimer_defender_score_before_" + str(
+                    campaign.campaign_id
+                )
+
+                cache_key_defender_progress_icon_before = (
+                    "sovtimer_defender_progress_icon_before_"
+                    + str(campaign.campaign_id)
+                )
+
+                defender_score_before = cache.get(cache_key_score_before)
+                campaign_progress_icon_before = cache.get(
+                    cache_key_defender_progress_icon_before
+                )
+
+                # campaign_progress_icon = ""
+                campaign_progress_icon = (
+                    '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
+                    'title="{title_text}">trending_flat</i>'.format(
+                        title_text=_("Neither side has made any progress yet")
+                    )
+                )
+                if campaign_progress_icon_before is not None:
+                    campaign_progress_icon = campaign_progress_icon_before
+
+                if defender_score_before is not None:
+                    if defender_score_before < (defender_score * 100):
+                        campaign_progress_icon = (
+                            '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
+                            'title="{title_text}">trending_up</i>'.format(
+                                title_text=_("Defenders making progress")
+                            )
+                        )
+
+                    if defender_score_before > (defender_score * 100):
+                        campaign_progress_icon = (
+                            '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
+                            'title="{title_text}">trending_down</i>'.format(
+                                title_text=_("Attackers making progress")
+                            )
+                        )
+
+                    cache.set(
+                        cache_key_defender_progress_icon_before,
+                        campaign_progress_icon,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+
+                if defender_score_before is not None and defender_score_before == (
+                    defender_score * 100
+                ):
+                    cache.set(
+                        cache_key_score_before,
+                        defender_score_before,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+                else:
+                    cache.set(
+                        cache_key_score_before,
+                        defender_score * 100,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+
                 constellation_killboard_link = (
                     '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
-                        constellation_id=campaign.constellation_id,
+                        constellation_id=campaign.solar_system.eve_constellation.id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
-                defender_score_percent += constellation_killboard_link
+
+                campaign_progress_html += (
+                    constellation_killboard_link + campaign_progress_icon
+                )
 
             data.append(
                 {
@@ -145,7 +208,7 @@ def dashboard_data(request) -> JsonResponse:
                     "solar_system_id": campaign.solar_system_id,
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
-                    "constellation_id": campaign.constellation_id,
+                    "constellation_id": campaign.solar_system.eve_constellation.id,
                     "constellation_name": constellation_name,
                     "constellation_name_html": constellation_name_html,
                     "structure_id": campaign.structure_id,
@@ -155,7 +218,7 @@ def dashboard_data(request) -> JsonResponse:
                     "defender_id": campaign.defender_id,
                     "defender_name": defender_name,
                     "defender_name_html": defender_name_html,
-                    "defender_score": defender_score_percent,
+                    "campaign_progress": campaign_progress_html,
                     "adm": structure_adm,
                     "start_time": start_time,
                     "remaining_time": "",
