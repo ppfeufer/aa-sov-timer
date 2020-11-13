@@ -31,7 +31,7 @@ class AaSovtimerCampaigns(models.Model):
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
-    attackers_score = models.FloatField()
+    attackers_score = models.FloatField(default=0.6)
     defender = models.ForeignKey(
         EveEntity,
         on_delete=models.SET_DEFAULT,
@@ -41,7 +41,7 @@ class AaSovtimerCampaigns(models.Model):
         related_name="sov_campaign_defender",
     )
 
-    defender_score = models.FloatField()
+    defender_score = models.FloatField(default=0.6)
     event_type = models.CharField(max_length=12)
     solar_system = models.ForeignKey(
         EveSolarSystem,
@@ -54,6 +54,9 @@ class AaSovtimerCampaigns(models.Model):
 
     start_time = models.DateTimeField()
     structure_id = models.PositiveBigIntegerField()
+
+    progress_current = models.FloatField(default=0.6)
+    progress_previous = models.FloatField(default=0.6)
 
     @classmethod
     def sov_campaigns_from_esi(cls):

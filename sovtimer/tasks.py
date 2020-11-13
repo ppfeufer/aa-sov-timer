@@ -82,8 +82,6 @@ def update_sov_campaigns() -> None:
 
     if campaigns_from_esi:
         with transaction.atomic():
-            AaSovtimerCampaigns.objects.all().delete()
-
             campaigns = list()
 
             campaign_count = 0
@@ -97,6 +95,17 @@ def update_sov_campaigns() -> None:
                     id=campaign["solar_system_id"]
                 )
 
+                campaign_progress_current = campaign["defender_score"]
+
+                try:
+                    campaign_old = AaSovtimerCampaigns.objects.get(
+                        campaign_id=campaign["campaign_id"]
+                    )
+
+                    campaign_progress_previous = campaign_old.progress_previous
+                except AaSovtimerCampaigns.DoesNotExist:
+                    campaign_progress_previous = campaign["defender_score"]
+
                 campaigns.append(
                     AaSovtimerCampaigns(
                         attackers_score=campaign["attackers_score"],
@@ -107,11 +116,14 @@ def update_sov_campaigns() -> None:
                         solar_system=campaign_solar_system,
                         start_time=campaign["start_time"],
                         structure_id=campaign["structure_id"],
+                        progress_current=campaign_progress_current,
+                        progress_previous=campaign_progress_previous,
                     )
                 )
 
                 campaign_count += 1
 
+            AaSovtimerCampaigns.objects.all().delete()
             AaSovtimerCampaigns.objects.bulk_create(
                 campaigns,
                 batch_size=500,
