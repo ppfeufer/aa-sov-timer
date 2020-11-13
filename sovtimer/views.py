@@ -11,12 +11,9 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
-from eveuniverse.models import EveSolarSystem
-
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
-from sovtimer.providers import esi
 from sovtimer.utils import LoggerAddTag
 
 from allianceauth.services.hooks import get_extension_logger
@@ -64,11 +61,7 @@ def dashboard_data(request) -> JsonResponse:
 
     if sovereignty_campaigns and sovereignty_structures:
         for campaign in sovereignty_campaigns:
-            alliance_esi = esi.client.Alliance.get_alliances_alliance_id(
-                alliance_id=campaign.defender_id
-            ).results()
-
-            defender_name = alliance_esi["name"]
+            defender_name = campaign.defender.name
             defender_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={defender_name}" '
                 'target="_blank" rel="noopener noreferer">{defender_name}</a>'.format(
@@ -76,9 +69,9 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            eve_solar_system = EveSolarSystem.objects.get(id=campaign.solar_system_id)
+            # eve_solar_system = EveSolarSystem.objects.get(id=campaign.solar_system_id)
 
-            solar_system_name = eve_solar_system.name
+            solar_system_name = campaign.solar_system.name
             solar_system_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={solar_system_name}" '
                 'target="_blank" rel="noopener noreferer">{solar_system_name}</a>'.format(
@@ -86,7 +79,7 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            constellation_name = eve_solar_system.eve_constellation.name
+            constellation_name = campaign.solar_system.eve_constellation.name
             constellation_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={constellation_name}" '
                 'target="_blank" rel="noopener noreferer">{constellation_name}</a>'.format(
@@ -94,7 +87,7 @@ def dashboard_data(request) -> JsonResponse:
                 )
             )
 
-            region_name = eve_solar_system.eve_constellation.eve_region.name
+            region_name = campaign.solar_system.eve_constellation.eve_region.name
             region_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={region_name}" '
                 'target="_blank" rel="noopener noreferer">{region_name}</a>'.format(
@@ -132,7 +125,7 @@ def dashboard_data(request) -> JsonResponse:
                     '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
-                        constellation_id=campaign.constellation_id,
+                        constellation_id=campaign.solar_system.eve_constellation.id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
@@ -145,7 +138,7 @@ def dashboard_data(request) -> JsonResponse:
                     "solar_system_id": campaign.solar_system_id,
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
-                    "constellation_id": campaign.constellation_id,
+                    "constellation_id": campaign.solar_system.eve_constellation.id,
                     "constellation_name": constellation_name,
                     "constellation_name_html": constellation_name_html,
                     "structure_id": campaign.structure_id,

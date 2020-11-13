@@ -16,6 +16,7 @@ from django.core.cache import cache
 from django.db import transaction
 
 from eveuniverse.core.esitools import is_esi_online
+from eveuniverse.models import EveEntity, EveSolarSystem
 
 from sovtimer import __title__
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
@@ -81,20 +82,29 @@ def update_sov_campaigns() -> None:
     if campaigns_from_esi:
         with transaction.atomic():
             AaSovtimerCampaigns.objects.all().delete()
+
             campaigns = list()
 
             campaign_count = 0
 
             for campaign in campaigns_from_esi:
+                campaign_defender, _ = EveEntity.objects.get_or_create(
+                    id=campaign["defender_id"]
+                )
+
+                campaign_solar_system = EveSolarSystem.objects.get(
+                    id=campaign["solar_system_id"]
+                )
+
                 campaigns.append(
                     AaSovtimerCampaigns(
                         attackers_score=campaign["attackers_score"],
                         campaign_id=campaign["campaign_id"],
-                        constellation_id=campaign["constellation_id"],
-                        defender_id=campaign["defender_id"],
+                        # constellation_id=campaign["constellation_id"],
+                        defender=campaign_defender,
                         defender_score=campaign["defender_score"],
                         event_type=campaign["event_type"],
-                        solar_system_id=campaign["solar_system_id"],
+                        solar_system=campaign_solar_system,
                         start_time=campaign["start_time"],
                         structure_id=campaign["structure_id"],
                     )
@@ -107,6 +117,8 @@ def update_sov_campaigns() -> None:
                 batch_size=500,
                 ignore_conflicts=True,
             )
+
+            EveEntity.objects.bulk_update_new_esi()
 
             logger.info(
                 "{campaign_count} sovereignty campaigns updated from ESI.".format(
@@ -132,6 +144,14 @@ def update_sov_structures() -> None:
                 structure_count = 0
 
                 for structure in structures_from_esi:
+                    structure_alliance, _ = EveEntity.objects.get_or_create(
+                        id=structure["alliance_id"]
+                    )
+
+                    structure_solar_system = EveSolarSystem.objects.get(
+                        id=structure["solar_system_id"]
+                    )
+
                     vulnerability_occupancy_level = 1
                     if structure["vulnerability_occupancy_level"]:
                         vulnerability_occupancy_level = structure[
@@ -148,8 +168,8 @@ def update_sov_structures() -> None:
 
                     sov_structures.append(
                         AaSovtimerStructures(
-                            alliance_id=structure["alliance_id"],
-                            solar_system_id=structure["solar_system_id"],
+                            alliance=structure_alliance,
+                            solar_system=structure_solar_system,
                             structure_id=structure["structure_id"],
                             structure_type_id=structure["structure_type_id"],
                             vulnerability_occupancy_level=vulnerability_occupancy_level,
@@ -165,6 +185,8 @@ def update_sov_structures() -> None:
                     batch_size=500,
                     ignore_conflicts=True,
                 )
+
+                EveEntity.objects.bulk_update_new_esi()
 
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
