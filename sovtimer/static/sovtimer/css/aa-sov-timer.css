@@ -1,3 +1,30 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(../font/materialicons/v67/MaterialIcons-Regular.woff2) format('woff2');
+}
+
+@media all {
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
 @media all {
     .aa-sovtimer-timer-elapsed {
         color: rgb(255, 0, 0);
@@ -11,8 +38,29 @@
         border-right: 1px solid rgb(255, 0, 0);
         border-left: 1px solid rgb(255, 0, 0);
     }
-}
 
+    .aa-sovtimer-trend {
+        display: inline-block;
+        cursor: default;
+        /*font-size: 1.2rem;*/
+        /*line-height: 1rem;*/
+        position: relative;
+        top: 0.75rem;
+        left: 0.8rem;
+    }
+
+    .aa-sovtimer-trend-up {
+        color: rgb(76, 175, 80);
+    }
+
+    .aa-sovtimer-trend-down {
+        color: rgb(255, 0, 0);
+    }
+
+    .aa-sovtimer-campaigns-progress-column {
+        width: 100px !important;
+    }
+}
 
 /* DataTables
 --------------------------------------------------------------------------------------------------------------------- */

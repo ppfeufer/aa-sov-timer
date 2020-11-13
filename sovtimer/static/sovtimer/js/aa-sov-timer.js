@@ -97,7 +97,7 @@ $(document).ready(function() {
                 data: 'remaining_time'
             },
             {
-                data: 'defender_score'
+                data: 'campaign_progress'
             },
 
             // hidden columns
@@ -124,6 +124,10 @@ $(document).ready(function() {
             {
                 visible: false,
                 targets: [9, 10, 11, 12, 13, 14]
+            },
+            {
+                width: '150px',
+                targets: [8]
             }
         ],
         order: [[6, 'asc']],
@@ -165,11 +169,11 @@ $(document).ready(function() {
     });
 
     /**
-     * refresh the datatable information every 30 seconds
+     * refresh the datatable information every 15 seconds
      */
     setInterval(function() {
         sovCampaignTable.ajax.reload();
-    }, 30000 );
+    }, 15000 );
 
     /**
      * refresh remaining time every second

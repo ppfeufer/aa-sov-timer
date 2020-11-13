@@ -6,6 +6,7 @@ the views
 
 import datetime as dt
 
+from django.core.cache import cache
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -29,6 +30,8 @@ MAP_EVENT_TO_TYPE = {
     "station_defense": "Station",
     "station_freeport": "Freeport",
 }
+
+CAMPAIGN_TREND_CACHE_TIME = 30
 
 
 @login_required
@@ -114,13 +117,77 @@ def dashboard_data(request) -> JsonResponse:
                 attackers_score_percent = "0" + attackers_score_percent
 
             defender_score = campaign.defender_score
-            defender_score_percent = "{:.0f}%".format(defender_score * 100)
+            campaign_progress_html = "{:.0f}%".format(defender_score * 100)
+
             if (defender_score * 100) < 10:
-                defender_score_percent = "0" + defender_score_percent
+                campaign_progress_html = "0" + campaign_progress_html
 
             active_campaign = _("No")
             if remaining_time_in_seconds < 0:
                 active_campaign = _("Yes")
+
+                cache_key_score_before = "sovtimer_defender_score_before_" + str(
+                    campaign.campaign_id
+                )
+
+                cache_key_defender_progress_icon_before = (
+                    "sovtimer_defender_progress_icon_before_"
+                    + str(campaign.campaign_id)
+                )
+
+                defender_score_before = cache.get(cache_key_score_before)
+                campaign_progress_icon_before = cache.get(
+                    cache_key_defender_progress_icon_before
+                )
+
+                # campaign_progress_icon = ""
+                campaign_progress_icon = (
+                    '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
+                    'title="{title_text}">trending_flat</i>'.format(
+                        title_text=_("Neither side has made any progress yet")
+                    )
+                )
+                if campaign_progress_icon_before is not None:
+                    campaign_progress_icon = campaign_progress_icon_before
+
+                if defender_score_before is not None:
+                    if defender_score_before < (defender_score * 100):
+                        campaign_progress_icon = (
+                            '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
+                            'title="{title_text}">trending_up</i>'.format(
+                                title_text=_("Defenders making progress")
+                            )
+                        )
+
+                    if defender_score_before > (defender_score * 100):
+                        campaign_progress_icon = (
+                            '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
+                            'title="{title_text}">trending_down</i>'.format(
+                                title_text=_("Attackers making progress")
+                            )
+                        )
+
+                    cache.set(
+                        cache_key_defender_progress_icon_before,
+                        campaign_progress_icon,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+
+                if defender_score_before is not None and defender_score_before == (
+                    defender_score * 100
+                ):
+                    cache.set(
+                        cache_key_score_before,
+                        defender_score_before,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+                else:
+                    cache.set(
+                        cache_key_score_before,
+                        defender_score * 100,
+                        CAMPAIGN_TREND_CACHE_TIME,
+                    )
+
                 constellation_killboard_link = (
                     '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
@@ -129,7 +196,10 @@ def dashboard_data(request) -> JsonResponse:
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
-                defender_score_percent += constellation_killboard_link
+
+                campaign_progress_html += (
+                    constellation_killboard_link + campaign_progress_icon
+                )
 
             data.append(
                 {
@@ -148,7 +218,7 @@ def dashboard_data(request) -> JsonResponse:
                     "defender_id": campaign.defender_id,
                     "defender_name": defender_name,
                     "defender_name_html": defender_name_html,
-                    "defender_score": defender_score_percent,
+                    "campaign_progress": campaign_progress_html,
                     "adm": structure_adm,
                     "start_time": start_time,
                     "remaining_time": "",
