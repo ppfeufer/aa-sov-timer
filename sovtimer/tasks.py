@@ -23,6 +23,7 @@ from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
 
 from allianceauth.services.hooks import get_extension_logger
+from allianceauth.services.tasks import QueueOnce
 
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -34,7 +35,7 @@ ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 
 # params for all tasks
 TASK_DEFAULT_KWARGS = {
-    "time_limit": 10,
+    "time_limit": 1200,  # stop after 20 minutes
 }
 
 # params for tasks that make ESI calls
@@ -71,7 +72,7 @@ def run_sov_campaign_updates() -> None:
     update_sov_campaigns.apply_async(priority=DEFAULT_TASK_PRIORITY)
 
 
-@shared_task(**TASK_ESI_KWARGS)
+@shared_task(**{**TASK_ESI_KWARGS}, **{"base": QueueOnce})
 def update_sov_campaigns() -> None:
     """
     update campaigns
@@ -126,7 +127,7 @@ def update_sov_campaigns() -> None:
             )
 
 
-@shared_task(**TASK_ESI_KWARGS)
+@shared_task(**{**TASK_ESI_KWARGS}, **{"base": QueueOnce})
 def update_sov_structures() -> None:
     """
     update structures
