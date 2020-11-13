@@ -63,10 +63,6 @@ def dashboard_data(request) -> JsonResponse:
     sovereignty_structures = AaSovtimerStructures.objects.all()
 
     if sovereignty_campaigns and sovereignty_structures:
-        # sovereignty_structures_esi = (
-        #     esi.client.Sovereignty.get_sovereignty_structures().results()
-        # )
-
         for campaign in sovereignty_campaigns:
             alliance_esi = esi.client.Alliance.get_alliances_alliance_id(
                 alliance_id=campaign.defender_id
