@@ -6,6 +6,8 @@ Our Models
 
 from django.db import models
 
+from eveuniverse.models import EveEntity, EveSolarSystem
+
 from sovtimer.providers import esi
 
 
@@ -29,14 +31,32 @@ class AaSovtimerCampaigns(models.Model):
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
-    attackers_score = models.FloatField()
-    constellation_id = models.PositiveBigIntegerField()
-    defender_id = models.PositiveBigIntegerField()
-    defender_score = models.FloatField()
+    attackers_score = models.FloatField(default=0.6)
+    defender = models.ForeignKey(
+        EveEntity,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_campaign_defender",
+    )
+
+    defender_score = models.FloatField(default=0.6)
     event_type = models.CharField(max_length=12)
-    solar_system_id = models.PositiveBigIntegerField()
+    solar_system = models.ForeignKey(
+        EveSolarSystem,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_capaign_solar_system",
+    )
+
     start_time = models.DateTimeField()
     structure_id = models.PositiveBigIntegerField()
+
+    progress_current = models.FloatField(default=0.6)
+    progress_previous = models.FloatField(default=0.6)
 
     @classmethod
     def sov_campaigns_from_esi(cls):
@@ -69,8 +89,22 @@ class AaSovtimerStructures(models.Model):
     structure_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
-    alliance_id = models.PositiveBigIntegerField()
-    solar_system_id = models.PositiveBigIntegerField()
+    alliance = models.ForeignKey(
+        EveEntity,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_structure_alliance",
+    )
+    solar_system = models.ForeignKey(
+        EveSolarSystem,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_structure_solar_system",
+    )
     structure_type_id = models.PositiveBigIntegerField()
     vulnerability_occupancy_level = models.FloatField(null=True)
     vulnerable_end_time = models.DateTimeField(null=True)

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.4.0] - 2020-11-13
+
+### Changed
+
+- Moved the last ESI calls to the task
+
+### Added
+
+- Progress Icons
+
+
 ## [0.3.0] - 2020-11-12
 
 ### Changed
