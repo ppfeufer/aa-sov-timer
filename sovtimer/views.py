@@ -6,7 +6,6 @@ the views
 
 import datetime as dt
 
-from django.core.cache import cache
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
