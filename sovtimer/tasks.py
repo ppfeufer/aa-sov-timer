@@ -100,7 +100,6 @@ def update_sov_campaigns() -> None:
                     AaSovtimerCampaigns(
                         attackers_score=campaign["attackers_score"],
                         campaign_id=campaign["campaign_id"],
-                        # constellation_id=campaign["constellation_id"],
                         defender=campaign_defender,
                         defender_score=campaign["defender_score"],
                         event_type=campaign["event_type"],
