@@ -34,16 +34,7 @@ Configure your AA settings (`local.py`) as follows:
 - Add `'eveuniverse',` to `INSTALLED_APPS`
 - Add `'sovtimer',` to `INSTALLED_APPS`
 
-And setup the update task:
-
-```python
-## AA Sovereignty Timer
-# Run sovereignty related updates every 30 seconds
-CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
-    "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30.0,
-}
-```
+Restart your supervisor
 
 
 ### Step 3 - Finalize the installation
@@ -58,7 +49,6 @@ python manage.py collectstatic
 python manage.py migrate
 ```
 
-Restart your supervisor services for AA
 
 ### Step 4 - Preload Eve Universe data
 
@@ -70,11 +60,33 @@ If you already have run this command, you can skip this step.
 python manage.py eveuniverse_load_data map
 ```
 
+```bash
+python manage.py sovtimer_load_initial_data
+```
+
+Both commands might take a moment or two, so be patient ...
+
 ### Step 5 - Setup permission
 
 Now you can setup permissions in Alliance Auth for your users.
 Add ``sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module`` to the states and/or
 groups you would like to have access.
+
+
+### Step 6 - Keep campaigns updated
+
+Add the following scheduled task to your `local.py`. One done, restart your supervisor.
+
+```python
+## AA Sovereignty Timer
+# Run sovereignty related updates every 30 seconds
+CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
+    "task": "sovtimer.tasks.run_sov_campaign_updates",
+    "schedule": 30.0,
+}
+```
+
+Now your system is updating the sovereignty campains every 30 seconds.
 
 
 ## Updating
