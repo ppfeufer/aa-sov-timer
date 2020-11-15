@@ -87,37 +87,49 @@ def update_sov_campaigns() -> None:
             campaign_count = 0
 
             for campaign in campaigns_from_esi:
-                campaign_defender, _ = EveEntity.objects.get_or_create(
+                campaign_current__defender, _ = EveEntity.objects.get_or_create(
                     id=campaign["defender_id"]
                 )
 
-                campaign_solar_system = EveSolarSystem.objects.get(
+                campaign_current__solar_system = EveSolarSystem.objects.get(
                     id=campaign["solar_system_id"]
                 )
 
-                campaign_progress_current = campaign["defender_score"]
+                campaign_current__defender_score = campaign["defender_score"]
 
                 try:
-                    campaign_old = AaSovtimerCampaigns.objects.get(
+                    campaign_previous = AaSovtimerCampaigns.objects.get(
                         campaign_id=campaign["campaign_id"]
                     )
 
-                    campaign_progress_previous = campaign_old.progress_previous
+                    campaign_previous__progress_previous = (
+                        campaign_previous.progress_previous
+                    )
+
+                    campaign_previous__progress = campaign_previous.defender_score
+                    campaign_current__progress_previous = campaign_previous__progress
+
+                    if campaign_previous__progress == campaign_current__defender_score:
+                        campaign_current__progress_previous = (
+                            campaign_previous__progress_previous
+                        )
                 except AaSovtimerCampaigns.DoesNotExist:
-                    campaign_progress_previous = campaign["defender_score"]
+                    campaign_current__progress_previous = (
+                        campaign_current__defender_score
+                    )
 
                 campaigns.append(
                     AaSovtimerCampaigns(
                         attackers_score=campaign["attackers_score"],
                         campaign_id=campaign["campaign_id"],
-                        defender=campaign_defender,
+                        defender=campaign_current__defender,
                         defender_score=campaign["defender_score"],
                         event_type=campaign["event_type"],
-                        solar_system=campaign_solar_system,
+                        solar_system=campaign_current__solar_system,
                         start_time=campaign["start_time"],
                         structure_id=campaign["structure_id"],
-                        progress_current=campaign_progress_current,
-                        progress_previous=campaign_progress_previous,
+                        progress_current=campaign_current__defender_score,
+                        progress_previous=campaign_current__progress_previous,
                     )
                 )
 
