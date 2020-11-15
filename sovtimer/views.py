@@ -123,7 +123,7 @@ def dashboard_data(request) -> JsonResponse:
             )
             if campaign_progress_previous_percentage < 10:
                 campaign_progress_previous_percentage_formatted = (
-                    "0" + campaign_pogress_current_percentage_formatted
+                    "0" + campaign_progress_previous_percentage_formatted
                 )
 
             campaign_pogress_current = campaign.progress_current
