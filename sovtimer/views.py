@@ -116,15 +116,27 @@ def dashboard_data(request) -> JsonResponse:
             ).total_seconds()
 
             # campaign progress field
-            campaign_pogress_current = campaign.progress_current
             campaign_progress_previous = campaign.progress_previous
-            campaign_pogress_current_percentage = "{:.0f}%".format(
-                campaign_pogress_current * 100
+            campaign_progress_previous_percentage = campaign_progress_previous * 100
+            campaign_progress_previous_percentage_formatted = "{:.0f}%".format(
+                campaign_progress_previous_percentage
             )
+            if campaign_progress_previous_percentage < 10:
+                campaign_progress_previous_percentage_formatted = (
+                    "0" + campaign_progress_previous_percentage_formatted
+                )
 
-            campaign_progress_html = campaign_pogress_current_percentage
-            if (campaign_pogress_current * 100) < 10:
-                campaign_progress_html = "0" + campaign_progress_html
+            campaign_pogress_current = campaign.progress_current
+            campaign_pogress_current_percentage = campaign_pogress_current * 100
+            campaign_pogress_current_percentage_formatted = "{:.0f}%".format(
+                campaign_pogress_current_percentage
+            )
+            if campaign_pogress_current_percentage < 10:
+                campaign_pogress_current_percentage_formatted = (
+                    "0" + campaign_pogress_current_percentage_formatted
+                )
+
+            campaign_progress_html = campaign_pogress_current_percentage_formatted
 
             active_campaign = _("No")
             if remaining_time_in_seconds < 0:
@@ -162,8 +174,11 @@ def dashboard_data(request) -> JsonResponse:
                     )
                 )
 
-                campaign_progress_html += (
-                    constellation_killboard_link + campaign_progress_icon
+                campaign_progress_html = (
+                    campaign_progress_previous_percentage_formatted
+                    + campaign_progress_icon
+                    + campaign_pogress_current_percentage_formatted
+                    + constellation_killboard_link
                 )
 
             data.append(

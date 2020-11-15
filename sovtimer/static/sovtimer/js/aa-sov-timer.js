@@ -169,11 +169,11 @@ $(document).ready(function() {
     });
 
     /**
-     * refresh the datatable information every 15 seconds
+     * refresh the datatable information every 30 seconds
      */
     setInterval(function() {
         sovCampaignTable.ajax.reload();
-    }, 15000 );
+    }, 30000 );
 
     /**
      * refresh remaining time every second
