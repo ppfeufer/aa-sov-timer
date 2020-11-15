@@ -42,11 +42,10 @@
     .aa-sovtimer-trend {
         display: inline-block;
         cursor: default;
-        /*font-size: 1.2rem;*/
-        /*line-height: 1rem;*/
         position: relative;
         top: 0.75rem;
-        left: 0.8rem;
+        left: 0.5rem;
+        margin-right: 1rem;
     }
 
     .aa-sovtimer-trend-up {
