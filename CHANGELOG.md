@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+
+## [0.5.1] - 2020-12-16
+
+### Fixed
+
+- Bootstrap classes in template
+
+
 ## [0.5.0] - 2020-11-15
 
 ### Changed
