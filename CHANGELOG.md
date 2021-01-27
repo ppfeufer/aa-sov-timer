@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.5.2] - 2021-01-27
+
+### Changed
+
+- How to deal with UTC in javascript
+
+
 
 ## [0.5.1] - 2020-12-16
 

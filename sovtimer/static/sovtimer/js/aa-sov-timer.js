@@ -80,10 +80,9 @@ $(document).ready(function () {
             },
             {
                 data: 'start_time',
-                render: $.fn.dataTable.render.moment(
-                    moment.ISO_8601,
-                    aaSovtimerSettings.dateformat
-                )
+                render: function (data, type, row) {
+                    return moment(data).utc().format(aaSovtimerSettings.dateformat);
+                },
             },
             {
                 data: 'remaining_time'
