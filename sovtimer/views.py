@@ -108,7 +108,7 @@ def dashboard_data(request) -> JsonResponse:
                     structure_adm = structure.vulnerability_occupancy_level
 
             # start time
-            start_time = campaign.start_time.replace(tzinfo=None)
+            start_time = campaign.start_time
 
             # remaining time field
             remaining_time_in_seconds = dt.timedelta(

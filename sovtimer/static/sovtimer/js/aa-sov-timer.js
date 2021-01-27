@@ -1,20 +1,20 @@
 /* global aaSovtimerSettings, moment */
 
-$(document).ready(function() {
+$(document).ready(function () {
+    'use strict';
+
     /**
      * convert seconds into a time string
      *
-     * @param secondsRemaining
-     * @returns {{countdown: string, remainingTimeInSeconds: int}}
+     * @param {string|int} secondsRemaining
+     * @returns {{countdown: string, remainingTimeInSeconds: string|int}}
      */
-    var secondsToRemainingTime = function(secondsRemaining) {
-        var isElapsed = false;
+    var secondsToRemainingTime = function (secondsRemaining) {
         var prefix = '';
-        var countdownHtml = '';
-        var returnValue = {};
+        var spanClasses = 'aa-sovtimer-remaining';
 
-        if(secondsRemaining < 0) {
-            isElapsed = true;
+        if (secondsRemaining < 0) {
+            spanClasses += ' aa-sovtimer-timer-elapsed';
             prefix = '-';
 
             secondsRemaining = Math.abs(secondsRemaining); // remove negative prefix
@@ -30,33 +30,22 @@ $(document).ready(function() {
         var seconds = Math.floor(secondsRemaining) % 60; // seconds
 
         // leading zero ...
-        if(hours < 10) {
+        if (hours < 10) {
             hours = '0' + hours;
         }
 
-        if(minutes < 10) {
+        if (minutes < 10) {
             minutes = '0' + minutes;
         }
 
-        if(seconds < 10) {
+        if (seconds < 10) {
             seconds = '0' + seconds;
         }
 
-        if(isElapsed === true) {
-            countdownHtml += '<span class="aa-sovtimer-remaining aa-sovtimer-timer-elapsed">';
-        } else {
-            countdownHtml += '<span class="aa-sovtimer-remaining">';
-        }
-
-        countdownHtml += prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
-        countdownHtml += '</span>';
-
-        returnValue = {
-            remainingTimeInSeconds: prefix + secondsRemaining,
-            countdown: countdownHtml
+        return {
+            countdown: '<span class="' + spanClasses + '">' + prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's</span>',
+            remainingTimeInSeconds: prefix + secondsRemaining
         };
-
-        return returnValue;
     };
 
     /**
@@ -91,7 +80,9 @@ $(document).ready(function() {
             },
             {
                 data: 'start_time',
-                render: $.fn.dataTable.render.moment(moment.ISO_8601, aaSovtimerSettings.dateformat)
+                render: function (data, type, row) {
+                    return moment(data).utc().format(aaSovtimerSettings.dateformat);
+                },
             },
             {
                 data: 'remaining_time'
@@ -160,8 +151,8 @@ $(document).ready(function() {
             autoSize: false,
             bootstrap: true
         },
-        createdRow: function(row, data, dataIndex) {
-            if(data['active_campaign'] === aaSovtimerSettings.translations.yes) {
+        createdRow: function (row, data, dataIndex) {
+            if (data.active_campaign === aaSovtimerSettings.translations.yes) {
                 $(row).addClass('aa-sovtimer-active-campaign active');
             }
         },
@@ -171,21 +162,23 @@ $(document).ready(function() {
     /**
      * refresh the datatable information every 30 seconds
      */
-    setInterval(function() {
+    setInterval(function () {
         sovCampaignTable.ajax.reload();
-    }, 30000 );
+    }, 30000);
 
     /**
      * refresh remaining time every second
      */
-    setInterval(function() {
-        sovCampaignTable.rows().every(function() {
+    setInterval(function () {
+        sovCampaignTable.rows().every(function () {
             var d = this.data();
 
-            var remaining = secondsToRemainingTime(d['remaining_time_in_seconds']);
+            var remaining = secondsToRemainingTime(
+                d.remaining_time_in_seconds
+            );
 
-            d['remaining_time_in_seconds'] = remaining.remainingTimeInSeconds;
-            d['remaining_time'] = remaining.countdown;
+            d.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
+            d.remaining_time = remaining.countdown;
 
             sovCampaignTable.row(this).data(d);
         });
