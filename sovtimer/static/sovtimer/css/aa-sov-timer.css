@@ -59,6 +59,14 @@
     .aa-sovtimer-campaigns-progress-column {
         width: 100px !important;
     }
+
+    .aa-sovtimer-entity-logo-left {
+        margin-right: 0.5rem;
+    }
+
+    .aa-sovtimer .aa-sovtimer-campaigns td {
+        vertical-align: middle;
+    }
 }
 
 /* DataTables
