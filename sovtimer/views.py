@@ -6,6 +6,7 @@ the views
 
 import datetime as dt
 
+from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -65,10 +66,16 @@ def dashboard_data(request) -> JsonResponse:
         for campaign in sovereignty_campaigns:
             # defender name
             defender_name = campaign.defender.name
+            defender_logo_url = alliance_logo_url(
+                alliance_id=campaign.defender.id, size=32
+            )
             defender_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={defender_name}" '
-                'target="_blank" rel="noopener noreferer">{defender_name}</a>'.format(
-                    defender_name=defender_name
+                'target="_blank" rel="noopener noreferer">'
+                '<img class="aa-sovtimer-entity-logo-left" '
+                'src="{defender_logo_url}" alt="defender_name">'
+                "{defender_name}</a>".format(
+                    defender_logo_url=defender_logo_url, defender_name=defender_name
                 )
             )
 
@@ -76,18 +83,16 @@ def dashboard_data(request) -> JsonResponse:
             solar_system_name = campaign.solar_system.name
             solar_system_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={solar_system_name}" '
-                'target="_blank" rel="noopener noreferer">{solar_system_name}</a>'.format(
-                    solar_system_name=solar_system_name
-                )
+                'target="_blank" rel="noopener noreferer">'
+                "{solar_system_name}</a>".format(solar_system_name=solar_system_name)
             )
 
             # constellation
             constellation_name = campaign.solar_system.eve_constellation.name
             constellation_name_html = (
                 '<a href="https://evemaps.dotlan.net/search?q={constellation_name}" '
-                'target="_blank" rel="noopener noreferer">{constellation_name}</a>'.format(
-                    constellation_name=constellation_name
-                )
+                'target="_blank" rel="noopener noreferer">'
+                "{constellation_name}</a>".format(constellation_name=constellation_name)
             )
 
             # region
