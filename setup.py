@@ -28,7 +28,7 @@ setup(
     description="Sov Campaign Timer for Alliance Auth",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ppfeufer/aa-srp",
+    url="https://github.com/ppfeufer/aa-sov-timer",
     author="Peter Pfeufer",
     author_email="development@ppfeufer.de",
     classifiers=[
