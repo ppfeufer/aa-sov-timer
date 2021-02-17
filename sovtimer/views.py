@@ -73,7 +73,7 @@ def dashboard_data(request) -> JsonResponse:
                 '<a href="https://evemaps.dotlan.net/search?q={defender_name}" '
                 'target="_blank" rel="noopener noreferer">'
                 '<img class="aa-sovtimer-entity-logo-left" '
-                'src="{defender_logo_url}" alt="defender_name">'
+                'src="{defender_logo_url}" alt="{defender_name}">'
                 "{defender_name}</a>".format(
                     defender_logo_url=defender_logo_url, defender_name=defender_name
                 )

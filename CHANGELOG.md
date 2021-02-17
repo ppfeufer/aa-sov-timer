@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.5.5] - 2021-02-17
+
+### Fixed
+
+- Alt attribute for alliance logos
+
+
 ## [0.5.4] - 2021-01-31
 
 ### Fixed
