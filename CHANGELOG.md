@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Alt attribute for alliance logos
 
+### Added
+
+- Explanation for ADM
+
 
 ## [0.5.4] - 2021-01-31
 
