@@ -1,5 +1,3 @@
-# coding=utf-8
-
 """
 loading initial data into sovtimer tables
 """
