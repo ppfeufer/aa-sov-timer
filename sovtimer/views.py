@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """
 the views
 """
@@ -7,6 +5,10 @@ the views
 import datetime as dt
 
 from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
+from allianceauth.eveonline.templatetags.evelinks import (
+    dotlan_alliance_url,
+    dotlan_region_url,
+)
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -57,6 +59,7 @@ def dashboard_data(request) -> JsonResponse:
     :param request:
     :return:
     """
+
     data = list()
 
     sovereignty_campaigns = AaSovtimerCampaigns.objects.all()
@@ -66,41 +69,57 @@ def dashboard_data(request) -> JsonResponse:
         for campaign in sovereignty_campaigns:
             # defender name
             defender_name = campaign.defender.name
+            defender_url = dotlan_alliance_url(campaign.defender)
             defender_logo_url = alliance_logo_url(
                 alliance_id=campaign.defender.id, size=32
             )
+
             defender_name_html = (
-                '<a href="https://evemaps.dotlan.net/search?q={defender_name}" '
+                '<a href="{defender_url}" '
                 'target="_blank" rel="noopener noreferer">'
                 '<img class="aa-sovtimer-entity-logo-left" '
                 'src="{defender_logo_url}" alt="{defender_name}">'
                 "{defender_name}</a>".format(
-                    defender_logo_url=defender_logo_url, defender_name=defender_name
+                    defender_logo_url=defender_logo_url,
+                    defender_url=defender_url,
+                    defender_name=defender_name,
                 )
             )
 
             # solar system
             solar_system_name = campaign.solar_system.name
+            solar_system_url = (
+                dotlan_region_url(campaign.solar_system.eve_constellation.eve_region)
+                + "/"
+                + campaign.solar_system.name
+            )
             solar_system_name_html = (
-                '<a href="https://evemaps.dotlan.net/search?q={solar_system_name}" '
+                '<a href="{solar_system_url}" '
                 'target="_blank" rel="noopener noreferer">'
-                "{solar_system_name}</a>".format(solar_system_name=solar_system_name)
+                "{solar_system_name}</a>".format(
+                    solar_system_url=solar_system_url,
+                    solar_system_name=solar_system_name,
+                )
             )
 
             # constellation
             constellation_name = campaign.solar_system.eve_constellation.name
             constellation_name_html = (
-                '<a href="https://evemaps.dotlan.net/search?q={constellation_name}" '
+                '<a href="//evemaps.dotlan.net/search?q={constellation_name}" '
                 'target="_blank" rel="noopener noreferer">'
                 "{constellation_name}</a>".format(constellation_name=constellation_name)
             )
 
             # region
             region_name = campaign.solar_system.eve_constellation.eve_region.name
+            region_url = dotlan_region_url(
+                campaign.solar_system.eve_constellation.eve_region
+            )
             region_name_html = (
-                '<a href="https://evemaps.dotlan.net/search?q={region_name}" '
+                '<a href="{region_url}" '
                 'target="_blank" rel="noopener noreferer">{region_name}</a>'.format(
-                    region_name=region_name
+                    region_url=region_url,
+                    region_name=region_name,
                 )
             )
 
