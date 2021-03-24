@@ -11,7 +11,6 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 
-
 ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 
 

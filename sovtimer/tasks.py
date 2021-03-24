@@ -2,27 +2,20 @@
 the tasks
 """
 
-from bravado.exception import (
-    HTTPBadGateway,
-    HTTPGatewayTimeout,
-    HTTPServiceUnavailable,
-)
-
+from bravado.exception import HTTPBadGateway, HTTPGatewayTimeout, HTTPServiceUnavailable
 from celery import shared_task
 
 from django.core.cache import cache
 from django.db import transaction
 
+from allianceauth.services.hooks import get_extension_logger
+from allianceauth.services.tasks import QueueOnce
 from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 from sovtimer import __title__
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
-
-from allianceauth.services.hooks import get_extension_logger
-from allianceauth.services.tasks import QueueOnce
-
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 

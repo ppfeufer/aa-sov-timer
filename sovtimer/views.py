@@ -4,23 +4,22 @@ the views
 
 import datetime as dt
 
-from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
-from allianceauth.eveonline.templatetags.evelinks import (
-    dotlan_alliance_url,
-    dotlan_region_url,
-)
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
+from allianceauth.eveonline.templatetags.evelinks import (
+    dotlan_alliance_url,
+    dotlan_region_url,
+)
+from allianceauth.services.hooks import get_extension_logger
+
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
-
-from allianceauth.services.hooks import get_extension_logger
-
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
