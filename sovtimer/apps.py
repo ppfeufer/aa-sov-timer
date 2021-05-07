@@ -14,4 +14,4 @@ class AaSovtimerConfig(AppConfig):
 
     name = "sovtimer"
     label = "sovtimer"
-    verbose_name = "Sovereignty Timer v{}".format(__version__)
+    verbose_name = f"Sovereignty Timer v{__version__}"

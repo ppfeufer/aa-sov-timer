@@ -166,7 +166,8 @@ def dashboard_data(request) -> JsonResponse:
                 active_campaign = _("Yes")
 
                 campaign_progress_icon = (
-                    '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
+                    '<i class="material-icons aa-sovtimer-trend '
+                    'aa-sovtimer-trend-flat" '
                     'title="{title_text}">trending_flat</i>'.format(
                         title_text=_("Neither side has made any progress yet")
                     )
@@ -174,7 +175,8 @@ def dashboard_data(request) -> JsonResponse:
 
                 if campaign_progress_previous < campaign_pogress_current:
                     campaign_progress_icon = (
-                        '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
+                        '<i class="material-icons aa-sovtimer-trend '
+                        'aa-sovtimer-trend-up" '
                         'title="{title_text}">trending_up</i>'.format(
                             title_text=_("Defenders making progress")
                         )
@@ -182,16 +184,18 @@ def dashboard_data(request) -> JsonResponse:
 
                 if campaign_progress_previous > campaign_pogress_current:
                     campaign_progress_icon = (
-                        '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
+                        '<i class="material-icons aa-sovtimer-trend '
+                        'aa-sovtimer-trend-down" '
                         'title="{title_text}">trending_down</i>'.format(
                             title_text=_("Attackers making progress")
                         )
                     )
 
                 constellation_killboard_link = (
-                    '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
+                    '<a href="{zkb_url}{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
+                        zkb_url="https://zkillboard.com/constellation/",
                         constellation_id=campaign.solar_system.eve_constellation.id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )

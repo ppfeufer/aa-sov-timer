@@ -94,9 +94,9 @@ class Command(BaseCommand):
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
                 self.stdout.write(
-                    "{structure_count} sovereignty structures imported from ESI.".format(
-                        structure_count=structure_count
-                    )
+                    (
+                        "{structure_count} sovereignty structures imported from ESI."
+                    ).format(structure_count=structure_count)
                 )
 
         # import sov campaigns
@@ -185,7 +185,8 @@ class Command(BaseCommand):
 
         self.stdout.write(
             "This will start the initial import for SOV campaigns and structures. "
-            "It's quite a bit to import, so this might take a moment or two. Please be patient ..."
+            "It's quite a bit to import, so this might take a moment or two. "
+            "Please be patient ..."
         )
 
         user_input = get_input("Are you sure you want to proceed? (yes/no)?")
