@@ -61,8 +61,18 @@ def dashboard_data(request) -> JsonResponse:
 
     data = list()
 
-    sovereignty_campaigns = AaSovtimerCampaigns.objects.all()
-    sovereignty_structures = AaSovtimerStructures.objects.all()
+    sovereignty_campaigns = AaSovtimerCampaigns.objects.select_related(
+        "defender",
+        "solar_system",
+        "solar_system__eve_constellation",
+        "solar_system__eve_constellation__eve_region",
+    ).all()
+    sovereignty_structures = AaSovtimerStructures.objects.select_related(
+        "alliance",
+        "solar_system",
+        "solar_system__eve_constellation",
+        "solar_system__eve_constellation__eve_region",
+    ).all()
 
     if sovereignty_campaigns and sovereignty_structures:
         for campaign in sovereignty_campaigns:
