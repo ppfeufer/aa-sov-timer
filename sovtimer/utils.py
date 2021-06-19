@@ -78,7 +78,7 @@ class LoggerAddTag(logging.LoggerAdapter):
         :param kwargs:
         :return:
         """
-        return "[%s] %s" % (self.prefix, msg), kwargs
+        return f"[{self.prefix}] {msg}", kwargs
 
 
 logger = LoggerAddTag(logging.getLogger(__name__), __package__)

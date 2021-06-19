@@ -4,23 +4,22 @@ the views
 
 import datetime as dt
 
-from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
-from allianceauth.eveonline.templatetags.evelinks import (
-    dotlan_alliance_url,
-    dotlan_region_url,
-)
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
+from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
+from allianceauth.eveonline.templatetags.evelinks import (
+    dotlan_alliance_url,
+    dotlan_region_url,
+)
+from allianceauth.services.hooks import get_extension_logger
+
 from sovtimer import __title__
 from sovtimer.app_settings import avoid_cdn
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
-
-from allianceauth.services.hooks import get_extension_logger
-
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -62,8 +61,18 @@ def dashboard_data(request) -> JsonResponse:
 
     data = list()
 
-    sovereignty_campaigns = AaSovtimerCampaigns.objects.all()
-    sovereignty_structures = AaSovtimerStructures.objects.all()
+    sovereignty_campaigns = AaSovtimerCampaigns.objects.select_related(
+        "defender",
+        "solar_system",
+        "solar_system__eve_constellation",
+        "solar_system__eve_constellation__eve_region",
+    ).all()
+    sovereignty_structures = AaSovtimerStructures.objects.select_related(
+        "alliance",
+        "solar_system",
+        "solar_system__eve_constellation",
+        "solar_system__eve_constellation__eve_region",
+    ).all()
 
     if sovereignty_campaigns and sovereignty_structures:
         for campaign in sovereignty_campaigns:
@@ -167,7 +176,8 @@ def dashboard_data(request) -> JsonResponse:
                 active_campaign = _("Yes")
 
                 campaign_progress_icon = (
-                    '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
+                    '<i class="material-icons aa-sovtimer-trend '
+                    'aa-sovtimer-trend-flat" '
                     'title="{title_text}">trending_flat</i>'.format(
                         title_text=_("Neither side has made any progress yet")
                     )
@@ -175,7 +185,8 @@ def dashboard_data(request) -> JsonResponse:
 
                 if campaign_progress_previous < campaign_pogress_current:
                     campaign_progress_icon = (
-                        '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
+                        '<i class="material-icons aa-sovtimer-trend '
+                        'aa-sovtimer-trend-up" '
                         'title="{title_text}">trending_up</i>'.format(
                             title_text=_("Defenders making progress")
                         )
@@ -183,16 +194,18 @@ def dashboard_data(request) -> JsonResponse:
 
                 if campaign_progress_previous > campaign_pogress_current:
                     campaign_progress_icon = (
-                        '<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
+                        '<i class="material-icons aa-sovtimer-trend '
+                        'aa-sovtimer-trend-down" '
                         'title="{title_text}">trending_down</i>'.format(
                             title_text=_("Attackers making progress")
                         )
                     )
 
                 constellation_killboard_link = (
-                    '<a href="https://zkillboard.com/constellation/{constellation_id}/" '
+                    '<a href="{zkb_url}{constellation_id}/" '
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
+                        zkb_url="https://zkillboard.com/constellation/",
                         constellation_id=campaign.solar_system.eve_constellation.id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
