@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.6.0] - 2021-08-06
+
+### Added
+
+- Numbers for total, upcoming (< 4 hrs) and active timers to the table head
+
+
 ## [0.5.8] - 2021-07-08
 
 ### Added

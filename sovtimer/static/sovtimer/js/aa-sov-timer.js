@@ -3,15 +3,19 @@
 $(document).ready(function () {
     'use strict';
 
+    let elementTimerTotal = $('.aa-sovtimer-timers-total');
+    let elementTimerUpcoming = $('.aa-sovtimer-timers-upcoming');
+    let elementTimerActive = $('.aa-sovtimer-timers-active');
+
     /**
      * convert seconds into a time string
      *
      * @param {string|int} secondsRemaining
      * @returns {{countdown: string, remainingTimeInSeconds: string|int}}
      */
-    var secondsToRemainingTime = function (secondsRemaining) {
-        var prefix = '';
-        var spanClasses = 'aa-sovtimer-remaining';
+    let secondsToRemainingTime = function (secondsRemaining) {
+        let prefix = '';
+        let spanClasses = 'aa-sovtimer-remaining';
 
         if (secondsRemaining < 0) {
             spanClasses += ' aa-sovtimer-timer-elapsed';
@@ -24,10 +28,10 @@ $(document).ready(function () {
             secondsRemaining--; // decrement with one second each second
         }
 
-        var days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
-        var hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
-        var minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
-        var seconds = Math.floor(secondsRemaining) % 60; // seconds
+        let days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
+        let hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
+        let minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
+        let seconds = Math.floor(secondsRemaining) % 60; // seconds
 
         // leading zero ...
         if (hours < 10) {
@@ -53,7 +57,7 @@ $(document).ready(function () {
      *
      * @type {jQuery}
      */
-    var sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
+    let sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
         ajax: {
             url: aaSovtimerSettings.url.ajaxUpdate,
             dataSrc: '',
@@ -152,8 +156,27 @@ $(document).ready(function () {
             bootstrap: true
         },
         createdRow: function (row, data, dataIndex) {
+            // Total timer
+            let currentTotal = elementTimerTotal.html();
+            let newTotal = parseInt(currentTotal) + 1;
+            elementTimerTotal.html(newTotal);
+
+            // Upcoming timer (< 4 hrs)
+            if (data.active_campaign === aaSovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
+                $(row).addClass('aa-sovtimer-upcoming-campaign upcoming');
+
+                let currentUpcoming = elementTimerUpcoming.html();
+                let newUpcoming = parseInt(currentUpcoming) + 1;
+                elementTimerUpcoming.html(newUpcoming);
+            }
+
+            // Active timer
             if (data.active_campaign === aaSovtimerSettings.translations.yes) {
                 $(row).addClass('aa-sovtimer-active-campaign active');
+
+                let currentActive = elementTimerActive.html();
+                let newActive = parseInt(currentActive) + 1;
+                elementTimerActive.html(newActive);
             }
         },
         paging: false
@@ -163,7 +186,32 @@ $(document).ready(function () {
      * refresh the datatable information every 30 seconds
      */
     setInterval(function () {
-        sovCampaignTable.ajax.reload();
+        sovCampaignTable.ajax.reload(function (tableData) {
+            elementTimerTotal.html('0');
+            elementTimerUpcoming.html('0');
+            elementTimerActive.html('0');
+
+            $.each(tableData, function (i, item) {
+                // Total timer
+                let currentTotal = elementTimerTotal.html();
+                let newTotal = parseInt(currentTotal) + 1;
+                elementTimerTotal.html(newTotal);
+
+                // Upcoming timer (< 4 hrs)
+                if (item.active_campaign === aaSovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
+                    let currentUpcoming = elementTimerUpcoming.html();
+                    let newUpcoming = parseInt(currentUpcoming) + 1;
+                    elementTimerUpcoming.html(newUpcoming);
+                }
+
+                // Active timer
+                if (item.active_campaign === aaSovtimerSettings.translations.yes) {
+                    let currentActive = elementTimerActive.html();
+                    let newActive = parseInt(currentActive) + 1;
+                    elementTimerActive.html(newActive);
+                }
+            });
+        });
     }, 30000);
 
     /**
@@ -171,9 +219,9 @@ $(document).ready(function () {
      */
     setInterval(function () {
         sovCampaignTable.rows().every(function () {
-            var d = this.data();
+            let d = this.data();
 
-            var remaining = secondsToRemainingTime(
+            let remaining = secondsToRemainingTime(
                 d.remaining_time_in_seconds
             );
 
