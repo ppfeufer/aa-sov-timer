@@ -5,6 +5,9 @@
 [![Python](https://img.shields.io/pypi/pyversions/aa-sov-timer)](https://pypi.org/project/aa-sov-timer/)
 [![Django](https://img.shields.io/pypi/djversions/aa-sov-timer?label=django)](https://pypi.org/project/aa-sov-timer/)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](http://black.readthedocs.io/en/latest/)
+[![Automated Checks](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml/badge.svg)](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/ppfeufer/aa-forum/blob/master/CODE_OF_CONDUCT.md)
+[![Discord](https://img.shields.io/discord/790364535294132234?label=discord)](https://discord.gg/zmh52wnfvM)
 
 Sovereignty campaign overview for Alliance Auth.
 
@@ -15,8 +18,11 @@ Sovereignty campaign overview for Alliance Auth.
 
 **Important**: Please make sure you meet all preconditions before you proceed:
 
-- AA Sovereignty Timer is a plugin for Alliance Auth. If you don't have Alliance Auth running already, please install it first before proceeding. (see the official [AA installation guide](https://allianceauth.readthedocs.io/en/latest/installation/allianceauth.html) for details)
-- AA Sovereignty Timer needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse) to function. Please make sure it is installed, before continuing.
+- AA Sovereignty Timer is a plugin for Alliance Auth. If you don't have Alliance
+  Auth running already, please install it first before proceeding. (see the official
+  [AA installation guide](https://allianceauth.readthedocs.io/en/latest/installation/allianceauth.html) for details)
+- AA Sovereignty Timer needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse)
+  to function. Please make sure it is installed, before continuing.
 
 ### Step 1 - Install the app
 
@@ -69,8 +75,8 @@ Both commands might take a moment or two, so be patient ...
 ### Step 5 - Setup permission
 
 Now you can setup permissions in Alliance Auth for your users.
-Add ``sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module`` to the states and/or
-groups you would like to have access.
+Add ``sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module`` to
+the states and/or groups you would like to have access.
 
 
 ### Step 6 - Keep campaigns updated
@@ -91,9 +97,11 @@ Now your system is updating the sovereignty campains every 30 seconds.
 
 ## Updating
 
-To update your existing installation of AA Sovereignty Timer first enable your virtual environment.
+To update your existing installation of AA Sovereignty Timer first enable your
+virtual environment.
 
-Then run the following commands from your AA project directory (the one that contains `manage.py`).
+Then run the following commands from your AA project directory (the one that
+contains `manage.py`).
 
 ```bash
 pip install -U aa-sov-timer
