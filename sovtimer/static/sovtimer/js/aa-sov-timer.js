@@ -163,7 +163,7 @@ $(document).ready(function () {
 
             // Upcoming timer (< 4 hrs)
             if (data.active_campaign === aaSovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
-                $(row).addClass('aa-sovtimer-upcoming-campaign upcoming');
+                $(row).addClass('aa-sovtimer-upcoming-campaign');
 
                 let currentUpcoming = elementTimerUpcoming.html();
                 let newUpcoming = parseInt(currentUpcoming) + 1;
@@ -172,7 +172,7 @@ $(document).ready(function () {
 
             // Active timer
             if (data.active_campaign === aaSovtimerSettings.translations.yes) {
-                $(row).addClass('aa-sovtimer-active-campaign active');
+                $(row).addClass('aa-sovtimer-active-campaign');
 
                 let currentActive = elementTimerActive.html();
                 let newActive = parseInt(currentActive) + 1;
