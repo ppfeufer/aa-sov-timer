@@ -22,5 +22,11 @@ compiletranslationfiles:
 	django-admin compilemessages -l ru  && \
 	django-admin compilemessages -l zh_Hans
 
+coverage:
+	rm -rfv htmlcov && \
+	coverage run ../myauth/manage.py test $(package) --keepdb --failfast && \
+	coverage html && \
+	coverage report
+
 graph_models:
 	python ../myauth/manage.py graph_models $(package) --arrow-shape normal -o $(appname)-models.png
