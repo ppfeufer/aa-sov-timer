@@ -1,3 +1,7 @@
+"""
+Test basic integration
+"""
+
 from django_webtest import WebTest
 
 from django.urls import reverse
