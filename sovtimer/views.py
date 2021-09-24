@@ -17,7 +17,6 @@ from allianceauth.eveonline.templatetags.evelinks import (
 from allianceauth.services.hooks import get_extension_logger
 
 from sovtimer import __title__
-from sovtimer.app_settings import avoid_cdn
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag
 
@@ -44,9 +43,7 @@ def dashboard(request):
 
     logger.info("Module called by %s", request.user)
 
-    context = {
-        "avoidCdn": avoid_cdn(),
-    }
+    context = {}
 
     return render(request, "sovtimer/dashboard.html", context)
 

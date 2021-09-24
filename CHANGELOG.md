@@ -5,11 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.6.2] - 2021-09-24
+
+### Added
+
+- Basic tests
+
+### Changed
+
+- Better way on implementing the background colours for campaigns that are upcoming
+  or in progress
+- Material Icon font updated
+
+### Fixed
+
+- Use minified JS in template
+
+
 ## [0.6.1] - 2021-09-23
 
 ### Added
 
-- Background color for campaigns that are upcoming or in progress
+- Background colour for campaigns that are upcoming or in progress
 
 
 ## [0.6.0] - 2021-08-06
