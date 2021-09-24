@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Better way on implementing the background colours for campaigns that are upcoming
   or in progress
 - Material Icon font updated
+- Codebase cleaned up
 
 ### Fixed
 
