@@ -15,7 +15,7 @@ Sovereignty campaign overview for Alliance Auth.
 #### AA Sov Timer Dashboard (Light Mode)
 ![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/aa-sov-timer-light-mode.jpg)
 
-####AA Sov Timer Dashboard (Dark Mode)
+#### AA Sov Timer Dashboard (Dark Mode)
 ![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/aa-sov-timer-dark-mode.jpg)
 
 
