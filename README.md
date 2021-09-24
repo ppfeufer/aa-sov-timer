@@ -6,6 +6,7 @@
 [![Django](https://img.shields.io/pypi/djversions/aa-sov-timer?label=django)](https://pypi.org/project/aa-sov-timer/)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](http://black.readthedocs.io/en/latest/)
 [![Automated Checks](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml/badge.svg)](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml)
+[![codecov](https://codecov.io/gh/ppfeufer/aa-sov-timer/branch/master/graph/badge.svg?token=J9PBF0HM8C)](https://codecov.io/gh/ppfeufer/aa-sov-timer)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](https://github.com/ppfeufer/aa-forum/blob/master/CODE_OF_CONDUCT.md)
 [![Discord](https://img.shields.io/discord/790364535294132234?label=discord)](https://discord.gg/zmh52wnfvM)
 
