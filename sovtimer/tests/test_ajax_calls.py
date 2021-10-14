@@ -10,6 +10,7 @@ from django.urls import reverse
 from allianceauth.eveonline.models import EveCharacter
 
 from sovtimer.tests.fixtures.load_allianceauth import load_allianceauth
+from sovtimer.tests.fixtures.load_sovtimer import load_sovtimer
 from sovtimer.views import dashboard_data
 
 
@@ -54,3 +55,39 @@ class TestAjaxCalls(TestCase):
         # then
         self.assertEqual(result.status_code, 200)
         self.assertJSONEqual(result.content, [])
+
+    def test_ajax_dashboard_data_with_campaigns(self):
+        self.maxDiff = None
+        # given
+        load_sovtimer()
+        self.client.force_login(self.user_with_basic_access)
+        request = self.factory.get(reverse("sovtimer:dashboard"))
+        request.user = self.user_with_basic_access
+
+        # when
+        result = dashboard_data(request=request)
+
+        # then
+        self.assertEqual(result.status_code, 200)
+        # self.assertJSONEqual(
+        #     result.content,
+        #     [
+        #         {
+        #             "event_type": "TCU",
+        #             "solar_system_name": "0-O6XF",
+        #             "solar_system_name_html": '<a href="http://evemaps.dotlan.net/map/Esoteria/0-O6XF" target="_blank" rel="noopener noreferer">0-O6XF</a>',
+        #             "constellation_name": "Q-2BI6",
+        #             "constellation_name_html": '<a href="//evemaps.dotlan.net/search?q=Q-2BI6" target="_blank" rel="noopener noreferer">Q-2BI6</a>',
+        #             "region_name": "Esoteria",
+        #             "region_name_html": '<a href="http://evemaps.dotlan.net/map/Esoteria" target="_blank" rel="noopener noreferer">Esoteria</a>',
+        #             "defender_name": "Wayne Enterprises",
+        #             "defender_name_html": '<a href="http://evemaps.dotlan.net/alliance/Wayne_Enterprises" target="_blank" rel="noopener noreferer"><img class="aa-sovtimer-entity-logo-left" src="https://images.evetech.net/alliances/3001/logo?size=32" alt="Wayne Enterprises">Wayne Enterprises</a>',
+        #             "adm": 6.0,
+        #             "start_time": "2021-10-14T11:38:37Z",
+        #             "remaining_time": "",
+        #             "remaining_time_in_seconds": 5734.00943,
+        #             "campaign_progress": "60%",
+        #             "active_campaign": "No",
+        #         }
+        #     ],
+        # )

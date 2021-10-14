@@ -1,0 +1,131 @@
+{
+    "EveEntity": [
+        {
+            "id": 3001,
+            "name": "Wayne Enterprises",
+            "last_updated": "2020-10-11 20:49:50.032085",
+            "category": "alliance"
+        },
+        {
+            "id": 2001,
+            "name": "Wayne Technologies",
+            "last_updated": "2020-10-11 20:49:50.032085",
+            "category": "corporation"
+        }
+    ],
+    "EveSolarSystem": [
+        {
+            "id": 30003114,
+            "name": "0-O6XF",
+            "last_updated": "2020-11-01 10:07:23.831579",
+            "position_x": "-124437033962570112",
+            "position_y": "995019621030524",
+            "position_z": "-383539904013388220",
+            "security_status": "-0.6197909712791443",
+            "eve_constellation_id": 20000455,
+            "eve_star_id": null,
+            "enabled_sections": 0
+        }
+    ],
+    "EveConstellation": [
+        {
+            "id": 20000455,
+            "name": "Q-2BI6",
+            "last_updated": "2020-11-01 10:06:48.827980",
+            "position_x": "-121897659027506128",
+            "position_y": "5118220590432440",
+            "position_z": "-383539904013388220",
+            "eve_region_id": 10000039
+        }
+    ],
+    "EveRegion": [
+        {
+            "id": 10000039,
+            "name": "Esoteria",
+            "last_updated": "2020-11-01 10:06:41.297034",
+            "description": "Lorem Ipsum"
+        }
+    ],
+    "AaSovtimerStructures": [
+        {
+            "structure_id": 1000907692293,
+            "alliance_id": 3001,
+            "solar_system_id": 30003114,
+            "structure_type_id": 32226,
+            "vulnerability_occupancy_level": "6",
+            "vulnerable_end_time": "2021-10-15 04:30:00.000000",
+            "vulnerable_start_time": "2021-10-15 01:30:00.000000"
+        },
+        {
+            "structure_id": 1001300843328,
+            "alliance_id": 3001,
+            "solar_system_id": 30003114,
+            "structure_type_id": 32458,
+            "vulnerability_occupancy_level": "6",
+            "vulnerable_end_time": "2021-10-15 04:30:00.000000",
+            "vulnerable_start_time": "2021-10-15 01:30:00.000000"
+        }
+    ],
+    "AaSovtimerCampaigns": [
+        {
+            "campaign_id": 95000,
+            "attackers_score": "0.33",
+            "defender_id": 3001,
+            "defender_score": "0.67",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2021-10-12 11:38:37.000000",
+            "structure_id": 1000907692293,
+            "progress_current": "0.67",
+            "progress_previous": "0.6"
+        },
+        {
+            "campaign_id": 95001,
+            "attackers_score": "0.67",
+            "defender_id": 3001,
+            "defender_score": "0.33",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2021-10-12 11:38:37.000000",
+            "structure_id": 1001300843328,
+            "progress_current": "0.6",
+            "progress_previous": "0.67"
+        },
+        {
+            "campaign_id": 95002,
+            "attackers_score": "0.33",
+            "defender_id": 3001,
+            "defender_score": "0.67",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2021-10-12 11:38:37.000000",
+            "structure_id": 1000907692293,
+            "progress_current": "0.04",
+            "progress_previous": "0.11"
+        },
+        {
+            "campaign_id": 95003,
+            "attackers_score": "0.67",
+            "defender_id": 3001,
+            "defender_score": "0.33",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2021-10-12 11:38:37.000000",
+            "structure_id": 1001300843328,
+            "progress_current": "0.11",
+            "progress_previous": "0.04"
+        },
+        {
+            "campaign_id": 95004,
+            "attackers_score": "0.4",
+            "defender_id": 3001,
+            "defender_score": "0.6",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2099-10-12 11:38:37.000000",
+            "structure_id": 1001300843328,
+            "progress_current": "0.6",
+            "progress_previous": "0.6"
+        }
+    ]
+}
