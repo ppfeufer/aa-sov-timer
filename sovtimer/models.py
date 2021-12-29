@@ -2,11 +2,14 @@
 Our Models
 """
 
+# Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveEntity, EveSolarSystem
 
+# AA Sovereignty Timer
 from sovtimer.providers import esi
 
 

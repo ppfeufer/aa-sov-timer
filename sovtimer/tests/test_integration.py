@@ -2,11 +2,14 @@
 Test basic integration
 """
 
+# Third Party
 from django_webtest import WebTest
 
+# Django
 from django.urls import reverse
 
-from .utils import create_fake_user
+# AA Sovereignty Timer
+from sovtimer.tests.utils import create_fake_user
 
 
 class TestSovtimerUI(WebTest):

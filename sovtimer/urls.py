@@ -2,8 +2,10 @@
 pages url config
 """
 
+# Django
 from django.conf.urls import url
 
+# AA Sovereignty Timer
 from sovtimer import views
 
 app_name: str = "sovtimer"

@@ -2,9 +2,11 @@
 Generate AllianceAuth test objects from allianceauth.json.
 """
 
+# Standard Library
 import json
 from pathlib import Path
 
+# Alliance Auth
 from allianceauth.eveonline.models import (
     EveAllianceInfo,
     EveCharacter,
