@@ -2,17 +2,23 @@
 the tasks
 """
 
+# Third Party
 from bravado.exception import HTTPBadGateway, HTTPGatewayTimeout, HTTPServiceUnavailable
 from celery import shared_task
 
+# Django
 from django.core.cache import cache
 from django.db import transaction
 
+# Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
+
+# Alliance Auth (External Libs)
 from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
+# AA Sovereignty Timer
 from sovtimer import __title__
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag

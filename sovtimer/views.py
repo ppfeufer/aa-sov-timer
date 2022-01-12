@@ -2,13 +2,16 @@
 the views
 """
 
+# Standard Library
 import datetime as dt
 
+# Django
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.eveonline.evelinks.eveimageserver import alliance_logo_url
 from allianceauth.eveonline.templatetags.evelinks import (
     dotlan_alliance_url,
@@ -16,6 +19,7 @@ from allianceauth.eveonline.templatetags.evelinks import (
 )
 from allianceauth.services.hooks import get_extension_logger
 
+# AA Sovereignty Timer
 from sovtimer import __title__
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 from sovtimer.utils import LoggerAddTag

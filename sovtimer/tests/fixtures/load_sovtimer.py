@@ -2,11 +2,14 @@
 Generate Sov Timer test objects from sovtimers.json.
 """
 
+# Standard Library
 import json
 from pathlib import Path
 
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveConstellation, EveEntity, EveRegion, EveSolarSystem
 
+# AA Sovereignty Timer
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 
 

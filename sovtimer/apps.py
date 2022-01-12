@@ -2,8 +2,10 @@
 app config
 """
 
+# Django
 from django.apps import AppConfig
 
+# AA Sovereignty Timer
 from sovtimer import __version__
 
 

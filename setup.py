@@ -2,10 +2,13 @@
 Setting up our app
 """
 
+# Standard Library
 import os
 
+# Third Party
 from setuptools import find_packages, setup
 
+# AA Sovereignty Timer
 from sovtimer import __version__
 
 # Read the contents of your README file
@@ -44,6 +47,7 @@ project_classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]

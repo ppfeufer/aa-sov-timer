@@ -2,13 +2,16 @@
 loading initial data into sovtimer tables
 """
 
+# Django
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
+# Alliance Auth (External Libs)
 from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
+# AA Sovereignty Timer
 from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
 
 ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"

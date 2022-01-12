@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.2.0] - 2022-01-12
+
+### Added
+
+- Tests for Python 3.11
+
+### Changed
+
+- Javascript: `const` instead of `let` where ever appropriate
+- Minimum requirements
+  - Alliance Auth v2.9.4
+
+
 ## [1.1.0] - 2021-11-30
 
 ### Changed

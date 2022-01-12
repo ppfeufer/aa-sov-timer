@@ -2,13 +2,17 @@
 Test ajax calls
 """
 
-from app_utils.testing import add_character_to_user, create_user_from_evecharacter
-
+# Django
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
+# Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
 
+# Alliance Auth (External Libs)
+from app_utils.testing import add_character_to_user, create_user_from_evecharacter
+
+# AA Sovereignty Timer
 from sovtimer.tests.fixtures.load_allianceauth import load_allianceauth
 from sovtimer.tests.fixtures.load_sovtimer import load_sovtimer
 from sovtimer.views import dashboard_data
