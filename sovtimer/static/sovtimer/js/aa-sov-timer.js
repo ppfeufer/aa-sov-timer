@@ -3,9 +3,9 @@
 $(document).ready(function () {
     'use strict';
 
-    let elementTimerTotal = $('.aa-sovtimer-timers-total');
-    let elementTimerUpcoming = $('.aa-sovtimer-timers-upcoming');
-    let elementTimerActive = $('.aa-sovtimer-timers-active');
+    const elementTimerTotal = $('.aa-sovtimer-timers-total');
+    const elementTimerUpcoming = $('.aa-sovtimer-timers-upcoming');
+    const elementTimerActive = $('.aa-sovtimer-timers-active');
 
     /**
      * convert seconds into a time string
@@ -28,7 +28,7 @@ $(document).ready(function () {
             secondsRemaining--; // decrement with one second each second
         }
 
-        let days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
+        const days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
         let hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
         let minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
         let seconds = Math.floor(secondsRemaining) % 60; // seconds
@@ -57,7 +57,7 @@ $(document).ready(function () {
      *
      * @type {jQuery}
      */
-    let sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
+    const sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
         ajax: {
             url: aaSovtimerSettings.url.ajaxUpdate,
             dataSrc: '',
@@ -86,7 +86,7 @@ $(document).ready(function () {
                 data: 'start_time',
                 render: function (data, type, row) {
                     return moment(data).utc().format(aaSovtimerSettings.dateformat);
-                },
+                }
             },
             {
                 data: 'remaining_time'
@@ -97,23 +97,23 @@ $(document).ready(function () {
 
             // hidden columns
             {
-                data: 'remaining_time_in_seconds',
+                data: 'remaining_time_in_seconds'
             },
             {
-                data: 'solar_system_name',
+                data: 'solar_system_name'
             },
             {
-                data: 'constellation_name',
+                data: 'constellation_name'
             },
             {
-                data: 'region_name',
+                data: 'region_name'
             },
             {
-                data: 'defender_name',
+                data: 'defender_name'
             },
             {
-                data: 'active_campaign',
-            },
+                data: 'active_campaign'
+            }
         ],
         columnDefs: [
             {
@@ -129,7 +129,7 @@ $(document).ready(function () {
         filterDropDown: {
             columns: [
                 {
-                    idx: 0,
+                    idx: 0
                 },
                 {
                     idx: 10,
@@ -150,23 +150,23 @@ $(document).ready(function () {
                 {
                     idx: 14,
                     title: aaSovtimerSettings.translations.activeCampaign
-                },
+                }
             ],
             autoSize: false,
             bootstrap: true
         },
         createdRow: function (row, data, dataIndex) {
             // Total timer
-            let currentTotal = elementTimerTotal.html();
-            let newTotal = parseInt(currentTotal) + 1;
+            const currentTotal = elementTimerTotal.html();
+            const newTotal = parseInt(currentTotal) + 1;
             elementTimerTotal.html(newTotal);
 
             // Upcoming timer (< 4 hrs)
             if (data.active_campaign === aaSovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
                 $(row).addClass('aa-sovtimer-upcoming-campaign');
 
-                let currentUpcoming = elementTimerUpcoming.html();
-                let newUpcoming = parseInt(currentUpcoming) + 1;
+                const currentUpcoming = elementTimerUpcoming.html();
+                const newUpcoming = parseInt(currentUpcoming) + 1;
                 elementTimerUpcoming.html(newUpcoming);
             }
 
@@ -174,8 +174,8 @@ $(document).ready(function () {
             if (data.active_campaign === aaSovtimerSettings.translations.yes) {
                 $(row).addClass('aa-sovtimer-active-campaign');
 
-                let currentActive = elementTimerActive.html();
-                let newActive = parseInt(currentActive) + 1;
+                const currentActive = elementTimerActive.html();
+                const newActive = parseInt(currentActive) + 1;
                 elementTimerActive.html(newActive);
             }
         },
@@ -193,21 +193,21 @@ $(document).ready(function () {
 
             $.each(tableData, function (i, item) {
                 // Total timer
-                let currentTotal = elementTimerTotal.html();
-                let newTotal = parseInt(currentTotal) + 1;
+                const currentTotal = elementTimerTotal.html();
+                const newTotal = parseInt(currentTotal) + 1;
                 elementTimerTotal.html(newTotal);
 
                 // Upcoming timer (< 4 hrs)
                 if (item.active_campaign === aaSovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
-                    let currentUpcoming = elementTimerUpcoming.html();
-                    let newUpcoming = parseInt(currentUpcoming) + 1;
+                    const currentUpcoming = elementTimerUpcoming.html();
+                    const newUpcoming = parseInt(currentUpcoming) + 1;
                     elementTimerUpcoming.html(newUpcoming);
                 }
 
                 // Active timer
                 if (item.active_campaign === aaSovtimerSettings.translations.yes) {
-                    let currentActive = elementTimerActive.html();
-                    let newActive = parseInt(currentActive) + 1;
+                    const currentActive = elementTimerActive.html();
+                    const newActive = parseInt(currentActive) + 1;
                     elementTimerActive.html(newActive);
                 }
             });
@@ -219,16 +219,16 @@ $(document).ready(function () {
      */
     setInterval(function () {
         sovCampaignTable.rows().every(function () {
-            let d = this.data();
+            const data = this.data();
 
-            let remaining = secondsToRemainingTime(
-                d.remaining_time_in_seconds
+            const remaining = secondsToRemainingTime(
+                data.remaining_time_in_seconds
             );
 
-            d.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
-            d.remaining_time = remaining.countdown;
+            data.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
+            data.remaining_time = remaining.countdown;
 
-            sovCampaignTable.row(this).data(d);
+            sovCampaignTable.row(this).data(data);
         });
     }, 1000);
 });
