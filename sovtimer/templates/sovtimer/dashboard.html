@@ -12,21 +12,21 @@
     {% include 'sovtimer/partials/dashboard/table.html' %}
 
     <script type="application/javascript">
-    var aaSovtimerSettings = {
-        url: {
-            ajaxUpdate: "{% url 'sovtimer:dashboard_data' %}"
-        },
-        dateformat: 'YYYY-MM-DD HH:mm:ss',
-        translations: {
-            system: "{% translate 'System' %}",
-            constellation: "{% translate 'Constellation' %}",
-            region: "{% translate 'Region' %}",
-            owner: "{% translate 'Owner / Defender' %}",
-            activeCampaign: "{% translate 'Active Campaign' %}",
-            yes: "{% translate 'Yes' %}",
-            no: "{% translate 'No' %}"
-        }
-    }
+        const aaSovtimerSettings = {
+            url: {
+                ajaxUpdate: "{% url 'sovtimer:dashboard_data' %}"
+            },
+            dateformat: 'YYYY-MM-DD HH:mm:ss',
+            translations: {
+                system: "{% translate 'System' %}",
+                constellation: "{% translate 'Constellation' %}",
+                region: "{% translate 'Region' %}",
+                owner: "{% translate 'Owner / Defender' %}",
+                activeCampaign: "{% translate 'Active Campaign' %}",
+                yes: "{% translate 'Yes' %}",
+                no: "{% translate 'No' %}"
+            }
+        };
     </script>
 {% endblock %}
 
