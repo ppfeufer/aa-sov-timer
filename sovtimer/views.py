@@ -28,13 +28,6 @@ logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 # module constants
-MAP_EVENT_TO_TYPE = {
-    "tcu_defense": "TCU",
-    "ihub_defense": "IHub",
-    "station_defense": "Station",
-    "station_freeport": "Freeport",
-}
-
 CAMPAIGN_TREND_CACHE_TIME = 30
 
 
@@ -222,7 +215,7 @@ def dashboard_data(request) -> JsonResponse:
             data.append(
                 {
                     # type column
-                    "event_type": MAP_EVENT_TO_TYPE[campaign.event_type],
+                    "event_type": AaSovtimerCampaigns.Type(campaign.event_type).label,
                     # system column + filter
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
