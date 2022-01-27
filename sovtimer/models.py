@@ -25,19 +25,18 @@ class AaSovtimer(models.Model):
         permissions = (("basic_access", "Can access the Sovereignty Timer module"),)
 
 
-class AaSovtimerCampaignType(models.TextChoices):
-    """
-    Choices for Comment Types
-    """
-
-    IHUB_DEFENSE = "ihub_defense", _("IHub Defense")
-    TCU_DEFENSE = "tcu_defense", _("TCU Defense")
-
-
 class AaSovtimerCampaigns(models.Model):
     """
     sov campaigns
     """
+
+    class Type(models.TextChoices):
+        """
+        Choices for Comment Types
+        """
+
+        IHUB_DEFENSE = "ihub_defense", _("IHub Defense")
+        TCU_DEFENSE = "tcu_defense", _("TCU Defense")
 
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
@@ -53,7 +52,7 @@ class AaSovtimerCampaigns(models.Model):
     )
 
     defender_score = models.FloatField(default=0.6)
-    event_type = models.CharField(max_length=12, choices=AaSovtimerCampaignType.choices)
+    event_type = models.CharField(max_length=12, choices=Type.choices)
     solar_system = models.ForeignKey(
         EveSolarSystem,
         on_delete=models.SET_DEFAULT,
