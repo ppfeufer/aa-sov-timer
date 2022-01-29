@@ -84,9 +84,7 @@ def update_sov_campaigns() -> None:
             campaign_count = 0
 
             for campaign in campaigns_from_esi:
-                campaign_current__defender, _ = EveEntity.objects.get_or_create(
-                    id=campaign["defender_id"]
-                )
+                EveEntity.objects.get_or_create(id=campaign["defender_id"])
 
                 campaign_current__defender_score = campaign["defender_score"]
 
@@ -145,24 +143,19 @@ def update_sov_structures() -> None:
     """
 
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:
+        logger.debug("UPDATING SOV STRUCTURES")
         structures_from_esi = SovereigntyStructure.sov_structures_from_esi()
 
         if structures_from_esi:
-            # sovereignty_campaigns_structure_ids = (
-            #     Campaign.objects.select_related(
-            #         "structure",
-            #     )
-            #     .filter(structure__isnull=False)
-            #     .values_list("structure__structure_id", flat=True)
-            # )
-
             with transaction.atomic():
-                SovereigntyStructure.objects.all().delete()
+                esi_structure_ids = []
                 sov_structures = []
 
                 structure_count = 0
 
                 for structure in structures_from_esi:
+                    esi_structure_ids.append(structure["structure_id"])
+
                     structure_alliance, _ = EveEntity.objects.get_or_create(
                         id=structure["alliance_id"]
                     )
@@ -206,6 +199,7 @@ def update_sov_structures() -> None:
                 )
 
                 EveEntity.objects.bulk_update_new_esi()
+                SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
 
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
