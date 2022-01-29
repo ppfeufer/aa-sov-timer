@@ -46,7 +46,7 @@
             "description": "Lorem Ipsum"
         }
     ],
-    "AaSovtimerStructures": [
+    "SovereigntyStructure": [
         {
             "structure_id": 1000907692293,
             "alliance_id": 3001,
@@ -66,7 +66,7 @@
             "vulnerable_start_time": "2021-10-15 01:30:00.000000"
         }
     ],
-    "AaSovtimerCampaigns": [
+    "Campaign": [
         {
             "campaign_id": 95000,
             "attackers_score": "0.33",

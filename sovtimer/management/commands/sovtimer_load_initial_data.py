@@ -12,7 +12,7 @@ from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
-from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
+from sovtimer.models import Campaign, SovereigntyStructure
 
 ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 
@@ -41,10 +41,10 @@ class Command(BaseCommand):
             return
 
         # Import sov structures
-        structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
+        structures_from_esi = SovereigntyStructure.sov_structures_from_esi()
         if structures_from_esi:
             with transaction.atomic():
-                AaSovtimerStructures.objects.all().delete()
+                SovereigntyStructure.objects.all().delete()
                 sov_structures = list()
 
                 structure_count = 0
@@ -73,7 +73,7 @@ class Command(BaseCommand):
                         vulnerable_start_time = structure["vulnerable_start_time"]
 
                     sov_structures.append(
-                        AaSovtimerStructures(
+                        SovereigntyStructure(
                             alliance=structure_alliance,
                             solar_system=structure_solar_system,
                             structure_id=structure["structure_id"],
@@ -86,7 +86,7 @@ class Command(BaseCommand):
 
                     structure_count += 1
 
-                AaSovtimerStructures.objects.bulk_create(
+                SovereigntyStructure.objects.bulk_create(
                     sov_structures,
                     batch_size=500,
                     ignore_conflicts=True,
@@ -103,7 +103,7 @@ class Command(BaseCommand):
                 )
 
         # import sov campaigns
-        campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi()
+        campaigns_from_esi = Campaign.sov_campaigns_from_esi()
         if campaigns_from_esi:
             with transaction.atomic():
                 campaigns = list()
@@ -122,7 +122,7 @@ class Command(BaseCommand):
                     campaign_current__defender_score = campaign["defender_score"]
 
                     try:
-                        campaign_previous = AaSovtimerCampaigns.objects.get(
+                        campaign_previous = Campaign.objects.get(
                             campaign_id=campaign["campaign_id"]
                         )
 
@@ -142,13 +142,13 @@ class Command(BaseCommand):
                             campaign_current__progress_previous = (
                                 campaign_previous__progress_previous
                             )
-                    except AaSovtimerCampaigns.DoesNotExist:
+                    except Campaign.DoesNotExist:
                         campaign_current__progress_previous = (
                             campaign_current__defender_score
                         )
 
                     campaigns.append(
-                        AaSovtimerCampaigns(
+                        Campaign(
                             attackers_score=campaign["attackers_score"],
                             campaign_id=campaign["campaign_id"],
                             defender=campaign_current__defender,
@@ -164,8 +164,8 @@ class Command(BaseCommand):
 
                     campaign_count += 1
 
-                AaSovtimerCampaigns.objects.all().delete()
-                AaSovtimerCampaigns.objects.bulk_create(
+                Campaign.objects.all().delete()
+                Campaign.objects.bulk_create(
                     campaigns,
                     batch_size=500,
                     ignore_conflicts=True,

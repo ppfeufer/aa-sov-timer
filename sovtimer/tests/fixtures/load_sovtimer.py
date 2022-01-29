@@ -10,7 +10,7 @@ from pathlib import Path
 from eveuniverse.models import EveConstellation, EveEntity, EveRegion, EveSolarSystem
 
 # AA Sovereignty Timer
-from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
+from sovtimer.models import Campaign, SovereigntyStructure
 
 
 def _load_sovtimer_data():
@@ -30,8 +30,8 @@ def load_sovtimer():
     EveConstellation.objects.all().delete()
     EveRegion.objects.all().delete()
     EveEntity.objects.all().delete()
-    AaSovtimerStructures.objects.all().delete()
-    AaSovtimerCampaigns.objects.all().delete()
+    SovereigntyStructure.objects.all().delete()
+    Campaign.objects.all().delete()
 
     for region_info in _entities_data.get("EveRegion"):
         EveRegion.objects.create(
@@ -74,8 +74,8 @@ def load_sovtimer():
             category=entity_info.get("category"),
         )
 
-    for structures_info in _entities_data.get("AaSovtimerStructures"):
-        AaSovtimerStructures.objects.create(
+    for structures_info in _entities_data.get("SovereigntyStructure"):
+        SovereigntyStructure.objects.create(
             structure_id=structures_info.get("structure_id"),
             alliance_id=structures_info.get("alliance_id"),
             solar_system_id=structures_info.get("solar_system_id"),
@@ -87,8 +87,8 @@ def load_sovtimer():
             vulnerable_start_time=structures_info.get("vulnerable_start_time"),
         )
 
-    for campaigns_info in _entities_data.get("AaSovtimerCampaigns"):
-        AaSovtimerCampaigns.objects.create(
+    for campaigns_info in _entities_data.get("Campaign"):
+        Campaign.objects.create(
             campaign_id=campaigns_info.get("campaign_id"),
             attackers_score=campaigns_info.get("attackers_score"),
             defender_id=campaigns_info.get("defender_id"),

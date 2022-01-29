@@ -25,73 +25,7 @@ class AaSovtimer(models.Model):
         permissions = (("basic_access", "Can access the Sovereignty Timer module"),)
 
 
-class AaSovtimerCampaigns(models.Model):
-    """
-    sov campaigns
-    """
-
-    class Type(models.TextChoices):
-        """
-        Choices for Comment Types
-        """
-
-        IHUB_DEFENSE = "ihub_defense", _("IHub Defense")
-        TCU_DEFENSE = "tcu_defense", _("TCU Defense")
-
-    campaign_id = models.PositiveBigIntegerField(
-        primary_key=True, db_index=True, unique=True
-    )
-    attackers_score = models.FloatField(default=0.6)
-    defender = models.ForeignKey(
-        EveEntity,
-        on_delete=models.SET_DEFAULT,
-        default=None,
-        null=True,
-        blank=True,
-        related_name="sov_campaign_defender",
-    )
-
-    defender_score = models.FloatField(default=0.6)
-    event_type = models.CharField(max_length=12, choices=Type.choices)
-    solar_system = models.ForeignKey(
-        EveSolarSystem,
-        on_delete=models.SET_DEFAULT,
-        default=None,
-        null=True,
-        blank=True,
-        related_name="sov_capaign_solar_system",
-    )
-
-    start_time = models.DateTimeField()
-    structure_id = models.PositiveBigIntegerField()
-
-    progress_current = models.FloatField(default=0.6)
-    progress_previous = models.FloatField(default=0.6)
-
-    @classmethod
-    def sov_campaigns_from_esi(cls):
-        """
-        get all sov campaigns from ESI
-        :return:
-        """
-
-        sovereignty_campaigns_esi = (
-            esi.client.Sovereignty.get_sovereignty_campaigns().results()
-        )
-
-        return sovereignty_campaigns_esi
-
-    class Meta:
-        """
-        meta definitions
-        """
-
-        verbose_name = "Sovereignty Campaign"
-        verbose_name_plural = "Sovereignty Campaigns"
-        default_permissions = ()
-
-
-class AaSovtimerStructures(models.Model):
+class SovereigntyStructure(models.Model):
     """
     sov structures
     """
@@ -140,4 +74,70 @@ class AaSovtimerStructures(models.Model):
 
         verbose_name = "Sovereignty Structure"
         verbose_name_plural = "Sovereignty Structures"
+        default_permissions = ()
+
+
+class Campaign(models.Model):
+    """
+    sov campaigns
+    """
+
+    class Type(models.TextChoices):
+        """
+        Choices for Comment Types
+        """
+
+        IHUB_DEFENSE = "ihub_defense", _("IHub Defense")
+        TCU_DEFENSE = "tcu_defense", _("TCU Defense")
+
+    campaign_id = models.PositiveBigIntegerField(
+        primary_key=True, db_index=True, unique=True
+    )
+    attackers_score = models.FloatField(default=0.6)
+    defender = models.ForeignKey(
+        EveEntity,
+        on_delete=models.SET_DEFAULT,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_campaign_defender",
+    )
+
+    defender_score = models.FloatField(default=0.6)
+    event_type = models.CharField(max_length=12, choices=Type.choices)
+    solar_system = models.ForeignKey(
+        EveSolarSystem,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="sov_capaign_solar_system",
+    )
+
+    start_time = models.DateTimeField()
+    structure_id = models.PositiveBigIntegerField()
+
+    progress_current = models.FloatField(default=0.6)
+    progress_previous = models.FloatField(default=0.6)
+
+    @classmethod
+    def sov_campaigns_from_esi(cls):
+        """
+        get all sov campaigns from ESI
+        :return:
+        """
+
+        sovereignty_campaigns_esi = (
+            esi.client.Sovereignty.get_sovereignty_campaigns().results()
+        )
+
+        return sovereignty_campaigns_esi
+
+    class Meta:
+        """
+        meta definitions
+        """
+
+        verbose_name = "Sovereignty Campaign"
+        verbose_name_plural = "Sovereignty Campaigns"
         default_permissions = ()

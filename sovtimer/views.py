@@ -21,7 +21,7 @@ from allianceauth.services.hooks import get_extension_logger
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
+from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -55,13 +55,13 @@ def dashboard_data(request) -> JsonResponse:
 
     data = list()
 
-    sovereignty_campaigns = AaSovtimerCampaigns.objects.select_related(
+    sovereignty_campaigns = Campaign.objects.select_related(
         "defender",
         "solar_system",
         "solar_system__eve_constellation",
         "solar_system__eve_constellation__eve_region",
     ).all()
-    sovereignty_structures = AaSovtimerStructures.objects.select_related(
+    sovereignty_structures = SovereigntyStructure.objects.select_related(
         "alliance",
         "solar_system",
         "solar_system__eve_constellation",
@@ -215,7 +215,7 @@ def dashboard_data(request) -> JsonResponse:
             data.append(
                 {
                     # type column
-                    "event_type": AaSovtimerCampaigns.Type(campaign.event_type).label,
+                    "event_type": Campaign.Type(campaign.event_type).label,
                     # system column + filter
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
