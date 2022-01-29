@@ -35,7 +35,7 @@ class SovereigntyStructure(models.Model):
     )
     alliance = models.ForeignKey(
         EveEntity,
-        on_delete=models.SET_DEFAULT,
+        on_delete=models.CASCADE,
         default=None,
         null=True,
         blank=True,
@@ -43,7 +43,7 @@ class SovereigntyStructure(models.Model):
     )
     solar_system = models.ForeignKey(
         EveSolarSystem,
-        on_delete=models.SET_DEFAULT,
+        on_delete=models.CASCADE,
         default=None,
         null=True,
         blank=True,
@@ -94,28 +94,36 @@ class Campaign(models.Model):
         primary_key=True, db_index=True, unique=True
     )
     attackers_score = models.FloatField(default=0.6)
-    defender = models.ForeignKey(
-        EveEntity,
-        on_delete=models.SET_DEFAULT,
-        default=None,
-        null=True,
-        blank=True,
-        related_name="sov_campaign_defender",
-    )
+    # defender = models.ForeignKey(
+    #     EveEntity,
+    #     on_delete=models.CASCADE,
+    #     default=None,
+    #     null=True,
+    #     blank=True,
+    #     related_name="sov_campaign_defender",
+    # )
 
     defender_score = models.FloatField(default=0.6)
     event_type = models.CharField(max_length=12, choices=Type.choices)
-    solar_system = models.ForeignKey(
-        EveSolarSystem,
+    # solar_system = models.ForeignKey(
+    #     EveSolarSystem,
+    #     on_delete=models.CASCADE,
+    #     default=None,
+    #     null=True,
+    #     blank=True,
+    #     related_name="sov_capaign_solar_system",
+    # )
+
+    start_time = models.DateTimeField()
+    # structure_id = models.PositiveBigIntegerField()
+    structure = models.OneToOneField(
+        SovereigntyStructure,
         on_delete=models.CASCADE,
         default=None,
         null=True,
         blank=True,
-        related_name="sov_capaign_solar_system",
+        related_name="sov_capaign_structure",
     )
-
-    start_time = models.DateTimeField()
-    structure_id = models.PositiveBigIntegerField()
 
     progress_current = models.FloatField(default=0.6)
     progress_previous = models.FloatField(default=0.6)

@@ -45,7 +45,7 @@ class Command(BaseCommand):
         if structures_from_esi:
             with transaction.atomic():
                 SovereigntyStructure.objects.all().delete()
-                sov_structures = list()
+                sov_structures = []
 
                 structure_count = 0
 
@@ -97,26 +97,20 @@ class Command(BaseCommand):
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
                 self.stdout.write(
-                    (
-                        "{structure_count} sovereignty structures imported from ESI."
-                    ).format(structure_count=structure_count)
+                    f"{structure_count} sovereignty structures imported from ESI."
                 )
 
         # import sov campaigns
         campaigns_from_esi = Campaign.sov_campaigns_from_esi()
         if campaigns_from_esi:
             with transaction.atomic():
-                campaigns = list()
+                campaigns = []
 
                 campaign_count = 0
 
                 for campaign in campaigns_from_esi:
                     campaign_current__defender, _ = EveEntity.objects.get_or_create(
                         id=campaign["defender_id"]
-                    )
-
-                    campaign_current__solar_system = EveSolarSystem.objects.get(
-                        id=campaign["solar_system_id"]
                     )
 
                     campaign_current__defender_score = campaign["defender_score"]
@@ -151,10 +145,8 @@ class Command(BaseCommand):
                         Campaign(
                             attackers_score=campaign["attackers_score"],
                             campaign_id=campaign["campaign_id"],
-                            defender=campaign_current__defender,
                             defender_score=campaign["defender_score"],
                             event_type=campaign["event_type"],
-                            solar_system=campaign_current__solar_system,
                             start_time=campaign["start_time"],
                             structure_id=campaign["structure_id"],
                             progress_current=campaign_current__defender_score,
@@ -174,9 +166,7 @@ class Command(BaseCommand):
                 EveEntity.objects.bulk_update_new_esi()
 
                 self.stdout.write(
-                    "{campaign_count} sovereignty campaigns imported from ESI.".format(
-                        campaign_count=campaign_count
-                    )
+                    f"{campaign_count} sovereignty campaigns imported from ESI."
                 )
 
     def handle(self, *args, **options):

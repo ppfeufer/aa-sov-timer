@@ -91,10 +91,8 @@ def load_sovtimer():
         Campaign.objects.create(
             campaign_id=campaigns_info.get("campaign_id"),
             attackers_score=campaigns_info.get("attackers_score"),
-            defender_id=campaigns_info.get("defender_id"),
             defender_score=campaigns_info.get("defender_score"),
             event_type=campaigns_info.get("event_type"),
-            solar_system_id=campaigns_info.get("solar_system_id"),
             start_time=campaigns_info.get("start_time"),
             structure_id=campaigns_info.get("structure_id"),
             progress_current=campaigns_info.get("progress_current"),
