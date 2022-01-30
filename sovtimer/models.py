@@ -50,9 +50,18 @@ class SovereigntyStructure(models.Model):
         related_name="sov_structure_solar_system",
     )
     structure_type_id = models.PositiveBigIntegerField()
-    vulnerability_occupancy_level = models.FloatField(null=True)
-    vulnerable_end_time = models.DateTimeField(null=True)
-    vulnerable_start_time = models.DateTimeField(null=True)
+    vulnerability_occupancy_level = models.FloatField(default=1)
+    vulnerable_end_time = models.DateTimeField(null=True, blank=True)
+    vulnerable_start_time = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        """
+        meta definitions
+        """
+
+        verbose_name = "Sovereignty Structure"
+        verbose_name_plural = "Sovereignty Structures"
+        default_permissions = ()
 
     @classmethod
     def sov_structures_from_esi(cls):
@@ -66,15 +75,6 @@ class SovereigntyStructure(models.Model):
         )
 
         return sovereignty_structures_esi
-
-    class Meta:
-        """
-        meta definitions
-        """
-
-        verbose_name = "Sovereignty Structure"
-        verbose_name_plural = "Sovereignty Structures"
-        default_permissions = ()
 
 
 class Campaign(models.Model):
@@ -94,28 +94,9 @@ class Campaign(models.Model):
         primary_key=True, db_index=True, unique=True
     )
     attackers_score = models.FloatField(default=0.6)
-    # defender = models.ForeignKey(
-    #     EveEntity,
-    #     on_delete=models.CASCADE,
-    #     default=None,
-    #     null=True,
-    #     blank=True,
-    #     related_name="sov_campaign_defender",
-    # )
-
     defender_score = models.FloatField(default=0.6)
     event_type = models.CharField(max_length=12, choices=Type.choices)
-    # solar_system = models.ForeignKey(
-    #     EveSolarSystem,
-    #     on_delete=models.CASCADE,
-    #     default=None,
-    #     null=True,
-    #     blank=True,
-    #     related_name="sov_capaign_solar_system",
-    # )
-
     start_time = models.DateTimeField()
-    # structure_id = models.PositiveBigIntegerField()
     structure = models.OneToOneField(
         SovereigntyStructure,
         on_delete=models.CASCADE,
@@ -127,6 +108,15 @@ class Campaign(models.Model):
 
     progress_current = models.FloatField(default=0.6)
     progress_previous = models.FloatField(default=0.6)
+
+    class Meta:
+        """
+        meta definitions
+        """
+
+        verbose_name = "Sovereignty Campaign"
+        verbose_name_plural = "Sovereignty Campaigns"
+        default_permissions = ()
 
     @classmethod
     def sov_campaigns_from_esi(cls):
@@ -140,12 +130,3 @@ class Campaign(models.Model):
         )
 
         return sovereignty_campaigns_esi
-
-    class Meta:
-        """
-        meta definitions
-        """
-
-        verbose_name = "Sovereignty Campaign"
-        verbose_name_plural = "Sovereignty Campaigns"
-        default_permissions = ()
