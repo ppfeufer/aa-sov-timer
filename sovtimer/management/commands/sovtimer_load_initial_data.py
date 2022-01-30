@@ -109,10 +109,7 @@ class Command(BaseCommand):
                 campaign_count = 0
 
                 for campaign in campaigns_from_esi:
-                    campaign_current__defender, _ = EveEntity.objects.get_or_create(
-                        id=campaign["defender_id"]
-                    )
-
+                    EveEntity.objects.get_or_create(id=campaign["defender_id"])
                     campaign_current__defender_score = campaign["defender_score"]
 
                     try:
