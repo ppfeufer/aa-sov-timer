@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Useragent for ESI calls
+
 ### Changed
 
 - `models.TextChoices` refactored for better code readability
