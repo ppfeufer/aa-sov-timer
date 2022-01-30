@@ -160,24 +160,24 @@ def dashboard_data(request: WSGIRequest) -> JsonResponse:
 
                 progress_text = _("Neither side has made any progress yet")
                 campaign_progress_icon = (
-                    f"<i "
-                    f'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
+                    "<i "
+                    'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
                     f'title="{progress_text}">trending_flat</i>'
                 )
 
                 if campaign_progress_previous < campaign_pogress_current:
                     defender_progress_text = _("Defenders making progress")
                     campaign_progress_icon = (
-                        f"<i "
-                        f'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
+                        "<i "
+                        'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
                         f'title="{defender_progress_text}">trending_up</i>'
                     )
 
                 if campaign_progress_previous > campaign_pogress_current:
                     attacker_progress_text = _("Attackers making progress")
                     campaign_progress_icon = (
-                        f"<i "
-                        f'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
+                        "<i "
+                        'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
                         f'title="{attacker_progress_text}">trending_down</i>'
                     )
 
