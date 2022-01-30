@@ -21,7 +21,7 @@ from allianceauth.services.hooks import get_extension_logger
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
+from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
@@ -55,26 +55,29 @@ def dashboard_data(request) -> JsonResponse:
 
     data = list()
 
-    sovereignty_campaigns = AaSovtimerCampaigns.objects.select_related(
-        "defender",
-        "solar_system",
-        "solar_system__eve_constellation",
-        "solar_system__eve_constellation__eve_region",
-    ).all()
-    sovereignty_structures = AaSovtimerStructures.objects.select_related(
-        "alliance",
-        "solar_system",
-        "solar_system__eve_constellation",
-        "solar_system__eve_constellation__eve_region",
-    ).all()
+    sovereignty_campaigns = Campaign.objects.select_related(
+        "structure",
+        "structure__alliance",
+        "structure__solar_system",
+        "structure__solar_system__eve_constellation",
+        "structure__solar_system__eve_constellation__eve_region",
+    ).filter(structure__isnull=False)
 
-    if sovereignty_campaigns and sovereignty_structures:
+    campaign_systems = sovereignty_campaigns.values_list(
+        "structure__solar_system_id", flat=True
+    )
+
+    sovereignty_structures = SovereigntyStructure.objects.filter(
+        solar_system_id__in=set(campaign_systems)
+    )
+
+    if sovereignty_campaigns:
         for campaign in sovereignty_campaigns:
             # defender name
-            defender_name = campaign.defender.name
-            defender_url = dotlan_alliance_url(campaign.defender)
+            defender_name = campaign.structure.alliance.name
+            defender_url = dotlan_alliance_url(campaign.structure.alliance)
             defender_logo_url = alliance_logo_url(
-                alliance_id=campaign.defender.id, size=32
+                alliance_id=campaign.structure.alliance.id, size=32
             )
 
             defender_name_html = (
@@ -90,11 +93,13 @@ def dashboard_data(request) -> JsonResponse:
             )
 
             # solar system
-            solar_system_name = campaign.solar_system.name
+            solar_system_name = campaign.structure.solar_system.name
             solar_system_url = (
-                dotlan_region_url(campaign.solar_system.eve_constellation.eve_region)
+                dotlan_region_url(
+                    campaign.structure.solar_system.eve_constellation.eve_region
+                )
                 + "/"
-                + campaign.solar_system.name
+                + campaign.structure.solar_system.name
             )
             solar_system_name_html = (
                 '<a href="{solar_system_url}" '
@@ -106,7 +111,7 @@ def dashboard_data(request) -> JsonResponse:
             )
 
             # constellation
-            constellation_name = campaign.solar_system.eve_constellation.name
+            constellation_name = campaign.structure.solar_system.eve_constellation.name
             constellation_name_html = (
                 '<a href="//evemaps.dotlan.net/search?q={constellation_name}" '
                 'target="_blank" rel="noopener noreferer">'
@@ -114,9 +119,11 @@ def dashboard_data(request) -> JsonResponse:
             )
 
             # region
-            region_name = campaign.solar_system.eve_constellation.eve_region.name
+            region_name = (
+                campaign.structure.solar_system.eve_constellation.eve_region.name
+            )
             region_url = dotlan_region_url(
-                campaign.solar_system.eve_constellation.eve_region
+                campaign.structure.solar_system.eve_constellation.eve_region
             )
             region_name_html = (
                 '<a href="{region_url}" '
@@ -130,7 +137,7 @@ def dashboard_data(request) -> JsonResponse:
             structure_adm = 1
             for structure in sovereignty_structures:
                 if (
-                    structure.solar_system_id == campaign.solar_system_id
+                    structure.solar_system_id == campaign.structure.solar_system_id
                 ) and structure.vulnerability_occupancy_level:
                     structure_adm = structure.vulnerability_occupancy_level
 
@@ -200,7 +207,7 @@ def dashboard_data(request) -> JsonResponse:
                     'target="_blank" rel="noopener noreferer" '
                     'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'.format(
                         zkb_url="https://zkillboard.com/constellation/",
-                        constellation_id=campaign.solar_system.eve_constellation.id,
+                        constellation_id=campaign.structure.solar_system.eve_constellation.id,
                         zkb_icon='<img src="/static/sovtimer/images/zkillboard.png">',
                     )
                 )
@@ -215,7 +222,7 @@ def dashboard_data(request) -> JsonResponse:
             data.append(
                 {
                     # type column
-                    "event_type": AaSovtimerCampaigns.Type(campaign.event_type).label,
+                    "event_type": Campaign.Type(campaign.event_type).label,
                     # system column + filter
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
