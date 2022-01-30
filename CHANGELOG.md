@@ -22,6 +22,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Views refactored
 - Switched to `allianceauth-app-utils` for logging
 
+### Update Instructions
+
+This release has significant changes to its models, so make sure to follow the
+instructions below.
+
+```shell
+pip install aa-sov-timer==1.3.0
+
+python myauth/manage.py collectstatic --noinput
+python myauth/manage.py migrate
+python myauth/manage.py sovtimer_load_initial_data
+```
+
+And restart your supervisor.
+
 
 ## [1.2.0] - 2022-01-12
 
