@@ -6,11 +6,18 @@ Our Models
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
+from allianceauth.services.hooks import get_extension_logger
+
 # Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
+from sovtimer import __title__
 from sovtimer.providers import esi
+
+logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 
 class AaSovtimer(models.Model):
@@ -70,9 +77,15 @@ class SovereigntyStructure(models.Model):
         :return:
         """
 
-        sovereignty_structures_esi = (
-            esi.client.Sovereignty.get_sovereignty_structures().results()
-        )
+        try:
+            sovereignty_structures_esi = (
+                esi.client.Sovereignty.get_sovereignty_structures().results()
+            )
+        except OSError as ex:
+            logger.info(
+                f"Something went wrong while trying to fetch sov structures from ESI: {ex}"
+            )
+            sovereignty_structures_esi = None
 
         return sovereignty_structures_esi
 
@@ -125,8 +138,14 @@ class Campaign(models.Model):
         :return:
         """
 
-        sovereignty_campaigns_esi = (
-            esi.client.Sovereignty.get_sovereignty_campaigns().results()
-        )
+        try:
+            sovereignty_campaigns_esi = (
+                esi.client.Sovereignty.get_sovereignty_campaigns().results()
+            )
+        except OSError as ex:
+            logger.info(
+                f"Something went wrong while trying to fetch sov campaigns from ESI: {ex}"
+            )
+            sovereignty_campaigns_esi = None
 
         return sovereignty_campaigns_esi
