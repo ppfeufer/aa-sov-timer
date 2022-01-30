@@ -1,4 +1,3 @@
-
 {% load i18n %}
 
 <p class="text-muted">
@@ -26,14 +25,7 @@
                 <th class="aa-sovtimer-campaigns-constellation-column">{% translate 'Constellation' %}</th>
                 <th class="aa-sovtimer-campaigns-region-column">{% translate 'Region' %}</th>
                 <th class="aa-sovtimer-campaigns-defender-column">{% translate 'Owner / Defender' %}</th>
-                <th class="aa-sovtimer-campaigns-adm-column">
-                    {% translate 'ADM' %}
-                    <sup>
-                        <abbr title="{% translate 'This is not the systems overall ADM. This is the defense multiplier towards the structure itself.' %}">
-                            <i class="fas fa-question-circle fa-fw"></i>
-                        </abbr>
-                    </sup>
-                </th>
+                <th class="aa-sovtimer-campaigns-adm-column">{% translate 'ADM' %}</th>
                 <th class="aa-sovtimer-campaigns-start-datetime-column">{% translate 'Start' %}</th>
                 <th class="aa-sovtimer-campaigns-remaining-time-column">{% translate 'Remaining' %}</th>
                 <th class="aa-sovtimer-campaigns-progress-column">{% translate 'Progress' %}</th>

@@ -15,13 +15,13 @@ from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
 
 # Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
 from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.models import AaSovtimerCampaigns, AaSovtimerStructures
-from sovtimer.utils import LoggerAddTag
+from sovtimer.models import Campaign, SovereigntyStructure
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
@@ -75,27 +75,21 @@ def update_sov_campaigns() -> None:
     update campaigns
     """
 
-    campaigns_from_esi = AaSovtimerCampaigns.sov_campaigns_from_esi()
+    campaigns_from_esi = Campaign.sov_campaigns_from_esi()
 
     if campaigns_from_esi:
         with transaction.atomic():
-            campaigns = list()
+            campaigns = []
 
             campaign_count = 0
 
             for campaign in campaigns_from_esi:
-                campaign_current__defender, _ = EveEntity.objects.get_or_create(
-                    id=campaign["defender_id"]
-                )
-
-                campaign_current__solar_system = EveSolarSystem.objects.get(
-                    id=campaign["solar_system_id"]
-                )
+                EveEntity.objects.get_or_create(id=campaign["defender_id"])
 
                 campaign_current__defender_score = campaign["defender_score"]
 
                 try:
-                    campaign_previous = AaSovtimerCampaigns.objects.get(
+                    campaign_previous = Campaign.objects.get(
                         campaign_id=campaign["campaign_id"]
                     )
 
@@ -110,19 +104,17 @@ def update_sov_campaigns() -> None:
                         campaign_current__progress_previous = (
                             campaign_previous__progress_previous
                         )
-                except AaSovtimerCampaigns.DoesNotExist:
+                except Campaign.DoesNotExist:
                     campaign_current__progress_previous = (
                         campaign_current__defender_score
                     )
 
                 campaigns.append(
-                    AaSovtimerCampaigns(
+                    Campaign(
                         attackers_score=campaign["attackers_score"],
                         campaign_id=campaign["campaign_id"],
-                        defender=campaign_current__defender,
                         defender_score=campaign["defender_score"],
                         event_type=campaign["event_type"],
-                        solar_system=campaign_current__solar_system,
                         start_time=campaign["start_time"],
                         structure_id=campaign["structure_id"],
                         progress_current=campaign_current__defender_score,
@@ -132,8 +124,8 @@ def update_sov_campaigns() -> None:
 
                 campaign_count += 1
 
-            AaSovtimerCampaigns.objects.all().delete()
-            AaSovtimerCampaigns.objects.bulk_create(
+            Campaign.objects.all().delete()
+            Campaign.objects.bulk_create(
                 campaigns,
                 batch_size=500,
                 ignore_conflicts=True,
@@ -141,11 +133,7 @@ def update_sov_campaigns() -> None:
 
             EveEntity.objects.bulk_update_new_esi()
 
-            logger.info(
-                "{campaign_count} sovereignty campaigns updated from ESI.".format(
-                    campaign_count=campaign_count
-                )
-            )
+            logger.info(f"{campaign_count} sovereignty campaigns updated from ESI.")
 
 
 @shared_task(**{**TASK_ESI_KWARGS}, **{"base": QueueOnce})
@@ -155,16 +143,19 @@ def update_sov_structures() -> None:
     """
 
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:
-        structures_from_esi = AaSovtimerStructures.sov_structures_from_esi()
+        logger.debug("UPDATING SOV STRUCTURES")
+        structures_from_esi = SovereigntyStructure.sov_structures_from_esi()
 
         if structures_from_esi:
             with transaction.atomic():
-                AaSovtimerStructures.objects.all().delete()
-                sov_structures = list()
+                esi_structure_ids = []
+                sov_structures = []
 
                 structure_count = 0
 
                 for structure in structures_from_esi:
+                    esi_structure_ids.append(structure["structure_id"])
+
                     structure_alliance, _ = EveEntity.objects.get_or_create(
                         id=structure["alliance_id"]
                     )
@@ -188,7 +179,7 @@ def update_sov_structures() -> None:
                         vulnerable_start_time = structure["vulnerable_start_time"]
 
                     sov_structures.append(
-                        AaSovtimerStructures(
+                        SovereigntyStructure(
                             alliance=structure_alliance,
                             solar_system=structure_solar_system,
                             structure_id=structure["structure_id"],
@@ -201,18 +192,17 @@ def update_sov_structures() -> None:
 
                     structure_count += 1
 
-                AaSovtimerStructures.objects.bulk_create(
+                SovereigntyStructure.objects.bulk_create(
                     sov_structures,
                     batch_size=500,
                     ignore_conflicts=True,
                 )
 
                 EveEntity.objects.bulk_update_new_esi()
+                SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
 
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
                 logger.info(
-                    "{structure_count} sovereignty structures updated from ESI.".format(
-                        structure_count=structure_count
-                    )
+                    f"{structure_count} sovereignty structures updated from ESI."
                 )

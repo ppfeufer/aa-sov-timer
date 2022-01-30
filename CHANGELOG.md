@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [In Development] - Unreleased
+
+
+## [1.3.0] - 2022-01-30
+
+### Added
+
+- Useragent for ESI calls
+
+### Changed
+
+- `models.TextChoices` refactored for better code readability
+- Models refactored
+- Views refactored
+- Switched to `allianceauth-app-utils` for logging
+
+
 ## [1.2.0] - 2022-01-12
 
 ### Added
@@ -65,7 +82,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Numbers for total, upcoming (< 4 hrs) and active timers to the table head
-  ![image](https://user-images.githubusercontent.com/2989985/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
+  ![image](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/changelog/0.6.0/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
 
 
 ## [0.5.8] - 2021-07-08

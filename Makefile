@@ -26,7 +26,7 @@ coverage:
 	rm -rfv htmlcov && \
 	coverage run ../myauth/manage.py test $(package) --keepdb --failfast && \
 	coverage html && \
-	coverage report
+	coverage report -m
 
 graph_models:
 	python ../myauth/manage.py graph_models $(package) --arrow-shape normal -o $(appname)-models.png

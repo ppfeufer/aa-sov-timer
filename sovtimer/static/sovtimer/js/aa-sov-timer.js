@@ -13,7 +13,7 @@ $(document).ready(function () {
      * @param {string|int} secondsRemaining
      * @returns {{countdown: string, remainingTimeInSeconds: string|int}}
      */
-    let secondsToRemainingTime = function (secondsRemaining) {
+    const secondsToRemainingTime = function (secondsRemaining) {
         let prefix = '';
         let spanClasses = 'aa-sovtimer-remaining';
 
