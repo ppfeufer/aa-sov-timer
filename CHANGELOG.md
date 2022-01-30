@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - `models.TextChoices` refactored for better code readability
 - Models refactored
+- Views refactored
 
 
 ## [1.2.0] - 2022-01-12
