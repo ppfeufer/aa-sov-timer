@@ -20,10 +20,12 @@ from allianceauth.eveonline.templatetags.evelinks import (
 )
 from allianceauth.services.hooks import get_extension_logger
 
+# Alliance Auth (External Libs)
+from app_utils.logging import LoggerAddTag
+
 # AA Sovereignty Timer
 from sovtimer import __title__
 from sovtimer.models import Campaign, SovereigntyStructure
-from sovtimer.utils import LoggerAddTag
 
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
