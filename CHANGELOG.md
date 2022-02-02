@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [In Development] - Unreleased
 
 
+## [1.3.1] - 2022-02-02
+
+### Changed
+
+- Using `path` in URL config instead of soon-to-be removed `url`
+
+
 ## [1.3.0] - 2022-01-30
 
 ### Added
