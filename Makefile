@@ -31,6 +31,10 @@ coverage:
 graph_models:
 	python ../myauth/manage.py graph_models $(package) --arrow-shape normal -o $(appname)-models.png
 
+build_test:
+	rm -rfv dist && \
+	python3 -m build
+
 tox_tests:
 	tox && \
 	rm -rf .tox/
