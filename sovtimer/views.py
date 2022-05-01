@@ -200,7 +200,7 @@ def dashboard_data(request: WSGIRequest) -> JsonResponse:
 
             data.append(
                 {
-                    # type column
+                    # event type column
                     "event_type": Campaign.Type(campaign.event_type).label,
                     # system column + filter
                     "solar_system_name": solar_system_name,
