@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.5.1] - 2022-05-25
 
+### Added
+
+- Versioned static files to break the browser cache on app update
+
 ### Changed
 
 - JavaScript modernized

@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load static %}
+{% load sovtimer_versioned_static %}
 
 {% block sovtimer_header %}
     {% translate "Sovereignty Timers" as translated_header %}
@@ -33,8 +34,8 @@
 {% block extra_css %}
     {% include 'bundles/datatables-css.html' %}
 
-    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-bootstrap-fix.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'sovtimer/css/aa-sov-timer.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% sovtimer_static 'sovtimer/css/aa-bootstrap-fix.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% sovtimer_static 'sovtimer/css/aa-sov-timer.min.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_javascript %}
@@ -44,7 +45,7 @@
     <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/datetime.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'js/filterDropDown/filterDropDown.min.js' %}"></script>
-    <script type="application/javascript" src="{% static 'sovtimer/js/aa-sov-timer.min.js' %}"></script>
+    <script type="application/javascript" src="{% sovtimer_static 'sovtimer/js/aa-sov-timer.min.js' %}"></script>
 {% endblock %}
 
 {% block extra_script %}
