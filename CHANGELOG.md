@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - JavaScript modernized
 
+### Fixed
+
+- Attackers default score in DB
+
 
 ## [1.5.0] - 2022-03-02
 
