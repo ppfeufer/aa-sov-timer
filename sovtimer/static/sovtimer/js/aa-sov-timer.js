@@ -1,6 +1,6 @@
 /* global aaSovtimerSettings, moment */
 
-$(document).ready(function () {
+$(document).ready(() => {
     'use strict';
 
     const elementTimerTotal = $('.aa-sovtimer-timers-total');
@@ -13,7 +13,7 @@ $(document).ready(function () {
      * @param {string|int} secondsRemaining
      * @returns {{countdown: string, remainingTimeInSeconds: string|int}}
      */
-    const secondsToRemainingTime = function (secondsRemaining) {
+    const secondsToRemainingTime = (secondsRemaining) => {
         let prefix = '';
         let spanClasses = 'aa-sovtimer-remaining';
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
             },
             {
                 data: 'start_time',
-                render: function (data, type, row) {
+                render: (data, type, row) => {
                     return moment(data).utc().format(aaSovtimerSettings.dateformat);
                 }
             },
@@ -155,10 +155,11 @@ $(document).ready(function () {
             autoSize: false,
             bootstrap: true
         },
-        createdRow: function (row, data, dataIndex) {
+        createdRow: (row, data, dataIndex) => {
             // Total timer
             const currentTotal = elementTimerTotal.html();
             const newTotal = parseInt(currentTotal) + 1;
+
             elementTimerTotal.html(newTotal);
 
             // Upcoming timer (< 4 hrs)
@@ -167,6 +168,7 @@ $(document).ready(function () {
 
                 const currentUpcoming = elementTimerUpcoming.html();
                 const newUpcoming = parseInt(currentUpcoming) + 1;
+
                 elementTimerUpcoming.html(newUpcoming);
             }
 
@@ -176,6 +178,7 @@ $(document).ready(function () {
 
                 const currentActive = elementTimerActive.html();
                 const newActive = parseInt(currentActive) + 1;
+
                 elementTimerActive.html(newActive);
             }
         },
@@ -185,22 +188,24 @@ $(document).ready(function () {
     /**
      * refresh the datatable information every 30 seconds
      */
-    setInterval(function () {
-        sovCampaignTable.ajax.reload(function (tableData) {
+    setInterval(() => {
+        sovCampaignTable.ajax.reload((tableData) => {
             elementTimerTotal.html('0');
             elementTimerUpcoming.html('0');
             elementTimerActive.html('0');
 
-            $.each(tableData, function (i, item) {
+            $.each(tableData, (i, item) => {
                 // Total timer
                 const currentTotal = elementTimerTotal.html();
                 const newTotal = parseInt(currentTotal) + 1;
+
                 elementTimerTotal.html(newTotal);
 
                 // Upcoming timer (< 4 hrs)
                 if (item.active_campaign === aaSovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
                     const currentUpcoming = elementTimerUpcoming.html();
                     const newUpcoming = parseInt(currentUpcoming) + 1;
+
                     elementTimerUpcoming.html(newUpcoming);
                 }
 
@@ -208,6 +213,7 @@ $(document).ready(function () {
                 if (item.active_campaign === aaSovtimerSettings.translations.yes) {
                     const currentActive = elementTimerActive.html();
                     const newActive = parseInt(currentActive) + 1;
+
                     elementTimerActive.html(newActive);
                 }
             });
@@ -217,7 +223,7 @@ $(document).ready(function () {
     /**
      * refresh remaining time every second
      */
-    setInterval(function () {
+    setInterval(() => {
         sovCampaignTable.rows().every(function () {
             const data = this.data();
 

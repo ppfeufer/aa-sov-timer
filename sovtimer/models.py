@@ -106,7 +106,7 @@ class Campaign(models.Model):
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
-    attackers_score = models.FloatField(default=0.6)
+    attackers_score = models.FloatField(default=0.4)
     defender_score = models.FloatField(default=0.6)
     event_type = models.CharField(max_length=12, choices=Type.choices)
     start_time = models.DateTimeField()
