@@ -39,11 +39,10 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/moment-js.html' with locale=True %}
+    {% include 'bundles/datatables-js.html' %}
     {% include 'bundles/filterdropdown-js.html' %}
 
-    <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/dataTables.rowGroup.min.js' %}"></script>
     <script type="application/javascript" src="{% static 'sovtimer/libs/datatables/plugins/datetime.min.js' %}"></script>
     <script type="application/javascript" src="{% sovtimer_static 'sovtimer/js/aa-sov-timer.min.js' %}"></script>
 {% endblock %}
