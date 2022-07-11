@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [In Development] - Unreleased
 
 
+## [1.6.0] - 2022-07-11
+
+### Changed
+
+- Use bundled version of AA provided JavaScripts
+- Minimum Requirement:
+  - Alliance Auth >= 2.14.0
+
+### Removed
+
+- Unused JavaScript
+
+
 ## [1.5.1] - 2022-05-25
 
 ### Added
