@@ -8,13 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [In Development] - Unreleased
 
+### Changed
+
+- No longer testing for AA alpha versions
+- Minimum requirements
+  - Alliance Auth >= 2.15.1
+  - Python >= 3.8
+
 
 ## [1.6.0] - 2022-07-11
 
 ### Changed
 
 - Use bundled version of AA provided JavaScripts
-- Minimum Requirement:
+- Minimum requirement
   - Alliance Auth >= 2.14.0
 
 ### Removed
