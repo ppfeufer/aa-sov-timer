@@ -22,6 +22,7 @@ unsupervised with all its breaking changes. (See [Alliance Auth 3.0.0 release no
 ### Changed
 
 - No longer testing for AA alpha versions
+- Moved CSS and JS to their own bundled templates
 - Minimum requirements
   - Alliance Auth >= 3.2.0
   - Python >= 3.8
