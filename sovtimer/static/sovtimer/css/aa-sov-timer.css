@@ -1,16 +1,17 @@
 @font-face {
-    font-family: 'Material Icons';
+    font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
-    src: local('Material Icons'),
-        local('MaterialIcons-Regular'),
-        url(../font/materialicons/v103/MaterialIcons-Regular.ttf) format('truetype'),
-        url(../font/materialicons/v103/MaterialIcons-Regular.woff2) format('woff2');
+    src:
+        local("Material Icons"),
+        local("MaterialIcons-Regular"),
+        url("../font/materialicons/v103/MaterialIcons-Regular.ttf") format("truetype"),
+        url("../font/materialicons/v103/MaterialIcons-Regular.woff2") format("woff2");
 }
 
 @media all {
     .material-icons {
-        font-family: 'Material Icons';
+        font-family: "Material Icons";
         font-weight: normal;
         font-style: normal;
         font-size: 24px;  /* Preferred icon size */
@@ -24,20 +25,21 @@
 
         /* Support for all WebKit browsers. */
         -webkit-font-smoothing: antialiased;
+
         /* Support for Safari and Chrome. */
-        text-rendering: optimizeLegibility;
+        text-rendering: optimizelegibility;
 
         /* Support for Firefox. */
         -moz-osx-font-smoothing: grayscale;
 
         /* Support for IE. */
-        font-feature-settings: 'liga';
+        font-feature-settings: "liga";
     }
 }
 
 @media all {
     .aa-sovtimer-timer-elapsed {
-        color: rgb(255, 0, 0);
+        color: rgb(255 0 0);
     }
 
     .aa-sov-timer-zkb-icon {
@@ -45,21 +47,21 @@
     }
 
     .aa-sovtimer-active-campaign {
-        border-right: 1px solid rgb(255, 0, 0);
-        border-left: 1px solid rgb(255, 0, 0);
+        border-right: 1px solid rgb(255 0 0);
+        border-left: 1px solid rgb(255 0 0);
     }
 
     .aa-sovtimer-active-campaign td {
-        background-color: rgba(255, 0, 0, 0.125);
+        background-color: rgb(255 0 0 / 12.5%);
     }
 
     .aa-sovtimer-upcoming-campaign {
-        border-right: 1px solid rgb(255, 165, 0);
-        border-left: 1px solid rgb(255, 165, 0);
+        border-right: 1px solid rgb(255 165 0);
+        border-left: 1px solid rgb(255 165 0);
     }
 
     .aa-sovtimer-upcoming-campaign td {
-        background-color: rgba(255, 165, 0, 0.125);
+        background-color: rgb(255 165 0 / 12.5%);
     }
 
     .aa-sovtimer-trend {
@@ -72,11 +74,11 @@
     }
 
     .aa-sovtimer-trend-up {
-        color: rgb(76, 175, 80);
+        color: rgb(76 175 80);
     }
 
     .aa-sovtimer-trend-down {
-        color: rgb(255, 0, 0);
+        color: rgb(255 0 0);
     }
 
     .aa-sovtimer-campaigns-progress-column {
