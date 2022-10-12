@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Alliance Auth >= 2.15.1
   - Python >= 3.8
 
+### Removed
+
+- Auto retry for ESI and OS errors in tasks, since django-esi already retries all
+  relevant errors
 
 ## [1.6.0] - 2022-07-11
 

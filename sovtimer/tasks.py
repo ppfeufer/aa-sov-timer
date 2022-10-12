@@ -1,9 +1,8 @@
 """
-the tasks
+The tasks
 """
 
 # Third Party
-from bravado.exception import HTTPBadGateway, HTTPGatewayTimeout, HTTPServiceUnavailable
 from celery import shared_task
 
 # Django
@@ -26,29 +25,16 @@ from sovtimer.models import Campaign, SovereigntyStructure
 logger = LoggerAddTag(get_extension_logger(__name__), __title__)
 
 DEFAULT_TASK_PRIORITY = 6
+
 ESI_ERROR_LIMIT = 50
 ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
 ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
+ESI_MAX_RETRIES = 3
+
+TASK_TIME_LIMIT = 600  # stop after 10 minutes
 
 # params for all tasks
-TASK_DEFAULT_KWARGS = {
-    "time_limit": 1200,  # stop after 20 minutes
-}
-
-# params for tasks that make ESI calls
-TASK_ESI_KWARGS = {
-    **TASK_DEFAULT_KWARGS,
-    **{
-        "autoretry_for": (
-            OSError,
-            HTTPBadGateway,
-            HTTPGatewayTimeout,
-            HTTPServiceUnavailable,
-        ),
-        "retry_kwargs": {"max_retries": 3},
-        "retry_backoff": True,
-    },
-}
+TASK_DEFAULT_KWARGS = {"time_limit": TASK_TIME_LIMIT, "max_retries": ESI_MAX_RETRIES}
 
 
 @shared_task(**TASK_DEFAULT_KWARGS)
@@ -69,7 +55,7 @@ def run_sov_campaign_updates() -> None:
     update_sov_campaigns.apply_async(priority=DEFAULT_TASK_PRIORITY)
 
 
-@shared_task(**{**TASK_ESI_KWARGS}, **{"base": QueueOnce})
+@shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
 def update_sov_campaigns() -> None:
     """
     update campaigns
@@ -136,7 +122,7 @@ def update_sov_campaigns() -> None:
             logger.info(f"{campaign_count} sovereignty campaigns updated from ESI.")
 
 
-@shared_task(**{**TASK_ESI_KWARGS}, **{"base": QueueOnce})
+@shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
 def update_sov_structures() -> None:
     """
     update structures
