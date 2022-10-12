@@ -8,17 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [In Development] - Unreleased
 
+
+## [1.7.0] - 2022-10-12
+
+### Update Information
+
+Before you update to this version, make sure you have at least Alliance Auth v3.0.0
+installed and running, otherwise, this update will pull in Alliance Auth 3.x
+unsupervised with all its breaking changes. (See [Alliance Auth 3.0.0 release notes])
+
+[Alliance Auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
+
 ### Changed
 
 - No longer testing for AA alpha versions
 - Minimum requirements
-  - Alliance Auth >= 2.15.1
+  - Alliance Auth >= 3.2.0
   - Python >= 3.8
 
 ### Removed
 
 - Auto retry for ESI and OS errors in tasks, since django-esi already retries all
   relevant errors
+
 
 ## [1.6.0] - 2022-07-11
 
