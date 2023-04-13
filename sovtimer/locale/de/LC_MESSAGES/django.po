@@ -1,70 +1,70 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# "H. Peter Pfeufer" <info@ppfeufer.de>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-04-12 09:23+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-04-13 10:41+0000\n"
+"Last-Translator: \"H. Peter Pfeufer\" <info@ppfeufer.de>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-sov-timer/de/>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16.4\n"
 
 #: models.py:103
 msgid "IHub Defense"
-msgstr ""
+msgstr "IHub Verteidigung"
 
 #: models.py:104
 msgid "TCU Defense"
-msgstr ""
+msgstr "TCU Verteidigung"
 
 #: templates/sovtimer/base.html:5
 msgid "Sovereignty Timer"
-msgstr ""
+msgstr "Souveränitäts Timer"
 
 #: templates/sovtimer/dashboard.html:6
 msgid "Sovereignty Timers"
-msgstr ""
+msgstr "Souveränitäts Timer"
 
 #: templates/sovtimer/dashboard.html:20
 #: templates/sovtimer/partials/dashboard/table.html:24
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: templates/sovtimer/dashboard.html:21
 #: templates/sovtimer/partials/dashboard/table.html:25
 msgid "Constellation"
-msgstr ""
+msgstr "Konstellation"
 
 #: templates/sovtimer/dashboard.html:22
 #: templates/sovtimer/partials/dashboard/table.html:26
 msgid "Region"
-msgstr ""
+msgstr "Region"
 
 #: templates/sovtimer/dashboard.html:23
 #: templates/sovtimer/partials/dashboard/table.html:27
 msgid "Owner / Defender"
-msgstr ""
+msgstr "Besitzer / Verteidiger"
 
 #: templates/sovtimer/dashboard.html:24
 msgid "Active Campaign"
-msgstr ""
+msgstr "Aktive Kampagne"
 
 #: templates/sovtimer/dashboard.html:25 views.py:161
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: templates/sovtimer/dashboard.html:26 views.py:159
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: templates/sovtimer/partials/dashboard/table.html:4
 msgid ""
@@ -72,51 +72,54 @@ msgid ""
 "Progress for any active campaigns will be shown as <i>Previous - Trend - "
 "Current</i>."
 msgstr ""
+"Die Souveränitätstimerliste wird automatisch alle 30 Sekunden aktualisiert. "
+"Der Fortschritt für alle aktiven Kampagnen wird als <i>Vorher – Trend – "
+"Aktuell</i> angezeigt."
 
 #: templates/sovtimer/partials/dashboard/table.html:9
 msgid "Sovereignty Campaign List"
-msgstr ""
+msgstr "Liste der Souveränitätskampagnen"
 
 #: templates/sovtimer/partials/dashboard/table.html:14
 msgid "Timers Total:"
-msgstr ""
+msgstr "Alle Timer:"
 
 #: templates/sovtimer/partials/dashboard/table.html:15
 msgid "Timers Upcoming (< 4hrs):"
-msgstr ""
+msgstr "Bevorstehende Timer (< 4 Stunden):"
 
 #: templates/sovtimer/partials/dashboard/table.html:16
 msgid "Timers Active:"
-msgstr ""
+msgstr "Aktive Timer:"
 
 #: templates/sovtimer/partials/dashboard/table.html:23
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: templates/sovtimer/partials/dashboard/table.html:28
 msgid "ADM"
-msgstr ""
+msgstr "ADM"
 
 #: templates/sovtimer/partials/dashboard/table.html:29
 msgid "Start"
-msgstr ""
+msgstr "Beginn"
 
 #: templates/sovtimer/partials/dashboard/table.html:30
 msgid "Remaining"
-msgstr ""
+msgstr "Verbleibend"
 
 #: templates/sovtimer/partials/dashboard/table.html:31
 msgid "Progress"
-msgstr ""
+msgstr "Fortschritt"
 
 #: views.py:163
 msgid "Neither side has made any progress yet"
-msgstr ""
+msgstr "Keine Seite hat bisher Fortschritte gemacht"
 
 #: views.py:171
 msgid "Defenders making progress"
-msgstr ""
+msgstr "Verteidiger machen Fortschritte"
 
 #: views.py:179
 msgid "Attackers making progress"
-msgstr ""
+msgstr "Angreifer machen Fortschritte"
