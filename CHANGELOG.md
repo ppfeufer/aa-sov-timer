@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [In Development] - Unreleased
 
 
+## [1.9.0] - 2023-04-13
+
+### Added
+
+- Russian translation
+
+
 ## [1.8.0] - 2023-04-13
 
 ### Added
@@ -164,7 +171,7 @@ And restart your supervisor.
 
 ### Changed
 
-- Better way on implementing the background colours for campaigns that are upcoming
+- Better way of implementing the background colours for campaigns that are upcoming
   or in progress
 - Material Icon font updated
 - Codebase cleaned up
