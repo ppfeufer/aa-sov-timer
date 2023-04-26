@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [In Development] - Unreleased
 
 
+## [1.10.0] - 2023-04-26
+
+### Added
+
+- Ukrainian translation prepared. Not translated yet, [need translators](https://github.com/ppfeufer/aa-sov-timer/blob/master/CONTRIBUTING.md#translation).
+
+### Changed
+
+- Moved the build process to PEP 621 / pyproject.toml
+
+
 ## [1.9.0] - 2023-04-16
 
 ### Added
