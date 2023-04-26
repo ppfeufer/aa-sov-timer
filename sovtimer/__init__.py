@@ -1,6 +1,11 @@
 """
-a couple of variables to use throughout the app
+App init
 """
 
-__version__ = "1.9.0"
+# Standard Library
+from importlib import metadata
+
+__version__ = metadata.version("aa-sov-timer")
 __title__ = "Sovereignty Timers"
+
+del metadata

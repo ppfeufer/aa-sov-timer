@@ -1,6 +1,53 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aa-sov-timer"
+version = "1.9.0"
+description = "Sov Campaign Timer for Alliance Auth"
+readme = "README.md"
+license = "GPL-3.0"
+requires-python = "~=3.8"
+authors = [
+    { name = "Peter Pfeufer", email = "develop@ppfeufer.de" },
 ]
-build-backend = "setuptools.build_meta"
+keywords = [
+    "allianceauth",
+    "eveonline",
+    "sovereignty_timer",
+    "timerboard",
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+]
+dependencies = [
+    "allianceauth-app-utils>=1.12.0",
+    "allianceauth>=3.2.0",
+    "django-eveuniverse>=0.14.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ppfeufer/aa-sov-timer"
+Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
+Source = "https://github.com/ppfeufer/aa-sov-timer.git"
+Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
+Tracker = "https://github.com/ppfeufer/aa-sov-timer/issues"
+
+[tool.hatch.build]
+include = [
+    "/sovtimer",
+]
