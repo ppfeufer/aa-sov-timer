@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [In Development] - Unreleased
 
 
+## [1.10.0] - 2023-04-26
+
+### Added
+
+- Ukrainian translation prepared. Not translated yet, [need translators](https://github.com/ppfeufer/aa-sov-timer/blob/master/CONTRIBUTING.md#translation).
+
+### Changed
+
+- Moved the build process to PEP 621 / pyproject.toml
+
+
 ## [1.9.0] - 2023-04-16
 
 ### Added
@@ -292,7 +303,7 @@ And restart your supervisor.
 ### Added
 
 - Filter for active campaigns
-- zKillboard icon with link to constellation killboard on active campaigns
+- zKillboard icon with a link to the constellation killboard on active campaigns
 
 
 ## [0.1.0] - 2020-11-10
