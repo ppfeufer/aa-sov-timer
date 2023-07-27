@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [In Development] - Unreleased
 
+### Added
+
+- Footer to promote help with the app translation
+
 
 ## [1.10.0] - 2023-04-26
 
