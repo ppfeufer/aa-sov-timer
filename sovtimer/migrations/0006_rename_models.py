@@ -5,7 +5,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("eveuniverse", "0005_type_materials_and_sections"),
         ("sovtimer", "0005_auto_20201114_0720"),
