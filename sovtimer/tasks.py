@@ -76,7 +76,11 @@ def update_sov_campaigns() -> None:
                     campaign_previous = Campaign.objects.get(
                         campaign_id=campaign["campaign_id"]
                     )
-
+                except Campaign.DoesNotExist:
+                    campaign_current__progress_previous = (
+                        campaign_current__defender_score
+                    )
+                else:
                     campaign_previous__progress_previous = (
                         campaign_previous.progress_previous
                     )
@@ -88,10 +92,6 @@ def update_sov_campaigns() -> None:
                         campaign_current__progress_previous = (
                             campaign_previous__progress_previous
                         )
-                except Campaign.DoesNotExist:
-                    campaign_current__progress_previous = (
-                        campaign_current__defender_score
-                    )
 
                 campaigns.append(
                     Campaign(
