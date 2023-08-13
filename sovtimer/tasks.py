@@ -67,8 +67,6 @@ def update_sov_campaigns() -> None:
         with transaction.atomic():
             campaigns = []
 
-            campaign_count = 0
-
             for campaign in campaigns_from_esi:
                 EveEntity.objects.get_or_create(id=campaign["defender_id"])
 
@@ -78,7 +76,11 @@ def update_sov_campaigns() -> None:
                     campaign_previous = Campaign.objects.get(
                         campaign_id=campaign["campaign_id"]
                     )
-
+                except Campaign.DoesNotExist:
+                    campaign_current__progress_previous = (
+                        campaign_current__defender_score
+                    )
+                else:
                     campaign_previous__progress_previous = (
                         campaign_previous.progress_previous
                     )
@@ -90,10 +92,6 @@ def update_sov_campaigns() -> None:
                         campaign_current__progress_previous = (
                             campaign_previous__progress_previous
                         )
-                except Campaign.DoesNotExist:
-                    campaign_current__progress_previous = (
-                        campaign_current__defender_score
-                    )
 
                 campaigns.append(
                     Campaign(
@@ -108,8 +106,6 @@ def update_sov_campaigns() -> None:
                     )
                 )
 
-                campaign_count += 1
-
             Campaign.objects.all().delete()
             Campaign.objects.bulk_create(
                 campaigns,
@@ -119,7 +115,7 @@ def update_sov_campaigns() -> None:
 
             EveEntity.objects.bulk_update_new_esi()
 
-            logger.info(f"{campaign_count} sovereignty campaigns updated from ESI.")
+            logger.info(f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
 @shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})

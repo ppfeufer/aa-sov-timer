@@ -84,7 +84,7 @@ $(document).ready(() => {
             },
             {
                 data: 'start_time',
-                render: (data, type, row) => {
+                render: (data) => {
                     return moment(data).utc().format(aaSovtimerSettings.dateformat);
                 }
             },
@@ -155,7 +155,7 @@ $(document).ready(() => {
             autoSize: false,
             bootstrap: true
         },
-        createdRow: (row, data, dataIndex) => {
+        createdRow: (row, data) => {
             // Total timer
             const currentTotal = elementTimerTotal.html();
             const newTotal = parseInt(currentTotal) + 1;
