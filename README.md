@@ -1,4 +1,4 @@
-# AA Sovereignty Timer
+# AA Sovereignty Timer<a name="aa-sovereignty-timer"></a>
 
 [![Version](https://img.shields.io/pypi/v/aa-sov-timer?label=release "Version")](https://pypi.org/project/aa-sov-timer/)
 [![License](https://img.shields.io/badge/license-GPLv3-green "License")](https://pypi.org/project/aa-sov-timer/)
@@ -10,43 +10,40 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant")](https://github.com/ppfeufer/aa-forum/blob/master/CODE_OF_CONDUCT.md)
 [![Discord](https://img.shields.io/discord/790364535294132234?label=discord "Discord")](https://discord.gg/zmh52wnfvM)
 
-
 Sovereignty campaign overview for Alliance Auth.
 
+______________________________________________________________________
 
----
+<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=1 -->
 
-<!-- TOC -->
-* [AA Sovereignty Timer](#aa-sovereignty-timer)
-  * [Screenshots](#screenshots)
-    * [AA Sov Timer Dashboard (Light Mode)](#aa-sov-timer-dashboard-light-mode)
-    * [AA Sov Timer Dashboard (Dark Mode)](#aa-sov-timer-dashboard-dark-mode)
-  * [Installation](#installation)
-    * [Step 1: Installing the App](#step-1-installing-the-app)
-    * [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
-    * [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-    * [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
-    * [Step 5: Setting up Permission](#step-5-setting-up-permission)
-    * [Step 6: Keep Campaigns Updated](#step-6-keep-campaigns-updated)
-  * [Updating](#updating)
-<!-- TOC -->
+- [AA Sovereignty Timer](#aa-sovereignty-timer)
+  - [Screenshots](#screenshots)
+    - [AA Sov Timer Dashboard (Light Mode)](#aa-sov-timer-dashboard-light-mode)
+    - [AA Sov Timer Dashboard (Dark Mode)](#aa-sov-timer-dashboard-dark-mode)
+  - [Installation](#installation)
+    - [Step 1: Installing the App](#step-1-installing-the-app)
+    - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
+    - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
+    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+    - [Step 5: Setting up Permission](#step-5-setting-up-permission)
+    - [Step 6: Keep Campaigns Updated](#step-6-keep-campaigns-updated)
+  - [Updating](#updating)
 
----
+<!-- mdformat-toc end -->
 
+______________________________________________________________________
 
-## Screenshots
+## Screenshots<a name="screenshots"></a>
 
-### AA Sov Timer Dashboard (Light Mode)
+### AA Sov Timer Dashboard (Light Mode)<a name="aa-sov-timer-dashboard-light-mode"></a>
 
 ![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
 
-
-### AA Sov Timer Dashboard (Dark Mode)
+### AA Sov Timer Dashboard (Dark Mode)<a name="aa-sov-timer-dashboard-dark-mode"></a>
 
 ![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
 
-
-## Installation
+## Installation<a name="installation"></a>
 
 **Important**: Please make sure you meet all preconditions before you proceed:
 
@@ -56,8 +53,7 @@ Sovereignty campaign overview for Alliance Auth.
 - AA Sovereignty Timer needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse)
   to function. Please make sure it is installed before continuing.
 
-
-### Step 1: Installing the App
+### Step 1: Installing the App<a name="step-1-installing-the-app"></a>
 
 Make sure you're in the virtual environment (venv) of your Alliance Auth installation.
 Then install the latest version:
@@ -66,8 +62,7 @@ Then install the latest version:
 pip install aa-sov-timer
 ```
 
-
-### Step 2: Update Your AA Settings
+### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
 
 Configure your AA settings (`local.py`) as follows:
 
@@ -76,8 +71,7 @@ Configure your AA settings (`local.py`) as follows:
 
 Restart your supervisor
 
-
-### Step 3: Finalizing the Installation
+### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
 
 Copy static files and run migrations
 
@@ -89,8 +83,7 @@ python manage.py collectstatic
 python manage.py migrate
 ```
 
-
-### Step 4: Preload Eve Universe Data
+### Step 4: Preload Eve Universe Data<a name="step-4-preload-eve-universe-data"></a>
 
 AA Sovereignty Timer uses Eve Universe data to map IDs to names for solar systems,
 regions and constellations. So you need to preload some data from ESI once.
@@ -106,15 +99,13 @@ python manage.py sovtimer_load_initial_data
 
 Both commands might take a moment or two, so be patient ...
 
-
-### Step 5: Setting up Permission
+### Step 5: Setting up Permission<a name="step-5-setting-up-permission"></a>
 
 Now you can set up permissions in Alliance Auth for your users.
-Add ``sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module`` to
+Add `sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module` to
 the states and/or groups you would like to have access.
 
-
-### Step 6: Keep Campaigns Updated
+### Step 6: Keep Campaigns Updated<a name="step-6-keep-campaigns-updated"></a>
 
 Add the following scheduled task to your `local.py`. One done, restart your supervisor.
 
@@ -128,8 +119,7 @@ CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
 
 Now your system is updating the sovereignty campaigns every 30 seconds.
 
-
-## Updating
+## Updating<a name="updating"></a>
 
 To update your existing installation of AA Sovereignty Timer, first enable your
 virtual environment.

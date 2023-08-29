@@ -1,9 +1,12 @@
+:root {
+    --icon-font-family: "Material Icons";
+}
+
 @font-face {
     font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
-    src:
-        local("Material Icons"),
+    src: local("Material Icons"),
         local("MaterialIcons-Regular"),
         url("../font/materialicons/v103/MaterialIcons-Regular.ttf") format("truetype"),
         url("../font/materialicons/v103/MaterialIcons-Regular.woff2") format("woff2");
@@ -11,29 +14,17 @@
 
 @media all {
     .material-icons {
-        font-family: "Material Icons";
-        font-weight: normal;
-        font-style: normal;
-        font-size: 24px;  /* Preferred icon size */
+        direction: ltr;
         display: inline-block;
+        font-family: var(--icon-font-family);
+        font-size: 24px; /* Preferred icon size */
+        font-style: normal;
+        font-weight: normal;
+        letter-spacing: normal;
         line-height: 1;
         text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
         white-space: nowrap;
-        direction: ltr;
-
-        /* Support for all WebKit browsers. */
-        -webkit-font-smoothing: antialiased;
-
-        /* Support for Safari and Chrome. */
-        text-rendering: optimizelegibility;
-
-        /* Support for Firefox. */
-        -moz-osx-font-smoothing: grayscale;
-
-        /* Support for IE. */
-        font-feature-settings: "liga";
+        word-wrap: normal;
     }
 }
 
@@ -47,8 +38,8 @@
     }
 
     .aa-sovtimer-active-campaign {
-        border-right: 1px solid rgb(255 0 0);
         border-left: 1px solid rgb(255 0 0);
+        border-right: 1px solid rgb(255 0 0);
     }
 
     .aa-sovtimer-active-campaign td {
@@ -56,8 +47,8 @@
     }
 
     .aa-sovtimer-upcoming-campaign {
-        border-right: 1px solid rgb(255 165 0);
         border-left: 1px solid rgb(255 165 0);
+        border-right: 1px solid rgb(255 165 0);
     }
 
     .aa-sovtimer-upcoming-campaign td {
@@ -65,12 +56,12 @@
     }
 
     .aa-sovtimer-trend {
-        display: inline-block;
         cursor: default;
-        position: relative;
-        top: 0.75rem;
+        display: inline-block;
         left: 0.5rem;
         margin-right: 1rem;
+        position: relative;
+        top: 0.75rem;
     }
 
     .aa-sovtimer-trend-up {
@@ -113,8 +104,8 @@
     }
 
     .dataTables_wrapper > .form-inline select {
-        margin-right: 1rem;
         margin-bottom: 1rem;
+        margin-right: 1rem;
     }
 
     .dataTables_wrapper > .form-inline select:last-child {
