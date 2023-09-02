@@ -7,7 +7,7 @@
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg "Code Style: black")](http://black.readthedocs.io/en/latest/)
 [![Automated Checks](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml/badge.svg "Automated Checks")](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml)
 [![codecov](https://codecov.io/gh/ppfeufer/aa-sov-timer/branch/master/graph/badge.svg?token=J9PBF0HM8C "codecov")](https://codecov.io/gh/ppfeufer/aa-sov-timer)
-[![Translation status](https://weblate.ppfeufer.de/widgets/alliance-auth-apps/-/aa-sov-timer/svg-badge.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
+[![Translation status](https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-sov-timer/svg-badge.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg "Contributor Covenant")](https://github.com/ppfeufer/aa-forum/blob/master/CODE_OF_CONDUCT.md)
 [![Discord](https://img.shields.io/discord/790364535294132234?label=discord "Discord")](https://discord.gg/zmh52wnfvM)
 
@@ -151,16 +151,16 @@ See [CHANGELOG.md]
 
 ## Translation Status<a name="translation-status"></a>
 
-[![Translation status](https://weblate.ppfeufer.de/widgets/alliance-auth-apps/-/aa-sov-timer/multi-auto.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
+[![Translation status](https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-sov-timer/multi-auto.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
 
-If you want to help to translate this app or improve existing translations, join
-our team of translators over on [Weblate][weblate engage]!
+Do you want to help translate this app into your language or improve the existing
+translation? - [Join our team of translators][weblate engage]!
 
 ## Contributing<a name="contributing"></a>
 
 Do you want to contribute to this project? That's cool!
 
-Please make sure to read the [Contribution Guidelines]\
+Please make sure to read the [Contribution Guidelines].\
 (I promise, it's not much, just some basics)
 
 <!-- Links -->
