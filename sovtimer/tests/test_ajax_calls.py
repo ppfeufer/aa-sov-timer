@@ -2,6 +2,9 @@
 Test ajax calls
 """
 
+# Standard Library
+from http import HTTPStatus
+
 # Django
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
@@ -19,6 +22,10 @@ from sovtimer.views import dashboard_data
 
 
 class TestAjaxCalls(TestCase):
+    """
+    Test the ajax calls
+    """
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -35,44 +42,48 @@ class TestAjaxCalls(TestCase):
         cls.character_1101 = EveCharacter.objects.get(character_id=1101)
 
         cls.user_with_basic_access, _ = create_user_from_evecharacter(
-            cls.character_1001.character_id,
+            character_id=cls.character_1001.character_id,
             permissions=["sovtimer.basic_access"],
         )
 
-        add_character_to_user(cls.user_with_basic_access, cls.character_1101)
-
-        cls.user_without_access, _ = create_user_from_evecharacter(
-            cls.character_1002.character_id
+        add_character_to_user(
+            user=cls.user_with_basic_access, character=cls.character_1101
         )
 
-        add_character_to_user(cls.user_without_access, cls.character_1003)
+        cls.user_without_access, _ = create_user_from_evecharacter(
+            character_id=cls.character_1002.character_id
+        )
+
+        add_character_to_user(
+            user=cls.user_without_access, character=cls.character_1003
+        )
 
     def test_ajax_dashboard_data_no_campaigns(self):
         # given
-        self.client.force_login(self.user_with_basic_access)
-        request = self.factory.get(reverse("sovtimer:dashboard"))
+        self.client.force_login(user=self.user_with_basic_access)
+        request = self.factory.get(path=reverse(viewname="sovtimer:dashboard"))
         request.user = self.user_with_basic_access
 
         # when
         result = dashboard_data(request=request)
 
         # then
-        self.assertEqual(result.status_code, 200)
-        self.assertJSONEqual(result.content, [])
+        self.assertEqual(first=result.status_code, second=HTTPStatus.OK)
+        self.assertJSONEqual(raw=result.content, expected_data=[])
 
     def test_ajax_dashboard_data_with_campaigns(self):
         self.maxDiff = None
         # given
         load_sovtimer()
-        self.client.force_login(self.user_with_basic_access)
-        request = self.factory.get(reverse("sovtimer:dashboard"))
+        self.client.force_login(user=self.user_with_basic_access)
+        request = self.factory.get(path=reverse(viewname="sovtimer:dashboard"))
         request.user = self.user_with_basic_access
 
         # when
         result = dashboard_data(request=request)
 
         # then
-        self.assertEqual(result.status_code, 200)
+        self.assertEqual(first=result.status_code, second=HTTPStatus.OK)
         # self.assertJSONEqual(
         #     result.content,
         #     [

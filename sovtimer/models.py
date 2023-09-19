@@ -17,7 +17,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 from sovtimer import __title__
 from sovtimer.providers import esi
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 
 class AaSovtimer(models.Model):
@@ -75,9 +75,10 @@ class SovereigntyStructure(models.Model):
         default_permissions = ()
 
     @classmethod
-    def sov_structures_from_esi(cls):
+    def get_sov_structures_from_esi(cls):
         """
-        get all sov structures from ESI
+        Get all sov structures from ESI
+
         :return:
         """
 
@@ -87,7 +88,10 @@ class SovereigntyStructure(models.Model):
             )
         except OSError as ex:
             logger.info(
-                f"Something went wrong while trying to fetch sov structures from ESI: {ex}"
+                msg=(
+                    "Something went wrong while trying to fetch sov "
+                    f"structures from ESI: {ex}"
+                )
             )
             sovereignty_structures_esi = None
 
@@ -96,7 +100,7 @@ class SovereigntyStructure(models.Model):
 
 class Campaign(models.Model):
     """
-    sov campaigns
+    Sov campaigns
     """
 
     class Type(models.TextChoices):
@@ -128,7 +132,7 @@ class Campaign(models.Model):
 
     class Meta:
         """
-        meta definitions
+        Meta definitions
         """
 
         verbose_name = _("Sovereignty Campaign")
@@ -136,9 +140,10 @@ class Campaign(models.Model):
         default_permissions = ()
 
     @classmethod
-    def sov_campaigns_from_esi(cls):
+    def get_sov_campaigns_from_esi(cls):
         """
-        get all sov campaigns from ESI
+        Get all sov campaigns from ESI
+
         :return:
         """
 
@@ -148,7 +153,10 @@ class Campaign(models.Model):
             )
         except OSError as ex:
             logger.info(
-                f"Something went wrong while trying to fetch sov campaigns from ESI: {ex}"
+                msg=(
+                    "Something went wrong while trying to fetch sov "
+                    f"campaigns from ESI: {ex}"
+                )
             )
             sovereignty_campaigns_esi = None
 

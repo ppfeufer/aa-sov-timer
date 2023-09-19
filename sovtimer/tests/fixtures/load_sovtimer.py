@@ -14,8 +14,8 @@ from sovtimer.models import Campaign, SovereigntyStructure
 
 
 def _load_sovtimer_data():
-    with open(Path(__file__).parent / "sovtimer.json", encoding="utf-8") as fp:
-        return json.load(fp)
+    with open(file=Path(__file__).parent / "sovtimer.json", encoding="utf-8") as fp:
+        return json.load(fp=fp)
 
 
 _entities_data = _load_sovtimer_data()
