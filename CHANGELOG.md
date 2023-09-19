@@ -223,7 +223,7 @@ And restart your supervisor.
 ### Added
 
 - Numbers for total, upcoming (\< 4 hrs) and active timers to the table head
-  ![image](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/changelog/0.6.0/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
+  ![image](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/changelog/0.6.0/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
 
 ## \[0.5.8\] - 2021-07-08
 

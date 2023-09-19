@@ -41,11 +41,11 @@ ______________________________________________________________________
 
 ### AA Sov Timer Dashboard (Light Mode)<a name="aa-sov-timer-dashboard-light-mode"></a>
 
-![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
+![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
 
 ### AA Sov Timer Dashboard (Dark Mode)<a name="aa-sov-timer-dashboard-dark-mode"></a>
 
-![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
+![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
 
 ## Installation<a name="installation"></a>
 
