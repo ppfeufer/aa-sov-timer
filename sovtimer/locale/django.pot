@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 18:53+0200\n"
+"POT-Creation-Date: 2023-09-19 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,64 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:103
-msgid "IHub Defense"
-msgstr ""
-
-#: models.py:104
-msgid "TCU Defense"
-msgstr ""
-
-#: templates/sovtimer/base.html:5
-msgid "Sovereignty Timer"
-msgstr ""
-
-#: templates/sovtimer/dashboard.html:6
+#: __init__.py:12 templates/sovtimer/dashboard.html:6
 msgid "Sovereignty Timers"
 msgstr ""
 
+#: apps.py:20
+#, python-brace-format
+msgid "Sovereignty Timer v{__version__}"
+msgstr ""
+
+#: models.py:33 templates/sovtimer/base.html:5
+msgid "Sovereignty Timer"
+msgstr ""
+
+#: models.py:36
+msgid "Can access the Sovereignty Timer module"
+msgstr ""
+
+#: models.py:73
+msgid "Sovereignty Structure"
+msgstr ""
+
+#: models.py:74
+msgid "Sovereignty Structures"
+msgstr ""
+
+#: models.py:111
+msgid "IHub Defense"
+msgstr ""
+
+#: models.py:112
+msgid "TCU Defense"
+msgstr ""
+
+#: models.py:138
+msgid "Sovereignty Campaign"
+msgstr ""
+
+#: models.py:139
+msgid "Sovereignty Campaigns"
+msgstr ""
+
 #: templates/sovtimer/dashboard.html:20
-#: templates/sovtimer/partials/dashboard/table.html:24
+#: templates/sovtimer/partials/dashboard/table.html:25
 msgid "System"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:21
-#: templates/sovtimer/partials/dashboard/table.html:25
+#: templates/sovtimer/partials/dashboard/table.html:26
 msgid "Constellation"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:22
-#: templates/sovtimer/partials/dashboard/table.html:26
+#: templates/sovtimer/partials/dashboard/table.html:27
 msgid "Region"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:23
-#: templates/sovtimer/partials/dashboard/table.html:27
+#: templates/sovtimer/partials/dashboard/table.html:28
 msgid "Owner / Defender"
 msgstr ""
 
@@ -88,23 +113,23 @@ msgstr ""
 msgid "Timers Active:"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:23
+#: templates/sovtimer/partials/dashboard/table.html:24
 msgid "Type"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:28
+#: templates/sovtimer/partials/dashboard/table.html:29
 msgid "ADM"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:29
+#: templates/sovtimer/partials/dashboard/table.html:30
 msgid "Start"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:30
+#: templates/sovtimer/partials/dashboard/table.html:31
 msgid "Remaining"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:31
+#: templates/sovtimer/partials/dashboard/table.html:32
 msgid "Progress"
 msgstr ""
 
