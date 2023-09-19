@@ -1,5 +1,5 @@
 """
-loading initial data into sovtimer tables
+Loading initial data into sovtimer tables
 """
 
 # pylint: disable=duplicate-code
@@ -21,7 +21,7 @@ ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 
 def get_input(text):
     """
-    wrapped input to enable tz import
+    Wrapped input to enable TZ import
     """
 
     return input(text)
@@ -108,7 +108,7 @@ class Command(BaseCommand):
                     msg=f"{structure_count} sovereignty structures imported from ESI."
                 )
 
-        # import sov campaigns
+        # Import sov campaigns
         campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
         if campaigns_from_esi:
             with transaction.atomic():

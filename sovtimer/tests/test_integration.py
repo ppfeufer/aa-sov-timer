@@ -13,8 +13,19 @@ from sovtimer.tests.utils import create_fake_user
 
 
 class TestSovtimerUI(WebTest):
+    """
+    Test Sovtimer UI
+    """
+
     @classmethod
     def setUpClass(cls):
+        """
+        Setup
+
+        :return:
+        :rtype:
+        """
+
         super().setUpClass()
 
         cls.user_1001 = create_fake_user(

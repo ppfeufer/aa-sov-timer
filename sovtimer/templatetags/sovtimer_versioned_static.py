@@ -14,6 +14,7 @@ from sovtimer import __version__
 def sovtimer_static(path: str) -> str:
     """
     Versioned static URL
+
     :param path:
     :type path:
     :return:

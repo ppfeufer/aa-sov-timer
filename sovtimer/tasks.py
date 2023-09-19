@@ -31,16 +31,16 @@ ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
 ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
 ESI_MAX_RETRIES = 3
 
-TASK_TIME_LIMIT = 600  # stop after 10 minutes
+TASK_TIME_LIMIT = 600  # Stop after 10 minutes
 
-# params for all tasks
+# Params for all tasks
 TASK_DEFAULT_KWARGS = {"time_limit": TASK_TIME_LIMIT, "max_retries": ESI_MAX_RETRIES}
 
 
 @shared_task(**TASK_DEFAULT_KWARGS)
 def run_sov_campaign_updates() -> None:
     """
-    update all sov campaigns
+    Update all sov campaigns
     """
 
     if not is_esi_online():
@@ -58,7 +58,7 @@ def run_sov_campaign_updates() -> None:
 @shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
 def update_sov_campaigns() -> None:
     """
-    update campaigns
+    Update sov campaigns
     """
 
     campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
@@ -121,7 +121,7 @@ def update_sov_campaigns() -> None:
 @shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
 def update_sov_structures() -> None:
     """
-    update structures
+    Update sov structures
     """
 
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:

@@ -1,5 +1,5 @@
 """
-Generate Sov Timer test objects from sovtimers.json.
+Generate sov timer test objects from sovtimers.json.
 """
 
 # Standard Library
@@ -14,6 +14,13 @@ from sovtimer.models import Campaign, SovereigntyStructure
 
 
 def _load_sovtimer_data():
+    """
+    Load sov timer data
+
+    :return:
+    :rtype:
+    """
+
     with open(file=Path(__file__).parent / "sovtimer.json", encoding="utf-8") as fp:
         return json.load(fp=fp)
 
@@ -23,7 +30,7 @@ _entities_data = _load_sovtimer_data()
 
 def load_sovtimer():
     """
-    Load sovtimers test objects.
+    Load sov timers test objects.
     """
 
     EveSolarSystem.objects.all().delete()

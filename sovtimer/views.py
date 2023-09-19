@@ -72,7 +72,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
     if sovereignty_campaigns:
         for campaign in sovereignty_campaigns:
-            # defender name
+            # Defender name
             defender_name = campaign.structure.alliance.name
             defender_url = dotlan_alliance_url(eve_obj=campaign.structure.alliance)
             defender_logo_url = alliance_logo_url(
@@ -85,7 +85,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 f'alt="{defender_name}">{defender_name}</a>'
             )
 
-            # solar system
+            # Solar system
             solar_system_name = campaign.structure.solar_system.name
             region_url = dotlan_region_url(
                 eve_obj=campaign.structure.solar_system.eve_constellation.eve_region
@@ -97,14 +97,14 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 f'rel="noopener noreferer">{campaign_system_name}</a>'
             )
 
-            # constellation
+            # Constellation
             constellation_name = campaign.structure.solar_system.eve_constellation.name
             constellation_name_html = (
                 f'<a href="//evemaps.dotlan.net/search?q={constellation_name}" '
                 f'target="_blank" rel="noopener noreferer">{constellation_name}</a>'
             )
 
-            # region
+            # Region
             region_name = (
                 campaign.structure.solar_system.eve_constellation.eve_region.name
             )
@@ -116,7 +116,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 f'rel="noopener noreferer">{region_name}</a>'
             )
 
-            # activity defense multiplier
+            # Activity defense multiplier
             structure_adm = 1
             for structure in sovereignty_structures:
                 if (
@@ -124,15 +124,15 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 ) and structure.vulnerability_occupancy_level:
                     structure_adm = structure.vulnerability_occupancy_level
 
-            # start time
+            # Start time
             start_time = campaign.start_time
 
-            # remaining time field
+            # Remaining time field
             remaining_time_in_seconds = dt.timedelta(
                 seconds=(start_time.timestamp() - dt.datetime.now().timestamp())
             ).total_seconds()
 
-            # campaign progress field
+            # Campaign progress field
             campaign_progress_previous = campaign.progress_previous
             campaign_progress_previous_percentage = campaign_progress_previous * 100
             campaign_progress_previous_percentage_formatted = (
@@ -200,30 +200,30 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
             data.append(
                 {
-                    # event type column
+                    # Event type column
                     "event_type": Campaign.Type(campaign.event_type).label,
-                    # system column + filter
+                    # System column + filter
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
-                    # constellazion column + filter
+                    # Constellazion column + filter
                     "constellation_name": constellation_name,
                     "constellation_name_html": constellation_name_html,
-                    # region column + filter
+                    # Region column + filter
                     "region_name": region_name,
                     "region_name_html": region_name_html,
-                    # defender column + filter
+                    # Defender column + filter
                     "defender_name": defender_name,
                     "defender_name_html": defender_name_html,
-                    # adm column
+                    # ADM column
                     "adm": structure_adm,
-                    # start column
+                    # Start column
                     "start_time": start_time,
-                    # remaining column
+                    # Remaining column
                     "remaining_time": "",
                     "remaining_time_in_seconds": remaining_time_in_seconds,
-                    # progress column
+                    # Progress column
                     "campaign_progress": campaign_progress_html,
-                    # acive filter column (hidden)
+                    # Active filter column (hidden)
                     "active_campaign": active_campaign,
                 }
             )

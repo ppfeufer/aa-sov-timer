@@ -28,6 +28,13 @@ class TestAjaxCalls(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """
+        Setup
+
+        :return:
+        :rtype:
+        """
+
         super().setUpClass()
         load_allianceauth()
 
