@@ -2,6 +2,8 @@
 loading initial data into sovtimer tables
 """
 
+# pylint: disable=duplicate-code
+
 # Django
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
@@ -26,18 +28,24 @@ def get_input(text):
 
 
 class Command(BaseCommand):
+    """
+    Imports initial sov campaign data
+    """
+
     help = "Imports initial data"
 
-    def _import_sov_data(self) -> None:
+    def _import_sov_data(self) -> None:  # pylint: disable=too-many-locals
         """
-        import sovereignty data
+        Import sovereignty data
+
         :return:
         """
 
         if not is_esi_online():
             self.stdout.write(
-                "ESI is currently offline. Can not start ESI related tasks. Aborting"
+                msg="ESI is currently offline. Can not start ESI related tasks. Aborting"
             )
+
             return
 
         # Import sov structures
@@ -166,9 +174,10 @@ class Command(BaseCommand):
                     f"{campaign_count} sovereignty campaigns imported from ESI."
                 )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
-        ask before running ...
+        Ask before running ...
+
         :param args:
         :param options:
         """

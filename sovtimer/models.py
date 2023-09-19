@@ -26,22 +26,26 @@ class AaSovtimer(models.Model):
     """
 
     class Meta:
-        verbose_name = "Sovereignty Timer"
+        """
+        Meta definitions
+        """
+
+        verbose_name = _("Sovereignty Timer")
         managed = False
         default_permissions = ()
-        permissions = (("basic_access", "Can access the Sovereignty Timer module"),)
+        permissions = (("basic_access", _("Can access the Sovereignty Timer module")),)
 
 
 class SovereigntyStructure(models.Model):
     """
-    sov structures
+    Sov structures
     """
 
     structure_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
     alliance = models.ForeignKey(
-        EveEntity,
+        to=EveEntity,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -49,7 +53,7 @@ class SovereigntyStructure(models.Model):
         related_name="sov_structure_alliance",
     )
     solar_system = models.ForeignKey(
-        EveSolarSystem,
+        to=EveSolarSystem,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -63,11 +67,11 @@ class SovereigntyStructure(models.Model):
 
     class Meta:
         """
-        meta definitions
+        Meta definitions
         """
 
-        verbose_name = "Sovereignty Structure"
-        verbose_name_plural = "Sovereignty Structures"
+        verbose_name = _("Sovereignty Structure")
+        verbose_name_plural = _("Sovereignty Structures")
         default_permissions = ()
 
     @classmethod
@@ -111,7 +115,7 @@ class Campaign(models.Model):
     event_type = models.CharField(max_length=12, choices=Type.choices)
     start_time = models.DateTimeField()
     structure = models.OneToOneField(
-        SovereigntyStructure,
+        to=SovereigntyStructure,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -127,8 +131,8 @@ class Campaign(models.Model):
         meta definitions
         """
 
-        verbose_name = "Sovereignty Campaign"
-        verbose_name_plural = "Sovereignty Campaigns"
+        verbose_name = _("Sovereignty Campaign")
+        verbose_name_plural = _("Sovereignty Campaigns")
         default_permissions = ()
 
     @classmethod

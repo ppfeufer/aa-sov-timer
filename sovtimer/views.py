@@ -44,7 +44,9 @@ def dashboard(request: WSGIRequest) -> HttpResponse:
     return render(request, "sovtimer/dashboard.html", context)
 
 
-def dashboard_data(request: WSGIRequest) -> JsonResponse:
+def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
+    request: WSGIRequest,  # pylint: disable=unused-argument
+) -> JsonResponse:
     """
     ajax call
     get dashboard data
