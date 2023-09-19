@@ -20,7 +20,7 @@ def sovtimer_static(path: str) -> str:
     :rtype:
     """
 
-    static_url = static(path)
+    static_url = static(path=path)
     versioned_url = static_url + "?v=" + __version__
 
     return versioned_url

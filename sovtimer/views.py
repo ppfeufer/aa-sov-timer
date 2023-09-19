@@ -27,27 +27,27 @@ from app_utils.logging import LoggerAddTag
 from sovtimer import __title__
 from sovtimer.models import Campaign, SovereigntyStructure
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 
 @login_required
-@permission_required("sovtimer.basic_access")
+@permission_required(perm="sovtimer.basic_access")
 def dashboard(request: WSGIRequest) -> HttpResponse:
     """
     Index view
     """
 
-    logger.info("Module called by %s", request.user)
+    logger.info(msg=f"Module called by {request.user}")
 
-    context = {}
-
-    return render(request, "sovtimer/dashboard.html", context)
+    return render(request=request, template_name="sovtimer/dashboard.html")
 
 
-def dashboard_data(request: WSGIRequest) -> JsonResponse:
+def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
+    request: WSGIRequest,  # pylint: disable=unused-argument
+) -> JsonResponse:
     """
-    ajax call
-    get dashboard data
+    Ajax call => Get dashboard data
+
     :param request:
     :return:
     """
@@ -74,7 +74,7 @@ def dashboard_data(request: WSGIRequest) -> JsonResponse:
         for campaign in sovereignty_campaigns:
             # defender name
             defender_name = campaign.structure.alliance.name
-            defender_url = dotlan_alliance_url(campaign.structure.alliance)
+            defender_url = dotlan_alliance_url(eve_obj=campaign.structure.alliance)
             defender_logo_url = alliance_logo_url(
                 alliance_id=campaign.structure.alliance.id, size=32
             )
@@ -88,7 +88,7 @@ def dashboard_data(request: WSGIRequest) -> JsonResponse:
             # solar system
             solar_system_name = campaign.structure.solar_system.name
             region_url = dotlan_region_url(
-                campaign.structure.solar_system.eve_constellation.eve_region
+                eve_obj=campaign.structure.solar_system.eve_constellation.eve_region
             )
             campaign_system_name = campaign.structure.solar_system.name
             solar_system_url = f"{region_url}/{campaign_system_name}"
@@ -228,4 +228,4 @@ def dashboard_data(request: WSGIRequest) -> JsonResponse:
                 }
             )
 
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data=data, safe=False)

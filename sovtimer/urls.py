@@ -1,5 +1,5 @@
 """
-pages url config
+App's URL config
 """
 
 # Django
@@ -11,7 +11,7 @@ from sovtimer import views
 app_name: str = "sovtimer"
 
 urlpatterns = [
-    path("", views.dashboard, name="dashboard"),
-    # ajax call
-    path("dashboard_data/", views.dashboard_data, name="dashboard_data"),
+    path(route="", view=views.dashboard, name="dashboard"),
+    # Ajax call
+    path(route="dashboard_data/", view=views.dashboard_data, name="dashboard_data"),
 ]

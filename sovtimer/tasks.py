@@ -22,7 +22,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 from sovtimer import __title__
 from sovtimer.models import Campaign, SovereigntyStructure
 
-logger = LoggerAddTag(get_extension_logger(__name__), __title__)
+logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 DEFAULT_TASK_PRIORITY = 6
 
@@ -45,11 +45,11 @@ def run_sov_campaign_updates() -> None:
 
     if not is_esi_online():
         logger.info(
-            "ESI is currently offline. Can not start ESI related tasks. Aborting"
+            msg="ESI is currently offline. Can not start ESI related tasks. Aborting"
         )
         return
 
-    logger.info("Updating sovereignty structures and campaigns from ESI.")
+    logger.info(msg="Updating sovereignty structures and campaigns from ESI.")
 
     update_sov_structures.apply_async(priority=DEFAULT_TASK_PRIORITY)
     update_sov_campaigns.apply_async(priority=DEFAULT_TASK_PRIORITY)
@@ -61,7 +61,7 @@ def update_sov_campaigns() -> None:
     update campaigns
     """
 
-    campaigns_from_esi = Campaign.sov_campaigns_from_esi()
+    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
 
     if campaigns_from_esi:
         with transaction.atomic():
@@ -108,14 +108,14 @@ def update_sov_campaigns() -> None:
 
             Campaign.objects.all().delete()
             Campaign.objects.bulk_create(
-                campaigns,
+                objs=campaigns,
                 batch_size=500,
                 ignore_conflicts=True,
             )
 
             EveEntity.objects.bulk_update_new_esi()
 
-            logger.info(f"{len(campaigns)} sovereignty campaigns updated from ESI.")
+            logger.info(msg=f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
 @shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
@@ -125,8 +125,8 @@ def update_sov_structures() -> None:
     """
 
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:
-        logger.debug("UPDATING SOV STRUCTURES")
-        structures_from_esi = SovereigntyStructure.sov_structures_from_esi()
+        logger.debug(msg="UPDATING SOV STRUCTURES")
+        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
 
         if structures_from_esi:
             with transaction.atomic():
@@ -175,7 +175,7 @@ def update_sov_structures() -> None:
                     structure_count += 1
 
                 SovereigntyStructure.objects.bulk_create(
-                    sov_structures,
+                    objs=sov_structures,
                     batch_size=500,
                     ignore_conflicts=True,
                 )
@@ -186,5 +186,5 @@ def update_sov_structures() -> None:
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
                 logger.info(
-                    f"{structure_count} sovereignty structures updated from ESI."
+                    msg=f"{structure_count} sovereignty structures updated from ESI."
                 )

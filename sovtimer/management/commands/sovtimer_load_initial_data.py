@@ -2,6 +2,8 @@
 loading initial data into sovtimer tables
 """
 
+# pylint: disable=duplicate-code
+
 # Django
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
@@ -26,22 +28,28 @@ def get_input(text):
 
 
 class Command(BaseCommand):
+    """
+    Imports initial sov campaign data
+    """
+
     help = "Imports initial data"
 
-    def _import_sov_data(self) -> None:
+    def _import_sov_data(self) -> None:  # pylint: disable=too-many-locals
         """
-        import sovereignty data
+        Import sovereignty data
+
         :return:
         """
 
         if not is_esi_online():
             self.stdout.write(
-                "ESI is currently offline. Can not start ESI related tasks. Aborting"
+                msg="ESI is currently offline. Can not start ESI related tasks. Aborting"
             )
+
             return
 
         # Import sov structures
-        structures_from_esi = SovereigntyStructure.sov_structures_from_esi()
+        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
         if structures_from_esi:
             with transaction.atomic():
                 SovereigntyStructure.objects.all().delete()
@@ -87,7 +95,7 @@ class Command(BaseCommand):
                     structure_count += 1
 
                 SovereigntyStructure.objects.bulk_create(
-                    sov_structures,
+                    objs=sov_structures,
                     batch_size=500,
                     ignore_conflicts=True,
                 )
@@ -97,11 +105,11 @@ class Command(BaseCommand):
                 cache.set(ESI_SOV_STRUCTURES_CACHE_KEY, True, 120)
 
                 self.stdout.write(
-                    f"{structure_count} sovereignty structures imported from ESI."
+                    msg=f"{structure_count} sovereignty structures imported from ESI."
                 )
 
         # import sov campaigns
-        campaigns_from_esi = Campaign.sov_campaigns_from_esi()
+        campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
         if campaigns_from_esi:
             with transaction.atomic():
                 campaigns = []
@@ -155,7 +163,7 @@ class Command(BaseCommand):
 
                 Campaign.objects.all().delete()
                 Campaign.objects.bulk_create(
-                    campaigns,
+                    objs=campaigns,
                     batch_size=500,
                     ignore_conflicts=True,
                 )
@@ -163,27 +171,30 @@ class Command(BaseCommand):
                 EveEntity.objects.bulk_update_new_esi()
 
                 self.stdout.write(
-                    f"{campaign_count} sovereignty campaigns imported from ESI."
+                    msg=f"{campaign_count} sovereignty campaigns imported from ESI."
                 )
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
-        ask before running ...
+        Ask before running ...
+
         :param args:
         :param options:
         """
 
         self.stdout.write(
-            "This will start the initial import for SOV campaigns and structures. "
-            "It's quite a bit to import, so this might take a moment or two. "
-            "Please be patient ..."
+            msg=(
+                "This will start the initial import for SOV campaigns and structures. "
+                "It's quite a bit to import, so this might take a moment or two. "
+                "Please be patient ..."
+            )
         )
 
-        user_input = get_input("Are you sure you want to proceed? (yes/no)?")
+        user_input = get_input(text="Are you sure you want to proceed? (yes/no)?")
 
         if user_input == "yes":
-            self.stdout.write("Starting import. Please stand by.")
+            self.stdout.write(msg="Starting import. Please stand by.")
             self._import_sov_data()
-            self.stdout.write(self.style.SUCCESS("Import complete!"))
+            self.stdout.write(msg=self.style.SUCCESS("Import complete!"))
         else:
-            self.stdout.write(self.style.WARNING("Aborted."))
+            self.stdout.write(msg=self.style.WARNING("Aborted."))

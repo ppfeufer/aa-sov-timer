@@ -15,8 +15,8 @@ from allianceauth.eveonline.models import (
 
 
 def _load_allianceauth_data():
-    with open(Path(__file__).parent / "allianceauth.json", encoding="utf-8") as fp:
-        return json.load(fp)
+    with open(file=Path(__file__).parent / "allianceauth.json", encoding="utf-8") as fp:
+        return json.load(fp=fp)
 
 
 _entities_data = _load_allianceauth_data()
