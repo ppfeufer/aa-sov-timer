@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Pylint issues
+- Missing `<tr>` tag
 
 ### Changed
 
