@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## \[In Development\] - Unreleased
 
+## \[1.12.2\] - 2023-09-20
+
 ### Fixed
 
 - Pylint issues
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Use keyword arguments wherever possible
+- German translation improved
 
 ## \[1.12.1\] - 2023-09-02
 
