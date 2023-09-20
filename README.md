@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/badge/license-GPLv3-green "License")](https://pypi.org/project/aa-sov-timer/)
 [![Python](https://img.shields.io/pypi/pyversions/aa-sov-timer "Python")](https://pypi.org/project/aa-sov-timer/)
 [![Django](https://img.shields.io/pypi/djversions/aa-sov-timer?label=django "Django")](https://pypi.org/project/aa-sov-timer/)
+![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/ppfeufer/aa-sov-timer/master.svg)](https://results.pre-commit.ci/latest/github/ppfeufer/aa-sov-timer/master)
 [![Code Style: black](https://img.shields.io/badge/code%20style-black-000000.svg "Code Style: black")](http://black.readthedocs.io/en/latest/)
 [![Automated Checks](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml/badge.svg "Automated Checks")](https://github.com/ppfeufer/aa-sov-timer/actions/workflows/automated-checks.yml)
 [![codecov](https://codecov.io/gh/ppfeufer/aa-sov-timer/branch/master/graph/badge.svg?token=J9PBF0HM8C "codecov")](https://codecov.io/gh/ppfeufer/aa-sov-timer)
@@ -41,11 +43,11 @@ ______________________________________________________________________
 
 ### AA Sov Timer Dashboard (Light Mode)<a name="aa-sov-timer-dashboard-light-mode"></a>
 
-![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
+![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
 
 ### AA Sov Timer Dashboard (Dark Mode)<a name="aa-sov-timer-dashboard-dark-mode"></a>
 
-![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
+![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
 
 ## Installation<a name="installation"></a>
 

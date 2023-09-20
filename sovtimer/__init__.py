@@ -5,7 +5,10 @@ App init
 # Standard Library
 from importlib import metadata
 
-__version__ = metadata.version("aa-sov-timer")
-__title__ = "Sovereignty Timers"
+# Django
+from django.utils.translation import gettext_lazy as _
+
+__version__ = metadata.version(distribution_name="aa-sov-timer")
+__title__ = _("Sovereignty Timers")
 
 del metadata

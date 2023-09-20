@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 18:53+0200\n"
-"PO-Revision-Date: 2023-08-29 00:55+0000\n"
+"POT-Creation-Date: 2023-09-19 16:35+0200\n"
+"PO-Revision-Date: 2023-09-20 15:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-sov-timer/de/>\n"
@@ -16,41 +16,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
-#: models.py:103
+#: __init__.py:12 templates/sovtimer/dashboard.html:6
+msgid "Sovereignty Timers"
+msgstr "Souveränitäts-Timer"
+
+#: apps.py:20
+#, python-brace-format
+msgid "Sovereignty Timer v{__version__}"
+msgstr "Souveränitäts-Timer v{__version__}"
+
+#: models.py:33 templates/sovtimer/base.html:5
+msgid "Sovereignty Timer"
+msgstr "Souveränitäts-Timer"
+
+#: models.py:36
+msgid "Can access the Sovereignty Timer module"
+msgstr "Kann das Souveränitäts-Timer Modul nutzen"
+
+#: models.py:73
+msgid "Sovereignty Structure"
+msgstr "Souveränitäts-Struktur"
+
+#: models.py:74
+msgid "Sovereignty Structures"
+msgstr "Souveränitäts-Strukturen"
+
+#: models.py:111
 msgid "IHub Defense"
 msgstr "IHub Verteidigung"
 
-#: models.py:104
+#: models.py:112
 msgid "TCU Defense"
 msgstr "TCU Verteidigung"
 
-#: templates/sovtimer/base.html:5
-msgid "Sovereignty Timer"
-msgstr "Souveränitäts Timer"
+#: models.py:138
+msgid "Sovereignty Campaign"
+msgstr "Souveränitäts-Kampagne"
 
-#: templates/sovtimer/dashboard.html:6
-msgid "Sovereignty Timers"
-msgstr "Souveränitäts Timer"
+#: models.py:139
+msgid "Sovereignty Campaigns"
+msgstr "Souveränitäts-Kampagnen"
 
 #: templates/sovtimer/dashboard.html:20
-#: templates/sovtimer/partials/dashboard/table.html:24
+#: templates/sovtimer/partials/dashboard/table.html:25
 msgid "System"
 msgstr "System"
 
 #: templates/sovtimer/dashboard.html:21
-#: templates/sovtimer/partials/dashboard/table.html:25
+#: templates/sovtimer/partials/dashboard/table.html:26
 msgid "Constellation"
 msgstr "Konstellation"
 
 #: templates/sovtimer/dashboard.html:22
-#: templates/sovtimer/partials/dashboard/table.html:26
+#: templates/sovtimer/partials/dashboard/table.html:27
 msgid "Region"
 msgstr "Region"
 
 #: templates/sovtimer/dashboard.html:23
-#: templates/sovtimer/partials/dashboard/table.html:27
+#: templates/sovtimer/partials/dashboard/table.html:28
 msgid "Owner / Defender"
 msgstr "Besitzer / Verteidiger"
 
@@ -72,13 +97,13 @@ msgid ""
 "Progress for any active campaigns will be shown as <i>Previous - Trend - "
 "Current</i>."
 msgstr ""
-"Die Souveränitätstimerliste wird automatisch alle 30 Sekunden aktualisiert. "
+"Die Souveränitäts-Timerliste wird automatisch alle 30 Sekunden aktualisiert. "
 "Der Fortschritt für alle aktiven Kampagnen wird als <i>Vorher – Trend – "
 "Aktuell</i> angezeigt."
 
 #: templates/sovtimer/partials/dashboard/table.html:9
 msgid "Sovereignty Campaign List"
-msgstr "Liste der Souveränitätskampagnen"
+msgstr "Liste der Souveränitäts-Kampagnen"
 
 #: templates/sovtimer/partials/dashboard/table.html:14
 msgid "Timers Total:"
@@ -92,23 +117,23 @@ msgstr "Bevorstehende Timer (< 4 Stunden):"
 msgid "Timers Active:"
 msgstr "Aktive Timer:"
 
-#: templates/sovtimer/partials/dashboard/table.html:23
+#: templates/sovtimer/partials/dashboard/table.html:24
 msgid "Type"
 msgstr "Typ"
 
-#: templates/sovtimer/partials/dashboard/table.html:28
+#: templates/sovtimer/partials/dashboard/table.html:29
 msgid "ADM"
 msgstr "ADM"
 
-#: templates/sovtimer/partials/dashboard/table.html:29
+#: templates/sovtimer/partials/dashboard/table.html:30
 msgid "Start"
 msgstr "Beginn"
 
-#: templates/sovtimer/partials/dashboard/table.html:30
+#: templates/sovtimer/partials/dashboard/table.html:31
 msgid "Remaining"
 msgstr "Verbleibend"
 
-#: templates/sovtimer/partials/dashboard/table.html:31
+#: templates/sovtimer/partials/dashboard/table.html:32
 msgid "Progress"
 msgstr "Fortschritt"
 

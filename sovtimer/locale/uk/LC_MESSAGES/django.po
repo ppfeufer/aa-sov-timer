@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-30 18:53+0200\n"
+"POT-Creation-Date: 2023-09-19 16:35+0200\n"
 "PO-Revision-Date: 2023-07-26 12:39+0000\n"
 "Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -19,39 +19,75 @@ msgstr ""
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 4.18.2\n"
 
-#: models.py:103
-msgid "IHub Defense"
-msgstr "Захист інфраструктурного хабу"
-
-#: models.py:104
-msgid "TCU Defense"
-msgstr "Захист TCU"
-
-#: templates/sovtimer/base.html:5
-msgid "Sovereignty Timer"
-msgstr "Таймер суверенітету"
-
-#: templates/sovtimer/dashboard.html:6
+#: __init__.py:12 templates/sovtimer/dashboard.html:6
 msgid "Sovereignty Timers"
 msgstr "Таймера суверенітету"
 
+#: apps.py:20
+#, fuzzy, python-brace-format
+#| msgid "Sovereignty Timers"
+msgid "Sovereignty Timer v{__version__}"
+msgstr "Таймера суверенітету"
+
+#: models.py:33 templates/sovtimer/base.html:5
+msgid "Sovereignty Timer"
+msgstr "Таймер суверенітету"
+
+#: models.py:36
+#, fuzzy
+#| msgid "Sovereignty Timer"
+msgid "Can access the Sovereignty Timer module"
+msgstr "Таймер суверенітету"
+
+#: models.py:73
+#, fuzzy
+#| msgid "Sovereignty Timer"
+msgid "Sovereignty Structure"
+msgstr "Таймер суверенітету"
+
+#: models.py:74
+#, fuzzy
+#| msgid "Sovereignty Timers"
+msgid "Sovereignty Structures"
+msgstr "Таймера суверенітету"
+
+#: models.py:111
+msgid "IHub Defense"
+msgstr "Захист інфраструктурного хабу"
+
+#: models.py:112
+msgid "TCU Defense"
+msgstr "Захист TCU"
+
+#: models.py:138
+#, fuzzy
+#| msgid "Sovereignty Timer"
+msgid "Sovereignty Campaign"
+msgstr "Таймер суверенітету"
+
+#: models.py:139
+#, fuzzy
+#| msgid "Sovereignty Timers"
+msgid "Sovereignty Campaigns"
+msgstr "Таймера суверенітету"
+
 #: templates/sovtimer/dashboard.html:20
-#: templates/sovtimer/partials/dashboard/table.html:24
+#: templates/sovtimer/partials/dashboard/table.html:25
 msgid "System"
 msgstr "Система"
 
 #: templates/sovtimer/dashboard.html:21
-#: templates/sovtimer/partials/dashboard/table.html:25
+#: templates/sovtimer/partials/dashboard/table.html:26
 msgid "Constellation"
 msgstr "Сузірʼя"
 
 #: templates/sovtimer/dashboard.html:22
-#: templates/sovtimer/partials/dashboard/table.html:26
+#: templates/sovtimer/partials/dashboard/table.html:27
 msgid "Region"
 msgstr "Регіон"
 
 #: templates/sovtimer/dashboard.html:23
-#: templates/sovtimer/partials/dashboard/table.html:27
+#: templates/sovtimer/partials/dashboard/table.html:28
 msgid "Owner / Defender"
 msgstr "Власник / Захисник"
 
@@ -90,23 +126,23 @@ msgstr ""
 msgid "Timers Active:"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:23
+#: templates/sovtimer/partials/dashboard/table.html:24
 msgid "Type"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:28
+#: templates/sovtimer/partials/dashboard/table.html:29
 msgid "ADM"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:29
+#: templates/sovtimer/partials/dashboard/table.html:30
 msgid "Start"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:30
+#: templates/sovtimer/partials/dashboard/table.html:31
 msgid "Remaining"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:31
+#: templates/sovtimer/partials/dashboard/table.html:32
 msgid "Progress"
 msgstr ""
 

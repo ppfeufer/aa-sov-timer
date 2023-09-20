@@ -1,3 +1,7 @@
+"""
+Utils for our tests
+"""
+
 # Standard Library
 import re
 from typing import List
@@ -23,8 +27,8 @@ def create_fake_user(
     Create a fake user incl. main character and (optional) permissions.
     """
 
-    username = re.sub(r"[^\w\d@\.\+-]", "_", character_name)
-    user = AuthUtils.create_user(username)
+    username = re.sub(pattern=r"[^\w\d@\.\+-]", repl="_", string=character_name)
+    user = AuthUtils.create_user(username=username)
 
     if not corporation_id:
         corporation_id = 2001
@@ -47,7 +51,9 @@ def create_fake_user(
     )
 
     if permissions:
-        perm_objs = [AuthUtils.get_permission_by_name(perm) for perm in permissions]
+        perm_objs = [
+            AuthUtils.get_permission_by_name(perm=perm) for perm in permissions
+        ]
         user = AuthUtils.add_permissions_to_user(perms=perm_objs, user=user)
 
     return user

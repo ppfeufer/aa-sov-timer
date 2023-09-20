@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## \[In Development\] - Unreleased
 
+## \[1.12.2\] - 2023-09-20
+
+### Fixed
+
+- Pylint issues
+- Missing `<tr>` tag
+
+### Changed
+
+- Use keyword arguments wherever possible
+- German translation improved
+
 ## \[1.12.1\] - 2023-09-02
 
 ### Changed
@@ -215,7 +227,7 @@ And restart your supervisor.
 ### Added
 
 - Numbers for total, upcoming (\< 4 hrs) and active timers to the table head
-  ![image](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/sovtimer/docs/changelog/0.6.0/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
+  ![image](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/changelog/0.6.0/128572686-b01869c4-005e-4141-a28f-7bd286c301f0.png)
 
 ## \[0.5.8\] - 2021-07-08
 

@@ -18,18 +18,21 @@ class TestForumVersionedStatic(TestCase):
     def test_versioned_static(self):
         """
         Test if we get the right version on our static files
+
         :return:
         """
 
-        context = Context({"version": __version__})
+        context = Context(dict_={"version": __version__})
         template_to_render = Template(
-            "{% load sovtimer_versioned_static %}"
-            "{% sovtimer_static 'sovtimer/css/aa-sov-timer.min.css' %}"
+            template_string=(
+                "{% load sovtimer_versioned_static %}"
+                "{% sovtimer_static 'sovtimer/css/aa-sov-timer.min.css' %}"
+            )
         )
 
-        rendered_template = template_to_render.render(context)
+        rendered_template = template_to_render.render(context=context)
 
         self.assertInHTML(
-            f'/static/sovtimer/css/aa-sov-timer.min.css?v={context["version"]}',
-            rendered_template,
+            needle=f'/static/sovtimer/css/aa-sov-timer.min.css?v={context["version"]}',
+            haystack=rendered_template,
         )
