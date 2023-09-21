@@ -24,7 +24,6 @@ from sovtimer.models import Campaign, SovereigntyStructure
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
-DEFAULT_TASK_PRIORITY = 6
 
 ESI_ERROR_LIMIT = 50
 ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
@@ -34,10 +33,15 @@ ESI_MAX_RETRIES = 3
 TASK_TIME_LIMIT = 600  # Stop after 10 minutes
 
 # Params for all tasks
-TASK_DEFAULT_KWARGS = {"time_limit": TASK_TIME_LIMIT, "max_retries": ESI_MAX_RETRIES}
+TASK_PRIORITY = 6
+TASK_ONCE_ARGS = {"graceful": True}
+TASK_ONCE = {"base": QueueOnce, "once": TASK_ONCE_ARGS}
+
+TASK_DEFAULTS = {"time_limit": TASK_TIME_LIMIT, "max_retries": ESI_MAX_RETRIES}
+TASK_DEFAULTS_ONCE = {**TASK_DEFAULTS, **TASK_ONCE}
 
 
-@shared_task(**TASK_DEFAULT_KWARGS)
+@shared_task(**TASK_DEFAULTS_ONCE)
 def run_sov_campaign_updates() -> None:
     """
     Update all sov campaigns
@@ -45,17 +49,21 @@ def run_sov_campaign_updates() -> None:
 
     if not is_esi_online():
         logger.info(
-            msg="ESI is currently offline. Can not start ESI related tasks. Aborting"
+            msg=(
+                "ESI seems to be offline, currently. "
+                "Can't start ESI related tasks. Aborting …"
+            )
         )
+
         return
 
-    logger.info(msg="Updating sovereignty structures and campaigns from ESI.")
+    logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
 
-    update_sov_structures.apply_async(priority=DEFAULT_TASK_PRIORITY)
-    update_sov_campaigns.apply_async(priority=DEFAULT_TASK_PRIORITY)
+    update_sov_structures.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
+    update_sov_campaigns.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
 
 
-@shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
+@shared_task(**TASK_DEFAULTS_ONCE)
 def update_sov_campaigns() -> None:
     """
     Update sov campaigns
@@ -64,6 +72,7 @@ def update_sov_campaigns() -> None:
     campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
 
     if campaigns_from_esi:
+        logger.debug(msg="Updating sovereignty campaigns …")
         with transaction.atomic():
             campaigns = []
 
@@ -118,14 +127,14 @@ def update_sov_campaigns() -> None:
             logger.info(msg=f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
-@shared_task(**{**TASK_DEFAULT_KWARGS, **{"base": QueueOnce}})
+@shared_task(**TASK_DEFAULTS_ONCE)
 def update_sov_structures() -> None:
     """
     Update sov structures
     """
 
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is None:
-        logger.debug(msg="UPDATING SOV STRUCTURES")
+        logger.debug(msg="Updating sovereignty structures …")
         structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
 
         if structures_from_esi:
