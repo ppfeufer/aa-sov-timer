@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 16:35+0200\n"
+"POT-Creation-Date: 2023-09-23 00:56+0200\n"
 "PO-Revision-Date: 2023-09-21 16:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Korean <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-sov-timer/ko/>\n"
+"Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-sov-timer/ko/>\n"
 "Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,33 +41,37 @@ msgstr "소버린티 타이머"
 #: models.py:73
 #, fuzzy
 #| msgid "Sovereignty Timer"
-msgid "Sovereignty Structure"
+msgid "Sovereignty structure"
 msgstr "소버린티 타이머"
 
 #: models.py:74
 #, fuzzy
 #| msgid "Sovereignty Timers"
-msgid "Sovereignty Structures"
+msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
 #: models.py:111
-msgid "IHub Defense"
+#, fuzzy
+#| msgid "IHub Defense"
+msgid "IHub defense"
 msgstr "IHub 방어"
 
 #: models.py:112
-msgid "TCU Defense"
+#, fuzzy
+#| msgid "TCU Defense"
+msgid "TCU defense"
 msgstr "TCU 방어"
 
 #: models.py:138
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
-msgid "Sovereignty Campaign"
+msgid "Sovereignty campaign"
 msgstr "소버린티 캠페인 목록"
 
 #: models.py:139
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
-msgid "Sovereignty Campaigns"
+msgid "Sovereignty campaigns"
 msgstr "소버린티 캠페인 목록"
 
 #: templates/sovtimer/dashboard.html:20
@@ -91,7 +95,9 @@ msgid "Owner / Defender"
 msgstr "소유자 / 방어자"
 
 #: templates/sovtimer/dashboard.html:24
-msgid "Active Campaign"
+#, fuzzy
+#| msgid "Active Campaign"
+msgid "Active campaign"
 msgstr "진행 중인 캠페인"
 
 #: templates/sovtimer/dashboard.html:25 views.py:161
@@ -112,19 +118,27 @@ msgstr ""
 "의 진행도는 <i>이전 - 변화량 - 현재</i>로 표시됩니다."
 
 #: templates/sovtimer/partials/dashboard/table.html:9
-msgid "Sovereignty Campaign List"
+#, fuzzy
+#| msgid "Sovereignty Campaign List"
+msgid "Sovereignty campaign list"
 msgstr "소버린티 캠페인 목록"
 
 #: templates/sovtimer/partials/dashboard/table.html:14
-msgid "Timers Total:"
+#, fuzzy
+#| msgid "Timers Total:"
+msgid "Timers total:"
 msgstr "타이머 수:"
 
 #: templates/sovtimer/partials/dashboard/table.html:15
-msgid "Timers Upcoming (< 4hrs):"
+#, fuzzy
+#| msgid "Timers Upcoming (< 4hrs):"
+msgid "Timers upcoming (< 4hrs):"
 msgstr "곧 시작되는 타이머 (4시간 이내):"
 
 #: templates/sovtimer/partials/dashboard/table.html:16
-msgid "Timers Active:"
+#, fuzzy
+#| msgid "Timers Active:"
+msgid "Timers active:"
 msgstr "진행중인 타이머:"
 
 #: templates/sovtimer/partials/dashboard/table.html:24

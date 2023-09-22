@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 16:35+0200\n"
+"POT-Creation-Date: 2023-09-23 00:56+0200\n"
 "PO-Revision-Date: 2023-09-20 15:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: German <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-sov-timer/de/>\n"
+"Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-sov-timer/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,27 +36,39 @@ msgid "Can access the Sovereignty Timer module"
 msgstr "Kann das Souveränitäts-Timer Modul nutzen"
 
 #: models.py:73
-msgid "Sovereignty Structure"
+#, fuzzy
+#| msgid "Sovereignty Structure"
+msgid "Sovereignty structure"
 msgstr "Souveränitäts-Struktur"
 
 #: models.py:74
-msgid "Sovereignty Structures"
+#, fuzzy
+#| msgid "Sovereignty Structures"
+msgid "Sovereignty structures"
 msgstr "Souveränitäts-Strukturen"
 
 #: models.py:111
-msgid "IHub Defense"
+#, fuzzy
+#| msgid "IHub Defense"
+msgid "IHub defense"
 msgstr "IHub Verteidigung"
 
 #: models.py:112
-msgid "TCU Defense"
+#, fuzzy
+#| msgid "TCU Defense"
+msgid "TCU defense"
 msgstr "TCU Verteidigung"
 
 #: models.py:138
-msgid "Sovereignty Campaign"
+#, fuzzy
+#| msgid "Sovereignty Campaign"
+msgid "Sovereignty campaign"
 msgstr "Souveränitäts-Kampagne"
 
 #: models.py:139
-msgid "Sovereignty Campaigns"
+#, fuzzy
+#| msgid "Sovereignty Campaigns"
+msgid "Sovereignty campaigns"
 msgstr "Souveränitäts-Kampagnen"
 
 #: templates/sovtimer/dashboard.html:20
@@ -80,7 +92,9 @@ msgid "Owner / Defender"
 msgstr "Besitzer / Verteidiger"
 
 #: templates/sovtimer/dashboard.html:24
-msgid "Active Campaign"
+#, fuzzy
+#| msgid "Active Campaign"
+msgid "Active campaign"
 msgstr "Aktive Kampagne"
 
 #: templates/sovtimer/dashboard.html:25 views.py:161
@@ -102,19 +116,27 @@ msgstr ""
 "Aktuell</i> angezeigt."
 
 #: templates/sovtimer/partials/dashboard/table.html:9
-msgid "Sovereignty Campaign List"
+#, fuzzy
+#| msgid "Sovereignty Campaign List"
+msgid "Sovereignty campaign list"
 msgstr "Liste der Souveränitäts-Kampagnen"
 
 #: templates/sovtimer/partials/dashboard/table.html:14
-msgid "Timers Total:"
+#, fuzzy
+#| msgid "Timers Total:"
+msgid "Timers total:"
 msgstr "Alle Timer:"
 
 #: templates/sovtimer/partials/dashboard/table.html:15
-msgid "Timers Upcoming (< 4hrs):"
+#, fuzzy
+#| msgid "Timers Upcoming (< 4hrs):"
+msgid "Timers upcoming (< 4hrs):"
 msgstr "Bevorstehende Timer (< 4 Stunden):"
 
 #: templates/sovtimer/partials/dashboard/table.html:16
-msgid "Timers Active:"
+#, fuzzy
+#| msgid "Timers Active:"
+msgid "Timers active:"
 msgstr "Aktive Timer:"
 
 #: templates/sovtimer/partials/dashboard/table.html:24
