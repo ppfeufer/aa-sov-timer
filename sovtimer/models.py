@@ -70,8 +70,8 @@ class SovereigntyStructure(models.Model):
         Meta definitions
         """
 
-        verbose_name = _("Sovereignty Structure")
-        verbose_name_plural = _("Sovereignty Structures")
+        verbose_name = _("Sovereignty structure")
+        verbose_name_plural = _("Sovereignty structures")
         default_permissions = ()
 
     @classmethod
@@ -108,8 +108,8 @@ class Campaign(models.Model):
         Choices for Comment Types
         """
 
-        IHUB_DEFENSE = "ihub_defense", _("IHub Defense")
-        TCU_DEFENSE = "tcu_defense", _("TCU Defense")
+        IHUB_DEFENSE = "ihub_defense", _("IHub defense")
+        TCU_DEFENSE = "tcu_defense", _("TCU defense")
 
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
@@ -135,8 +135,8 @@ class Campaign(models.Model):
         Meta definitions
         """
 
-        verbose_name = _("Sovereignty Campaign")
-        verbose_name_plural = _("Sovereignty Campaigns")
+        verbose_name = _("Sovereignty campaign")
+        verbose_name_plural = _("Sovereignty campaigns")
         default_permissions = ()
 
     @classmethod

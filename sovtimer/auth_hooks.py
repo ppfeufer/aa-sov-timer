@@ -2,9 +2,6 @@
 Hook into AA
 """
 
-# Django
-from django.utils.translation import gettext_lazy as _
-
 # Alliance Auth
 from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
@@ -22,7 +19,7 @@ class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-method
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            text=_(__title__),
+            text=__title__,
             classes="far fa-clock fa-fw",
             url_name="sovtimer:dashboard",
             navactive=["sovtimer:"],
