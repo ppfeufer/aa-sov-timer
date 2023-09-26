@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## \[In Development\] - Unreleased
 
+## \[1.12.3\] - 2023-09-26
+
 ### Fixed
 
 - Capitalization for translatable strings
@@ -14,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Ensure the task only runs one instance at a time and is not fired when already running
+- Translations updated
+- Test suite updated
 
 ## \[1.12.2\] - 2023-09-20
 
