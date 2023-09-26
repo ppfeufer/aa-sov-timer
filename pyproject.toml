@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "aa-sov-timer"
-version = "1.12.2"
+version = "1.12.3"
 description = "Sov Campaign Timer for Alliance Auth"
 readme = "README.md"
 keywords = [
