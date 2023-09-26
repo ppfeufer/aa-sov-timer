@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Ensure the task only runs one instance at a time and is not fired when already running
+- Test suite updated
 
 ## \[1.12.2\] - 2023-09-20
 
