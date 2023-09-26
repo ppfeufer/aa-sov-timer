@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 16:35+0200\n"
-"PO-Revision-Date: 2023-07-31 17:40+0000\n"
+"POT-Creation-Date: 2023-09-24 16:22+0200\n"
+"PO-Revision-Date: 2023-09-24 13:12+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
 "apps/aa-sov-timer/ru/>\n"
@@ -18,59 +18,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: __init__.py:12 templates/sovtimer/dashboard.html:6
 msgid "Sovereignty Timers"
 msgstr "Таймеры суверенитета"
 
 #: apps.py:20
-#, fuzzy, python-brace-format
-#| msgid "Sovereignty Timers"
+#, python-brace-format
 msgid "Sovereignty Timer v{__version__}"
-msgstr "Таймеры суверенитета"
+msgstr "Таймеры суверенитета v{__version__}"
 
 #: models.py:33 templates/sovtimer/base.html:5
 msgid "Sovereignty Timer"
 msgstr "Таймер суверенитета"
 
 #: models.py:36
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Can access the Sovereignty Timer module"
-msgstr "Таймер суверенитета"
+msgstr "Имеет доступ к модулю 'Таймер суверенитета'"
 
 #: models.py:73
 #, fuzzy
-#| msgid "Sovereignty Timer"
-msgid "Sovereignty Structure"
-msgstr "Таймер суверенитета"
+#| msgid "Sovereignty Structure"
+msgid "Sovereignty structure"
+msgstr "Структура суверенитета"
 
 #: models.py:74
 #, fuzzy
-#| msgid "Sovereignty Timers"
-msgid "Sovereignty Structures"
-msgstr "Таймеры суверенитета"
+#| msgid "Sovereignty Structures"
+msgid "Sovereignty structures"
+msgstr "Структуры суверенитета"
 
 #: models.py:111
-msgid "IHub Defense"
+#, fuzzy
+#| msgid "IHub Defense"
+msgid "IHub defense"
 msgstr "Защита IHub"
 
 #: models.py:112
-msgid "TCU Defense"
+#, fuzzy
+#| msgid "TCU Defense"
+msgid "TCU defense"
 msgstr "Защита TCU"
 
 #: models.py:138
 #, fuzzy
-#| msgid "Sovereignty Campaign List"
-msgid "Sovereignty Campaign"
-msgstr "Список кампаний"
+#| msgid "Sovereignty Campaign"
+msgid "Sovereignty campaign"
+msgstr "Кампания суверенитета"
 
 #: models.py:139
 #, fuzzy
-#| msgid "Sovereignty Campaign List"
-msgid "Sovereignty Campaigns"
-msgstr "Список кампаний"
+#| msgid "Sovereignty Campaigns"
+msgid "Sovereignty campaigns"
+msgstr "Кампании суверенитета"
 
 #: templates/sovtimer/dashboard.html:20
 #: templates/sovtimer/partials/dashboard/table.html:25
@@ -93,7 +94,9 @@ msgid "Owner / Defender"
 msgstr "Владелец / Защитник"
 
 #: templates/sovtimer/dashboard.html:24
-msgid "Active Campaign"
+#, fuzzy
+#| msgid "Active Campaign"
+msgid "Active campaign"
 msgstr "Активная кампания"
 
 #: templates/sovtimer/dashboard.html:25 views.py:161
@@ -115,19 +118,27 @@ msgstr ""
 "Тенденция - Текущий</i>."
 
 #: templates/sovtimer/partials/dashboard/table.html:9
-msgid "Sovereignty Campaign List"
+#, fuzzy
+#| msgid "Sovereignty Campaign List"
+msgid "Sovereignty campaign list"
 msgstr "Список кампаний"
 
 #: templates/sovtimer/partials/dashboard/table.html:14
-msgid "Timers Total:"
+#, fuzzy
+#| msgid "Timers Total:"
+msgid "Timers total:"
 msgstr "Всего таймеров:"
 
 #: templates/sovtimer/partials/dashboard/table.html:15
-msgid "Timers Upcoming (< 4hrs):"
+#, fuzzy
+#| msgid "Timers Upcoming (< 4hrs):"
+msgid "Timers upcoming (< 4hrs):"
 msgstr "Ближайшие таймеры (<4ч.):"
 
 #: templates/sovtimer/partials/dashboard/table.html:16
-msgid "Timers Active:"
+#, fuzzy
+#| msgid "Timers Active:"
+msgid "Timers active:"
 msgstr "Активные таймеры:"
 
 #: templates/sovtimer/partials/dashboard/table.html:24

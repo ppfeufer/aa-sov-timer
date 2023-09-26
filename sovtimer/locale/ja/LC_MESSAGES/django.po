@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 16:35+0200\n"
-"PO-Revision-Date: 2023-07-27 16:17+0000\n"
+"POT-Creation-Date: 2023-09-24 16:22+0200\n"
+"PO-Revision-Date: 2023-09-24 13:12+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
 "apps/aa-sov-timer/ja/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: __init__.py:12 templates/sovtimer/dashboard.html:6
 msgid "Sovereignty Timers"
@@ -36,27 +36,27 @@ msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
 #: models.py:73
-msgid "Sovereignty Structure"
+msgid "Sovereignty structure"
 msgstr ""
 
 #: models.py:74
-msgid "Sovereignty Structures"
+msgid "Sovereignty structures"
 msgstr ""
 
 #: models.py:111
-msgid "IHub Defense"
+msgid "IHub defense"
 msgstr ""
 
 #: models.py:112
-msgid "TCU Defense"
+msgid "TCU defense"
 msgstr ""
 
 #: models.py:138
-msgid "Sovereignty Campaign"
+msgid "Sovereignty campaign"
 msgstr ""
 
 #: models.py:139
-msgid "Sovereignty Campaigns"
+msgid "Sovereignty campaigns"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:20
@@ -80,7 +80,7 @@ msgid "Owner / Defender"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:24
-msgid "Active Campaign"
+msgid "Active campaign"
 msgstr ""
 
 #: templates/sovtimer/dashboard.html:25 views.py:161
@@ -99,19 +99,19 @@ msgid ""
 msgstr ""
 
 #: templates/sovtimer/partials/dashboard/table.html:9
-msgid "Sovereignty Campaign List"
+msgid "Sovereignty campaign list"
 msgstr ""
 
 #: templates/sovtimer/partials/dashboard/table.html:14
-msgid "Timers Total:"
+msgid "Timers total:"
 msgstr ""
 
 #: templates/sovtimer/partials/dashboard/table.html:15
-msgid "Timers Upcoming (< 4hrs):"
+msgid "Timers upcoming (< 4hrs):"
 msgstr ""
 
 #: templates/sovtimer/partials/dashboard/table.html:16
-msgid "Timers Active:"
+msgid "Timers active:"
 msgstr ""
 
 #: templates/sovtimer/partials/dashboard/table.html:24
