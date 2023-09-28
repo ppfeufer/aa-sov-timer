@@ -41,6 +41,12 @@ dependencies = [
     "allianceauth-app-utils>=1.12",
     "django-eveuniverse>=0.14",
 ]
+[project.optional-dependencies]
+tests-allianceauth-stable = [
+    "allianceauth-app-utils>=1.12",
+    "coverage",
+    "django-webtest",
+]
 [project.urls]
 Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
 Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
