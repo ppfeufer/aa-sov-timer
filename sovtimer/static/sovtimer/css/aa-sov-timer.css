@@ -30,7 +30,7 @@
 
 @media all {
     .aa-sovtimer-timer-elapsed {
-        color: rgb(255 0 0);
+        color: var(--bs-danger);
     }
 
     .aa-sov-timer-zkb-icon {
@@ -38,21 +38,21 @@
     }
 
     .aa-sovtimer-active-campaign {
-        border-left: 1px solid rgb(255 0 0);
-        border-right: 1px solid rgb(255 0 0);
+        border-left: 1px solid var(--bs-danger);
+        border-right: 1px solid var(--bs-danger);
     }
 
     .aa-sovtimer-active-campaign td {
-        background-color: rgb(255 0 0 / 12.5%);
+        background-color: var(--bs-danger-bg-subtle);
     }
 
     .aa-sovtimer-upcoming-campaign {
-        border-left: 1px solid rgb(255 165 0);
-        border-right: 1px solid rgb(255 165 0);
+        border-left: 1px solid var(--bs-warning);
+        border-right: 1px solid var(--bs-warning);
     }
 
     .aa-sovtimer-upcoming-campaign td {
-        background-color: rgb(255 165 0 / 12.5%);
+        background-color: var(--bs-warning-bg-subtle);
     }
 
     .aa-sovtimer-trend {
@@ -65,11 +65,11 @@
     }
 
     .aa-sovtimer-trend-up {
-        color: rgb(76 175 80);
+        color: var(--bs-success);
     }
 
     .aa-sovtimer-trend-down {
-        color: rgb(255 0 0);
+        color: var(--bs-danger);
     }
 
     .aa-sovtimer-campaigns-progress-column {
@@ -83,21 +83,12 @@
     .aa-sovtimer .aa-sovtimer-campaigns td {
         vertical-align: middle;
     }
-
-    .aa-sovtimer-footer {
-        border-top: 1px solid rgb(236 240 241);
-        font-size: 85%;
-        margin-top: 1rem;
-        padding-top: 1rem;
-    }
-
-    .template-dark-mode .aa-sovtimer-footer {
-        border-color: rgb(70 69 69);
-    }
 }
 
 /* DataTables
 --------------------------------------------------------------------------------------------------------------------- */
+
+/*
 @media all {
     .dataTables_wrapper > .form-inline {
         margin-bottom: 1rem;
@@ -122,3 +113,4 @@
         margin-left: 1rem;
     }
 }
+*/
