@@ -37,6 +37,11 @@
         margin-left: 1rem;
     }
 
+    .aa-sov-timer-zkb-icon img {
+        position: relative;
+        top: -2px;
+    }
+
     .aa-sovtimer-active-campaign {
         border-left: 1px solid var(--bs-danger);
         border-right: 1px solid var(--bs-danger);
@@ -61,7 +66,7 @@
         left: 0.5rem;
         margin-right: 1rem;
         position: relative;
-        top: 0.75rem;
+        top: 0.35rem;
     }
 
     .aa-sovtimer-trend-up {
