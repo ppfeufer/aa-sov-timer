@@ -4,12 +4,14 @@
     {% translate 'The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>.' %}
 </p>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">{% translate "Sovereignty campaign list" %}</div>
+<div class="card card-default">
+    <div class="card-header">
+        <div class="card-title mb-0">
+            {% translate "Sovereignty campaign list" %}
+        </div>
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
         <div class="row">
             <div class="col-sm-4">{% translate "Timers total:" %} <span class="aa-sovtimer-timers-total">0</span></div>
             <div class="col-sm-4">{% translate "Timers upcoming (< 4hrs):" %} <span class="aa-sovtimer-timers-upcoming">0</span></div>
@@ -17,7 +19,7 @@
         </div>
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
         <table class="table table-striped aa-sovtimer-campaigns" style="width: 100%; border-collapse: collapse !important;">
             <thead>
                 <tr>
