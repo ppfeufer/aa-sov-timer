@@ -12,10 +12,10 @@ from sovtimer import __version__
 
 class TestForumVersionedStatic(TestCase):
     """
-    Test sovtimer_static template tag
+    Test `sovtimer_static` template tag
     """
 
-    def test_versioned_static(self):
+    def test_sovtimer_static(self):
         """
         Test if we get the right version on our static files
 
@@ -25,7 +25,7 @@ class TestForumVersionedStatic(TestCase):
         context = Context(dict_={"version": __version__})
         template_to_render = Template(
             template_string=(
-                "{% load sovtimer_versioned_static %}"
+                "{% load sovtimer %}"
                 "{% sovtimer_static 'sovtimer/css/aa-sov-timer.min.css' %}"
             )
         )
