@@ -8,7 +8,7 @@ $(document).ready(() => {
     const elementTimerActive = $('.aa-sovtimer-timers-active');
 
     /**
-     * convert seconds into a time string
+     * Convert seconds into a time string
      *
      * @param {string|int} secondsRemaining
      * @returns {{countdown: string, remainingTimeInSeconds: string|int}}
@@ -21,17 +21,17 @@ $(document).ready(() => {
             spanClasses += ' aa-sovtimer-timer-elapsed';
             prefix = '-';
 
-            secondsRemaining = Math.abs(secondsRemaining); // remove negative prefix
+            secondsRemaining = Math.abs(secondsRemaining); // Remove negative prefix
 
-            secondsRemaining++; // increment with one second each second
+            secondsRemaining++; // Increment with one second each second
         } else {
-            secondsRemaining--; // decrement with one second each second
+            secondsRemaining--; // Decrement with one second each second
         }
 
-        const days = Math.floor(secondsRemaining / (24 * 60 * 60)); // calculate days
-        let hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // hours
-        let minutes = Math.floor(secondsRemaining / 60) % 60; // minutes
-        let seconds = Math.floor(secondsRemaining) % 60; // seconds
+        const days = Math.floor(secondsRemaining / (24 * 60 * 60)); // Calculate days
+        let hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // Hours
+        let minutes = Math.floor(secondsRemaining / 60) % 60; // Minutes
+        let seconds = Math.floor(secondsRemaining) % 60; // Seconds
 
         // leading zero ...
         if (hours < 10) {
@@ -47,13 +47,13 @@ $(document).ready(() => {
         }
 
         return {
-            countdown: '<span class="' + spanClasses + '">' + prefix + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's</span>',
+            countdown: `<span class="${spanClasses}">${prefix}${days}d ${hours}h ${minutes}m ${seconds}s</span>`,
             remainingTimeInSeconds: prefix + secondsRemaining
         };
     };
 
     /**
-     * build the datatable
+     * Build the datatable
      *
      * @type {jQuery}
      */
@@ -95,7 +95,7 @@ $(document).ready(() => {
                 data: 'campaign_progress'
             },
 
-            // hidden columns
+            // Hidden columns
             {
                 data: 'remaining_time_in_seconds'
             },
@@ -186,7 +186,7 @@ $(document).ready(() => {
     });
 
     /**
-     * refresh the datatable information every 30 seconds
+     * Update the datatable information every 30 seconds
      */
     setInterval(() => {
         sovCampaignTable.ajax.reload((tableData) => {
@@ -221,7 +221,7 @@ $(document).ready(() => {
     }, 30000);
 
     /**
-     * refresh remaining time every second
+     * Update the remaining time every second
      */
     setInterval(() => {
         sovCampaignTable.rows().every(function () {
