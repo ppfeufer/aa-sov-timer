@@ -20,7 +20,7 @@ class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-method
         MenuItemHook.__init__(
             self,
             text=__title__,
-            classes="far fa-clock fa-fw",
+            classes="fa-regular fa-clock",
             url_name="sovtimer:dashboard",
             navactive=["sovtimer:"],
         )
