@@ -33,10 +33,6 @@
         color: var(--bs-danger);
     }
 
-    .aa-sov-timer-zkb-icon {
-        margin-left: 1rem;
-    }
-
     .aa-sov-timer-zkb-icon img {
         position: relative;
         top: -2px;
@@ -63,8 +59,8 @@
     .aa-sovtimer-trend {
         cursor: default;
         display: inline-block;
-        left: 0.5rem;
-        margin-right: 1rem;
+        left: 0.35rem;
+        margin-right: 0.75rem;
         position: relative;
         top: 0.35rem;
     }
@@ -78,11 +74,7 @@
     }
 
     .aa-sovtimer-campaigns-progress-column {
-        width: 120px !important;
-    }
-
-    .aa-sovtimer-entity-logo-left {
-        margin-right: 0.5rem;
+        width: 105px !important;
     }
 
     .aa-sovtimer .aa-sovtimer-campaigns td {

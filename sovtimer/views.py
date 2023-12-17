@@ -81,7 +81,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
             defender_name_html = (
                 f'<a href="{defender_url}" target="_blank" rel="noopener noreferer">'
-                f'<img class="aa-sovtimer-entity-logo-left" src="{defender_logo_url}" '
+                f'<img class="aa-sovtimer-entity-logo-left me-2" src="{defender_logo_url}" '
                 f'alt="{defender_name}">{defender_name}</a>'
             )
 
@@ -188,7 +188,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 zkb_icon = '<img src="/static/sovtimer/images/zkillboard.png">'
                 constellation_killboard_link = (
                     f'<a href="{zkb_href}" target="_blank" rel="noopener noreferer" '
-                    f'class="aa-sov-timer-zkb-icon">{zkb_icon}</a>'
+                    f'class="aa-sov-timer-zkb-icon ms-2">{zkb_icon}</a>'
                 )
 
                 campaign_progress_html = (
