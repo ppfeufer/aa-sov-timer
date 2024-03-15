@@ -23,8 +23,7 @@ ______________________________________________________________________
 
 - [AA Sovereignty Timer](#aa-sovereignty-timer)
   - [Screenshots](#screenshots)
-    - [AA Sov Timer Dashboard (Light Mode)](#aa-sov-timer-dashboard-light-mode)
-    - [AA Sov Timer Dashboard (Dark Mode)](#aa-sov-timer-dashboard-dark-mode)
+    - [AA Sov Timer Dashboard](#aa-sov-timer-dashboard)
   - [Installation](#installation)
     - [Step 1: Installing the App](#step-1-installing-the-app)
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
@@ -43,13 +42,9 @@ ______________________________________________________________________
 
 ## Screenshots<a name="screenshots"></a>
 
-### AA Sov Timer Dashboard (Light Mode)<a name="aa-sov-timer-dashboard-light-mode"></a>
+### AA Sov Timer Dashboard<a name="aa-sov-timer-dashboard"></a>
 
-![AA Sov Timer Dashboard (Light Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-light-mode.jpg "AA Sov Timer Dashboard (Light Mode)")
-
-### AA Sov Timer Dashboard (Dark Mode)<a name="aa-sov-timer-dashboard-dark-mode"></a>
-
-![AA Sov Timer Dashboard (Dark Mode)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-dark-mode.jpg "AA Sov Timer Dashboard (Dark Mode)")
+![AA Sov Timer Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer.jpg "AA Sov Timer Dashboard")
 
 ## Installation<a name="installation"></a>
 

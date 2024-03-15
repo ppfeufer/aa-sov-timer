@@ -153,7 +153,8 @@ $(document).ready(() => {
                 }
             ],
             autoSize: false,
-            bootstrap: true
+            bootstrap: true,
+            bootstrap_version: 5,
         },
         createdRow: (row, data) => {
             // Total timer
