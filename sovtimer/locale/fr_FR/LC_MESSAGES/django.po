@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 16:22+0200\n"
+"POT-Creation-Date: 2024-03-16 00:17+0100\n"
 "PO-Revision-Date: 2024-01-12 19:05+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: French <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-sov-timer/fr/>\n"
+"Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-"
+"apps/aa-sov-timer/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,123 +19,124 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.3.1\n"
 
-#: __init__.py:12 templates/sovtimer/dashboard.html:6
+#: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
 msgstr ""
 
-#: apps.py:20
+#: sovtimer/apps.py:20
 #, python-brace-format
 msgid "Sovereignty Timer v{__version__}"
 msgstr ""
 
-#: models.py:33 templates/sovtimer/base.html:5
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
+#: sovtimer/templates/sovtimer/base.html:10
 msgid "Sovereignty Timer"
 msgstr ""
 
-#: models.py:36
+#: sovtimer/models.py:36
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: models.py:73
+#: sovtimer/models.py:73
 msgid "Sovereignty structure"
 msgstr ""
 
-#: models.py:74
+#: sovtimer/models.py:74
 msgid "Sovereignty structures"
 msgstr ""
 
-#: models.py:111
+#: sovtimer/models.py:111
 msgid "IHub defense"
 msgstr ""
 
-#: models.py:112
+#: sovtimer/models.py:112
 msgid "TCU defense"
 msgstr ""
 
-#: models.py:138
+#: sovtimer/models.py:138
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: models.py:139
+#: sovtimer/models.py:139
 msgid "Sovereignty campaigns"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:20
-#: templates/sovtimer/partials/dashboard/table.html:25
+#: sovtimer/templates/sovtimer/dashboard.html:15
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "System"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:21
-#: templates/sovtimer/partials/dashboard/table.html:26
+#: sovtimer/templates/sovtimer/dashboard.html:16
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "Constellation"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:22
-#: templates/sovtimer/partials/dashboard/table.html:27
+#: sovtimer/templates/sovtimer/dashboard.html:17
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Region"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:23
-#: templates/sovtimer/partials/dashboard/table.html:28
+#: sovtimer/templates/sovtimer/dashboard.html:18
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Owner / Defender"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:24
+#: sovtimer/templates/sovtimer/dashboard.html:19
 msgid "Active campaign"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:25 views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:20 sovtimer/views.py:161
 msgid "Yes"
 msgstr ""
 
-#: templates/sovtimer/dashboard.html:26 views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:159
 msgid "No"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:4
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:4
 msgid ""
 "The sovereignty timer list is automatically updated every 30 seconds. "
 "Progress for any active campaigns will be shown as <i>Previous - Trend - "
 "Current</i>."
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:9
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:10
 msgid "Sovereignty campaign list"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:14
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
 msgid "Timers total:"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:15
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:17
 msgid "Timers upcoming (< 4hrs):"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:16
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
 msgid "Timers active:"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:24
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
 msgid "Type"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:29
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "ADM"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:30
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "Start"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:31
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Remaining"
 msgstr ""
 
-#: templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
 msgid "Progress"
 msgstr ""
 
-#: templates/sovtimer/partials/footer/app-translation-footer.html:5
+#: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
 msgid ""
 "Do you want to help translate this app into your language or improve the "
 "existing translation?"
@@ -143,18 +144,18 @@ msgstr ""
 "Voulez-vous aider à traduire cette application dans votre langue ou "
 "améliorer la traduction existante ?"
 
-#: templates/sovtimer/partials/footer/app-translation-footer.html:8
+#: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
 msgstr "Rejoignez notre équipe de traducteurs !"
 
-#: views.py:163
+#: sovtimer/views.py:163
 msgid "Neither side has made any progress yet"
 msgstr ""
 
-#: views.py:171
+#: sovtimer/views.py:171
 msgid "Defenders making progress"
 msgstr ""
 
-#: views.py:179
+#: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr ""

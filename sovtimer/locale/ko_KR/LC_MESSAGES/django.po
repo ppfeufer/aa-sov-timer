@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-24 16:22+0200\n"
+"POT-Creation-Date: 2024-03-16 00:17+0100\n"
 "PO-Revision-Date: 2023-09-24 13:12+0000\n"
 "Last-Translator: Author50CO <tkddlschry@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -19,96 +19,97 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.0.2\n"
 
-#: __init__.py:12 templates/sovtimer/dashboard.html:6
+#: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
 msgstr "소버린티 타이머"
 
-#: apps.py:20
+#: sovtimer/apps.py:20
 #, python-brace-format
 msgid "Sovereignty Timer v{__version__}"
 msgstr "소버린티 타이머 v{__version__}"
 
-#: models.py:33 templates/sovtimer/base.html:5
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
+#: sovtimer/templates/sovtimer/base.html:10
 msgid "Sovereignty Timer"
 msgstr "소버린티 타이머"
 
-#: models.py:36
+#: sovtimer/models.py:36
 #, fuzzy
 #| msgid "Sovereignty Timer"
 msgid "Can access the Sovereignty Timer module"
 msgstr "소버린티 타이머"
 
-#: models.py:73
+#: sovtimer/models.py:73
 #, fuzzy
 #| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
 msgstr "소버린티 타이머"
 
-#: models.py:74
+#: sovtimer/models.py:74
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
-#: models.py:111
+#: sovtimer/models.py:111
 #, fuzzy
 #| msgid "IHub Defense"
 msgid "IHub defense"
 msgstr "IHub 방어"
 
-#: models.py:112
+#: sovtimer/models.py:112
 #, fuzzy
 #| msgid "TCU Defense"
 msgid "TCU defense"
 msgstr "TCU 방어"
 
-#: models.py:138
+#: sovtimer/models.py:138
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaign"
 msgstr "소버린티 캠페인 목록"
 
-#: models.py:139
+#: sovtimer/models.py:139
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
 msgstr "소버린티 캠페인 목록"
 
-#: templates/sovtimer/dashboard.html:20
-#: templates/sovtimer/partials/dashboard/table.html:25
+#: sovtimer/templates/sovtimer/dashboard.html:15
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "System"
 msgstr "성계"
 
-#: templates/sovtimer/dashboard.html:21
-#: templates/sovtimer/partials/dashboard/table.html:26
+#: sovtimer/templates/sovtimer/dashboard.html:16
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "Constellation"
 msgstr "성좌"
 
-#: templates/sovtimer/dashboard.html:22
-#: templates/sovtimer/partials/dashboard/table.html:27
+#: sovtimer/templates/sovtimer/dashboard.html:17
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Region"
 msgstr "지역"
 
-#: templates/sovtimer/dashboard.html:23
-#: templates/sovtimer/partials/dashboard/table.html:28
+#: sovtimer/templates/sovtimer/dashboard.html:18
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Owner / Defender"
 msgstr "소유자 / 방어자"
 
-#: templates/sovtimer/dashboard.html:24
+#: sovtimer/templates/sovtimer/dashboard.html:19
 #, fuzzy
 #| msgid "Active Campaign"
 msgid "Active campaign"
 msgstr "진행 중인 캠페인"
 
-#: templates/sovtimer/dashboard.html:25 views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:20 sovtimer/views.py:161
 msgid "Yes"
 msgstr "예"
 
-#: templates/sovtimer/dashboard.html:26 views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:159
 msgid "No"
 msgstr "아니요"
 
-#: templates/sovtimer/partials/dashboard/table.html:4
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:4
 msgid ""
 "The sovereignty timer list is automatically updated every 30 seconds. "
 "Progress for any active campaigns will be shown as <i>Previous - Trend - "
@@ -117,68 +118,68 @@ msgstr ""
 "소버린티 타이머 리스트는 30초마다 자동으로 업데이트 됩니다. 진행 중인 캠페인"
 "의 진행도는 <i>이전 - 변화량 - 현재</i>로 표시됩니다."
 
-#: templates/sovtimer/partials/dashboard/table.html:9
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:10
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaign list"
 msgstr "소버린티 캠페인 목록"
 
-#: templates/sovtimer/partials/dashboard/table.html:14
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
 #, fuzzy
 #| msgid "Timers Total:"
 msgid "Timers total:"
 msgstr "타이머 수:"
 
-#: templates/sovtimer/partials/dashboard/table.html:15
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:17
 #, fuzzy
 #| msgid "Timers Upcoming (< 4hrs):"
 msgid "Timers upcoming (< 4hrs):"
 msgstr "곧 시작되는 타이머 (4시간 이내):"
 
-#: templates/sovtimer/partials/dashboard/table.html:16
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
 #, fuzzy
 #| msgid "Timers Active:"
 msgid "Timers active:"
 msgstr "진행중인 타이머:"
 
-#: templates/sovtimer/partials/dashboard/table.html:24
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
 msgid "Type"
 msgstr "종류"
 
-#: templates/sovtimer/partials/dashboard/table.html:29
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "ADM"
 msgstr "ADM"
 
-#: templates/sovtimer/partials/dashboard/table.html:30
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "Start"
 msgstr "시작 시각"
 
-#: templates/sovtimer/partials/dashboard/table.html:31
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Remaining"
 msgstr "남은 시간"
 
-#: templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
 msgid "Progress"
 msgstr "진행도"
 
-#: templates/sovtimer/partials/footer/app-translation-footer.html:5
+#: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
 msgid ""
 "Do you want to help translate this app into your language or improve the "
 "existing translation?"
 msgstr "이 앱을 번역하거나 기존 번역을 개선하고 싶으신가요?"
 
-#: templates/sovtimer/partials/footer/app-translation-footer.html:8
+#: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
 msgstr "번역가 팀에 참여하세요!"
 
-#: views.py:163
+#: sovtimer/views.py:163
 msgid "Neither side has made any progress yet"
 msgstr "양 측 모두 진행하지 못하고 있습니다"
 
-#: views.py:171
+#: sovtimer/views.py:171
 msgid "Defenders making progress"
 msgstr "방어자 우세"
 
-#: views.py:179
+#: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr "공격자 우세"
