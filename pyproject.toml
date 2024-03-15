@@ -6,7 +6,6 @@ requires = [
 
 [project]
 name = "aa-sov-timer"
-version = "1.12.3"
 description = "Sov Campaign Timer for Alliance Auth"
 readme = "README.md"
 keywords = [
@@ -23,7 +22,7 @@ requires-python = ">=3.8"
 classifiers = [
     "Environment :: Web Environment",
     "Framework :: Django",
-    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.2",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",
@@ -33,17 +32,20 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
+dynamic = [
+    "version",
+]
 dependencies = [
-    "allianceauth>=3.2",
-    "allianceauth-app-utils>=1.12",
-    "django-eveuniverse>=0.14",
+    "allianceauth>=4.0.0b1",
+    "allianceauth-app-utils>=1.25",
+    "django-eveuniverse>=1.5.4",
 ]
 [project.optional-dependencies]
-tests-allianceauth-stable = [
-    "allianceauth-app-utils>=1.12",
+tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
 ]
@@ -59,3 +61,6 @@ Tracker = "https://github.com/ppfeufer/aa-sov-timer/issues"
 include = [
     "/sovtimer",
 ]
+
+[tool.hatch.version]
+path = "sovtimer/__init__.py"

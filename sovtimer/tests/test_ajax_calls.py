@@ -103,7 +103,7 @@ class TestAjaxCalls(TestCase):
         #             "region_name": "Esoteria",
         #             "region_name_html": '<a href="http://evemaps.dotlan.net/map/Esoteria" target="_blank" rel="noopener noreferer">Esoteria</a>',
         #             "defender_name": "Wayne Enterprises",
-        #             "defender_name_html": '<a href="http://evemaps.dotlan.net/alliance/Wayne_Enterprises" target="_blank" rel="noopener noreferer"><img class="aa-sovtimer-entity-logo-left" src="https://images.evetech.net/alliances/3001/logo?size=32" alt="Wayne Enterprises">Wayne Enterprises</a>',
+        #             "defender_name_html": '<a href="http://evemaps.dotlan.net/alliance/Wayne_Enterprises" target="_blank" rel="noopener noreferer"><img class="aa-sovtimer-entity-logo-left me-2" src="https://images.evetech.net/alliances/3001/logo?size=32" alt="Wayne Enterprises">Wayne Enterprises</a>',
         #             "adm": 6.0,
         #             "start_time": "2021-10-14T11:38:37Z",
         #             "remaining_time": "",

@@ -2,11 +2,6 @@
 
 {% load i18n %}
 
-{% block sovtimer_header %}
-    {% translate "Sovereignty Timers" as translated_header %}
-    {% include "sovtimer/partials/header/h1.html" with header_text=translated_header %}
-{% endblock %}
-
 {% block sovtimer_body %}
     {% include "sovtimer/partials/dashboard/table.html" %}
 
@@ -30,15 +25,13 @@
 {% endblock %}
 
 {% block extra_css %}
-    {% include "bundles/datatables-css.html" %}
+    {% include "bundles/datatables-css-bs5.html" %}
     {% include "sovtimer/bundles/aa-sov-timer-css.html" %}
 {% endblock %}
 
 {% block extra_javascript %}
     {% include "bundles/moment-js.html" with locale=True %}
-    {% include "bundles/datatables-js.html" %}
+    {% include "bundles/datatables-js-bs5.html" %}
     {% include "bundles/filterdropdown-js.html" %}
-
-    {% include "sovtimer/bundles/datatables-datetime-js.html" %}
     {% include "sovtimer/bundles/aa-sov-timer-js.html" %}
 {% endblock %}

@@ -1,8 +1,14 @@
-{% extends "allianceauth/base.html" %}
+{% extends "allianceauth/base-bs5.html" %}
 
 {% load i18n %}
 
-{% block page_title %}{% translate "Sovereignty Timer" %}{% endblock %}
+{% block page_title %}
+    {% translate "Sovereignty Timer" %}
+{% endblock %}
+
+{% block header_nav_brand %}
+    {% translate "Sovereignty Timer" %}
+{% endblock header_nav_brand %}
 
 {% block content %}
     <div class="aa-sovtimer">
@@ -14,7 +20,7 @@
             {% block sovtimer_body %}{% endblock %}
         </div>
 
-        <div class="aa-sovtimer-footer">
+        <div class="aa-sovtimer-footer mt-3 pt-3 border-top border-light">
             {% include "sovtimer/partials/footer/app-translation-footer.html" %}
         </div>
     </div>
