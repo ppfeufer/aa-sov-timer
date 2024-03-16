@@ -120,10 +120,14 @@ $(document).ready(() => {
                 visible: false,
                 targets: [9, 10, 11, 12, 13, 14]
             },
-            {
-                width: '150px',
-                targets: [8]
-            }
+            // {
+            //     width: '115px',
+            //     targets: [7]
+            // },
+            // {
+            //     width: '150px',
+            //     targets: [8]
+            // }
         ],
         order: [[6, 'asc']],
         filterDropDown: {

@@ -35,6 +35,12 @@ Section Order:
 ### Security
 -->
 
+## \[2.0.1\] - 2024-03-16
+
+### Fixed
+
+- Cell width in the table
+
 ## \[2.0.0\] - 2024-03-16
 
 > \[!NOTE\]
