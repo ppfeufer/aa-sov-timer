@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # erka Ekanon <M6musicT@hotmail.fr>, 2024.
 # Peter Pfeufer <info@ppfeufer.de>, 2024.
+# Matthias P <randomusernetcom@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 00:17+0100\n"
-"PO-Revision-Date: 2024-01-12 19:05+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-sov-timer/fr/>\n"
+"PO-Revision-Date: 2024-04-17 22:13+0000\n"
+"Last-Translator: Matthias P <randomusernetcom@gmail.com>\n"
+"Language-Team: French <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-sov-timer/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.4.3\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -64,7 +65,7 @@ msgstr ""
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "System"
-msgstr ""
+msgstr "Système"
 
 #: sovtimer/templates/sovtimer/dashboard.html:16
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
@@ -118,7 +119,7 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "ADM"
