@@ -4,13 +4,15 @@
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
 # Faer Yili <yilifaer@gmail.com>, 2024.
 # Dehao Wu <wudehao2000@163.com>, 2024.
+# MxdHana <236833425@qq.com>, 2024.
+# SAM_FPS <sam_fps@163.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-16 00:17+0100\n"
-"PO-Revision-Date: 2024-05-10 14:12+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"PO-Revision-Date: 2024-05-15 09:21+0000\n"
+"Last-Translator: SAM_FPS <sam_fps@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
 "alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -27,7 +29,7 @@ msgstr "主权宣布设施计时器"
 #: sovtimer/apps.py:20
 #, python-brace-format
 msgid "Sovereignty Timer v{__version__}"
-msgstr ""
+msgstr "主权宣布设施计时器{__version__}"
 
 #: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
 #: sovtimer/templates/sovtimer/base.html:10
@@ -65,22 +67,22 @@ msgstr ""
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "System"
-msgstr ""
+msgstr "星系"
 
 #: sovtimer/templates/sovtimer/dashboard.html:16
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "Constellation"
-msgstr ""
+msgstr "星座"
 
 #: sovtimer/templates/sovtimer/dashboard.html:17
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Region"
-msgstr ""
+msgstr "星域"
 
 #: sovtimer/templates/sovtimer/dashboard.html:18
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Owner / Defender"
-msgstr ""
+msgstr "拥有者/防御方"
 
 #: sovtimer/templates/sovtimer/dashboard.html:19
 msgid "Active campaign"
