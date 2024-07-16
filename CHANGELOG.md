@@ -35,9 +35,11 @@ Section Order:
 ### Security
 -->
 
+## \[2.1.0\] - 2024-07-16
+
 ### Changed
 
-- Name for "IHub defense" to "Sov Hub defense"
+- Campaign event name from "IHub defense" to "Sov Hub defense" to reflect the structure name change in EVE Online
 
 ### Removed
 

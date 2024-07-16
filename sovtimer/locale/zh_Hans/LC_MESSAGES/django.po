@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-16 00:17+0100\n"
+"POT-Creation-Date: 2024-07-16 08:11+0200\n"
 "PO-Revision-Date: 2024-05-15 09:21+0000\n"
 "Last-Translator: SAM_FPS <sam_fps@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/"
@@ -49,7 +49,7 @@ msgid "Sovereignty structures"
 msgstr ""
 
 #: sovtimer/models.py:111
-msgid "IHub defense"
+msgid "Sov Hub defense"
 msgstr ""
 
 #: sovtimer/models.py:112
