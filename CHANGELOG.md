@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Name for "IHub defense" to "Sov Hub defense"
+
 ### Removed
 
 - Support for Python 3.8 and Python 3.9
