@@ -108,7 +108,7 @@ class Campaign(models.Model):
         Choices for Comment Types
         """
 
-        IHUB_DEFENSE = "ihub_defense", _("IHub defense")
+        SOVHUB_DEFENSE = "ihub_defense", _("Sov Hub defense")
         TCU_DEFENSE = "tcu_defense", _("TCU defense")
 
     campaign_id = models.PositiveBigIntegerField(
