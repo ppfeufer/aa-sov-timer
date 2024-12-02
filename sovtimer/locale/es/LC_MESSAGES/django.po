@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-16 08:11+0200\n"
-"PO-Revision-Date: 2024-05-10 14:12+0000\n"
+"PO-Revision-Date: 2024-12-02 17:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-sov-timer/es/>\n"
+"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-sov-timer/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -34,14 +34,10 @@ msgid "Sovereignty Timer"
 msgstr "Temporizador de Soberanía"
 
 #: sovtimer/models.py:36
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Can access the Sovereignty Timer module"
-msgstr "Temporizador de Soberanía"
+msgstr "Puede acceder al modulo temporizador de Soberanía"
 
 #: sovtimer/models.py:73
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
 msgstr "Temporizador de Soberanía"
 
