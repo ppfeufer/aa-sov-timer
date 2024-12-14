@@ -8,8 +8,8 @@
 # SAM_FPS <sam_fps@163.com>, 2024.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: AA Sov Timer 2.2.1\n"
+"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
 "POT-Creation-Date: 2024-09-16 12:38+0200\n"
 "PO-Revision-Date: 2024-05-15 09:21+0000\n"
 "Last-Translator: SAM_FPS <sam_fps@163.com>\n"
