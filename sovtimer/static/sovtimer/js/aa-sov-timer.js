@@ -195,27 +195,27 @@ $(document).ready(() => {
             columns: [
                 {
                     idx: 0,
-                    title: sovtimerSettings.translations.type
+                    title: sovtimerSettings.translation.dtFilter.type
                 },
                 {
                     idx: 10,
-                    title: sovtimerSettings.translations.system
+                    title: sovtimerSettings.translation.dtFilter.system
                 },
                 {
                     idx: 11,
-                    title: sovtimerSettings.translations.constellation
+                    title: sovtimerSettings.translation.dtFilter.constellation
                 },
                 {
                     idx: 12,
-                    title: sovtimerSettings.translations.region
+                    title: sovtimerSettings.translation.dtFilter.region
                 },
                 {
                     idx: 13,
-                    title: sovtimerSettings.translations.owner
+                    title: sovtimerSettings.translation.dtFilter.owner
                 },
                 {
                     idx: 14,
-                    title: sovtimerSettings.translations.activeCampaign
+                    title: sovtimerSettings.translation.dtFilter.activeCampaign
                 }
             ],
             autoSize: false,
@@ -230,7 +230,7 @@ $(document).ready(() => {
             elementTimerTotal.html(newTotal);
 
             // Upcoming timer (< 4 hrs)
-            if (data.active_campaign === sovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
+            if (data.active_campaign === sovtimerSettings.translation.no && data.remaining_time_in_seconds <= 14400) {
                 $(row).addClass('aa-sovtimer-upcoming-campaign');
 
                 const currentUpcoming = elementTimerUpcoming.html();
@@ -240,7 +240,7 @@ $(document).ready(() => {
             }
 
             // Active timer
-            if (data.active_campaign === sovtimerSettings.translations.yes) {
+            if (data.active_campaign === sovtimerSettings.translation.yes) {
                 $(row).addClass('aa-sovtimer-active-campaign');
 
                 const currentActive = elementTimerActive.html();
@@ -269,7 +269,7 @@ $(document).ready(() => {
                 elementTimerTotal.html(newTotal);
 
                 // Upcoming timer (< 4 hrs)
-                if (item.active_campaign === sovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
+                if (item.active_campaign === sovtimerSettings.translation.no && item.remaining_time_in_seconds <= 14400) {
                     const currentUpcoming = elementTimerUpcoming.html();
                     const newUpcoming = parseInt(currentUpcoming) + 1;
 
@@ -277,7 +277,7 @@ $(document).ready(() => {
                 }
 
                 // Active timer
-                if (item.active_campaign === sovtimerSettings.translations.yes) {
+                if (item.active_campaign === sovtimerSettings.translation.yes) {
                     const currentActive = elementTimerActive.html();
                     const newActive = parseInt(currentActive) + 1;
 
