@@ -269,7 +269,7 @@ $(document).ready(() => {
             elementTimerTotal.html(newTotal);
 
             // Upcoming timer (< 4 hrs)
-            if (data.active_campaign === sovtimerSettings.translation.no && data.remaining_time_in_seconds <= 14400) {
+            if (data.active_campaign === sovtimerSettings.translation.no && data.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold) {
                 $(row).addClass('aa-sovtimer-upcoming-campaign');
 
                 const currentUpcoming = elementTimerUpcoming.html();
@@ -308,7 +308,7 @@ $(document).ready(() => {
                 elementTimerTotal.html(newTotal);
 
                 // Upcoming timer (< 4 hrs)
-                if (item.active_campaign === sovtimerSettings.translation.no && item.remaining_time_in_seconds <= 14400) {
+                if (item.active_campaign === sovtimerSettings.translation.no && item.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold) {
                     const currentUpcoming = elementTimerUpcoming.html();
                     const newUpcoming = parseInt(currentUpcoming) + 1;
 

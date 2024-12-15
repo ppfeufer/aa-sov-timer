@@ -73,11 +73,11 @@
         color: var(--bs-danger);
     }
 
-    .aa-sovtimer-campaigns-remaining-time-column {
+    .aa-sovtimer-campaigns-column-remaining-time {
         width: 115px !important;
     }
 
-    .aa-sovtimer-campaigns-progress-column {
+    .aa-sovtimer-campaigns-column-progress {
         width: 125px !important;
     }
 
