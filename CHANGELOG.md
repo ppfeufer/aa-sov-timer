@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Set user agent according to MDN guidelines
+
 ## [2.2.3] - 2024-12-15
 
 ### Added
