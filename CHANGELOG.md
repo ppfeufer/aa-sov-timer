@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.2.3] - 2024-12-15
+
 ### Added
 
 - Integrity hashes for the static files
