@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Integrity hashes for the static files
+
 ### Changed
 
 - Proper JS settings merge
