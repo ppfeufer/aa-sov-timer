@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2024-12-14 18:46+0100\n"
+"POT-Creation-Date: 2024-12-15 11:31+0100\n"
 "PO-Revision-Date: 2024-08-06 03:28+0000\n"
 "Last-Translator: Deleted User <noreply+44@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-"
@@ -61,35 +61,108 @@ msgstr "領有権キャンペーン"
 msgid "Sovereignty campaigns"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:15
+#: sovtimer/templates/sovtimer/base.html:27
+msgctxt "Decimal separator"
+msgid "."
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:28
+msgctxt "Thousands separator"
+msgid ","
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:29
+msgid "No data available in this table"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:30
+msgctxt "Keep _END_ as it is. It will be replaced by a number."
+msgid "Showing _END_ entries"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:31
+msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+msgid "(filtered from _MAX_ total entries)"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:32
+msgid "No records available"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:35
+msgid "Loading …"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:36
+msgid "Processing …"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:37
+msgid "Nothing found, sorry …"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:39
+msgid "Search …"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:41
+msgid "First"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:42
+msgid "Last"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:43
+msgid "Next"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:44
+msgid "Previous"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:47
+msgid ": activate to sort column ascending"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/base.html:48
+msgid ": activate to sort column descending"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/dashboard.html:23
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
+msgid "Type"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/dashboard.html:24
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "System"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
+#: sovtimer/templates/sovtimer/dashboard.html:25
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Constellation"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
+#: sovtimer/templates/sovtimer/dashboard.html:26
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Region"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
+#: sovtimer/templates/sovtimer/dashboard.html:27
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "Owner / Defender"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:19
+#: sovtimer/templates/sovtimer/dashboard.html:28
 msgid "Active campaign"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:20 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:30 sovtimer/views.py:161
 msgid "Yes"
 msgstr "はい"
 
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:31 sovtimer/views.py:159
 msgid "No"
 msgstr "いいえ"
 
@@ -116,23 +189,19 @@ msgstr ""
 msgid "Timers active:"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
-msgid "Type"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "ADM"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Start"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
 msgid "Remaining"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:35
 msgid "Progress"
 msgstr ""
 

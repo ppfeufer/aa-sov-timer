@@ -8,18 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2024-12-14 18:46+0100\n"
-"PO-Revision-Date: 2024-05-10 14:12+0000\n"
-"Last-Translator: Max <mark25@inbox.ru>\n"
-"Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-"
-"apps/aa-sov-timer/ru/>\n"
+"POT-Creation-Date: 2024-12-15 11:31+0100\n"
+"PO-Revision-Date: 2024-12-15 10:37+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: Russian <https://weblate.ppfeufer.de/projects/"
+"alliance-auth-apps/aa-sov-timer/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -65,35 +65,108 @@ msgstr "Опс по sov`у"
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15
+#: sovtimer/templates/sovtimer/base.html:27
+msgctxt "Decimal separator"
+msgid "."
+msgstr ","
+
+#: sovtimer/templates/sovtimer/base.html:28
+msgctxt "Thousands separator"
+msgid ","
+msgstr " "
+
+#: sovtimer/templates/sovtimer/base.html:29
+msgid "No data available in this table"
+msgstr "Данные в таблице отсутствуют"
+
+#: sovtimer/templates/sovtimer/base.html:30
+msgctxt "Keep _END_ as it is. It will be replaced by a number."
+msgid "Showing _END_ entries"
+msgstr "Отображаются _END_ записей"
+
+#: sovtimer/templates/sovtimer/base.html:31
+msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+msgid "(filtered from _MAX_ total entries)"
+msgstr "(отфильтрованы из _MAX_ записей)"
+
+#: sovtimer/templates/sovtimer/base.html:32
+msgid "No records available"
+msgstr "Записи недоступны"
+
+#: sovtimer/templates/sovtimer/base.html:35
+msgid "Loading …"
+msgstr "Загрузка …"
+
+#: sovtimer/templates/sovtimer/base.html:36
+msgid "Processing …"
+msgstr "Обработка …"
+
+#: sovtimer/templates/sovtimer/base.html:37
+msgid "Nothing found, sorry …"
+msgstr "Ничего не найдено …"
+
+#: sovtimer/templates/sovtimer/base.html:39
+msgid "Search …"
+msgstr "Поиск…"
+
+#: sovtimer/templates/sovtimer/base.html:41
+msgid "First"
+msgstr "Первый"
+
+#: sovtimer/templates/sovtimer/base.html:42
+msgid "Last"
+msgstr "Последний"
+
+#: sovtimer/templates/sovtimer/base.html:43
+msgid "Next"
+msgstr "Следующий"
+
+#: sovtimer/templates/sovtimer/base.html:44
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: sovtimer/templates/sovtimer/base.html:47
+msgid ": activate to sort column ascending"
+msgstr ": активируйте для сортировки по возрастанию"
+
+#: sovtimer/templates/sovtimer/base.html:48
+msgid ": activate to sort column descending"
+msgstr ": активируйте для сортировки по убыванию"
+
+#: sovtimer/templates/sovtimer/dashboard.html:23
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
+msgid "Type"
+msgstr "Тип"
+
+#: sovtimer/templates/sovtimer/dashboard.html:24
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "System"
 msgstr "Система"
 
-#: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
+#: sovtimer/templates/sovtimer/dashboard.html:25
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Constellation"
 msgstr "Созвездие"
 
-#: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
+#: sovtimer/templates/sovtimer/dashboard.html:26
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Region"
 msgstr "Регион"
 
-#: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
+#: sovtimer/templates/sovtimer/dashboard.html:27
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "Owner / Defender"
 msgstr "Владелец / Защитник"
 
-#: sovtimer/templates/sovtimer/dashboard.html:19
+#: sovtimer/templates/sovtimer/dashboard.html:28
 msgid "Active campaign"
 msgstr "Активная кампания"
 
-#: sovtimer/templates/sovtimer/dashboard.html:20 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:30 sovtimer/views.py:161
 msgid "Yes"
 msgstr "Да"
 
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:31 sovtimer/views.py:159
 msgid "No"
 msgstr "Нет"
 
@@ -123,23 +196,19 @@ msgstr "Ближайшие таймеры (<4ч.):"
 msgid "Timers active:"
 msgstr "Активные таймеры:"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
-msgid "Type"
-msgstr "Тип"
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "ADM"
 msgstr "АДМ"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Start"
 msgstr "Начало"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
 msgid "Remaining"
 msgstr "Осталось"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:35
 msgid "Progress"
 msgstr "Прогресс"
 
