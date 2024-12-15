@@ -4,9 +4,16 @@
 
 {% block sovtimer_body %}
     {% include "sovtimer/partials/dashboard/table.html" %}
+{% endblock %}
 
+{% block extra_css %}
+    {% include "bundles/datatables-css-bs5.html" %}
+    {% include "sovtimer/bundles/aa-sov-timer-css.html" %}
+{% endblock %}
+
+{% block extra_javascript %}
     <script>
-        const aaSovtimerSettings = {
+        const sovtimerJsSettingsOverride = {
             url: {
                 ajaxUpdate: '{% url "sovtimer:dashboard_data" %}'
             },
@@ -18,18 +25,12 @@
                 owner: '{% translate "Owner / Defender" %}',
                 activeCampaign: '{% translate "Active campaign" %}',
                 yes: '{% translate "Yes" %}',
-                no: '{% translate "No" %}'
+                no: '{% translate "No" %}',
+                type: '{% translate "Type" %}',
             }
         };
     </script>
-{% endblock %}
 
-{% block extra_css %}
-    {% include "bundles/datatables-css-bs5.html" %}
-    {% include "sovtimer/bundles/aa-sov-timer-css.html" %}
-{% endblock %}
-
-{% block extra_javascript %}
     {% include "bundles/moment-js.html" with locale=True %}
     {% include "bundles/datatables-js-bs5.html" %}
     {% include "bundles/filterdropdown-js.html" %}
