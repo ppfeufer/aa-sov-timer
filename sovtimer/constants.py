@@ -2,15 +2,12 @@
 Constants we use throughout the app
 """
 
-# Django
-from django.utils.text import slugify
+# Alliance Auth
+from esi import __version__ as esi_version
 
 # AA Sovereignty Timer
 from sovtimer import __version__
 
-VERBOSE_NAME = "Sovereignty Timer for Alliance Auth"
-
-verbose_name_slugified: str = slugify(value=VERBOSE_NAME, allow_unicode=True)
-github_url: str = "https://github.com/ppfeufer/aa-sov-timer"
-
-USER_AGENT = f"{verbose_name_slugified} v{__version__} {github_url}"
+APP_NAME = "aa-sov-timer"
+GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
+USER_AGENT = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_version}"
