@@ -1,7 +1,67 @@
-/* global aaSovtimerSettings, moment */
+/* global sovtimerJsSettingsDefaults, sovtimerJsSettingsOverride, moment */
 
 $(document).ready(() => {
     'use strict';
+
+    /**
+     * Checks if the given item is a plain object, excluding arrays and dates.
+     *
+     * @param {*} item - The item to check.
+     * @returns {boolean} True if the item is a plain object, false otherwise.
+     */
+    function isObject (item) {
+        return (
+            item && typeof item === 'object' && !Array.isArray(item) && !(item instanceof Date)
+        );
+    }
+
+    /**
+     * Recursively merges properties from source objects into a target object. If a property at the current level is an object,
+     * and both target and source have it, the property is merged. Otherwise, the source property overwrites the target property.
+     * This function does not modify the source objects and prevents prototype pollution by not allowing __proto__, constructor,
+     * and prototype property names.
+     *
+     * @param {Object} target - The target object to merge properties into.
+     * @param {...Object} sources - One or more source objects from which to merge properties.
+     * @returns {Object} The target object after merging properties from sources.
+     */
+    function deepMerge (target, ...sources) {
+        if (!sources.length) {
+            return target;
+        }
+
+        // Iterate through each source object without modifying the `sources` array.
+        sources.forEach(source => {
+            if (isObject(target) && isObject(source)) {
+                for (const key in source) {
+                    if (isObject(source[key])) {
+                        if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+                            continue; // Skip potentially dangerous keys to prevent prototype pollution.
+                        }
+
+                        if (!target[key] || !isObject(target[key])) {
+                            target[key] = {};
+                        }
+
+                        deepMerge(target[key], source[key]);
+                    } else {
+                        target[key] = source[key];
+                    }
+                }
+            }
+        });
+
+        return target;
+    }
+
+    // Build the settings object
+    let sovtimerSettings = sovtimerJsSettingsDefaults;
+    if (typeof sovtimerJsSettingsOverride !== 'undefined') {
+        sovtimerSettings = deepMerge(
+            sovtimerJsSettingsDefaults,
+            sovtimerJsSettingsOverride
+        );
+    }
 
     const elementTimerTotal = $('.aa-sovtimer-timers-total');
     const elementTimerUpcoming = $('.aa-sovtimer-timers-upcoming');
@@ -58,8 +118,9 @@ $(document).ready(() => {
      * @type {jQuery}
      */
     const sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
+        language: sovtimerSettings.dataTables.translation,
         ajax: {
-            url: aaSovtimerSettings.url.ajaxUpdate,
+            url: sovtimerSettings.url.ajaxUpdate,
             dataSrc: '',
             cache: false
         },
@@ -85,7 +146,7 @@ $(document).ready(() => {
             {
                 data: 'start_time',
                 render: (data) => {
-                    return moment(data).utc().format(aaSovtimerSettings.dateformat);
+                    return moment(data).utc().format(sovtimerSettings.dateformat);
                 }
             },
             {
@@ -133,27 +194,28 @@ $(document).ready(() => {
         filterDropDown: {
             columns: [
                 {
-                    idx: 0
+                    idx: 0,
+                    title: sovtimerSettings.translations.type
                 },
                 {
                     idx: 10,
-                    title: aaSovtimerSettings.translations.system
+                    title: sovtimerSettings.translations.system
                 },
                 {
                     idx: 11,
-                    title: aaSovtimerSettings.translations.constellation
+                    title: sovtimerSettings.translations.constellation
                 },
                 {
                     idx: 12,
-                    title: aaSovtimerSettings.translations.region
+                    title: sovtimerSettings.translations.region
                 },
                 {
                     idx: 13,
-                    title: aaSovtimerSettings.translations.owner
+                    title: sovtimerSettings.translations.owner
                 },
                 {
                     idx: 14,
-                    title: aaSovtimerSettings.translations.activeCampaign
+                    title: sovtimerSettings.translations.activeCampaign
                 }
             ],
             autoSize: false,
@@ -168,7 +230,7 @@ $(document).ready(() => {
             elementTimerTotal.html(newTotal);
 
             // Upcoming timer (< 4 hrs)
-            if (data.active_campaign === aaSovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
+            if (data.active_campaign === sovtimerSettings.translations.no && data.remaining_time_in_seconds <= 14400) {
                 $(row).addClass('aa-sovtimer-upcoming-campaign');
 
                 const currentUpcoming = elementTimerUpcoming.html();
@@ -178,7 +240,7 @@ $(document).ready(() => {
             }
 
             // Active timer
-            if (data.active_campaign === aaSovtimerSettings.translations.yes) {
+            if (data.active_campaign === sovtimerSettings.translations.yes) {
                 $(row).addClass('aa-sovtimer-active-campaign');
 
                 const currentActive = elementTimerActive.html();
@@ -207,7 +269,7 @@ $(document).ready(() => {
                 elementTimerTotal.html(newTotal);
 
                 // Upcoming timer (< 4 hrs)
-                if (item.active_campaign === aaSovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
+                if (item.active_campaign === sovtimerSettings.translations.no && item.remaining_time_in_seconds <= 14400) {
                     const currentUpcoming = elementTimerUpcoming.html();
                     const newUpcoming = parseInt(currentUpcoming) + 1;
 
@@ -215,7 +277,7 @@ $(document).ready(() => {
                 }
 
                 // Active timer
-                if (item.active_campaign === aaSovtimerSettings.translations.yes) {
+                if (item.active_campaign === sovtimerSettings.translations.yes) {
                     const currentActive = elementTimerActive.html();
                     const newActive = parseInt(currentActive) + 1;
 
