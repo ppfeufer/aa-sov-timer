@@ -38,6 +38,8 @@ Section Order:
 ### Added
 
 - Integrity hashes for the static files
+- More logging to the task, since I couldn't believe there are no sovereignty
+  campaigns at all. Well, the Equinox update works, null-sec is "truly" reinvigorated.
 
 ### Changed
 

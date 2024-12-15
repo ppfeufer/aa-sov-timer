@@ -71,8 +71,13 @@ def update_sov_campaigns() -> None:
 
     campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
 
+    logger.debug(
+        msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi)}"
+    )
+
     if campaigns_from_esi:
         logger.debug(msg="Updating sovereignty campaigns …")
+
         with transaction.atomic():
             campaigns = []
 
