@@ -125,53 +125,81 @@ $(document).ready(() => {
             cache: false
         },
         columns: [
+            // Column: 0
             {
                 data: 'event_type'
             },
+
+            // Column: 1
             {
                 data: 'solar_system_name_html'
             },
+
+            // Column: 2
             {
                 data: 'constellation_name_html'
             },
+
+            // Column: 3
             {
                 data: 'region_name_html'
             },
+
+            // Column: 4
             {
                 data: 'defender_name_html'
             },
+
+            // Column: 5
             {
                 data: 'adm'
             },
+
+            // Column: 6
             {
                 data: 'start_time',
                 render: (data) => {
                     return moment(data).utc().format(sovtimerSettings.dateformat);
                 }
             },
+
+            // Column: 7
             {
                 data: 'remaining_time'
             },
+
+            // Column: 8
             {
                 data: 'campaign_progress'
             },
 
             // Hidden columns
+            // Column: 9
             {
                 data: 'remaining_time_in_seconds'
             },
+
+            // Column: 10
             {
                 data: 'solar_system_name'
             },
+
+            // Column: 11
             {
                 data: 'constellation_name'
             },
+
+            // Column: 12
             {
                 data: 'region_name'
             },
+
+            // Column: 13
             {
                 data: 'defender_name'
             },
+
+            // Column: 14
             {
                 data: 'active_campaign'
             }
@@ -179,7 +207,7 @@ $(document).ready(() => {
         columnDefs: [
             {
                 visible: false,
-                targets: [9, 10, 11, 12, 13, 14]
+                targets: [0, 9, 10, 11, 12, 13, 14]
             },
             // {
             //     width: '115px',
@@ -193,26 +221,37 @@ $(document).ready(() => {
         order: [[6, 'asc']],
         filterDropDown: {
             columns: [
-                {
-                    idx: 0,
-                    title: sovtimerSettings.translation.dtFilter.type
-                },
+                // Filter: Type
+                // {
+                //     idx: 0,
+                //     title: sovtimerSettings.translation.dtFilter.type
+                // },
+
+                // Filter: System
                 {
                     idx: 10,
                     title: sovtimerSettings.translation.dtFilter.system
                 },
+
+                // Filter: Constellation
                 {
                     idx: 11,
                     title: sovtimerSettings.translation.dtFilter.constellation
                 },
+
+                // Filter: Region
                 {
                     idx: 12,
                     title: sovtimerSettings.translation.dtFilter.region
                 },
+
+                // Filter: Owner/Defender
                 {
                     idx: 13,
                     title: sovtimerSettings.translation.dtFilter.owner
                 },
+
+                // Filter: Active Campaign
                 {
                     idx: 14,
                     title: sovtimerSettings.translation.dtFilter.activeCampaign
