@@ -41,6 +41,7 @@ Section Order:
 
 ### Changed
 
+- Hide campaign type column. Since there is now only one campaign type, we don't need it.
 - Proper JS settings merge
 
 ## [2.2.2] - 2024-12-14
