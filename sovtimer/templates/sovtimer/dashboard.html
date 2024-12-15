@@ -18,15 +18,17 @@
                 ajaxUpdate: '{% url "sovtimer:dashboard_data" %}'
             },
             dateformat: 'YYYY-MM-DD HH:mm:ss',
-            translations: {
-                system: '{% translate "System" %}',
-                constellation: '{% translate "Constellation" %}',
-                region: '{% translate "Region" %}',
-                owner: '{% translate "Owner / Defender" %}',
-                activeCampaign: '{% translate "Active campaign" %}',
+            translation: {
+                dtFilter: {
+                    type: '{% translate "Type" %}',
+                    system: '{% translate "System" %}',
+                    constellation: '{% translate "Constellation" %}',
+                    region: '{% translate "Region" %}',
+                    owner: '{% translate "Owner / Defender" %}',
+                    activeCampaign: '{% translate "Active campaign" %}',
+                },
                 yes: '{% translate "Yes" %}',
                 no: '{% translate "No" %}',
-                type: '{% translate "Type" %}',
             }
         };
     </script>
