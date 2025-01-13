@@ -12,6 +12,15 @@
 {% endblock %}
 
 {% block extra_javascript %}
+    {% translate "Type" as dtFilterType %}
+    {% translate "System" as dtFilterSystem %}
+    {% translate "Constellation" as dtFilterConstellation %}
+    {% translate "Region" as dtFilterRegion %}
+    {% translate "Owner / Defender" as dtFilterOwner %}
+    {% translate "Active campaign" as dtFilterActiveCampaign %}
+    {% translate "Yes" as yes %}
+    {% translate "No" as no %}
+
     <script>
         const sovtimerJsSettingsOverride = {
             url: {
@@ -20,15 +29,15 @@
             dateformat: 'YYYY-MM-DD HH:mm:ss',
             translation: {
                 dtFilter: {
-                    type: '{% translate "Type" %}',
-                    system: '{% translate "System" %}',
-                    constellation: '{% translate "Constellation" %}',
-                    region: '{% translate "Region" %}',
-                    owner: '{% translate "Owner / Defender" %}',
-                    activeCampaign: '{% translate "Active campaign" %}',
+                    type: '{{ dtFilterType|escapejs }}',
+                    system: '{{ dtFilterSystem|escapejs }}',
+                    constellation: '{{ dtFilterConstellation|escapejs }}',
+                    region: '{{ dtFilterRegion|escapejs }}',
+                    owner: '{{ dtFilterOwner|escapejs }}',
+                    activeCampaign: '{{ dtFilterActiveCampaign|escapejs }}',
                 },
-                yes: '{% translate "Yes" %}',
-                no: '{% translate "No" %}',
+                yes: '{{ yes|escapejs }}',
+                no: '{{ no|escapejs }}',
             },
             upcomingTimerThreshold: 4 * 60 * 60 * 1000, // 4 hours in milliseconds
         };
