@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Upcoming Timer Threshold
+
 ## [2.2.4] - 2025-01-13
 
 ### Fixed
