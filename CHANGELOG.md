@@ -39,6 +39,10 @@ Section Order:
 
 - Upcoming Timer Threshold
 
+### Changed
+
+- Material Icon font updated to v143
+
 ## [2.2.4] - 2025-01-13
 
 ### Fixed

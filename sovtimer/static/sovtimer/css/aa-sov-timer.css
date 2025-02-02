@@ -6,10 +6,7 @@
     font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
-    src: local("Material Icons"),
-        local("MaterialIcons-Regular"),
-        url("../font/materialicons/v103/MaterialIcons-Regular.ttf") format("truetype"),
-        url("../font/materialicons/v103/MaterialIcons-Regular.woff2") format("woff2");
+    src: url("../font/materialicons/v143/MaterialIcons-Regular.woff2") format("woff2");
 }
 
 @media all {
