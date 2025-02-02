@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2024-12-15 11:31+0100\n"
+"POT-Creation-Date: 2025-01-13 14:58+0100\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
-"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/"
-"alliance-auth-apps/aa-sov-timer/es/>\n"
+"Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,122 +70,116 @@ msgstr "Lista de Campañas de Soberanía"
 msgid "Sovereignty campaigns"
 msgstr "Lista de Campañas de Soberanía"
 
-#: sovtimer/templates/sovtimer/base.html:27
+#: sovtimer/templates/sovtimer/base.html:20
 msgctxt "Decimal separator"
 msgid "."
 msgstr ","
 
-#: sovtimer/templates/sovtimer/base.html:28
+#: sovtimer/templates/sovtimer/base.html:21
 msgctxt "Thousands separator"
 msgid ","
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:29
+#: sovtimer/templates/sovtimer/base.html:22
 msgid "No data available in this table"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:30
+#: sovtimer/templates/sovtimer/base.html:23
 msgctxt "Keep _END_ as it is. It will be replaced by a number."
 msgid "Showing _END_ entries"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:31
+#: sovtimer/templates/sovtimer/base.html:24
 msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
 msgid "(filtered from _MAX_ total entries)"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:32
+#: sovtimer/templates/sovtimer/base.html:25
 msgid "No records available"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:35
+#: sovtimer/templates/sovtimer/base.html:26
 msgid "Loading …"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:36
+#: sovtimer/templates/sovtimer/base.html:27
 msgid "Processing …"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:37
+#: sovtimer/templates/sovtimer/base.html:28
 msgid "Nothing found, sorry …"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:39
+#: sovtimer/templates/sovtimer/base.html:29
 msgid "Search …"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:41
+#: sovtimer/templates/sovtimer/base.html:30
 msgid "First"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:42
+#: sovtimer/templates/sovtimer/base.html:31
 msgid "Last"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:43
+#: sovtimer/templates/sovtimer/base.html:32
 msgid "Next"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:44
+#: sovtimer/templates/sovtimer/base.html:33
 msgid "Previous"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:47
+#: sovtimer/templates/sovtimer/base.html:34
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/base.html:48
+#: sovtimer/templates/sovtimer/base.html:35
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:23
+#: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "Type"
 msgstr "Tipo"
 
-#: sovtimer/templates/sovtimer/dashboard.html:24
+#: sovtimer/templates/sovtimer/dashboard.html:16
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "System"
 msgstr "Sistema"
 
-#: sovtimer/templates/sovtimer/dashboard.html:25
+#: sovtimer/templates/sovtimer/dashboard.html:17
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Constellation"
 msgstr "Constelación"
 
-#: sovtimer/templates/sovtimer/dashboard.html:26
+#: sovtimer/templates/sovtimer/dashboard.html:18
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Region"
 msgstr "Región"
 
-#: sovtimer/templates/sovtimer/dashboard.html:27
+#: sovtimer/templates/sovtimer/dashboard.html:19
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "Owner / Defender"
 msgstr "Propietario / Defensor"
 
-#: sovtimer/templates/sovtimer/dashboard.html:28
+#: sovtimer/templates/sovtimer/dashboard.html:20
 #, fuzzy
 #| msgid "Active Campaign"
 msgid "Active campaign"
 msgstr "Campaña activa"
 
-#: sovtimer/templates/sovtimer/dashboard.html:30 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:161
 msgid "Yes"
 msgstr "Si"
 
-#: sovtimer/templates/sovtimer/dashboard.html:31 sovtimer/views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:159
 msgid "No"
 msgstr "No"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:4
-msgid ""
-"The sovereignty timer list is automatically updated every 30 seconds. "
-"Progress for any active campaigns will be shown as <i>Previous - Trend - "
-"Current</i>."
-msgstr ""
-"La lista de temporizadores de soberanía se actualiza automáticamente cada 30 "
-"segundos. El progreso de cualquier campaña activa se mostrará como "
-"<i>Anterior - Tendencia - Actual</i>."
+msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgstr "La lista de temporizadores de soberanía se actualiza automáticamente cada 30 segundos. El progreso de cualquier campaña activa se mostrará como <i>Anterior - Tendencia - Actual</i>."
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:10
 #, fuzzy
@@ -229,12 +222,8 @@ msgid "Progress"
 msgstr "Progreso"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
-msgid ""
-"Do you want to help translate this app into your language or improve the "
-"existing translation?"
-msgstr ""
-"¿Quieres ayudar a traducir esta aplicación a tu idioma o mejorar la "
-"traducción existente?"
+msgid "Do you want to help translate this app into your language or improve the existing translation?"
+msgstr "¿Quieres ayudar a traducir esta aplicación a tu idioma o mejorar la traducción existente?"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
