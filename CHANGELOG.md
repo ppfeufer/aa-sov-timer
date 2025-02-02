@@ -41,7 +41,10 @@ Section Order:
 
 ### Changed
 
+- Use `django-sri` for sri hashes
 - Material Icon font updated to v143
+- Minimum requirements
+  - Alliance Auth >= 4.6.0
 
 ## [2.2.4] - 2025-01-13
 
