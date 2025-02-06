@@ -19,3 +19,6 @@ USER_AGENT = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_versio
 AA_SOVTIMER_BASE_DIR = os.path.join(os.path.dirname(__file__))
 # aa-sov-timer/sovtimer/static/sovtimer
 AA_SOVTIMER_STATIC_DIR = os.path.join(AA_SOVTIMER_BASE_DIR, "static", "sovtimer")
+
+# All internal URLs need to start with this prefix
+INTERNAL_URL_PREFIX = "-"

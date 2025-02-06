@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Make ajax call URL an internal URL
+
 ## [2.3.0] - 2025-02-02
 
 ### Fixed
