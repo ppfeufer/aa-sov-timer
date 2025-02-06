@@ -18,7 +18,7 @@ from app_utils.logging import LoggerAddTag
 # AA Sovereignty Timer
 # AA Sov Timer
 from sovtimer import __title__
-from sovtimer.constants import AA_SOVTIMER_STATIC_DIR
+from sovtimer.constants import APP_STATIC_DIR
 
 logger = LoggerAddTag(my_logger=get_extension_logger(__name__), prefix=__title__)
 
@@ -34,7 +34,7 @@ def calculate_integrity_hash(relative_file_path: str) -> str:
     :rtype: str
     """
 
-    file_path = os.path.join(AA_SOVTIMER_STATIC_DIR, relative_file_path)
+    file_path = os.path.join(APP_STATIC_DIR, relative_file_path)
     integrity_hash = calculate_integrity(
         path=Path(file_path), algorithm=Algorithm.SHA512
     )
