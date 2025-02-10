@@ -40,6 +40,10 @@ Section Order:
 - Simplify constant names
 - Make ajax call URL an internal URL
 
+### Fixed
+
+- `TypeError: object of type 'NoneType' has no len()` in update task
+
 ## [2.3.0] - 2025-02-02
 
 ### Fixed
