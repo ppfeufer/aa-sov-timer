@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-01-13 14:58+0100\n"
+"POT-Creation-Date: 2025-02-26 17:41+0100\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -28,8 +28,8 @@ msgstr "Таймеры суверенитета"
 msgid "Sovereignty Timer v{__version__}"
 msgstr "Таймеры суверенитета v{__version__}"
 
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
-#: sovtimer/templates/sovtimer/base.html:10
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Таймер суверенитета"
 
@@ -62,74 +62,6 @@ msgstr "Опс по sov`у"
 #: sovtimer/models.py:139
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
-
-#: sovtimer/templates/sovtimer/base.html:20
-msgctxt "Decimal separator"
-msgid "."
-msgstr ","
-
-#: sovtimer/templates/sovtimer/base.html:21
-msgctxt "Thousands separator"
-msgid ","
-msgstr " "
-
-#: sovtimer/templates/sovtimer/base.html:22
-msgid "No data available in this table"
-msgstr "Данные в таблице отсутствуют"
-
-#: sovtimer/templates/sovtimer/base.html:23
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "Отображаются _END_ записей"
-
-#: sovtimer/templates/sovtimer/base.html:24
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(отфильтрованы из _MAX_ записей)"
-
-#: sovtimer/templates/sovtimer/base.html:25
-msgid "No records available"
-msgstr "Записи недоступны"
-
-#: sovtimer/templates/sovtimer/base.html:26
-msgid "Loading …"
-msgstr "Загрузка …"
-
-#: sovtimer/templates/sovtimer/base.html:27
-msgid "Processing …"
-msgstr "Обработка …"
-
-#: sovtimer/templates/sovtimer/base.html:28
-msgid "Nothing found, sorry …"
-msgstr "Ничего не найдено …"
-
-#: sovtimer/templates/sovtimer/base.html:29
-msgid "Search …"
-msgstr "Поиск…"
-
-#: sovtimer/templates/sovtimer/base.html:30
-msgid "First"
-msgstr "Первый"
-
-#: sovtimer/templates/sovtimer/base.html:31
-msgid "Last"
-msgstr "Последний"
-
-#: sovtimer/templates/sovtimer/base.html:32
-msgid "Next"
-msgstr "Следующий"
-
-#: sovtimer/templates/sovtimer/base.html:33
-msgid "Previous"
-msgstr "Предыдущий"
-
-#: sovtimer/templates/sovtimer/base.html:34
-msgid ": activate to sort column ascending"
-msgstr ": активируйте для сортировки по возрастанию"
-
-#: sovtimer/templates/sovtimer/base.html:35
-msgid ": activate to sort column descending"
-msgstr ": активируйте для сортировки по убыванию"
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
@@ -223,3 +155,55 @@ msgstr "Защитники добиваются успеха"
 #: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr "Атакующие добиваются успеха"
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr ","
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr " "
+
+#~ msgid "No data available in this table"
+#~ msgstr "Данные в таблице отсутствуют"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "Отображаются _END_ записей"
+
+#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+#~ msgid "(filtered from _MAX_ total entries)"
+#~ msgstr "(отфильтрованы из _MAX_ записей)"
+
+#~ msgid "No records available"
+#~ msgstr "Записи недоступны"
+
+#~ msgid "Loading …"
+#~ msgstr "Загрузка …"
+
+#~ msgid "Processing …"
+#~ msgstr "Обработка …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "Ничего не найдено …"
+
+#~ msgid "Search …"
+#~ msgstr "Поиск…"
+
+#~ msgid "First"
+#~ msgstr "Первый"
+
+#~ msgid "Last"
+#~ msgstr "Последний"
+
+#~ msgid "Next"
+#~ msgstr "Следующий"
+
+#~ msgid "Previous"
+#~ msgstr "Предыдущий"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": активируйте для сортировки по возрастанию"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": активируйте для сортировки по убыванию"
