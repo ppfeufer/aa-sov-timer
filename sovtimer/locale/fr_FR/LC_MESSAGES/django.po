@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-01-13 14:58+0100\n"
+"POT-Creation-Date: 2025-02-26 17:41+0100\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
@@ -30,8 +30,8 @@ msgstr "Minuteries de souveraineté"
 msgid "Sovereignty Timer v{__version__}"
 msgstr "Sovereignty Timer v{__version__}"
 
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
-#: sovtimer/templates/sovtimer/base.html:10
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Minuterie de souveraineté"
 
@@ -62,74 +62,6 @@ msgstr ""
 #: sovtimer/models.py:139
 msgid "Sovereignty campaigns"
 msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:20
-msgctxt "Decimal separator"
-msgid "."
-msgstr "."
-
-#: sovtimer/templates/sovtimer/base.html:21
-msgctxt "Thousands separator"
-msgid ","
-msgstr ","
-
-#: sovtimer/templates/sovtimer/base.html:22
-msgid "No data available in this table"
-msgstr "Aucune donnée disponible dans cette table"
-
-#: sovtimer/templates/sovtimer/base.html:23
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "Montre les _END_ entrées"
-
-#: sovtimer/templates/sovtimer/base.html:24
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:25
-msgid "No records available"
-msgstr "Aucun enregistrement disponible"
-
-#: sovtimer/templates/sovtimer/base.html:26
-msgid "Loading …"
-msgstr "Chargement …"
-
-#: sovtimer/templates/sovtimer/base.html:27
-msgid "Processing …"
-msgstr "Traitement …"
-
-#: sovtimer/templates/sovtimer/base.html:28
-msgid "Nothing found, sorry …"
-msgstr "Rien n'a été trouvé, désolé …"
-
-#: sovtimer/templates/sovtimer/base.html:29
-msgid "Search …"
-msgstr "Recherche …"
-
-#: sovtimer/templates/sovtimer/base.html:30
-msgid "First"
-msgstr "Premier"
-
-#: sovtimer/templates/sovtimer/base.html:31
-msgid "Last"
-msgstr "Dernier"
-
-#: sovtimer/templates/sovtimer/base.html:32
-msgid "Next"
-msgstr "Suivant"
-
-#: sovtimer/templates/sovtimer/base.html:33
-msgid "Previous"
-msgstr "Précèdent"
-
-#: sovtimer/templates/sovtimer/base.html:34
-msgid ": activate to sort column ascending"
-msgstr ": activer pour trier les colonnes par ordre croissant"
-
-#: sovtimer/templates/sovtimer/base.html:35
-msgid ": activate to sort column descending"
-msgstr ": activer pour trier les colonnes dans l'ordre décroissant"
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
@@ -223,3 +155,51 @@ msgstr ""
 #: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr ""
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "No data available in this table"
+#~ msgstr "Aucune donnée disponible dans cette table"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "Montre les _END_ entrées"
+
+#~ msgid "No records available"
+#~ msgstr "Aucun enregistrement disponible"
+
+#~ msgid "Loading …"
+#~ msgstr "Chargement …"
+
+#~ msgid "Processing …"
+#~ msgstr "Traitement …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "Rien n'a été trouvé, désolé …"
+
+#~ msgid "Search …"
+#~ msgstr "Recherche …"
+
+#~ msgid "First"
+#~ msgstr "Premier"
+
+#~ msgid "Last"
+#~ msgstr "Dernier"
+
+#~ msgid "Next"
+#~ msgstr "Suivant"
+
+#~ msgid "Previous"
+#~ msgstr "Précèdent"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": activer pour trier les colonnes par ordre croissant"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": activer pour trier les colonnes dans l'ordre décroissant"
