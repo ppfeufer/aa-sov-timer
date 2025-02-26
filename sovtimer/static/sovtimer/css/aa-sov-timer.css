@@ -82,12 +82,3 @@
         vertical-align: middle;
     }
 }
-
-/* Data tables
-------------------------------------------------------------------------------------- */
-@media all {
-    div.dataTables_filter input[type="search"] {
-        margin-left: 0 !important;
-        width: 100% !important;
-    }
-}
