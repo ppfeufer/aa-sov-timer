@@ -210,7 +210,7 @@ $(document).ready(() => {
             // Column: 14
             {
                 data: 'active_campaign'
-            },
+            }
         ],
         columnDefs: [
             {
@@ -338,8 +338,8 @@ $(document).ready(() => {
      * Update the remaining time every second
      */
     setInterval(() => {
-        sovCampaignTable.rows().every(function () {
-            const data = this.data();
+        sovCampaignTable.rows().every((element) => {
+            const data = sovCampaignTable.row(element).data();
 
             const remaining = secondsToRemainingTime(
                 data.remaining_time_in_seconds
@@ -348,7 +348,7 @@ $(document).ready(() => {
             data.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
             data.remaining_time = remaining.countdown;
 
-            sovCampaignTable.row(this).data(data);
+            sovCampaignTable.row(element).data(data);
         });
     }, 1000);
 });
