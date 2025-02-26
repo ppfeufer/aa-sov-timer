@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # "Andrii M." <elfleg0las88@gmail.com>, 2023, 2024.
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
+# M <skrypets@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-01-13 14:58+0100\n"
-"PO-Revision-Date: 2024-10-04 18:10+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"POT-Creation-Date: 2025-02-26 17:41+0100\n"
+"PO-Revision-Date: 2025-02-24 15:17+0000\n"
+"Last-Translator: M <skrypets@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.10.1\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -27,8 +28,8 @@ msgstr "Таймера суверенітету"
 msgid "Sovereignty Timer v{__version__}"
 msgstr "Таймера суверенітету v{__version__}"
 
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
-#: sovtimer/templates/sovtimer/base.html:10
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Таймер суверенітету"
 
@@ -73,74 +74,6 @@ msgstr "Таймер суверенітету"
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty campaigns"
 msgstr "Таймера суверенітету"
-
-#: sovtimer/templates/sovtimer/base.html:20
-msgctxt "Decimal separator"
-msgid "."
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:21
-msgctxt "Thousands separator"
-msgid ","
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:22
-msgid "No data available in this table"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:23
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:24
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:25
-msgid "No records available"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:26
-msgid "Loading …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:27
-msgid "Processing …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:28
-msgid "Nothing found, sorry …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:29
-msgid "Search …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:30
-msgid "First"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:31
-msgid "Last"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:32
-msgid "Next"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:33
-msgid "Previous"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:34
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:35
-msgid ": activate to sort column descending"
-msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
@@ -236,3 +169,47 @@ msgstr ""
 #: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr ""
+
+#~ msgid "No data available in this table"
+#~ msgstr "Немає даних у цій таблиці"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "Показано _END_ записів"
+
+#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+#~ msgid "(filtered from _MAX_ total entries)"
+#~ msgstr "(відфільтровано з _MAX_ загальних записів)"
+
+#~ msgid "No records available"
+#~ msgstr "Записів не знайдено"
+
+#~ msgid "Loading …"
+#~ msgstr "Завантаження …"
+
+#~ msgid "Processing …"
+#~ msgstr "Обробка …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "Нічого не знайдено, вибачте …"
+
+#~ msgid "Search …"
+#~ msgstr "Пошук …"
+
+#~ msgid "First"
+#~ msgstr "Перший"
+
+#~ msgid "Last"
+#~ msgstr "Останній"
+
+#~ msgid "Next"
+#~ msgstr "Далі"
+
+#~ msgid "Previous"
+#~ msgstr "Назад"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": активуйте щоб сортувати за зростанням"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": активуйте щоб сортувати за спаданням"
