@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-01-13 14:58+0100\n"
+"POT-Creation-Date: 2025-02-26 17:41+0100\n"
 "PO-Revision-Date: 2024-05-15 09:21+0000\n"
 "Last-Translator: SAM_FPS <sam_fps@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
@@ -30,8 +30,8 @@ msgstr "主权宣布设施计时器"
 msgid "Sovereignty Timer v{__version__}"
 msgstr "主权宣布设施计时器{__version__}"
 
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
-#: sovtimer/templates/sovtimer/base.html:10
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "主权宣布设施计时器"
 
@@ -61,74 +61,6 @@ msgstr ""
 
 #: sovtimer/models.py:139
 msgid "Sovereignty campaigns"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:20
-msgctxt "Decimal separator"
-msgid "."
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:21
-msgctxt "Thousands separator"
-msgid ","
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:22
-msgid "No data available in this table"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:23
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:24
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:25
-msgid "No records available"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:26
-msgid "Loading …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:27
-msgid "Processing …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:28
-msgid "Nothing found, sorry …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:29
-msgid "Search …"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:30
-msgid "First"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:31
-msgid "Last"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:32
-msgid "Next"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:33
-msgid "Previous"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:34
-msgid ": activate to sort column ascending"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/base.html:35
-msgid ": activate to sort column descending"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
