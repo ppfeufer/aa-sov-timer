@@ -158,8 +158,16 @@ $(document).ready(() => {
             // Column: 6
             {
                 data: 'start_time',
-                render: (data) => {
-                    return moment(data).utc().format(sovtimerSettings.dateformat);
+                render: {
+                    _: (data) => {
+                        return moment(data)
+                            .locale(sovtimerSettings.language.momentJS)
+                            .utc()
+                            .format(sovtimerSettings.datetimeFormat.datetime);
+                    },
+                    sort: (data) => {
+                        return data;
+                    }
                 }
             },
 
@@ -202,7 +210,7 @@ $(document).ready(() => {
             // Column: 14
             {
                 data: 'active_campaign'
-            }
+            },
         ],
         columnDefs: [
             {
@@ -213,10 +221,10 @@ $(document).ready(() => {
             //     width: '115px',
             //     targets: [7]
             // },
-            // {
-            //     width: '150px',
-            //     targets: [8]
-            // }
+            {
+                width: '150px',
+                targets: [8]
+            }
         ],
         order: [[6, 'asc']],
         filterDropDown: {
@@ -259,7 +267,7 @@ $(document).ready(() => {
             ],
             autoSize: false,
             bootstrap: true,
-            bootstrap_version: 5,
+            bootstrap_version: 5
         },
         createdRow: (row, data) => {
             // Total timer

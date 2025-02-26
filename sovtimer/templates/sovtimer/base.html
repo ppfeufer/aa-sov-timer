@@ -1,6 +1,7 @@
 {% extends "allianceauth/base-bs5.html" %}
 
 {% load i18n %}
+{% load aa_i18n %}
 
 {% block page_title %}
     {% translate "Sovereignty Timer" %}
@@ -34,10 +35,21 @@
             {% translate ": activate to sort column ascending" as ariaSortAscending %}
             {% translate ": activate to sort column descending" as ariaSortDescending %}
 
+            {% get_datatables_language_static LANGUAGE_CODE as DT_LANG_PATH %}
+            {% get_momentjs_language_code LANGUAGE_CODE as MOMENTJS_LCODE %}
+
             <script>
                 const sovtimerJsSettingsDefaults = {
-                    datetimeFormat: 'YYYY-MMM-DD, HH:mm',
-                    language: '{{ LANGUAGE_CODE }}',
+                    datetimeFormat: {
+                        date: 'L',
+                        time: 'LTS',
+                        datetime: 'L LTS',
+                    },
+                    language: {
+                        django: '{{ LANGUAGE_CODE }}',
+                        dataTables: {url: '{{ DT_LANG_PATH }}'},
+                        momentJS: '{{ MOMENTJS_LCODE }}',
+                    },
                     dataTables: {
                         paging: true,
                         translation: {
