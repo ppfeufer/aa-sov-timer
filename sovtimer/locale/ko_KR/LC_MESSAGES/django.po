@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-01-13 14:58+0100\n"
+"POT-Creation-Date: 2025-02-26 17:41+0100\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
@@ -29,8 +29,8 @@ msgstr "소버린티 타이머"
 msgid "Sovereignty Timer v{__version__}"
 msgstr "소버린티 타이머 v{__version__}"
 
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:6
-#: sovtimer/templates/sovtimer/base.html:10
+#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "소버린티 타이머"
 
@@ -71,74 +71,6 @@ msgstr "소버린티 캠페인"
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
 msgstr "소버린티 캠페인 목록"
-
-#: sovtimer/templates/sovtimer/base.html:20
-msgctxt "Decimal separator"
-msgid "."
-msgstr "."
-
-#: sovtimer/templates/sovtimer/base.html:21
-msgctxt "Thousands separator"
-msgid ","
-msgstr ","
-
-#: sovtimer/templates/sovtimer/base.html:22
-msgid "No data available in this table"
-msgstr "테이블에 유효한 데이터가 없습니다"
-
-#: sovtimer/templates/sovtimer/base.html:23
-msgctxt "Keep _END_ as it is. It will be replaced by a number."
-msgid "Showing _END_ entries"
-msgstr "_END_ 개의 결과 표시중"
-
-#: sovtimer/templates/sovtimer/base.html:24
-msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-msgid "(filtered from _MAX_ total entries)"
-msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
-
-#: sovtimer/templates/sovtimer/base.html:25
-msgid "No records available"
-msgstr "사용 가능한 레코드가 없습니다"
-
-#: sovtimer/templates/sovtimer/base.html:26
-msgid "Loading …"
-msgstr "로딩 …"
-
-#: sovtimer/templates/sovtimer/base.html:27
-msgid "Processing …"
-msgstr "처리 중 …"
-
-#: sovtimer/templates/sovtimer/base.html:28
-msgid "Nothing found, sorry …"
-msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
-
-#: sovtimer/templates/sovtimer/base.html:29
-msgid "Search …"
-msgstr "검색 …"
-
-#: sovtimer/templates/sovtimer/base.html:30
-msgid "First"
-msgstr "첫 번째"
-
-#: sovtimer/templates/sovtimer/base.html:31
-msgid "Last"
-msgstr "마지막"
-
-#: sovtimer/templates/sovtimer/base.html:32
-msgid "Next"
-msgstr "다음"
-
-#: sovtimer/templates/sovtimer/base.html:33
-msgid "Previous"
-msgstr "이전"
-
-#: sovtimer/templates/sovtimer/base.html:34
-msgid ": activate to sort column ascending"
-msgstr ": 열 오름차순으로 정렬 활성화"
-
-#: sovtimer/templates/sovtimer/base.html:35
-msgid ": activate to sort column descending"
-msgstr ": 열 내림차순으로 정렬 활성화"
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
@@ -240,3 +172,55 @@ msgstr "방어자 우세"
 #: sovtimer/views.py:179
 msgid "Attackers making progress"
 msgstr "공격자 우세"
+
+#~ msgctxt "Decimal separator"
+#~ msgid "."
+#~ msgstr "."
+
+#~ msgctxt "Thousands separator"
+#~ msgid ","
+#~ msgstr ","
+
+#~ msgid "No data available in this table"
+#~ msgstr "테이블에 유효한 데이터가 없습니다"
+
+#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
+#~ msgid "Showing _END_ entries"
+#~ msgstr "_END_ 개의 결과 표시중"
+
+#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
+#~ msgid "(filtered from _MAX_ total entries)"
+#~ msgstr "(총 _MAX_ 개의 결과 에서 필터링됨)"
+
+#~ msgid "No records available"
+#~ msgstr "사용 가능한 레코드가 없습니다"
+
+#~ msgid "Loading …"
+#~ msgstr "로딩 …"
+
+#~ msgid "Processing …"
+#~ msgstr "처리 중 …"
+
+#~ msgid "Nothing found, sorry …"
+#~ msgstr "아무것도 찾지 못했습니다, 죄송합니다 …"
+
+#~ msgid "Search …"
+#~ msgstr "검색 …"
+
+#~ msgid "First"
+#~ msgstr "첫 번째"
+
+#~ msgid "Last"
+#~ msgstr "마지막"
+
+#~ msgid "Next"
+#~ msgstr "다음"
+
+#~ msgid "Previous"
+#~ msgstr "이전"
+
+#~ msgid ": activate to sort column ascending"
+#~ msgstr ": 열 오름차순으로 정렬 활성화"
+
+#~ msgid ": activate to sort column descending"
+#~ msgstr ": 열 내림차순으로 정렬 활성화"
