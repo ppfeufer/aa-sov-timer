@@ -118,7 +118,7 @@ $(document).ready(() => {
      * @type {jQuery}
      */
     const sovCampaignTable = $('.aa-sovtimer-campaigns').DataTable({
-        language: sovtimerSettings.dataTables.translation,
+        language: sovtimerSettings.dataTables.language,
         ajax: {
             url: sovtimerSettings.url.ajaxUpdate,
             dataSrc: '',
@@ -163,7 +163,7 @@ $(document).ready(() => {
                         return moment(data)
                             .locale(sovtimerSettings.language.momentJS)
                             .utc()
-                            .format(sovtimerSettings.datetimeFormat.datetime);
+                            .format(sovtimerSettings.datetimeFormat.datetimeWithSeconds);
                     },
                     sort: (data) => {
                         return data;
