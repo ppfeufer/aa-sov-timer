@@ -37,6 +37,8 @@ Section Order:
 
 ### Changed
 
+- Localize datetime output in the campaign table
+- Use DataTables' translations instead of our own
 - Simplify constant names
 - Make ajax call URL an internal URL
 
