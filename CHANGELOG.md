@@ -35,16 +35,23 @@ Section Order:
 ### Security
 -->
 
+## [2.3.1] - 2025-02-26
+
 ### Changed
 
 - Localize datetime output in the campaign table
 - Use DataTables' translations instead of our own
 - Simplify constant names
 - Make ajax call URL an internal URL
+- Translations updated
 
 ### Fixed
 
-- `TypeError: object of type 'NoneType' has no len()` in update task
+- `TypeError: object of type 'NoneType' has no len()` in update task.
+  Thank you, CCP, for reinvigorating null-sec with the Equinox update. This led to a
+  period when there were no sovereignty campaigns at all, which gave me the chance
+  to find this bug. Now this bug is fixed, you can make null-sec great again, please,
+  and thank you.
 
 ## [2.3.0] - 2025-02-02
 
