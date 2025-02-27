@@ -35,6 +35,11 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- The last campaign wasn't removed reliably when there were no more campaigns reported
+  by ESI
+
 ## [2.3.1] - 2025-02-26
 
 ### Changed
