@@ -75,12 +75,12 @@ def update_sov_campaigns() -> None:
         msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
     )
 
+    campaigns = []
+
     if campaigns_from_esi:
         logger.debug(msg="Updating sovereignty campaigns …")
 
         with transaction.atomic():
-            campaigns = []
-
             for campaign in campaigns_from_esi:
                 EveEntity.objects.get_or_create(id=campaign["defender_id"])
 
@@ -120,16 +120,22 @@ def update_sov_campaigns() -> None:
                     )
                 )
 
-            Campaign.objects.all().delete()
-            Campaign.objects.bulk_create(
-                objs=campaigns,
-                batch_size=500,
-                ignore_conflicts=True,
-            )
+    Campaign.objects.all().delete()
 
-            EveEntity.objects.bulk_update_new_esi()
+    if not campaigns:
+        logger.info(msg="No sovereignty campaigns found, nothing to update.")
 
-            logger.info(msg=f"{len(campaigns)} sovereignty campaigns updated from ESI.")
+        return
+
+    Campaign.objects.bulk_create(
+        objs=campaigns,
+        batch_size=500,
+        ignore_conflicts=True,
+    )
+
+    EveEntity.objects.bulk_update_new_esi()
+
+    logger.info(msg=f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
