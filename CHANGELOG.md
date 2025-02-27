@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.3.2] - 2025-02-27
+
 ### Fixed
 
 - The last campaign wasn't removed reliably when there were no more campaigns reported
