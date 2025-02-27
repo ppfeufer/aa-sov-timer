@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Improved the code for the `sovtimer_static` template tag
+
 ## [2.3.2] - 2025-02-27
 
 ### Fixed

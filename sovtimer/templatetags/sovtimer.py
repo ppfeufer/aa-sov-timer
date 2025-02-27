@@ -66,16 +66,20 @@ def sovtimer_static(relative_file_path: str, script_type: str = None) -> str | N
         else static_url + "?v=" + __version__
     )
 
+    return_value = None
+
     # Return the versioned URL with integrity hash for CSS
     if file_type == "css":
-        return mark_safe(f'<link rel="stylesheet" href="{versioned_url}"{sri_string}>')
+        return_value = mark_safe(
+            f'<link rel="stylesheet" href="{versioned_url}"{sri_string}>'
+        )
 
     # Return the versioned URL with integrity hash for JS files
     if file_type == "js":
         js_type = f' type="{script_type}"' if script_type else ""
 
-        return mark_safe(
+        return_value = mark_safe(
             f'<script{js_type} src="{versioned_url}"{sri_string}></script>'
         )
 
-    return None
+    return return_value
