@@ -19,7 +19,6 @@
 
         <div class="aa-sovtimer-body">
             {% get_datatables_language_static LANGUAGE_CODE as DT_LANG_PATH %}
-            {% get_momentjs_language_code LANGUAGE_CODE as MOMENTJS_LCODE %}
 
             <script>
                 const sovtimerJsSettingsDefaults = {
@@ -29,10 +28,6 @@
                         timeWithSeconds: 'LTS',
                         datetime: 'L LT',
                         datetimeWithSeconds: 'L LTS',
-                    },
-                    language: {
-                        django: '{{ LANGUAGE_CODE }}',
-                        momentJS: '{{ MOMENTJS_LCODE }}',
                     },
                     dataTables: {
                         paging: true,

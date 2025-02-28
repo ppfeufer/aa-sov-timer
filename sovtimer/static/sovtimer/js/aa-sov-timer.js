@@ -160,13 +160,12 @@ $(document).ready(() => {
                 data: 'start_time',
                 render: {
                     _: (data) => {
-                        return moment(data)
-                            .locale(sovtimerSettings.language.momentJS)
-                            .utc()
-                            .format(sovtimerSettings.datetimeFormat.datetimeWithSeconds);
+                        return data === null ? '' : moment(data).utc().format(
+                            sovtimerSettings.datetimeFormat.datetimeWithSeconds
+                        );
                     },
                     sort: (data) => {
-                        return data;
+                        return data === null ? '' : data;
                     }
                 }
             },

@@ -39,6 +39,10 @@ Section Order:
 
 - Improved the code for the `sovtimer_static` template tag
 
+### Removed
+
+- Redundant localization call in JavaScript
+
 ## [2.3.2] - 2025-02-27
 
 ### Fixed
