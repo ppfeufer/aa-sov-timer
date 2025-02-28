@@ -19,22 +19,21 @@ Sovereignty campaign overview for Alliance Auth.
 
 ______________________________________________________________________
 
-<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=1 -->
+<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
-- [AA Sovereignty Timer](#aa-sovereignty-timer)
-  - [Screenshots](#screenshots)
-    - [AA Sov Timer Dashboard](#aa-sov-timer-dashboard)
-  - [Installation](#installation)
-    - [Step 1: Installing the App](#step-1-installing-the-app)
-    - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
-    - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
-    - [Step 5: Setting up Permission](#step-5-setting-up-permission)
-    - [Step 6: Keep Campaigns Updated](#step-6-keep-campaigns-updated)
-  - [Updating](#updating)
-  - [Changelog](#changelog)
-  - [Translation Status](#translation-status)
-  - [Contributing](#contributing)
+- [Screenshots](#screenshots)
+  - [AA Sov Timer Dashboard](#aa-sov-timer-dashboard)
+- [Installation](#installation)
+  - [Step 1: Installing the App](#step-1-installing-the-app)
+  - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
+  - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
+  - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+  - [Step 5: Setting up Permission](#step-5-setting-up-permission)
+  - [Step 6: Keep Campaigns Updated](#step-6-keep-campaigns-updated)
+- [Updating](#updating)
+- [Changelog](#changelog)
+- [Translation Status](#translation-status)
+- [Contributing](#contributing)
 
 <!-- mdformat-toc end -->
 
@@ -79,7 +78,7 @@ pip install aa-sov-timer
 
 Configure your AA settings (`local.py`) as follows:
 
-- Add `'eveuniverse',` to `INSTALLED_APPS`
+- Add `'eveuniverse',` to `INSTALLED_APPS` if not already done for another app
 - Add `'sovtimer',` to `INSTALLED_APPS`
 
 Restart your supervisor
