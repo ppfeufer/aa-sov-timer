@@ -161,7 +161,7 @@ $(document).ready(() => {
                 render: {
                     _: (data) => {
                         return data === null ? '' : moment(data).utc().format(
-                            sovtimerSettings.datetimeFormat.datetimeWithSeconds
+                            sovtimerSettings.datetimeFormat.datetimeLong
                         );
                     },
                     sort: (data) => {

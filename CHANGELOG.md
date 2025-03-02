@@ -37,6 +37,8 @@ Section Order:
 
 ### Changed
 
+- Improved the task code
+- Improved date/time localization
 - Improved the code for the `sovtimer_static` template tag
 
 ### Removed
