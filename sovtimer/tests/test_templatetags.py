@@ -8,6 +8,7 @@ from django.test import TestCase, override_settings
 
 # AA Sovereignty Timer
 from sovtimer import __version__
+from sovtimer.constants import PACKAGE_NAME
 from sovtimer.helper.static_files import calculate_integrity_hash
 
 
@@ -37,13 +38,13 @@ class TestVersionedStatic(TestCase):
         rendered_template = template_to_render.render(context=context)
 
         expected_static_css_src = (
-            f'/static/sovtimer/css/aa-sov-timer.min.css?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/css/aa-sov-timer.min.css?v={context["version"]}'
         )
         expected_static_css_src_integrity = calculate_integrity_hash(
             "css/aa-sov-timer.min.css"
         )
         expected_static_js_src = (
-            f'/static/sovtimer/js/aa-sov-timer.min.js?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/js/aa-sov-timer.min.js?v={context["version"]}'
         )
         expected_static_js_src_integrity = calculate_integrity_hash(
             "js/aa-sov-timer.min.js"
@@ -77,7 +78,7 @@ class TestVersionedStatic(TestCase):
         rendered_template = template_to_render.render(context=context)
 
         expected_static_css_src = (
-            f'/static/sovtimer/css/aa-sov-timer.min.css?v={context["version"]}'
+            f'/static/{PACKAGE_NAME}/css/aa-sov-timer.min.css?v={context["version"]}'
         )
 
         self.assertIn(member=expected_static_css_src, container=rendered_template)
