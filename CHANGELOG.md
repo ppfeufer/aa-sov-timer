@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.3.3] - 2025-03-04
+
 ### Changed
 
 - Improved the task code
