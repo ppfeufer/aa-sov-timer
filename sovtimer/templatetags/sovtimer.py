@@ -6,7 +6,6 @@ Versioned static URLs to break browser caches when changing the app version
 import os
 
 # Django
-from django.conf import settings
 from django.template.defaulttags import register
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
@@ -19,6 +18,7 @@ from app_utils.logging import LoggerAddTag
 
 # AA Sovereignty Timer
 from sovtimer import __title__, __version__
+from sovtimer.app_settings import debug_enabled
 from sovtimer.constants import PACKAGE_NAME
 from sovtimer.helper.static_files import calculate_integrity_hash
 
@@ -54,7 +54,7 @@ def sovtimer_static(relative_file_path: str, script_type: str = None) -> str | N
     # Integrity hash calculation only for non-debug mode
     sri_string = (
         f' integrity="{calculate_integrity_hash(relative_file_path)}" crossorigin="anonymous"'
-        if not settings.DEBUG
+        if not debug_enabled()
         else ""
     )
 
