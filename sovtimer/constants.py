@@ -12,9 +12,11 @@ from esi import __version__ as esi_version
 from sovtimer import __version__
 
 APP_NAME = "aa-sov-timer"
+APP_NAME_VERBOSE = "AA Sovereignty Timer"
+APP_NAME_VERBOSE_USERAGENT = "AA-Sovereignty-Timer"
 PACKAGE_NAME = "sovtimer"
 GITHUB_URL = f"https://github.com/ppfeufer/{APP_NAME}"
-USER_AGENT = f"{APP_NAME}/{__version__} +{GITHUB_URL} via django-esi/{esi_version}"
+USER_AGENT = f"{APP_NAME_VERBOSE_USERAGENT}/{__version__} (+{GITHUB_URL}) Django-ESI/{esi_version}"
 
 # aa-sov-timer/sovtimer
 APP_BASE_DIR = os.path.join(os.path.dirname(__file__))
