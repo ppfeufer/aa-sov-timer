@@ -39,6 +39,10 @@ Section Order:
 
 - Check for `DEBUG` status has been moved to its own function
 
+### Removed
+
+- Obsolete template
+
 ## [2.3.3] - 2025-03-04
 
 ### Changed
