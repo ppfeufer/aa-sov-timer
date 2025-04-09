@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.3.4] - 2025-04-09
+
 ### Changed
 
 - Check for `DEBUG` status has been moved to its own function
