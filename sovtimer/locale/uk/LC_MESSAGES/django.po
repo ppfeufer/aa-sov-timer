@@ -4,20 +4,21 @@
 # "Andrii M." <elfleg0las88@gmail.com>, 2023, 2024.
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
 # M <skrypets@gmail.com>, 2025.
+# s0k0l -_- <salarysalo@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-04-09 11:48+0200\n"
-"PO-Revision-Date: 2025-02-24 15:17+0000\n"
-"Last-Translator: M <skrypets@gmail.com>\n"
+"POT-Creation-Date: 2025-05-06 00:14+0200\n"
+"PO-Revision-Date: 2025-04-10 07:05+0000\n"
+"Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.1\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -34,51 +35,37 @@ msgid "Sovereignty Timer"
 msgstr "Таймер суверенітету"
 
 #: sovtimer/models.py:36
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Can access the Sovereignty Timer module"
-msgstr "Таймер суверенітету"
+msgstr "Є доступ до модуля суверенітету"
 
 #: sovtimer/models.py:73
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
-msgstr "Таймер суверенітету"
+msgstr "Структура суверенітету"
 
 #: sovtimer/models.py:74
-#, fuzzy
-#| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
-msgstr "Таймера суверенітету"
+msgstr "Структури суверенітету"
 
 #: sovtimer/models.py:111
-#, fuzzy
-#| msgid "IHub Defense"
 msgid "Sov Hub defense"
-msgstr "Захист інфраструктурного хабу"
+msgstr "Захист хабу суверенітету"
 
 #: sovtimer/models.py:112
-#, fuzzy
-#| msgid "TCU Defense"
 msgid "TCU defense"
-msgstr "Захист TCU"
+msgstr "Захист ТКУ"
 
 #: sovtimer/models.py:138
-#, fuzzy
-#| msgid "Sovereignty Timer"
 msgid "Sovereignty campaign"
-msgstr "Таймер суверенітету"
+msgstr "Кампанія суверенітету"
 
 #: sovtimer/models.py:139
-#, fuzzy
-#| msgid "Sovereignty Timers"
 msgid "Sovereignty campaigns"
-msgstr "Таймера суверенітету"
+msgstr "Кампанії суверенітету"
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: sovtimer/templates/sovtimer/dashboard.html:16
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
@@ -102,7 +89,7 @@ msgstr "Власник / Захисник"
 
 #: sovtimer/templates/sovtimer/dashboard.html:20
 msgid "Active campaign"
-msgstr ""
+msgstr "активна кампанія"
 
 #: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:161
 msgid "Yes"
@@ -110,45 +97,43 @@ msgstr "Так"
 
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:159
 msgid "No"
-msgstr ""
+msgstr "Номер"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:4
 msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr ""
+msgstr "Список таймерів суверенітету оновлюється автоматично кожні 30 секунд. Прогрес активних кампаній буде показаний як <i>Попереднє - Тренд - Поточне</i>."
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:10
-#, fuzzy
-#| msgid "Sovereignty Timers"
 msgid "Sovereignty campaign list"
-msgstr "Таймера суверенітету"
+msgstr "Список кампаній суверенітету"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
 msgid "Timers total:"
-msgstr ""
+msgstr "Таймерів усього:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:17
 msgid "Timers upcoming (< 4hrs):"
-msgstr ""
+msgstr "Таймери (< 4 годин):"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
 msgid "Timers active:"
-msgstr ""
+msgstr "Активні таймери:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "ADM"
-msgstr ""
+msgstr "АДМ"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Start"
-msgstr ""
+msgstr "Початок"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
 msgid "Remaining"
-msgstr ""
+msgstr "Залишилось"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:35
 msgid "Progress"
-msgstr ""
+msgstr "Прогрес"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
@@ -160,15 +145,15 @@ msgstr "Приєднуйтесь до нашої команди переклад
 
 #: sovtimer/views.py:163
 msgid "Neither side has made any progress yet"
-msgstr ""
+msgstr "Жодна з сторін ще не зробила прогресу"
 
 #: sovtimer/views.py:171
 msgid "Defenders making progress"
-msgstr ""
+msgstr "Прогрес захисників"
 
 #: sovtimer/views.py:179
 msgid "Attackers making progress"
-msgstr ""
+msgstr "Прогрес атакуючих"
 
 #~ msgid "No data available in this table"
 #~ msgstr "Немає даних у цій таблиці"
