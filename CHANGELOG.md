@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Dotlan constellation links now generated using the `eveonline` app
+
 ## [2.4.0] - 2025-06-03
 
 ### Removed

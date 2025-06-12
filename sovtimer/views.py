@@ -99,8 +99,9 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
             # Constellation
             constellation_name = campaign.structure.solar_system.eve_constellation.name
+            constellation_url = f"{region_url}/{constellation_name}"
             constellation_name_html = (
-                f'<a href="//evemaps.dotlan.net/search?q={constellation_name}" '
+                f'<a href="{constellation_url}" '
                 f'target="_blank" rel="noopener noreferer">{constellation_name}</a>'
             )
 
@@ -205,7 +206,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                     # System column + filter
                     "solar_system_name": solar_system_name,
                     "solar_system_name_html": solar_system_name_html,
-                    # Constellazion column + filter
+                    # Constellation column + filter
                     "constellation_name": constellation_name,
                     "constellation_name_html": constellation_name_html,
                     # Region column + filter
