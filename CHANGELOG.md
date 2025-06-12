@@ -37,6 +37,7 @@ Section Order:
 
 ### Changed
 
+- zKillboard icon properly loaded via Django static files
 - Dotlan constellation links now generated using the `eveonline` app
 
 ## [2.4.0] - 2025-06-03
