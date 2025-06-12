@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-06-03 13:33+0200\n"
+"POT-Creation-Date: 2025-06-13 00:06+0200\n"
 "PO-Revision-Date: 2025-04-28 07:24+0000\n"
 "Last-Translator: SiO4 <hohoit0078@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
@@ -104,11 +104,11 @@ msgstr "소유자 / 방어자"
 msgid "Active campaign"
 msgstr "진행 중인 캠페인"
 
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:163
 msgid "Yes"
 msgstr "예"
 
-#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
 msgstr "아니요"
 
@@ -162,15 +162,15 @@ msgstr "이 앱을 번역하거나 기존 번역을 개선하고 싶으신가요
 msgid "Join our team of translators!"
 msgstr "번역가 팀에 참여하세요!"
 
-#: sovtimer/views.py:163
+#: sovtimer/views.py:165
 msgid "Neither side has made any progress yet"
 msgstr "양 측 모두 진행하지 못하고 있습니다"
 
-#: sovtimer/views.py:171
+#: sovtimer/views.py:173
 msgid "Defenders making progress"
 msgstr "방어자 우세"
 
-#: sovtimer/views.py:179
+#: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr "공격자 우세"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-06-03 13:33+0200\n"
+"POT-Creation-Date: 2025-06-13 00:06+0200\n"
 "PO-Revision-Date: 2024-05-15 09:21+0000\n"
 "Last-Translator: SAM_FPS <sam_fps@163.com>\n"
 "Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
@@ -92,11 +92,11 @@ msgstr "拥有者/防御方"
 msgid "Active campaign"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:163
 msgid "Yes"
 msgstr "是"
 
-#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:159
+#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
 msgstr "不"
 
@@ -144,14 +144,14 @@ msgstr "您想帮助将此应用程序翻译成您的母语或改进现有的翻
 msgid "Join our team of translators!"
 msgstr "加入我们的翻译团队吧！"
 
-#: sovtimer/views.py:163
+#: sovtimer/views.py:165
 msgid "Neither side has made any progress yet"
 msgstr ""
 
-#: sovtimer/views.py:171
+#: sovtimer/views.py:173
 msgid "Defenders making progress"
 msgstr ""
 
-#: sovtimer/views.py:179
+#: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr ""
