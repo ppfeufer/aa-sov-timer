@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.4.1] - 2025-06-13
+
 ### Changed
 
 - Task code refactored \
