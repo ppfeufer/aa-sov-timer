@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
@@ -186,7 +187,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
                 constellation_id = campaign.structure.solar_system.eve_constellation.id
                 zkb_href = f"https://zkillboard.com/constellation/{constellation_id}/"
-                zkb_icon = '<img src="/static/sovtimer/images/zkillboard.png">'
+                zkb_icon = f'<img src="{static("sovtimer/images/zkillboard.png")}" alt="zKillboard">'
                 constellation_killboard_link = (
                     f'<a href="{zkb_href}" target="_blank" rel="noopener noreferer" '
                     f'class="aa-sov-timer-zkb-icon ms-2">{zkb_icon}</a>'
