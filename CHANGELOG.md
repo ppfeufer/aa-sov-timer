@@ -37,6 +37,13 @@ Section Order:
 
 ### Changed
 
+- Task code refactored \
+  This also fixes an issue with the ADMs getting reset when a Sovhub was reinforced.
+  Unfortunately, the ADM information are not available in the ESI data for
+  reinforced Sovhubs, so the code had to be changed to not reset the ADMs
+  when a Sovhub is reinforced. \
+  This will not fix it for already registered campaigns, but for new ones.
+- Management command for the initial data load refactored
 - zKillboard icon properly loaded via Django static files
 - Dotlan constellation links now generated using the `eveonline` app
 
