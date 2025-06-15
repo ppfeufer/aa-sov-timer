@@ -42,6 +42,8 @@
 
     .aa-sovtimer-active-campaign td {
         background-color: var(--bs-danger-bg-subtle);
+
+        --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
     }
 
     .aa-sovtimer-upcoming-campaign {
@@ -51,6 +53,8 @@
 
     .aa-sovtimer-upcoming-campaign td {
         background-color: var(--bs-warning-bg-subtle);
+
+        --bs-table-color-type: var(--bs-warning-text-emphasis) !important;
     }
 
     .aa-sovtimer-trend {
