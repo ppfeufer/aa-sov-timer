@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Fixed
+
+- Contrast issue with upcoming and active campaigns when using the Darkly theme
+
 ## [2.4.1] - 2025-06-13
 
 ### Changed
