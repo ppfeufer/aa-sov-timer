@@ -135,7 +135,7 @@ Now your system is updating the sovereignty campaigns every 30 seconds.
 Add the app to your `conf/requirements.txt`:
 
 ```text
-aa-sov-timer==2.4.2
+aa-sov-timer==2.4.3
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings-1"></a>
@@ -199,7 +199,7 @@ Finally, restart your AA supervisor service.
 To update your existing installation of AA Sovereignty Timer, all you need to do is to update the respective line in your `conf/requirements.txt` file to the latest version.
 
 ```text
-aa-sov-timer==2.4.2
+aa-sov-timer==2.4.3
 ```
 
 Now rebuild your containers and restart them:
