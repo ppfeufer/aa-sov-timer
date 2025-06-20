@@ -1,9 +1,5 @@
 {% load i18n %}
 
-<p class="text-muted">
-    {% translate "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>." %}
-</p>
-
 <div class="card card-default">
     <div class="card-header">
         <div class="card-title mb-0">
@@ -17,9 +13,11 @@
             <div class="col-sm-4">{% translate "Timers upcoming (< 4hrs):" %} <span class="aa-sovtimer-timers-upcoming">0</span></div>
             <div class="col-sm-4">{% translate "Timers active:" %} <span class="aa-sovtimer-timers-active">0</span></div>
         </div>
-    </div>
 
-    <div class="card-body">
+        <p class="small text-muted mt-3">
+            {% translate "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>." %}
+        </p>
+
         <div class="table-responsive">
             <table class="table table-striped aa-sovtimer-campaigns" style="width: 100%; border-collapse: collapse !important;">
                 <thead>
