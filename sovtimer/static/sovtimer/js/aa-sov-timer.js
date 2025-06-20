@@ -63,9 +63,9 @@ $(document).ready(() => {
         );
     }
 
-    const elementTimerTotal = $('.aa-sovtimer-timers-total');
-    const elementTimerUpcoming = $('.aa-sovtimer-timers-upcoming');
-    const elementTimerActive = $('.aa-sovtimer-timers-active');
+    const elementTimerTotal = $('.aa-sovtimer-campaigns-total');
+    const elementTimerUpcoming = $('.aa-sovtimer-campaigns-upcoming');
+    const elementTimerActive = $('.aa-sovtimer-campaigns-active');
 
     /**
      * Convert seconds into a time string

@@ -37,6 +37,7 @@ Section Order:
 
 ### Changed
 
+- Wording: Use "campaigns" instead of "timers" in the campaign table
 - Improved explanatory text in the campaign table a bit
 
 ## [2.4.2] - 2025-06-16
