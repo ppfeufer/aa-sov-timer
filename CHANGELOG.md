@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Improved explanatory text in the campaign table a bit
+
 ## [2.4.2] - 2025-06-16
 
 ### Fixed
