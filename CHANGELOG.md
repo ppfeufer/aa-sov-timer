@@ -35,6 +35,10 @@ Section Order:
 ### Security
 -->
 
+### Added
+
+- Docker install and update instructions to README.md
+
 ### Changed
 
 - Wording: Use "campaigns" instead of "timers" in the campaign table
