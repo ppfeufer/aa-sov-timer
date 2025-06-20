@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-06-13 00:06+0200\n"
+"POT-Creation-Date: 2025-06-20 19:18+0200\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -64,27 +64,27 @@ msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
 #: sovtimer/templates/sovtimer/dashboard.html:15
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:25
 msgid "Type"
 msgstr "Тип"
 
 #: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
 msgid "System"
 msgstr "Система"
 
 #: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "Constellation"
 msgstr "Созвездие"
 
 #: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "Region"
 msgstr "Регион"
 
 #: sovtimer/templates/sovtimer/dashboard.html:19
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
 msgid "Owner / Defender"
 msgstr "Владелец / Защитник"
 
@@ -100,39 +100,47 @@ msgstr "Да"
 msgid "No"
 msgstr "Нет"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:4
-msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "Список таймеров суверенитета автоматически обновляется каждые 30 секунд. Прогресс для активных кампаний будет представлен как <i>Предыдущий - Тенденция - Текущий</i>."
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:10
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
 msgstr "Список опсов по суверенитету"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
-msgid "Timers total:"
-msgstr "Всего таймеров:"
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:12
+#, fuzzy
+#| msgid "Sovereignty campaigns"
+msgid "Total campaigns:"
+msgstr "Опс по суверенитету"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:17
-msgid "Timers upcoming (< 4hrs):"
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:13
+#, fuzzy
+#| msgid "Timers upcoming (< 4hrs):"
+msgid "Upcoming campaigns (< 4hrs):"
 msgstr "Ближайшие таймеры (<4ч.):"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
-msgid "Timers active:"
-msgstr "Активные таймеры:"
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:14
+#, fuzzy
+#| msgid "Active campaign"
+msgid "Active campaigns:"
+msgstr "Активная кампания"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
+#, fuzzy
+#| msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgstr "Список таймеров суверенитета автоматически обновляется каждые 30 секунд. Прогресс для активных кампаний будет представлен как <i>Предыдущий - Тенденция - Текущий</i>."
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "ADM"
 msgstr "АДМ"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "Start"
 msgstr "Начало"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:34
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "Remaining"
 msgstr "Осталось"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:35
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Progress"
 msgstr "Прогресс"
 
@@ -155,6 +163,12 @@ msgstr "Защитники добиваются успеха"
 #: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr "Атакующие добиваются успеха"
+
+#~ msgid "Timers total:"
+#~ msgstr "Всего таймеров:"
+
+#~ msgid "Timers active:"
+#~ msgstr "Активные таймеры:"
 
 #~ msgctxt "Decimal separator"
 #~ msgid "."
