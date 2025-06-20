@@ -35,6 +35,8 @@ Section Order:
 ### Security
 -->
 
+## [2.4.3] - 2025-06-20
+
 ### Added
 
 - Docker install and update instructions to README.md
