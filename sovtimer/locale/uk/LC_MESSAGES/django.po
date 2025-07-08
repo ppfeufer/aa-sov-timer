@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-06-20 19:18+0200\n"
-"PO-Revision-Date: 2025-04-10 07:05+0000\n"
+"POT-Creation-Date: 2025-07-08 14:51+0200\n"
+"PO-Revision-Date: 2025-07-06 20:30+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -104,28 +104,20 @@ msgid "Sovereignty campaign list"
 msgstr "Список кампаній суверенітету"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:12
-#, fuzzy
-#| msgid "Sovereignty campaigns"
 msgid "Total campaigns:"
-msgstr "Кампанії суверенітету"
+msgstr "Усього кампаній:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:13
-#, fuzzy
-#| msgid "Timers upcoming (< 4hrs):"
 msgid "Upcoming campaigns (< 4hrs):"
-msgstr "Таймери (< 4 годин):"
+msgstr "Найближчі таймери (< 4 годин):"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:14
-#, fuzzy
-#| msgid "Active campaign"
 msgid "Active campaigns:"
-msgstr "активна кампанія"
+msgstr "Активні кампанії:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
-#, fuzzy
-#| msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "Список таймерів суверенітету оновлюється автоматично кожні 30 секунд. Прогрес активних кампаній буде показаний як <i>Попереднє - Тренд - Поточне</i>."
+msgstr "Список таймерів кампаній оновлюється автоматично кожні 30 секунд. Прогрес активних кампаній буде показаний як <i>Попереднє - Тренд - Поточне</i>."
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "ADM"
