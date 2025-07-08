@@ -6,7 +6,9 @@ Providers
 from esi.clients import EsiClientProvider
 
 # AA Sovereignty Timer
-from sovtimer.constants import USER_AGENT
+from sovtimer import __app_name_useragent__, __github_url__, __version__
 
 # ESI client
-esi = EsiClientProvider(app_info_text=USER_AGENT)
+esi = EsiClientProvider(
+    ua_appname=__app_name_useragent__, ua_version=__version__, ua_url=__github_url__
+)
