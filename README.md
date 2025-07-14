@@ -122,7 +122,7 @@ Add the following scheduled task to your `local.py`. One done, restart your supe
 # AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
 CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
     "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30.0,
+    "schedule": 30,
 }
 ```
 
@@ -150,7 +150,7 @@ Configure your AA settings (`conf/local.py`) as follows:
 # AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
 CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
     "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30.0,
+    "schedule": 30,
 }
 ```
 
@@ -220,11 +220,11 @@ auth migrate
 
 ### Common Steps<a name="common-steps"></a>
 
-It is possible that some versions need some more changes. Always read the [release notes](https://github.com/ppfeufer/aa-sov-timer/releases) to find out more.
+It is possible that some versions need some more changes. Always read the [changelog] and/or [release notes](https://github.com/ppfeufer/aa-sov-timer/releases) to find out more.
 
 ## Changelog<a name="changelog"></a>
 
-See [CHANGELOG.md]
+See [CHANGELOG.md][changelog] for a detailed list of changes and improvements.
 
 ## Translation Status<a name="translation-status"></a>
 
@@ -242,6 +242,6 @@ Please make sure to read the [Contribution Guidelines].\
 
 <!-- Links -->
 
-[changelog.md]: https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md
+[changelog]: https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md
 [contribution guidelines]: https://github.com/ppfeufer/aa-sov-timer/blob/master/CONTRIBUTING.md "Contribution Guidelines"
 [weblate engage]: https://weblate.ppfeufer.de/engage/alliance-auth-apps/ "Weblate Translations"
