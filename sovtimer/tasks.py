@@ -163,13 +163,19 @@ def update_sov_structures() -> None:
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None:
         return
 
-    logger.debug(msg="Updating sovereignty structures …")
-
     structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
+
+    logger.debug(
+        msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
+    )
 
     # If no structures are returned from ESI, we can exit early
     if not structures_from_esi:
+        logger.info(msg="No sovereignty structures found, nothing to update.")
+
         return
+
+    logger.debug(msg="Updating sovereignty structures …")
 
     # Pre-fetch current structures and campaigns for fast lookup
     current_structures = {
