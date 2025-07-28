@@ -84,7 +84,7 @@ class SovereigntyStructure(models.Model):
 
         try:
             sovereignty_structures_esi = (
-                esi.client.Sovereignty.get_sovereignty_structures().results()
+                esi.client.Sovereignty.GetSovereigntyStructures().results()
             )
         except OSError as ex:
             logger.info(
@@ -149,7 +149,7 @@ class Campaign(models.Model):
 
         try:
             sovereignty_campaigns_esi = (
-                esi.client.Sovereignty.get_sovereignty_campaigns().results()
+                esi.client.Sovereignty.GetSovereigntyCampaigns().results()
             )
         except OSError as ex:
             logger.info(
