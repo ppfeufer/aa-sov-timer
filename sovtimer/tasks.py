@@ -59,7 +59,7 @@ def run_sov_campaign_updates() -> None:
         # Run campaign updates every 30 seconds
         CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
             "task": "sovtimer.tasks.run_sov_campaign_updates",
-            "schedule": 30.0,
+            "schedule": 30,
         }
     ```
     """
@@ -102,7 +102,8 @@ def update_sov_campaigns() -> None:
     logger.debug(msg="Updating sovereignty campaigns …")
 
     campaigns = []
-    defender_ids = {campaign.get("defender_id") for campaign in campaigns_from_esi}
+    defender_ids = {campaign.defender_id for campaign in campaigns_from_esi}
+
     existing_campaigns = {c.campaign_id: c for c in Campaign.objects.all()}
 
     EveEntity.objects.bulk_create(
@@ -111,8 +112,8 @@ def update_sov_campaigns() -> None:
     )
 
     for campaign in campaigns_from_esi:
-        campaign_id = campaign.get("campaign_id")
-        campaign_current__defender_score = campaign.get("defender_score")
+        campaign_id = campaign.campaign_id
+        campaign_current__defender_score = campaign.defender_score
         campaign_current__progress_previous = campaign_current__defender_score
 
         if campaign_id in existing_campaigns:
@@ -128,12 +129,12 @@ def update_sov_campaigns() -> None:
 
         campaigns.append(
             Campaign(
-                attackers_score=campaign.get("attackers_score"),
+                attackers_score=campaign.attackers_score,
                 campaign_id=campaign_id,
-                defender_score=campaign.get("defender_score"),
-                event_type=campaign.get("event_type"),
-                start_time=campaign.get("start_time"),
-                structure_id=campaign.get("structure_id"),
+                defender_score=campaign.defender_score,
+                event_type=campaign.event_type,
+                start_time=campaign.start_time,
+                structure_id=campaign.structure_id,
                 progress_current=campaign_current__defender_score,
                 progress_previous=campaign_current__progress_previous,
             )
@@ -179,9 +180,7 @@ def update_sov_structures() -> None:
     }
 
     # Pre-fetch EveEntities and SolarSystems to avoid repeated DB hits
-    alliance_ids = {
-        s.get("alliance_id") for s in structures_from_esi if s.get("alliance_id")
-    }
+    alliance_ids = {s.alliance_id for s in structures_from_esi if s.alliance_id}
 
     # Ensure we have EveEntity entries for all alliances
     EveEntity.objects.bulk_create(
@@ -191,9 +190,7 @@ def update_sov_structures() -> None:
 
     # Fetch existing solar systems and alliances from the database
     solar_system_ids = {
-        s.get("solar_system_id")
-        for s in structures_from_esi
-        if s.get("solar_system_id")
+        s.solar_system_id for s in structures_from_esi if s.solar_system_id
     }
 
     # Ensure we have EveSolarSystem entries for all solar systems
@@ -209,7 +206,7 @@ def update_sov_structures() -> None:
 
     # Iterate through the structures from ESI and prepare them for bulk creation
     for structure in structures_from_esi:
-        structure_id = structure.get("structure_id")
+        structure_id = structure.structure_id
 
         # Skip structures without an ID or if they already exist in the set
         if not structure_id or structure_id in esi_structure_ids:
@@ -217,9 +214,9 @@ def update_sov_structures() -> None:
 
         esi_structure_ids.add(structure_id)
 
-        alliance_id = structure.get("alliance_id")
+        alliance_id = structure.alliance_id
         sov_holder = alliances.get(alliance_id)
-        solar_system_id = structure.get("solar_system_id")
+        solar_system_id = structure.solar_system_id
         structure_solar_system = solar_systems.get(solar_system_id)
 
         # Get the vulnerability occupancy level
@@ -228,9 +225,7 @@ def update_sov_structures() -> None:
         ):
             vulnerability_occupancy_level = current_structures.get(structure_id, 1)
         else:
-            vulnerability_occupancy_level = (
-                structure.get("vulnerability_occupancy_level") or 1
-            )
+            vulnerability_occupancy_level = structure.vulnerability_occupancy_level or 1
 
         # Append the structure to the list for bulk creation
         sov_structures.append(
@@ -238,10 +233,10 @@ def update_sov_structures() -> None:
                 alliance=sov_holder,
                 solar_system=structure_solar_system,
                 structure_id=structure_id,
-                structure_type_id=structure.get("structure_type_id"),
+                structure_type_id=structure.structure_type_id,
                 vulnerability_occupancy_level=vulnerability_occupancy_level,
-                vulnerable_end_time=structure.get("vulnerable_end_time"),
-                vulnerable_start_time=structure.get("vulnerable_start_time"),
+                vulnerable_end_time=structure.vulnerable_end_time,
+                vulnerable_start_time=structure.vulnerable_start_time,
             )
         )
 
