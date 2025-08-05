@@ -19,9 +19,9 @@
         font-weight: normal;
         letter-spacing: normal;
         line-height: 1;
+        overflow-wrap: normal;
         text-transform: none;
         white-space: nowrap;
-        word-wrap: normal;
     }
 }
 
