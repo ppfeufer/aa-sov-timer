@@ -3,6 +3,7 @@ Test ajax calls
 """
 
 # Standard Library
+import json
 from http import HTTPStatus
 
 # Django
@@ -79,7 +80,13 @@ class TestAjaxCalls(TestCase):
         self.assertJSONEqual(raw=result.content, expected_data=[])
 
     def test_ajax_dashboard_data_with_campaigns(self):
-        self.maxDiff = None
+        """
+        Test the ajax call to get the dashboard data with campaigns
+
+        :return:
+        :rtype:
+        """
+
         # given
         load_sovtimer()
         self.client.force_login(user=self.user_with_basic_access)
@@ -88,28 +95,32 @@ class TestAjaxCalls(TestCase):
 
         # when
         result = dashboard_data(request=request)
+        response_data = json.loads(result.content)
 
-        # then
+        # Check structure and types separately
         self.assertEqual(first=result.status_code, second=HTTPStatus.OK)
-        # self.assertJSONEqual(
-        #     result.content,
-        #     [
-        #         {
-        #             "event_type": "TCU",
-        #             "solar_system_name": "0-O6XF",
-        #             "solar_system_name_html": '<a href="http://evemaps.dotlan.net/map/Esoteria/0-O6XF" target="_blank" rel="noopener noreferer">0-O6XF</a>',
-        #             "constellation_name": "Q-2BI6",
-        #             "constellation_name_html": '<a href="//evemaps.dotlan.net/search?q=Q-2BI6" target="_blank" rel="noopener noreferer">Q-2BI6</a>',
-        #             "region_name": "Esoteria",
-        #             "region_name_html": '<a href="http://evemaps.dotlan.net/map/Esoteria" target="_blank" rel="noopener noreferer">Esoteria</a>',
-        #             "defender_name": "Wayne Enterprises",
-        #             "defender_name_html": '<a href="http://evemaps.dotlan.net/alliance/Wayne_Enterprises" target="_blank" rel="noopener noreferer"><img class="aa-sovtimer-entity-logo-left me-2" src="https://images.evetech.net/alliances/3001/logo?size=32" alt="Wayne Enterprises">Wayne Enterprises</a>',
-        #             "adm": 6.0,
-        #             "start_time": "2021-10-14T11:38:37Z",
-        #             "remaining_time": "",
-        #             "remaining_time_in_seconds": 5734.00943,
-        #             "campaign_progress": "60%",
-        #             "active_campaign": "No",
-        #         }
-        #     ],
-        # )
+        self.assertEqual(len(response_data), 2)
+
+        # Check first campaign has positive remaining time
+        self.assertIsInstance(
+            response_data[0]["remaining_time_in_seconds"], (int, float)
+        )
+        self.assertGreater(response_data[0]["remaining_time_in_seconds"], 0)
+
+        # Check second campaign has negative remaining time (past event)
+        self.assertIsInstance(
+            response_data[1]["remaining_time_in_seconds"], (int, float)
+        )
+        self.assertLess(response_data[1]["remaining_time_in_seconds"], 0)
+
+        # Check other fields remain exact
+        expected_fields = {
+            "event_type": "TCU defense",
+            "solar_system_name": "0-O6XF",
+            "defender_name": "Wayne Enterprises",
+            "adm": 6.0,
+        }
+
+        for field, value in expected_fields.items():
+            self.assertEqual(response_data[0][field], value)
+            self.assertEqual(response_data[1][field], value)
