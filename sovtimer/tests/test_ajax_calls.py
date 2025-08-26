@@ -99,19 +99,34 @@ class TestAjaxCalls(TestCase):
 
         # Check structure and types separately
         self.assertEqual(first=result.status_code, second=HTTPStatus.OK)
-        self.assertEqual(len(response_data), 2)
+        self.assertEqual(len(response_data), 3)
 
         # Check first campaign has positive remaining time
         self.assertIsInstance(
             response_data[0]["remaining_time_in_seconds"], (int, float)
         )
         self.assertGreater(response_data[0]["remaining_time_in_seconds"], 0)
+        self.assertEqual(response_data[0]["campaign_progress"], "60%")
 
-        # Check second campaign has negative remaining time (past event)
+        # Check second campaign (attackers making progress) has negative remaining time (past event)
         self.assertIsInstance(
             response_data[1]["remaining_time_in_seconds"], (int, float)
         )
         self.assertLess(response_data[1]["remaining_time_in_seconds"], 0)
+        self.assertIn(
+            '13%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" title="Attackers making progress">trending_down</i>04%',
+            response_data[1]["campaign_progress"],
+        )
+
+        # Check third campaign has (defenders making progress) negative remaining time (past event)
+        self.assertIsInstance(
+            response_data[2]["remaining_time_in_seconds"], (int, float)
+        )
+        self.assertLess(response_data[2]["remaining_time_in_seconds"], 0)
+        self.assertIn(
+            '04%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" title="Defenders making progress">trending_up</i>13%',
+            response_data[2]["campaign_progress"],
+        )
 
         # Check other fields remain exact
         expected_fields = {
@@ -124,3 +139,4 @@ class TestAjaxCalls(TestCase):
         for field, value in expected_fields.items():
             self.assertEqual(response_data[0][field], value)
             self.assertEqual(response_data[1][field], value)
+            self.assertEqual(response_data[2][field], value)
