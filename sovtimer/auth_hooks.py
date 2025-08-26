@@ -33,10 +33,11 @@ class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-method
         :return:
         """
 
-        if request.user.has_perm(perm="sovtimer.basic_access"):
-            return MenuItemHook.render(self, request=request)
-
-        return ""
+        return (
+            MenuItemHook.render(self, request=request)
+            if request.user.has_perm("sovtimer.basic_access")
+            else ""
+        )
 
 
 @hooks.register("menu_item_hook")
