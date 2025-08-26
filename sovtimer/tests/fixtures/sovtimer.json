@@ -71,12 +71,12 @@
             "campaign_id": 95000,
             "attackers_score": "0.33",
             "defender_id": 3001,
-            "defender_score": "0.67",
-            "event_type": "ihub_defense",
+            "defender_score": "0.6",
+            "event_type": "tcu_defense",
             "solar_system_id": 30003114,
-            "start_time": "2021-10-12 11:38:37.000000",
+            "start_time": "2099-10-12 11:38:37.000000",
             "structure_id": 1000907692293,
-            "progress_current": "0.67",
+            "progress_current": "0.6",
             "progress_previous": "0.6"
         },
         {
