@@ -6,12 +6,17 @@ Providers
 from esi.openapi_clients import ESIClientProvider
 
 # AA Sovereignty Timer
-from sovtimer import __app_name_useragent__, __github_url__, __version__
+from sovtimer import (
+    __app_name_useragent__,
+    __esi_compatibility_date__,
+    __github_url__,
+    __version__,
+)
 
 # ESI client
 esi = ESIClientProvider(
     # Use the latest compatibility date, see https://esi.evetech.net/meta/compatibility-dates
-    compatibility_date="2025-07-28",
+    compatibility_date=__esi_compatibility_date__,
     # User agent for the ESI client
     ua_appname=__app_name_useragent__,
     ua_version=__version__,
