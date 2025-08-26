@@ -89,8 +89,7 @@ class SovereigntyStructure(models.Model):
         except OSError as ex:
             logger.info(
                 msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"structures from ESI: {ex}"
+                    f"Something went wrong while trying to fetch sovereignty structures from ESI: {ex}"
                 )
             )
             sovereignty_structures_esi = None
@@ -154,8 +153,7 @@ class Campaign(models.Model):
         except OSError as ex:
             logger.info(
                 msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"campaigns from ESI: {ex}"
+                    f"Something went wrong while trying to fetch sovereignty campaigns from ESI: {ex}"
                 )
             )
             sovereignty_campaigns_esi = None
