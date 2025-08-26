@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 __version__ = "2.6.2"
 __title__ = _("Sovereignty Timers")
 
+__esi_compatibility_date__ = "2025-08-16"
+
 __package_name__ = "aa-sov-timer"
 __app_name__ = "sovtimer"
 __app_name_verbose__ = "AA Sovereignty Timer"
