@@ -3,7 +3,7 @@ Providers
 """
 
 # Alliance Auth
-from esi.fauxbravado import ESIClientProvider
+from esi.openapi_clients import ESIClientProvider
 
 # AA Sovereignty Timer
 from sovtimer import __app_name_useragent__, __github_url__, __version__
