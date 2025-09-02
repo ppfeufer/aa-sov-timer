@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-08-05 10:52+0200\n"
-"PO-Revision-Date: 2025-07-06 20:30+0000\n"
+"POT-Creation-Date: 2025-09-02 07:47+0200\n"
+"PO-Revision-Date: 2025-08-27 20:43+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -36,7 +36,7 @@ msgstr "Таймер суверенітету"
 
 #: sovtimer/models.py:36
 msgid "Can access the Sovereignty Timer module"
-msgstr "Є доступ до модуля суверенітету"
+msgstr "Є доступ до модуля Таймерів Суверенітету"
 
 #: sovtimer/models.py:73
 msgid "Sovereignty structure"
