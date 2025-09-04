@@ -15,11 +15,17 @@ https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rende
 > [!NOTE]
 > Highlights information that users should take into account, even when skimming.
 
+> [!TIP]
+> Optional information to help a user be more successful.
+
 > [!IMPORTANT]
 > Crucial information necessary for users to succeed.
 
 > [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION]
+> Advised about risks or negative outcomes of certain actions.
 -->
 
 ## [In Development] - Unreleased
@@ -34,6 +40,22 @@ Section Order:
 ### Removed
 ### Security
 -->
+
+## [3.0.0-alpha.1] - 2025-09-04
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Changed
+
+- Switch to OpenAPI3 based ESI client
+  - Set ESI compatibility date to 2025-08-26 (August 26, 2025)
+- Improved logging for the sovereignty structures task
 
 ## [2.6.1] - 2025-09-02
 
