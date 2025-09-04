@@ -5,7 +5,7 @@ App init
 # Django
 from django.utils.translation import gettext_lazy as _
 
-__version__ = "2.6.2"
+__version__ = "3.0.0-alpha.1"
 __title__ = _("Sovereignty Timers")
 
 __esi_compatibility_date__ = "2025-08-26"
