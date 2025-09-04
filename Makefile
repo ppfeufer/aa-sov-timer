@@ -94,10 +94,10 @@ help::
 	@echo ""
 	@echo "$(TEXT_BOLD)Commands:$(TEXT_BOLD_END)"
 	@echo "  $(TEXT_UNDERLINE)General:$(TEXT_UNDERLINE_END)"
-	@echo "    graph_models              Create a graph of the models"
-	@echo "    help                      Show this help message"
-	@echo "    prepare-release           Prepare a release and update the version in '$(package)/__init__.py'."
-	@echo "                              Please make sure to update the 'CHANGELOG.md' file accordingly."
+	@echo "    graph_models                Create a graph of the models"
+	@echo "    help                        Show this help message"
+	@echo "    prepare-release             Prepare a release and update the version in '$(package)/__init__.py'."
+	@echo "                                Please make sure to update the 'CHANGELOG.md' file accordingly."
 	@echo ""
 
 # Include the configurations

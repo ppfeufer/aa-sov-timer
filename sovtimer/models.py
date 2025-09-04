@@ -2,6 +2,9 @@
 Our Models
 """
 
+# Third Party
+from aiopenapi3 import ContentTypeError
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -84,13 +87,12 @@ class SovereigntyStructure(models.Model):
 
         try:
             sovereignty_structures_esi = (
-                esi.client.Sovereignty.get_sovereignty_structures().results()
+                esi.client.Sovereignty.GetSovereigntyStructures().results()
             )
-        except OSError as ex:
+        except (OSError, ContentTypeError) as ex:
             logger.info(
                 msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"structures from ESI: {ex}"
+                    f"Error while trying to fetch sovereignty structures from ESI: {ex}"
                 )
             )
             sovereignty_structures_esi = None
@@ -149,13 +151,12 @@ class Campaign(models.Model):
 
         try:
             sovereignty_campaigns_esi = (
-                esi.client.Sovereignty.get_sovereignty_campaigns().results()
+                esi.client.Sovereignty.GetSovereigntyCampaigns().results()
             )
-        except OSError as ex:
+        except (OSError, ContentTypeError) as ex:
             logger.info(
                 msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"campaigns from ESI: {ex}"
+                    f"Error while trying to fetch sovereignty campaigns from ESI: {ex}"
                 )
             )
             sovereignty_campaigns_esi = None
