@@ -47,6 +47,7 @@ dependencies = [
 optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
+    "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
 urls.Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
