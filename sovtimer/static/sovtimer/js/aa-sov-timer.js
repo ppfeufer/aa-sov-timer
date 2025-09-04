@@ -260,8 +260,7 @@ $(document).ready(() => {
     setInterval(() => {
         fetchGet({url: sovtimerSettings.url.ajaxUpdate})
             .then((newData) => {
-                const dataTable = sovCampaignTable.DataTable();
-                dataTable.clear().rows.add(newData).draw();
+                sovCampaignTable.DataTable().clear().rows.add(newData).draw();
 
                 let totalCount = 0;
                 let upcomingCount = 0;
