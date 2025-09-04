@@ -13,9 +13,11 @@ $(document).ready(() => {
         );
     }
 
-    const elementTimerTotal = $('.aa-sovtimer-campaigns-total');
-    const elementTimerUpcoming = $('.aa-sovtimer-campaigns-upcoming');
-    const elementTimerActive = $('.aa-sovtimer-campaigns-active');
+    const elements = {
+        campaignsTotal: $('.aa-sovtimer-campaigns-total'),
+        campaignsUpcoming: $('.aa-sovtimer-campaigns-upcoming'),
+        campaignsActive: $('.aa-sovtimer-campaigns-active')
+    };
 
     /**
      * Convert seconds into a time string
@@ -30,31 +32,15 @@ $(document).ready(() => {
         if (secondsRemaining < 0) {
             spanClasses += ' aa-sovtimer-timer-elapsed';
             prefix = '-';
-
-            secondsRemaining = Math.abs(secondsRemaining); // Remove negative prefix
-
-            secondsRemaining++; // Increment with one second each second
+            secondsRemaining = Math.abs(secondsRemaining) + 1;
         } else {
-            secondsRemaining--; // Decrement with one second each second
+            secondsRemaining--;
         }
 
-        const days = Math.floor(secondsRemaining / (24 * 60 * 60)); // Calculate days
-        let hours = Math.floor(secondsRemaining / (60 * 60)) % 24; // Hours
-        let minutes = Math.floor(secondsRemaining / 60) % 60; // Minutes
-        let seconds = Math.floor(secondsRemaining) % 60; // Seconds
-
-        // leading zero ...
-        if (hours < 10) {
-            hours = '0' + hours;
-        }
-
-        if (minutes < 10) {
-            minutes = '0' + minutes;
-        }
-
-        if (seconds < 10) {
-            seconds = '0' + seconds;
-        }
+        const days = Math.floor(secondsRemaining / 86400);
+        const hours = String(Math.floor(secondsRemaining / 3600) % 24).padStart(2, '0');
+        const minutes = String(Math.floor(secondsRemaining / 60) % 60).padStart(2, '0');
+        const seconds = String(Math.floor(secondsRemaining) % 60).padStart(2, '0');
 
         return {
             countdown: `<span class="${spanClasses}">${prefix}${days}d ${hours}h ${minutes}m ${seconds}s</span>`,
@@ -63,7 +49,7 @@ $(document).ready(() => {
     };
 
     /**
-     * Build the datatable
+     * Build the DataTable
      *
      * @type {jQuery}
      */
@@ -72,6 +58,12 @@ $(document).ready(() => {
     fetchGet({url: sovtimerSettings.url.ajaxUpdate})
         .then((tableData) => {
             if (tableData) {
+                // Destroy any existing DataTable
+                // if ($.fn.dataTable.isDataTable(sovCampaignTable)) {
+                //     sovCampaignTable.DataTable().destroy();
+                // }
+
+                // Create the DataTable
                 sovCampaignTable.DataTable({
                     language: sovtimerSettings.dataTables.language,
                     data: tableData,
@@ -220,88 +212,87 @@ $(document).ready(() => {
                         bootstrap_version: 5
                     },
                     createdRow: (row, data) => {
-                        // Total timer
-                        const currentTotal = elementTimerTotal.html();
-                        const newTotal = parseInt(currentTotal) + 1;
-
-                        elementTimerTotal.html(newTotal);
+                        // Increment total timer
+                        elements.campaignsTotal.html(parseInt(elements.campaignsTotal.html()) + 1);
 
                         // Upcoming timer (< 4 hrs)
-                        if (data.active_campaign === sovtimerSettings.translation.no && data.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold) {
+                        if (
+                            data.active_campaign === sovtimerSettings.translation.no
+                            && data.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold // jshint ignore:line
+                        ) {
                             $(row).addClass('aa-sovtimer-upcoming-campaign');
 
-                            const currentUpcoming = elementTimerUpcoming.html();
-                            const newUpcoming = parseInt(currentUpcoming) + 1;
-
-                            elementTimerUpcoming.html(newUpcoming);
+                            elements.campaignsUpcoming.html(parseInt(elements.campaignsUpcoming.html()) + 1);
                         }
 
                         // Active timer
                         if (data.active_campaign === sovtimerSettings.translation.yes) {
                             $(row).addClass('aa-sovtimer-active-campaign');
 
-                            const currentActive = elementTimerActive.html();
-                            const newActive = parseInt(currentActive) + 1;
-
-                            elementTimerActive.html(newActive);
+                            elements.campaignsActive.html(parseInt(elements.campaignsActive.html()) + 1);
                         }
                     },
-                    paging: false
+                    paging: false,
+                    initComplete: () => {
+                        /**
+                         * Update the remaining time every second
+                         */
+                        setInterval(() => {
+                            const dt = sovCampaignTable.DataTable();
+
+                            dt.rows().every((index) => {
+                                const row = dt.row(index);
+                                const remaining = secondsToRemainingTime(row.data().remaining_time_in_seconds);
+
+                                row.data({
+                                    ...row.data(),
+                                    remaining_time_in_seconds: remaining.remainingTimeInSeconds,
+                                    remaining_time: remaining.countdown
+                                });
+                            });
+                        }, 1000);
+
+                        /**
+                         * Update the datatable information every 30 seconds
+                         */
+                        setInterval(() => {
+                            fetchGet({url: sovtimerSettings.url.ajaxUpdate})
+                                .then((newData) => {
+                                    sovCampaignTable.DataTable().clear().rows.add(newData).draw();
+
+                                    const counts = newData.reduce(
+                                        (acc, item) => {
+                                            acc.total++;
+
+                                            if (
+                                                item.active_campaign === sovtimerSettings.translation.no
+                                                && item.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold // jshint ignore:line
+                                            ) {
+                                                acc.upcoming++;
+                                            }
+
+                                            if (item.active_campaign === sovtimerSettings.translation.yes) {
+                                                acc.active++;
+                                            }
+
+                                            return acc;
+                                        },
+                                        { total: 0, upcoming: 0, active: 0 }
+                                    );
+
+                                    elements.campaignsTotal.html(counts.total);
+                                    elements.campaignsUpcoming.html(counts.upcoming);
+                                    elements.campaignsActive.html(counts.active);
+                                })
+                                .catch((error) => {
+                                    console.error('Error updating campaign data:', error);
+                                });
+                        }, 30000);
+                    }
                 });
             }
         })
         .catch((error) => {
             console.error('Error fetching campaign data:', error);
         });
-
-    /**
-     * Update the datatable information every 30 seconds
-     */
-    setInterval(() => {
-        fetchGet({url: sovtimerSettings.url.ajaxUpdate})
-            .then((newData) => {
-                sovCampaignTable.DataTable().clear().rows.add(newData).draw();
-
-                let totalCount = 0;
-                let upcomingCount = 0;
-                let activeCount = 0;
-
-                newData.forEach((item) => {
-                    totalCount++;
-
-                    if (item.active_campaign === sovtimerSettings.translation.no && item.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold) {
-                        upcomingCount++;
-                    }
-
-                    if (item.active_campaign === sovtimerSettings.translation.yes) {
-                        activeCount++;
-                    }
-                });
-
-                elementTimerTotal.html(totalCount);
-                elementTimerUpcoming.html(upcomingCount);
-                elementTimerActive.html(activeCount);
-            })
-            .catch((error) => {
-                console.error('Error updating campaign data:', error);
-            });
-    }, 30000);
-
-    /**
-     * Update the remaining time every second
-     */
-    setInterval(() => {
-        sovCampaignTable.DataTable().rows().every((element) => {
-            const data = sovCampaignTable.DataTable().row(element).data();
-
-            const remaining = secondsToRemainingTime(
-                data.remaining_time_in_seconds
-            );
-
-            data.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
-            data.remaining_time = remaining.countdown;
-
-            sovCampaignTable.DataTable().row(element).data(data);
-        });
-    }, 1000);
 });
