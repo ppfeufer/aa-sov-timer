@@ -41,6 +41,10 @@ Section Order:
 ### Security
 -->
 
+### Changed
+
+- Attempting to catch ESI errors thrown by the OpenAPI client through `aiopenapi3` (See: https://gitlab.com/allianceauth/django-esi/-/issues/40)
+
 ## [3.0.0-alpha.2] - 2025-09-04
 
 > [!CAUTION]

@@ -95,7 +95,7 @@ def update_sov_campaigns() -> None:
     )
 
     if not campaigns_from_esi:
-        logger.info(msg="No sovereignty campaigns found, nothing to update.")
+        logger.info(msg="No (new) sovereignty campaigns found, nothing to update.")
 
         return
 
@@ -171,7 +171,7 @@ def update_sov_structures() -> None:
 
     # If no structures are returned from ESI, we can exit early
     if not structures_from_esi:
-        logger.info(msg="No sovereignty structures found, nothing to update.")
+        logger.info(msg="No (new) sovereignty structures found, nothing to update.")
 
         return
 
