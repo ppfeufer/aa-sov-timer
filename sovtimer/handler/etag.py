@@ -101,7 +101,7 @@ class Etag:
         :rtype: bool
         """
 
-        return cache.delete(key=self.get_etag_key(operation=operation), version=False)
+        return cache.delete(key=self.get_etag_key(operation=operation))
 
     def set_etag_header(
         self, operation: EsiOperation, response: Response | HTTPNotModified
@@ -208,6 +208,9 @@ class Etag:
         :rtype: dict
         """
 
+        if force_refresh:
+            self.del_etag_header(operation=operation)
+
         if operation._has_page_param():
             page = 1
 
@@ -224,9 +227,6 @@ class Etag:
                 page += 1
 
                 self.update_page_num(operation=operation, page_number=page)
-
-                if force_refresh:
-                    self.del_etag_header(operation=operation)
 
                 _data, res = self.single_page(
                     operation=operation, force_refresh=force_refresh

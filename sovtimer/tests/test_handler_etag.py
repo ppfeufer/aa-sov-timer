@@ -273,6 +273,51 @@ class TestSinglePage(TestCase):
         mock_del_etag_header.assert_called_once_with(operation)
         mock_get_etag_header.assert_called_once_with(operation)
 
+    @patch("sovtimer.handler.etag.logger")
+    @patch("sovtimer.handler.etag.Etag.del_etag_header")
+    @patch("sovtimer.handler.etag.Etag.get_etag_header")
+    def test_returns_none_response_when_operation_returns_no_headers(
+        self, mock_get_etag_header, mock_del_etag_header, mock_logger
+    ):
+        """
+        Test that single_page returns None for the response when the operation returns no headers.
+
+        :param mock_get_etag_header:
+        :type mock_get_etag_header:
+        :param mock_del_etag_header:
+        :type mock_del_etag_header:
+        :param mock_logger:
+        :type mock_logger:
+        :return:
+        :rtype:
+        """
+
+        mock_get_etag_header.return_value = "test-etag"
+        operation = MagicMock()
+        operation.result.return_value = (["data"], MagicMock(headers={}))
+
+        data, res = etag.single_page(operation=operation, force_refresh=False)
+
+        self.assertEqual(data, ["data"])
+        self.assertEqual(res.headers, {})
+        mock_logger.debug.assert_not_called()
+
+    @patch("sovtimer.handler.etag.logger")
+    @patch("sovtimer.handler.etag.Etag.del_etag_header")
+    @patch("sovtimer.handler.etag.Etag.get_etag_header")
+    def test_handles_operation_result_as_single_list(
+        self, mock_get_etag_header, mock_del_etag_header, mock_logger
+    ):
+        mock_get_etag_header.return_value = "test-etag"
+        operation = MagicMock()
+        operation.result.return_value = ["data"]
+
+        data, res = etag.single_page(operation=operation, force_refresh=False)
+
+        self.assertEqual(data, ["data"])
+        self.assertIsNone(res)
+        mock_logger.debug.assert_not_called()
+
 
 class TestGetTotalPages(TestCase):
     """
@@ -500,7 +545,7 @@ class TestDelEtagHeader(TestCase):
         result = etag.del_etag_header(operation=MagicMock())
 
         self.assertTrue(result)
-        mock_cache_delete.assert_called_once_with(key="etag-key", version=False)
+        mock_cache_delete.assert_called_once_with(key="etag-key")
 
     @patch("sovtimer.handler.etag.cache.delete")
     @patch("sovtimer.handler.etag.Etag.get_etag_key")
@@ -524,7 +569,7 @@ class TestDelEtagHeader(TestCase):
         result = etag.del_etag_header(operation=MagicMock())
 
         self.assertFalse(result)
-        mock_cache_delete.assert_called_once_with(key="etag-key", version=False)
+        mock_cache_delete.assert_called_once_with(key="etag-key")
 
 
 class TestGetEtagHeader(TestCase):

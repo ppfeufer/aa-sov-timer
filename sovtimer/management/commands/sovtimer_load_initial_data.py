@@ -43,8 +43,8 @@ class Command(BaseCommand):
 
             return
 
-        update_sov_structures()
-        update_sov_campaigns()
+        update_sov_structures(force_refresh=True)
+        update_sov_campaigns(force_refresh=True)
 
     def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
