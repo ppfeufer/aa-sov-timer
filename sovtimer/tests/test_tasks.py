@@ -5,6 +5,9 @@ Tests for the sovtimer tasks.
 # Standard Library
 from unittest.mock import MagicMock, patch
 
+# Third Party
+from aiopenapi3 import ContentTypeError
+
 # Django
 from django.core.cache import cache
 from django.test import TestCase
@@ -122,6 +125,31 @@ class TestUpdateSovCampaignsTask(TestCase):
 
         mock_logger_info.assert_called_with(
             msg="No campaign changes found, nothing to update."
+        )
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.warning")
+    def test_logs_warning_on_content_type_error(
+        self, mock_logger_warning, mock_get_sov_campaigns
+    ):
+        """
+        Test that update_sov_campaigns logs a warning on ContentTypeError.
+
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = ContentTypeError(
+            operation="op",
+            content_type="application/json",
+            message="error",
+            response="resp",
+        )
+
+        update_sov_campaigns()
+
+        mock_logger_warning.assert_called_with(
+            msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
         )
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
@@ -417,4 +445,33 @@ class TestUpdateSovStructuresTask(TestCase):
 
         mock_logger_info.assert_called_with(
             msg="No structure changes found, nothing to update."
+        )
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.warning")
+    def test_logs_warning_on_content_type_error(
+        self, mock_logger_warning, mock_get_sov_structures
+    ):
+        """
+        Test that update_sov_structures logs a warning on ContentTypeError.
+
+        :param mock_logger_warning:
+        :type mock_logger_warning:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_structures.side_effect = ContentTypeError(
+            operation="op",
+            content_type="application/json",
+            message="error",
+            response="resp",
+        )
+
+        update_sov_structures()
+
+        mock_logger_warning.assert_called_with(
+            msg="ESI returned gibberish (ContentTypeError), skipping structure update."
         )
