@@ -13,6 +13,7 @@ from django.test import TestCase
 from esi.exceptions import HTTPNotModified
 
 # AA Sovereignty Timer
+from sovtimer import __package_name__
 from sovtimer.constants import ETAG_TTL
 from sovtimer.helper.etag import Etag, NotModifiedError
 
@@ -596,9 +597,12 @@ class TestGetEtagKey(TestCase):
         operation = MagicMock()
         operation._cache_key.return_value = "operation-key"
 
+        etag_prefix = f"etag-{__package_name__}"
+        expected_key = f"{etag_prefix}-operation-key"
+
         result = Etag.get_etag_key(operation=operation)
 
-        self.assertEqual(result, "etag-operation-key")
+        self.assertEqual(result, expected_key)
         operation._cache_key.assert_called_once()
 
     @patch("sovtimer.helper.etag.EsiOperation._cache_key")

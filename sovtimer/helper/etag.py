@@ -17,7 +17,7 @@ from esi.openapi_clients import EsiOperation
 from app_utils.logging import LoggerAddTag
 
 # AA Sovereignty Timer
-from sovtimer import __title__
+from sovtimer import __package_name__, __title__
 from sovtimer.constants import ETAG_TTL
 
 # Initialize a logger with a specific tag for the application
@@ -48,7 +48,12 @@ class Etag:
         :rtype: str
         """
 
-        return "etag-" + operation._cache_key()
+        etag_prefix = f"etag-{__package_name__}"
+        etag_key = f"{etag_prefix}-{operation._cache_key()}"
+
+        logger.debug(f"ETag: get_etag_key for {operation}: {etag_key}")
+
+        return etag_key
 
     @classmethod
     def get_etag_header(cls, operation: EsiOperation) -> str | bool:
