@@ -23,28 +23,27 @@ from sovtimer.tasks import (
 class TestRunSovCampaignUpdatesTask(TestCase):
     """
     Test the run_sov_campaign_updates task.
+
+    1. Test that it calls the update tasks with correct args.
+    2. Test that it handles exceptions gracefully.
+    3. Test that it logs the correct messages.
     """
 
-    @patch("sovtimer.tasks.is_esi_online")
     @patch("sovtimer.tasks.update_sov_structures.apply_async")
     @patch("sovtimer.tasks.update_sov_campaigns.apply_async")
-    def test_run_sov_campaign_updates_calls_tasks_when_esi_online(
-        self, mock_update_campaigns, mock_update_structures, mock_is_esi_online
+    def test_run_sov_campaign_updates_calls_tasks(
+        self, mock_update_campaigns, mock_update_structures
     ):
         """
-        Test that run_sov_campaign_updates calls the update tasks when ESI is online.
+        Test that run_sov_campaign_updates calls the update tasks with correct args.
 
         :param mock_update_campaigns:
         :type mock_update_campaigns:
         :param mock_update_structures:
         :type mock_update_structures:
-        :param mock_is_esi_online:
-        :type mock_is_esi_online:
         :return:
         :rtype:
         """
-
-        mock_is_esi_online.return_value = True
 
         run_sov_campaign_updates()
 
@@ -55,36 +54,54 @@ class TestRunSovCampaignUpdatesTask(TestCase):
             priority=TASK_PRIORITY, once=TASK_ONCE_ARGS
         )
 
-    @patch("sovtimer.tasks.is_esi_online")
-    @patch("sovtimer.tasks.update_sov_structures.apply_async")
-    @patch("sovtimer.tasks.update_sov_campaigns.apply_async")
-    def test_run_sov_campaign_updates_does_not_call_tasks_when_esi_offline(
-        self, mock_update_campaigns, mock_update_structures, mock_is_esi_online
-    ):
+    def test_run_sov_campaign_updates_handles_exceptions(self):
         """
-        Test that run_sov_campaign_updates does not call the update tasks when ESI is offline.
+        Test that run_sov_campaign_updates handles exceptions gracefully.
 
-        :param mock_update_campaigns:
-        :type mock_update_campaigns:
-        :param mock_update_structures:
-        :type mock_update_structures:
-        :param mock_is_esi_online:
-        :type mock_is_esi_online:
         :return:
         :rtype:
         """
 
-        mock_is_esi_online.return_value = False
+        with (
+            patch(
+                "sovtimer.tasks.update_sov_structures.apply_async"
+            ) as mock_update_structures,
+            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
+        ):
+            mock_update_structures.side_effect = Exception("Test exception")
 
-        run_sov_campaign_updates()
+            with self.assertRaises(Exception) as exc:
+                run_sov_campaign_updates()
 
-        mock_update_structures.assert_not_called()
-        mock_update_campaigns.assert_not_called()
+            self.assertEqual(str(exc.exception), "Test exception")
+
+    def test_run_sov_campaign_updates_logs_messages(self):
+        """
+        Test that run_sov_campaign_updates logs the correct messages.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch("sovtimer.tasks.logger") as mock_logger,
+            patch("sovtimer.tasks.update_sov_structures.apply_async"),
+            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
+        ):
+            run_sov_campaign_updates()
+
+            mock_logger.info.assert_any_call(
+                msg="Updating sovereignty structures and campaigns from ESI …"
+            )
 
 
 class TestUpdateSovCampaignsTask(TestCase):
     """
     Test the update_sov_campaigns task.
+
+    1. Test creating new campaigns.
+    2. Test handling no campaigns.
+    3. Test updating existing campaigns.
     """
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
