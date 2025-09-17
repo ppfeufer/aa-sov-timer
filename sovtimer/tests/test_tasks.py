@@ -27,10 +27,6 @@ from sovtimer.tasks import (
 class TestRunSovCampaignUpdatesTask(TestCase):
     """
     Test the run_sov_campaign_updates task.
-
-    1. Test that it calls the update tasks with correct args.
-    2. Test that it handles exceptions gracefully.
-    3. Test that it logs the correct messages.
     """
 
     @patch("sovtimer.tasks.update_sov_structures.apply_async")
@@ -264,6 +260,19 @@ class TestUpdateSovCampaignsTask(TestCase):
         mock_bulk_create_campaigns,
         mock_bulk_create_entities,
     ):
+        """
+        Test that update_sov_campaigns creates missing EveEntity records.
+
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :param mock_bulk_create_campaigns:
+        :type mock_bulk_create_campaigns:
+        :param mock_bulk_create_entities:
+        :type mock_bulk_create_entities:
+        :return:
+        :rtype:
+        """
+
         mock_get_sov_campaigns.return_value = [
             MagicMock(defender_id=100),
             MagicMock(defender_id=101),
@@ -389,6 +398,17 @@ class TestUpdateSovStructuresTask(TestCase):
     def test_logs_no_changes_when_structures_not_modified(
         self, mock_logger_info, mock_get_sov_structures
     ):
+        """
+        Test that update_sov_structures logs no changes when structures are not modified.
+
+        :param mock_logger_info:
+        :type mock_logger_info:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
         mock_get_sov_structures.side_effect = NotModifiedError
 
         cache.delete(key="sov_structures_cache")  # Ensure cache is clear
