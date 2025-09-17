@@ -1,5 +1,19 @@
 """
-ETag helper functions
+ETag handling functions
+
+This module provides utility functions and classes for managing ETag caching
+and operations. ETags (Entity Tags) are used to optimize HTTP requests by
+allowing clients to make conditional requests based on the state of a resource.
+
+The module includes:
+- A `NotModifiedError` exception for handling HTTP 304 Not Modified responses.
+- An `Etag` class for managing ETag caching, retrieval, and deletion.
+- Utility methods for handling paginated API responses and caching ETag headers.
+
+Dependencies:
+- Django for caching and logging utilities.
+- `httpx` for handling HTTP responses.
+- Alliance Auth and Django ESI for integration with external services.
 """
 
 # Third Party
@@ -7,6 +21,7 @@ from httpx import Response
 
 # Django
 from django.core.cache import cache
+from django.utils.text import slugify
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
@@ -17,7 +32,7 @@ from esi.openapi_clients import EsiOperation
 from app_utils.logging import LoggerAddTag
 
 # AA Sovereignty Timer
-from sovtimer import __package_name__, __title__
+from sovtimer import __title__
 from sovtimer.constants import ETAG_TTL
 
 # Initialize a logger with a specific tag for the application
@@ -34,11 +49,20 @@ class NotModifiedError(Exception):
 
 class Etag:
     """
-    ETag helper class for managing ETag caching and operations.
+    ETag handler class for managing ETag caching and operations.
     """
 
-    @classmethod
-    def get_etag_key(cls, operation: EsiOperation) -> str:
+    def __init__(self, app_name: str) -> None:
+        """
+        Initialize the Etag handler with the given application name.
+
+        :param app_name: The name of the application for which the ETag handler is initialized.
+        :type app_name: str
+        """
+
+        self.app_name = slugify(app_name)
+
+    def get_etag_key(self, operation: EsiOperation) -> str:
         """
         Get the cache key for the ETag of the given operation.
 
@@ -48,15 +72,14 @@ class Etag:
         :rtype: str
         """
 
-        etag_prefix = f"etag-{__package_name__}"
+        etag_prefix = f"etag-{self.app_name}"
         etag_key = f"{etag_prefix}-{operation._cache_key()}"
 
         logger.debug(f"ETag: get_etag_key for {operation}: {etag_key}")
 
         return etag_key
 
-    @classmethod
-    def get_etag_header(cls, operation: EsiOperation) -> str | bool:
+    def get_etag_header(self, operation: EsiOperation) -> str | bool:
         """
         Get the ETag header from the cache for the given operation.
 
@@ -66,10 +89,9 @@ class Etag:
         :rtype: str | bool
         """
 
-        return cache.get(key=cls.get_etag_key(operation=operation), default=False)
+        return cache.get(key=self.get_etag_key(operation=operation), default=False)
 
-    @classmethod
-    def del_etag_header(cls, operation: EsiOperation) -> bool:
+    def del_etag_header(self, operation: EsiOperation) -> bool:
         """
         Delete the ETag header from the cache for the given operation.
 
@@ -79,11 +101,10 @@ class Etag:
         :rtype: bool
         """
 
-        return cache.delete(key=cls.get_etag_key(operation=operation), version=False)
+        return cache.delete(key=self.get_etag_key(operation=operation), version=False)
 
-    @classmethod
     def set_etag_header(
-        cls, operation: EsiOperation, response: Response | HTTPNotModified
+        self, operation: EsiOperation, response: Response | HTTPNotModified
     ) -> None:
         """
         Store the ETag header in the cache for the given operation.
@@ -98,13 +119,13 @@ class Etag:
 
         if etag:
             result = cache.set(
-                key=cls.get_etag_key(operation=operation), value=etag, timeout=ETAG_TTL
+                key=self.get_etag_key(operation=operation), value=etag, timeout=ETAG_TTL
             )
 
             logger.debug(f"ETag: set_etag {operation} - {etag} - Stored: {result}")
 
-    @classmethod
-    def update_page_num(cls, operation: EsiOperation, page_number: int) -> None:
+    @staticmethod
+    def update_page_num(operation: EsiOperation, page_number: int) -> None:
         """
         Update the page number parameter for the given operation.
 
@@ -117,8 +138,8 @@ class Etag:
         if operation._has_page_param():
             operation._kwargs["page"] = page_number
 
-    @classmethod
-    def get_total_pages(cls, res: Response) -> int:
+    @staticmethod
+    def get_total_pages(res: Response) -> int:
         """
         Get the total number of pages from the response headers.
 
@@ -130,8 +151,7 @@ class Etag:
 
         return int(res.headers["X-Pages"]) if res and "X-Pages" in res.headers else 1
 
-    @classmethod
-    def single_page(cls, operation: EsiOperation, force_refresh: bool) -> tuple:
+    def single_page(self, operation: EsiOperation, force_refresh: bool) -> tuple:
         """
         Get a single page of results for the given operation.
 
@@ -144,9 +164,9 @@ class Etag:
         """
 
         if force_refresh:
-            cls.del_etag_header(operation)
+            self.del_etag_header(operation)
 
-        etag = cls.get_etag_header(operation)
+        etag = self.get_etag_header(operation)
 
         try:
             result = operation.result(etag=etag, return_response=True)
@@ -159,7 +179,7 @@ class Etag:
         except HTTPNotModified as exc:
             logger.debug(f"ETag: Match - Resetting TTL - {operation} - {etag}")
 
-            cls.set_etag_header(operation, exc)
+            self.set_etag_header(operation=operation, response=exc)
 
             raise NotModifiedError() from exc
 
@@ -168,18 +188,15 @@ class Etag:
                 f"ETag: Hard cache match - Resetting TTL - {operation} - {etag}"
             )
 
-            cls.set_etag_header(operation, res)
+            self.set_etag_header(operation=operation, response=res)
 
             raise NotModifiedError()
 
-        cls.set_etag_header(operation, res)
+        self.set_etag_header(operation=operation, response=res)
 
         return data, res
 
-    @classmethod
-    def etag_result(
-        cls, operation: EsiOperation, force_refresh: bool = False
-    ) -> dict | list | None:
+    def etag_result(self, operation: EsiOperation, force_refresh: bool = False) -> dict:
         """
         Get the result of the given operation, using ETag caching.
 
@@ -194,24 +211,24 @@ class Etag:
         if operation._has_page_param():
             page = 1
 
-            cls.update_page_num(operation=operation, page_number=page)
+            self.update_page_num(operation=operation, page_number=page)
 
-            data, res = cls.single_page(
+            data, res = self.single_page(
                 operation=operation, force_refresh=force_refresh
             )
-            total_pages = int(cls.get_total_pages(res=res))
+            total_pages = int(self.get_total_pages(res=res))
 
             logger.info(f"Page {operation} / Pages {total_pages}")
 
             while page < total_pages:
                 page += 1
 
-                cls.update_page_num(operation=operation, page_number=page)
+                self.update_page_num(operation=operation, page_number=page)
 
                 if force_refresh:
-                    cls.del_etag_header(operation=operation)
+                    self.del_etag_header(operation=operation)
 
-                _data, res = cls.single_page(
+                _data, res = self.single_page(
                     operation=operation, force_refresh=force_refresh
                 )
 
@@ -222,10 +239,10 @@ class Etag:
                     f"Page {operation} - Page {page}/{total_pages} - {len(_data)}"
                 )
         else:
-            data, res = cls.single_page(
+            data, res = self.single_page(
                 operation=operation, force_refresh=force_refresh
             )
 
-            cls.set_etag_header(operation=operation, response=res)
+            self.set_etag_header(operation=operation, response=res)
 
         return data
