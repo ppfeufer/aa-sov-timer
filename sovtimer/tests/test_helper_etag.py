@@ -141,11 +141,6 @@ class TestEtagResult(TestCase):
 class TestSinglePage(TestCase):
     """
     Test the single_page method of the Etag class.
-
-    1. Test that it returns data and response when the operation succeeds.
-    2. Test that it raises NotModifiedError when HTTPNotModified is raised.
-    3. Test that it raises NotModifiedError when the ETag matches the cached ETag.
-    4. Test that it deletes the ETag header when force_refresh is True.
     """
 
     @patch("sovtimer.helper.etag.logger")
@@ -249,6 +244,19 @@ class TestSinglePage(TestCase):
     def test_deletes_etag_header_when_force_refresh_is_true(
         self, mock_get_etag_header, mock_del_etag_header, mock_logger
     ):
+        """
+        Test that single_page deletes the ETag header when force_refresh is True.
+
+        :param mock_get_etag_header:
+        :type mock_get_etag_header:
+        :param mock_del_etag_header:
+        :type mock_del_etag_header:
+        :param mock_logger:
+        :type mock_logger:
+        :return:
+        :rtype:
+        """
+
         mock_get_etag_header.return_value = "test-etag"
         operation = MagicMock()
         operation.result.return_value = (
@@ -267,11 +275,6 @@ class TestSinglePage(TestCase):
 class TestGetTotalPages(TestCase):
     """
     Test the get_total_pages method of the Etag class.
-
-    1. Test that it returns the total number of pages from the response headers.
-    2. Test that it returns 1 when the X-Pages header is missing.
-    3. Test that it returns 1 when the response is None.
-    4. Test that it raises ValueError when the X-Pages header is not an integer.
     """
 
     @patch("sovtimer.helper.etag.logger")
@@ -343,9 +346,6 @@ class TestGetTotalPages(TestCase):
 class testUpdatePageNum(TestCase):
     """
     Test the update_page_num method of the Etag class.
-
-    1. Test that it updates the page number parameter for operations that support pagination.
-    2. Test that it does not update the page number parameter for operations that do not support pagination.
     """
 
     def test_updates_page_number_for_paginated_operation(self):
@@ -385,10 +385,6 @@ class testUpdatePageNum(TestCase):
 class TestSetEtagHeader(TestCase):
     """
     Test the set_etag_header method of the Etag class.
-
-    1. Test that it stores the ETag in the cache when the ETag is present in the response.
-    2. Test that it does not store the ETag in the cache when the ETag is missing from the response.
-    3. Test that it does not store the ETag in the cache when the response is None.
     """
 
     @patch("sovtimer.helper.etag.logger")
@@ -478,9 +474,6 @@ class TestSetEtagHeader(TestCase):
 class TestDelEtagHeader(TestCase):
     """
     Test the del_etag_header method of the Etag class.
-
-    1. Test that it deletes the ETag from the cache and returns True when deletion is successful.
-    2. Test that it returns False when deletion is unsuccessful.
     """
 
     @patch("sovtimer.helper.etag.cache.delete")
@@ -535,9 +528,6 @@ class TestDelEtagHeader(TestCase):
 class TestGetEtagHeader(TestCase):
     """
     Test the get_etag_header method of the Etag class.
-
-    1. Test that it retrieves the ETag from the cache when it exists.
-    2. Test that it returns False when the ETag does not exist in the cache.
     """
 
     @patch("sovtimer.helper.etag.cache.get")
@@ -590,9 +580,6 @@ class TestGetEtagHeader(TestCase):
 class TestGetEtagKey(TestCase):
     """
     Test the get_etag_key method of the Etag class.
-
-    1. Test that it returns the correct ETag key for a given operation.
-    2. Test that it raises AttributeError when the operation does not have a _cache_key method.
     """
 
     @patch("sovtimer.helper.etag.EsiOperation._cache_key", create=True)

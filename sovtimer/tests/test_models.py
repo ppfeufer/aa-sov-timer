@@ -114,6 +114,17 @@ class TestCampaign(TestCase):
     def test_raises_not_modified_error_when_esi_returns_not_modified(
         self, mock_etag_result, mock_get_campaigns
     ):
+        """
+        Test that NotModifiedError is raised when ESI indicates no changes.
+
+        :param mock_etag_result:
+        :type mock_etag_result:
+        :param mock_get_campaigns:
+        :type mock_get_campaigns:
+        :return:
+        :rtype:
+        """
+
         mock_get_campaigns.return_value = MagicMock()
         mock_etag_result.side_effect = NotModifiedError
 
