@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- ETag handling for ESI calls
+
 ## [3.0.0-alpha.3] - 2025-09-04
 
 > [!CAUTION]
