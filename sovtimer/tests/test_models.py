@@ -9,7 +9,7 @@ from unittest.mock import MagicMock, patch
 from django.test import TestCase
 
 # AA Sovereignty Timer
-from sovtimer.helper.etag import NotModifiedError
+from sovtimer.handler.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 
 
@@ -18,7 +18,7 @@ class TestSovereigntyStructure(TestCase):
     Test SovereigntyStructure model methods
     """
 
-    @patch("sovtimer.models.Etag")
+    @patch("sovtimer.models.etag")
     def test_structures_are_returned_when_esi_call_succeeds(self, mock_etag):
         """
         Test that structures are returned when the ESI call is successful.
@@ -42,7 +42,7 @@ class TestSovereigntyStructure(TestCase):
         self.assertEqual(len(result), 2)
         mock_etag.etag_result.assert_called_once()
 
-    @patch("sovtimer.models.Etag")
+    @patch("sovtimer.models.etag")
     def test_empty_list_is_returned_when_esi_returns_empty_results(self, mock_etag):
         """
         Test that an empty list is returned when ESI returns no structures.
@@ -67,7 +67,7 @@ class TestCampaign(TestCase):
     Test Campaign model methods
     """
 
-    @patch("sovtimer.models.Etag")
+    @patch("sovtimer.models.etag")
     def test_successfully_fetches_campaigns_from_esi(self, mock_etag):
         """
         Test that campaigns are successfully fetched from ESI.
@@ -91,7 +91,7 @@ class TestCampaign(TestCase):
         self.assertEqual(len(result), 2)
         mock_etag.etag_result.assert_called_once()
 
-    @patch("sovtimer.models.Etag")
+    @patch("sovtimer.models.etag")
     def test_returns_empty_list_when_no_campaigns_exist(self, mock_etag):
         """
         Test that an empty list is returned when no campaigns exist.
@@ -110,7 +110,7 @@ class TestCampaign(TestCase):
         self.assertEqual(len(result), 0)
 
     @patch("sovtimer.models.esi.client.Sovereignty.GetSovereigntyCampaigns")
-    @patch("sovtimer.models.Etag.etag_result")
+    @patch("sovtimer.models.etag.etag_result")
     def test_raises_not_modified_error_when_esi_returns_not_modified(
         self, mock_etag_result, mock_get_campaigns
     ):

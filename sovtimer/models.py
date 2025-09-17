@@ -15,8 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.helper.etag import Etag
-from sovtimer.providers import esi
+from sovtimer.providers import esi, etag
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -87,7 +86,7 @@ class SovereigntyStructure(models.Model):
             esi.client.Sovereignty.GetSovereigntyStructures()
         )
 
-        sovereignty_structures_esi = Etag.etag_result(
+        sovereignty_structures_esi = etag.etag_result(
             operation=sovereignty_structures_operation
         )
 
@@ -147,7 +146,7 @@ class Campaign(models.Model):
             esi.client.Sovereignty.GetSovereigntyCampaigns()
         )
 
-        sovereignty_campaigns_esi = Etag.etag_result(
+        sovereignty_campaigns_esi = etag.etag_result(
             operation=sovereignty_campaigns_operation
         )
 

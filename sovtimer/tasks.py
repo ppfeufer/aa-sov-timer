@@ -20,7 +20,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.helper.etag import NotModifiedError
+from sovtimer.handler.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
