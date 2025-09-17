@@ -15,7 +15,6 @@ from allianceauth.services.tasks import QueueOnce
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
-from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
@@ -64,16 +63,6 @@ def run_sov_campaign_updates() -> None:
     ```
     """
 
-    if not is_esi_online():
-        logger.info(
-            msg=(
-                "ESI seems to be offline, currently. "
-                "Can't start ESI related tasks. Aborting …"
-            )
-        )
-
-        return
-
     logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
 
     update_sov_structures.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
@@ -90,16 +79,14 @@ def update_sov_campaigns() -> None:
 
     campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
 
-    logger.debug(
-        msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
-    )
-
     if not campaigns_from_esi:
         logger.info(msg="No (new) sovereignty campaigns found, nothing to update.")
 
         return
 
-    logger.debug(msg="Updating sovereignty campaigns …")
+    logger.debug(
+        msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
+    )
 
     campaigns = []
     defender_ids = {campaign.defender_id for campaign in campaigns_from_esi}
@@ -165,17 +152,15 @@ def update_sov_structures() -> None:
 
     structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
 
-    logger.debug(
-        msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
-    )
-
     # If no structures are returned from ESI, we can exit early
     if not structures_from_esi:
         logger.info(msg="No (new) sovereignty structures found, nothing to update.")
 
         return
 
-    logger.debug(msg="Updating sovereignty structures …")
+    logger.debug(
+        msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
+    )
 
     # Pre-fetch current structures and campaigns for fast lookup
     current_structures = {
