@@ -2,9 +2,6 @@
 Our Models
 """
 
-# Third Party
-from aiopenapi3 import ContentTypeError
-
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -18,6 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
+from sovtimer.helper.etag import Etag
 from sovtimer.providers import esi
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -86,10 +84,14 @@ class SovereigntyStructure(models.Model):
         """
 
         try:
-            sovereignty_structures_esi = (
-                esi.client.Sovereignty.GetSovereigntyStructures().results()
+            sovereignty_structures_operation = (
+                esi.client.Sovereignty.GetSovereigntyStructures()
             )
-        except (OSError, ContentTypeError) as ex:
+
+            sovereignty_structures_esi = Etag.etag_result(
+                operation=sovereignty_structures_operation
+            )
+        except OSError as ex:
             logger.info(
                 msg=(
                     f"Error while trying to fetch sovereignty structures from ESI: {ex}"
@@ -150,10 +152,14 @@ class Campaign(models.Model):
         """
 
         try:
-            sovereignty_campaigns_esi = (
-                esi.client.Sovereignty.GetSovereigntyCampaigns().results()
+            sovereignty_campaigns_operation = (
+                esi.client.Sovereignty.GetSovereigntyCampaigns()
             )
-        except (OSError, ContentTypeError) as ex:
+
+            sovereignty_campaigns_esi = Etag.etag_result(
+                operation=sovereignty_campaigns_operation
+            )
+        except OSError as ex:
             logger.info(
                 msg=(
                     f"Error while trying to fetch sovereignty campaigns from ESI: {ex}"
