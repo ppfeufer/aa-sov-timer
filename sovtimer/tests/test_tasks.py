@@ -9,7 +9,11 @@ from unittest.mock import MagicMock, patch
 from django.core.cache import cache
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
+from eveuniverse.models import EveEntity
+
 # AA Sovereignty Timer
+from sovtimer.helper.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
@@ -98,11 +102,31 @@ class TestRunSovCampaignUpdatesTask(TestCase):
 class TestUpdateSovCampaignsTask(TestCase):
     """
     Test the update_sov_campaigns task.
-
-    1. Test creating new campaigns.
-    2. Test handling no campaigns.
-    3. Test updating existing campaigns.
     """
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.info")
+    def test_logs_no_changes_when_campaigns_not_modified(
+        self, mock_logger_info, mock_get_sov_campaigns
+    ):
+        """
+        Test that update_sov_campaigns logs no changes when campaigns are not modified.
+
+        :param mock_logger_info:
+        :type mock_logger_info:
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = NotModifiedError
+
+        update_sov_campaigns()
+
+        mock_logger_info.assert_called_with(
+            msg="No campaign changes found, nothing to update."
+        )
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
     @patch("sovtimer.models.Campaign.objects.all")
@@ -231,6 +255,26 @@ class TestUpdateSovCampaignsTask(TestCase):
         self.assertEqual(mock_existing_campaign.progress_previous, 0.6)
         self.assertEqual(mock_existing_campaign.defender_score, 0.7)
 
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    @patch("sovtimer.models.Campaign.objects.bulk_create")
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    def test_creates_missing_eve_entities(
+        self,
+        mock_get_sov_campaigns,
+        mock_bulk_create_campaigns,
+        mock_bulk_create_entities,
+    ):
+        mock_get_sov_campaigns.return_value = [
+            MagicMock(defender_id=100),
+            MagicMock(defender_id=101),
+        ]
+
+        update_sov_campaigns()
+
+        mock_bulk_create_entities.assert_called_once_with(
+            [EveEntity(id=100), EveEntity(id=101)], ignore_conflicts=True
+        )
+
 
 class TestUpdateSovStructuresTask(TestCase):
     """
@@ -339,3 +383,18 @@ class TestUpdateSovStructuresTask(TestCase):
         update_sov_structures()
 
         self.assertFalse(mock_get_structures.called)
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.info")
+    def test_logs_no_changes_when_structures_not_modified(
+        self, mock_logger_info, mock_get_sov_structures
+    ):
+        mock_get_sov_structures.side_effect = NotModifiedError
+
+        cache.delete(key="sov_structures_cache")  # Ensure cache is clear
+
+        update_sov_structures()
+
+        mock_logger_info.assert_called_with(
+            msg="No structure changes found, nothing to update."
+        )
