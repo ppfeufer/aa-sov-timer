@@ -16,7 +16,7 @@ from django.test import TestCase
 from eveuniverse.models import EveEntity
 
 # AA Sovereignty Timer
-from sovtimer.helper.etag import NotModifiedError
+from sovtimer.handler.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
