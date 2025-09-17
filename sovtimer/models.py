@@ -15,7 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.helper.etag import Etag, NotModifiedError
+from sovtimer.helper.etag import Etag
 from sovtimer.providers import esi
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -83,16 +83,13 @@ class SovereigntyStructure(models.Model):
         :return:
         """
 
-        try:
-            sovereignty_structures_operation = (
-                esi.client.Sovereignty.GetSovereigntyStructures()
-            )
+        sovereignty_structures_operation = (
+            esi.client.Sovereignty.GetSovereigntyStructures()
+        )
 
-            sovereignty_structures_esi = Etag.etag_result(
-                operation=sovereignty_structures_operation
-            )
-        except NotModifiedError as exc:
-            raise NotModifiedError from exc
+        sovereignty_structures_esi = Etag.etag_result(
+            operation=sovereignty_structures_operation
+        )
 
         return sovereignty_structures_esi
 
@@ -146,15 +143,12 @@ class Campaign(models.Model):
         :return:
         """
 
-        try:
-            sovereignty_campaigns_operation = (
-                esi.client.Sovereignty.GetSovereigntyCampaigns()
-            )
+        sovereignty_campaigns_operation = (
+            esi.client.Sovereignty.GetSovereigntyCampaigns()
+        )
 
-            sovereignty_campaigns_esi = Etag.etag_result(
-                operation=sovereignty_campaigns_operation
-            )
-        except NotModifiedError as exc:
-            raise NotModifiedError from exc
+        sovereignty_campaigns_esi = Etag.etag_result(
+            operation=sovereignty_campaigns_operation
+        )
 
         return sovereignty_campaigns_esi
