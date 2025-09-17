@@ -3,6 +3,7 @@ The tasks
 """
 
 # Third Party
+from aiopenapi3 import ContentTypeError
 from celery import shared_task
 
 # Django
@@ -84,6 +85,12 @@ def update_sov_campaigns() -> None:
         logger.info(msg="No campaign changes found, nothing to update.")
 
         return
+    except ContentTypeError:
+        logger.warning(
+            msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+        )
+
+        return
 
     logger.debug(
         msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
@@ -155,6 +162,12 @@ def update_sov_structures() -> None:
         structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
     except NotModifiedError:
         logger.info(msg="No structure changes found, nothing to update.")
+
+        return
+    except ContentTypeError:
+        logger.warning(
+            msg="ESI returned gibberish (ContentTypeError), skipping structure update."
+        )
 
         return
 
