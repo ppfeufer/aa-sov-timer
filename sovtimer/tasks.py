@@ -72,7 +72,7 @@ def run_sov_campaign_updates() -> None:
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_campaigns() -> None:
+def update_sov_campaigns(force_refresh: bool = False) -> None:
     """
     Update sovereignty campaigns
 
@@ -80,7 +80,9 @@ def update_sov_campaigns() -> None:
     """
 
     try:
-        campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
+        campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(
+            force_refresh=force_refresh
+        )
     except NotModifiedError:
         logger.info(msg="No campaign changes found, nothing to update.")
 
@@ -147,7 +149,7 @@ def update_sov_campaigns() -> None:
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_structures() -> None:
+def update_sov_structures(force_refresh: bool = False) -> None:
     """
     Update sovereignty structures
 
@@ -155,11 +157,13 @@ def update_sov_structures() -> None:
     """
 
     # Check if the cache indicates that the structures have already been updated
-    if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None:
+    if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None and not force_refresh:
         return
 
     try:
-        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
+        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi(
+            force_refresh=force_refresh
+        )
     except NotModifiedError:
         logger.info(msg="No structure changes found, nothing to update.")
 
@@ -218,10 +222,8 @@ def update_sov_structures() -> None:
 
         esi_structure_ids.add(structure_id)
 
-        alliance_id = structure.alliance_id
-        sov_holder = alliances.get(alliance_id)
-        solar_system_id = structure.solar_system_id
-        structure_solar_system = solar_systems.get(solar_system_id)
+        sov_holder = alliances.get(structure.alliance_id)
+        structure_solar_system = solar_systems.get(structure.solar_system_id)
 
         # Get the vulnerability occupancy level
         if structure_id in set(

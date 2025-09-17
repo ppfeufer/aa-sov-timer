@@ -75,11 +75,14 @@ class SovereigntyStructure(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_structures_from_esi(cls):
+    def get_sov_structures_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov structures from ESI
 
+        :param force_refresh:
+        :type force_refresh:
         :return:
+        :rtype:
         """
 
         sovereignty_structures_operation = (
@@ -87,7 +90,7 @@ class SovereigntyStructure(models.Model):
         )
 
         sovereignty_structures_esi = etag.etag_result(
-            operation=sovereignty_structures_operation
+            operation=sovereignty_structures_operation, force_refresh=force_refresh
         )
 
         return sovereignty_structures_esi
@@ -135,7 +138,7 @@ class Campaign(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_campaigns_from_esi(cls):
+    def get_sov_campaigns_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov campaigns from ESI
 
@@ -147,7 +150,7 @@ class Campaign(models.Model):
         )
 
         sovereignty_campaigns_esi = etag.etag_result(
-            operation=sovereignty_campaigns_operation
+            operation=sovereignty_campaigns_operation, force_refresh=force_refresh
         )
 
         return sovereignty_campaigns_esi
