@@ -20,11 +20,6 @@ from sovtimer.helper.etag import Etag, NotModifiedError
 class TestEtagResult(TestCase):
     """
     Test the etag_result method of the Etag class.
-
-    1. Test that it correctly handles paginated operations by combining results from all pages.
-    2. Test that it correctly handles non-paginated operations by returning the single page result.
-    3. Test that it returns an empty list when a NotModifiedError is raised.
-    4. Test that it returns None when an OSError occurs.
     """
 
     @patch("sovtimer.helper.etag.logger")
@@ -49,20 +44,20 @@ class TestEtagResult(TestCase):
         :rtype:
         """
 
-        mock_get_total_pages.return_value = 3
-        mock_single_page.side_effect = [
-            ([{"id": 1}], None),
-            ([{"id": 2}], None),
-            ([{"id": 3}], None),
-        ]
-
         operation = MagicMock()
         operation._has_page_param.return_value = True
+        mock_get_total_pages.return_value = 3
+        mock_single_page.side_effect = [
+            (["data_page_1"], MagicMock(headers={"X-Pages": "3"})),
+            (["data_page_2"], MagicMock()),
+            (["data_page_3"], MagicMock()),
+        ]
 
         result = Etag.etag_result(operation=operation)
 
-        self.assertEqual(result, [{"id": 1}, {"id": 2}, {"id": 3}])
-        self.assertEqual(mock_update_page_num.call_count, 3)
+        self.assertEqual(result, ["data_page_1", "data_page_2", "data_page_3"])
+        self.assertEqual(mock_single_page.call_count, 3)
+        mock_update_page_num.assert_called_with(operation=operation, page_number=3)
         mock_logger.info.assert_called()
 
     @patch("sovtimer.helper.etag.logger")
@@ -91,42 +86,56 @@ class TestEtagResult(TestCase):
         self.assertEqual(result, [{"id": 1}])
         mock_logger.info.assert_not_called()
 
-    @patch("sovtimer.helper.etag.logger")
     @patch("sovtimer.helper.etag.Etag.single_page")
-    def test_returns_empty_list_when_not_modified(self, mock_single_page, mock_logger):
+    def test_forces_refresh_when_flag_is_set(self, mock_single_page):
         """
-        Test that etag_result returns an empty list when a NotModifiedError is raised.
+        Test that etag_result forces a refresh when the force_refresh flag is set.
 
         :param mock_single_page:
         :type mock_single_page:
-        :param mock_logger:
-        :type mock_logger:
         :return:
         :rtype:
         """
 
-        mock_single_page.side_effect = NotModifiedError()
+        operation = MagicMock()
+        operation._has_page_param.return_value = False
+        mock_response = MagicMock()
+        mock_response.headers = {"ETag": "test-etag"}
+        mock_single_page.return_value = (["data_page"], mock_response)
+
+        result = Etag.etag_result(operation=operation, force_refresh=True)
+
+        self.assertEqual(result, ["data_page"])
+        mock_single_page.assert_called_once_with(
+            operation=operation, force_refresh=True
+        )
+
+    @patch("sovtimer.helper.etag.Etag.single_page")
+    @patch("sovtimer.helper.etag.Etag.get_total_pages")
+    def test_handles_no_data_in_pages(self, mock_get_total_pages, mock_single_page):
+        """
+        Test that etag_result handles the case where no data is returned from any page.
+
+        :param mock_get_total_pages:
+        :type mock_get_total_pages:
+        :param mock_single_page:
+        :type mock_single_page:
+        :return:
+        :rtype:
+        """
 
         operation = MagicMock()
+        operation._has_page_param.return_value = True
+        mock_get_total_pages.return_value = 2
+        mock_single_page.side_effect = [
+            ([], MagicMock(headers={"X-Pages": "2"})),
+            ([], MagicMock()),
+        ]
 
         result = Etag.etag_result(operation=operation)
 
         self.assertEqual(result, [])
-        mock_logger.info.assert_not_called()
-
-    @patch("sovtimer.helper.etag.logger")
-    @patch("sovtimer.helper.etag.Etag.single_page")
-    def test_returns_none_when_oserror_occurs(self, mock_single_page, mock_logger):
-        mock_single_page.side_effect = OSError("Network error")
-
-        operation = MagicMock()
-
-        result = Etag.etag_result(operation=operation)
-
-        self.assertIsNone(result)
-        mock_logger.error.assert_called_once_with(
-            f"OSError occurred during ESI call for {operation}"
-        )
+        self.assertEqual(mock_single_page.call_count, 2)
 
 
 class TestSinglePage(TestCase):

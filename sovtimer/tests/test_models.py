@@ -3,12 +3,13 @@ Tests for the models in the sovtimer app.
 """
 
 # Standard Library
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 # Django
 from django.test import TestCase
 
 # AA Sovereignty Timer
+from sovtimer.helper.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 
 
@@ -40,32 +41,6 @@ class TestSovereigntyStructure(TestCase):
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 2)
         mock_etag.etag_result.assert_called_once()
-
-    @patch("sovtimer.models.Etag")
-    @patch("sovtimer.models.logger")
-    def test_none_is_returned_when_osi_error_occurs(self, mock_logger, mock_etag):
-        """
-        Test that None is returned when an OSError occurs during the ESI call.
-
-        :param mock_logger:
-        :type mock_logger:
-        :param mock_esi:
-        :type mock_esi:
-        :return:
-        :rtype:
-        """
-
-        mock_etag.etag_result.side_effect = OSError("Network error")
-
-        result = SovereigntyStructure.get_sov_structures_from_esi()
-
-        self.assertIsNone(result)
-        self.assertIn("Network error", mock_logger.info.call_args[1]["msg"])
-        self.assertIn(
-            "Error while trying to fetch sovereignty structures from ESI",
-            mock_logger.info.call_args[1]["msg"],
-        )
-        mock_logger.info.assert_called_once()
 
     @patch("sovtimer.models.Etag")
     def test_empty_list_is_returned_when_esi_returns_empty_results(self, mock_etag):
@@ -134,28 +109,13 @@ class TestCampaign(TestCase):
         self.assertIsInstance(result, list)
         self.assertEqual(len(result), 0)
 
-    @patch("sovtimer.models.logger")
-    @patch("sovtimer.models.Etag")
-    def test_returns_none_when_oserror_occurs(self, mock_etag, mock_logger):
-        """
-        Test that None is returned when an OSError occurs during the ESI call.
+    @patch("sovtimer.models.esi.client.Sovereignty.GetSovereigntyCampaigns")
+    @patch("sovtimer.models.Etag.etag_result")
+    def test_raises_not_modified_error_when_esi_returns_not_modified(
+        self, mock_etag_result, mock_get_campaigns
+    ):
+        mock_get_campaigns.return_value = MagicMock()
+        mock_etag_result.side_effect = NotModifiedError
 
-        :param mock_esi:
-        :type mock_esi:
-        :param mock_logger:
-        :type mock_logger:
-        :return:
-        :rtype:
-        """
-
-        mock_etag.etag_result.side_effect = OSError("Network error")
-
-        result = Campaign.get_sov_campaigns_from_esi()
-
-        self.assertIsNone(result)
-        self.assertIn("Network error", mock_logger.info.call_args[1]["msg"])
-        self.assertIn(
-            "Error while trying to fetch sovereignty campaigns from ESI",
-            mock_logger.info.call_args[1]["msg"],
-        )
-        mock_logger.info.assert_called_once()
+        with self.assertRaises(NotModifiedError):
+            Campaign.get_sov_campaigns_from_esi()

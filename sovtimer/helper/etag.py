@@ -186,48 +186,41 @@ class Etag:
         :rtype: dict
         """
 
-        try:
-            if operation._has_page_param():
-                page = 1
+        if operation._has_page_param():
+            page = 1
+
+            cls.update_page_num(operation=operation, page_number=page)
+
+            data, res = cls.single_page(
+                operation=operation, force_refresh=force_refresh
+            )
+            total_pages = int(cls.get_total_pages(res=res))
+
+            logger.info(f"Page {operation} / Pages {total_pages}")
+
+            while page < total_pages:
+                page += 1
 
                 cls.update_page_num(operation=operation, page_number=page)
 
-                data, res = cls.single_page(
-                    operation=operation, force_refresh=force_refresh
-                )
-                total_pages = int(cls.get_total_pages(res=res))
+                if force_refresh:
+                    cls.del_etag_header(operation=operation)
 
-                logger.info(f"Page {operation} / Pages {total_pages}")
-
-                while page < total_pages:
-                    page += 1
-
-                    cls.update_page_num(operation=operation, page_number=page)
-
-                    if force_refresh:
-                        cls.del_etag_header(operation=operation)
-
-                    _data, res = cls.single_page(
-                        operation=operation, force_refresh=force_refresh
-                    )
-
-                    if _data:
-                        data += _data
-
-                    logger.info(
-                        f"Page {operation} - Page {page}/{total_pages} - {len(_data)}"
-                    )
-            else:
-                data, res = cls.single_page(
+                _data, res = cls.single_page(
                     operation=operation, force_refresh=force_refresh
                 )
 
-                cls.set_etag_header(operation=operation, response=res)
+                if _data:
+                    data += _data
 
-            return data
-        except NotModifiedError:
-            return []
-        except OSError:
-            logger.error(f"OSError occurred during ESI call for {operation}")
+                logger.info(
+                    f"Page {operation} - Page {page}/{total_pages} - {len(_data)}"
+                )
+        else:
+            data, res = cls.single_page(
+                operation=operation, force_refresh=force_refresh
+            )
 
-            return None
+            cls.set_etag_header(operation=operation, response=res)
+
+        return data

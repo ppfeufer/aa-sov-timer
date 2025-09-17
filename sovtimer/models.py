@@ -15,7 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.helper.etag import Etag
+from sovtimer.helper.etag import Etag, NotModifiedError
 from sovtimer.providers import esi
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -91,13 +91,8 @@ class SovereigntyStructure(models.Model):
             sovereignty_structures_esi = Etag.etag_result(
                 operation=sovereignty_structures_operation
             )
-        except OSError as ex:
-            logger.info(
-                msg=(
-                    f"Error while trying to fetch sovereignty structures from ESI: {ex}"
-                )
-            )
-            sovereignty_structures_esi = None
+        except NotModifiedError as exc:
+            raise NotModifiedError from exc
 
         return sovereignty_structures_esi
 
@@ -159,12 +154,7 @@ class Campaign(models.Model):
             sovereignty_campaigns_esi = Etag.etag_result(
                 operation=sovereignty_campaigns_operation
             )
-        except OSError as ex:
-            logger.info(
-                msg=(
-                    f"Error while trying to fetch sovereignty campaigns from ESI: {ex}"
-                )
-            )
-            sovereignty_campaigns_esi = None
+        except NotModifiedError as exc:
+            raise NotModifiedError from exc
 
         return sovereignty_campaigns_esi

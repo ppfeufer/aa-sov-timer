@@ -19,6 +19,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
+from sovtimer.helper.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -77,10 +78,10 @@ def update_sov_campaigns() -> None:
     This task is used to update the sovereignty campaigns from ESI.
     """
 
-    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
-
-    if not campaigns_from_esi:
-        logger.info(msg="No (new) sovereignty campaigns found, nothing to update.")
+    try:
+        campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
+    except NotModifiedError:
+        logger.info(msg="No campaign changes found, nothing to update.")
 
         return
 
@@ -150,11 +151,10 @@ def update_sov_structures() -> None:
     if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None:
         return
 
-    structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
-
-    # If no structures are returned from ESI, we can exit early
-    if not structures_from_esi:
-        logger.info(msg="No (new) sovereignty structures found, nothing to update.")
+    try:
+        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
+    except NotModifiedError:
+        logger.info(msg="No structure changes found, nothing to update.")
 
         return
 
