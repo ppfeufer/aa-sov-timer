@@ -7,7 +7,7 @@ from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 # AA Sovereignty Timer
-from sovtimer import __title__, urls
+from sovtimer import __title_translated__, urls
 
 
 class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-methods
@@ -19,7 +19,7 @@ class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-method
         # Setup menu entry for sidebar
         MenuItemHook.__init__(
             self,
-            text=__title__,
+            text=__title_translated__,
             classes="fa-regular fa-clock",
             url_name="sovtimer:dashboard",
             navactive=["sovtimer:"],
