@@ -6,7 +6,7 @@ Tests for the sovtimer tasks.
 from unittest.mock import MagicMock, patch
 
 # Third Party
-from aiopenapi3 import ContentTypeError
+from aiopenapi3 import ContentTypeError, HTTPError
 
 # Django
 from django.core.cache import cache
@@ -150,6 +150,28 @@ class TestUpdateSovCampaignsTask(TestCase):
 
         mock_logger_warning.assert_called_with(
             msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+        )
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.error")
+    def test_logs_error_on_http_error(self, mock_logger_error, mock_get_sov_campaigns):
+        """
+        Test that update_sov_campaigns logs an error on HTTPError.
+
+        :param mock_logger_error:
+        :type mock_logger_error:
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = HTTPError("Test HTTP Error")
+
+        update_sov_campaigns()
+
+        mock_logger_error.assert_called_with(
+            msg="HTTPError while fetching campaigns from ESI: Test HTTP Error"
         )
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
@@ -474,4 +496,26 @@ class TestUpdateSovStructuresTask(TestCase):
 
         mock_logger_warning.assert_called_with(
             msg="ESI returned gibberish (ContentTypeError), skipping structure update."
+        )
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.error")
+    def test_logs_error_on_http_error(self, mock_logger_error, mock_get_sov_structures):
+        """
+        Test that update_sov_structures logs an error on HTTPError.
+
+        :param mock_logger_error:
+        :type mock_logger_error:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_structures.side_effect = HTTPError("Test HTTP Error")
+
+        update_sov_structures()
+
+        mock_logger_error.assert_called_with(
+            msg="HTTPError while fetching structures from ESI: Test HTTP Error"
         )
