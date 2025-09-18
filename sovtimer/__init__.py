@@ -6,8 +6,8 @@ App init
 from django.utils.translation import gettext_lazy as _
 
 __version__ = "3.0.0-alpha.4"
-__title__ = "Sovereignty Timers"
-__title_translated__ = _("Sovereignty Timers")
+__title__ = "Sovereignty Timer"
+__title_translated__ = _("Sovereignty Timer")
 
 __esi_compatibility_date__ = "2025-08-26"
 
