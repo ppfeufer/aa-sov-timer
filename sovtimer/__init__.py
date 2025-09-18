@@ -5,7 +5,7 @@ App init
 # Django
 from django.utils.translation import gettext_lazy as _
 
-__version__ = "3.0.0-alpha.3"
+__version__ = "3.0.0-alpha.4"
 __title__ = "Sovereignty Timers"
 __title_translated__ = _("Sovereignty Timers")
 

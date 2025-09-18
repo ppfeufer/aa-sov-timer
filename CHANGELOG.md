@@ -43,9 +43,23 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-alpha.4] - 2025-09-18
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Added
 
 - ETag handling for ESI calls
+
+### Changed
+
+- JavaScript optimized
 
 ## [3.0.0-alpha.3] - 2025-09-04
 
@@ -685,4 +699,70 @@ And restart your supervisor.
 
 - initial version
 
+<!-- Links -->
+
+[0.1.0]: https://github.com/ppfeufer/aa-sov-timer/commits/v0.1.0 "v0.1.0"
+[0.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.1.0...v0.2.0 "v0.2.0"
+[0.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.2.0...v0.3.0 "v0.3.0"
+[0.4.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.3.0...v0.4.0 "v0.4.0"
+[0.5.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.4.0...v0.5.0 "v0.5.0"
+[0.5.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.0...v0.5.1 "v0.5.1"
+[0.5.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.1...v0.5.2 "v0.5.2"
+[0.5.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.2...v0.5.3 "v0.5.3"
+[0.5.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.3...v0.5.4 "v0.5.4"
+[0.5.5]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.4...v0.5.5 "v0.5.5"
+[0.5.6]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.5...v0.5.6 "v0.5.6"
+[0.5.7]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.6...v0.5.7 "v0.5.7"
+[0.5.8]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.7...v0.5.8 "v0.5.8"
+[0.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.5.8...v0.6.0 "v0.6.0"
+[0.6.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.6.0...v0.6.1 "v0.6.1"
+[0.6.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.6.1...v0.6.2 "v0.6.2"
+[1.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v0.6.2...v1.0.0 "v1.0.0"
+[1.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.0.0...v1.1.0 "v1.1.0"
+[1.10.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.9.0...v1.10.0 "v1.10.0"
+[1.10.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.10.0...v1.10.1 "v1.10.1"
+[1.10.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.10.1...v1.10.2 "v1.10.2"
+[1.11.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.10.2...v1.11.0 "v1.11.0"
+[1.12.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.11.0...v1.12.0 "v1.12.0"
+[1.12.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.12.0...v1.12.1 "v1.12.1"
+[1.12.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.12.1...v1.12.2 "v1.12.2"
+[1.12.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.12.2...v1.12.3 "v1.12.3"
+[1.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.1.0...v1.2.0 "v1.2.0"
+[1.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.2.0...v1.3.0 "v1.3.0"
+[1.3.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.3.0...v1.3.1 "v1.3.1"
+[1.4.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.3.1...v1.4.0 "v1.4.0"
+[1.5.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.4.0...v1.5.0 "v1.5.0"
+[1.5.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.5.0...v1.5.1 "v1.5.1"
+[1.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.5.1...v1.6.0 "v1.6.0"
+[1.7.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.6.0...v1.7.0 "v1.7.0"
+[1.8.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.7.0...v1.8.0 "v1.8.0"
+[1.9.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.8.0...v1.9.0 "v1.9.0"
+[2.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.12.3...v2.0.0 "v2.0.0"
+[2.0.0-beta.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v1.12.3...v2.0.0-beta.1 "v2.0.0-beta.1"
+[2.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.0.0...v2.0.1 "v2.0.1"
+[2.0.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.0.1...v2.0.2 "v2.0.2"
+[2.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.0.2...v2.1.0 "v2.1.0"
+[2.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.1.0...v2.2.0 "v2.2.0"
+[2.2.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.2.0...v2.2.1 "v2.2.1"
+[2.2.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.2.1...v2.2.2 "v2.2.2"
+[2.2.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.2.2...v2.2.3 "v2.2.3"
+[2.2.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.2.3...v2.2.4 "v2.2.4"
+[2.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.2.4...v2.3.0 "v2.3.0"
+[2.3.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.0...v2.3.1 "v2.3.1"
+[2.3.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.1...v2.3.2 "v2.3.2"
+[2.3.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.2...v2.3.3 "v2.3.3"
+[2.3.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.3...v2.3.4 "v2.3.4"
+[2.3.5]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.4...v2.3.5 "v2.3.5"
+[2.4.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.3.5...v2.4.0 "v2.4.0"
+[2.4.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.4.0...v2.4.1 "v2.4.1"
+[2.4.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.4.1...v2.4.2 "v2.4.2"
+[2.4.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.4.2...v2.4.3 "v2.4.3"
+[2.5.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.4.3...v2.5.0 "v2.5.0"
+[2.5.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.5.0...v2.5.1 "v2.5.1"
+[2.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.5.1...v2.6.0 "v2.6.0"
+[2.6.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.0...v2.6.1 "v2.6.1"
+[3.0.0-alpha.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.1 "v3.0.0-alpha.1"
+[3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.2 "v3.0.0-alpha.2"
+[3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.3 "v3.0.0-alpha.3"
+[3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
