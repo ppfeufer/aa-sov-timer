@@ -43,9 +43,23 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-alpha.4] - 2025-09-18
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Added
 
 - ETag handling for ESI calls
+
+### Changed
+
+- JavaScript optimized
 
 ## [3.0.0-alpha.3] - 2025-09-04
 

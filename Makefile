@@ -83,7 +83,6 @@ prepare-release: pot graph-models
 		echo "[$$new_version]: $(git_repository)/compare/v$$previos_version...v$$new_version \"v$$new_version\"" >> CHANGELOG.md; \
 	fi; \
 	sed -i "/__version__ = /c\__version__ = \"$$new_version\"" $(package)/__init__.py; \
-	echo ""; \
 	echo "Updated version in $(TEXT_BOLD)$(package)/__init__.py$(TEXT_BOLD_END)"; \
 	if [[ $$new_version =~ (alpha|beta) ]]; then \
 		echo "$(TEXT_COLOR_RED)$(TEXT_BOLD)Pre-release$(TEXT_RESET) version detected!"; \
@@ -93,7 +92,6 @@ prepare-release: pot graph-models
 		sed -i "/\"Project-Id-Version: /c\\\"Project-Id-Version: $(appname_verbose) $$new_version\\\n\"" $(translation_template); \
 		sed -i "/\"Report-Msgid-Bugs-To: /c\\\"Report-Msgid-Bugs-To: $(git_repository_issues)\\\n\"" $(translation_template); \
 	else \
-		echo ""; \
 		echo "$(TEXT_BOLD)Release$(TEXT_BOLD_END) version detected."; \
 		sed -i -E "/$(appname)==/s/==.*/==$$new_version/" README.md; \
 		sed -i -E "\|\[in development\]\: |s|\]\: .*|\]\: $(git_repository)/compare/v$$new_version...HEAD \"In Development\"|g" CHANGELOG.md; \
