@@ -766,3 +766,4 @@ And restart your supervisor.
 [3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.3 "v3.0.0-alpha.3"
 [3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...HEAD
