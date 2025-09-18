@@ -3,7 +3,7 @@ The tasks
 """
 
 # Third Party
-from aiopenapi3 import ContentTypeError
+from aiopenapi3 import ContentTypeError, HTTPError
 from celery import shared_task
 
 # Django
@@ -93,6 +93,10 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
         )
 
         return
+    except HTTPError as exc:
+        logger.error(msg=f"HTTPError while fetching campaigns from ESI: {exc}")
+
+        return
 
     logger.debug(
         msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
@@ -157,7 +161,7 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     """
 
     # Check if the cache indicates that the structures have already been updated
-    if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None and not force_refresh:
+    if not force_refresh and cache.get(ESI_SOV_STRUCTURES_CACHE_KEY):
         return
 
     try:
@@ -172,6 +176,10 @@ def update_sov_structures(force_refresh: bool = False) -> None:
         logger.warning(
             msg="ESI returned gibberish (ContentTypeError), skipping structure update."
         )
+
+        return
+    except HTTPError as exc:
+        logger.error(msg=f"HTTPError while fetching structures from ESI: {exc}")
 
         return
 
