@@ -3,6 +3,7 @@ The tasks
 """
 
 # Third Party
+from aiopenapi3 import ContentTypeError, HTTPError
 from celery import shared_task
 
 # Django
@@ -15,11 +16,11 @@ from allianceauth.services.tasks import QueueOnce
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
-from eveuniverse.core.esitools import is_esi_online
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
+from sovtimer.handler.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -64,16 +65,6 @@ def run_sov_campaign_updates() -> None:
     ```
     """
 
-    if not is_esi_online():
-        logger.info(
-            msg=(
-                "ESI seems to be offline, currently. "
-                "Can't start ESI related tasks. Aborting …"
-            )
-        )
-
-        return
-
     logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
 
     update_sov_structures.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
@@ -81,25 +72,35 @@ def run_sov_campaign_updates() -> None:
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_campaigns() -> None:
+def update_sov_campaigns(force_refresh: bool = False) -> None:
     """
     Update sovereignty campaigns
 
     This task is used to update the sovereignty campaigns from ESI.
     """
 
-    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi()
+    try:
+        campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(
+            force_refresh=force_refresh
+        )
+    except NotModifiedError:
+        logger.info(msg="No campaign changes found, nothing to update.")
+
+        return
+    except ContentTypeError:
+        logger.warning(
+            msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+        )
+
+        return
+    except HTTPError as exc:
+        logger.error(msg=f"HTTPError while fetching campaigns from ESI: {exc}")
+
+        return
 
     logger.debug(
         msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
     )
-
-    if not campaigns_from_esi:
-        logger.info(msg="No (new) sovereignty campaigns found, nothing to update.")
-
-        return
-
-    logger.debug(msg="Updating sovereignty campaigns …")
 
     campaigns = []
     defender_ids = {campaign.defender_id for campaign in campaigns_from_esi}
@@ -152,7 +153,7 @@ def update_sov_campaigns() -> None:
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_structures() -> None:
+def update_sov_structures(force_refresh: bool = False) -> None:
     """
     Update sovereignty structures
 
@@ -160,22 +161,31 @@ def update_sov_structures() -> None:
     """
 
     # Check if the cache indicates that the structures have already been updated
-    if cache.get(ESI_SOV_STRUCTURES_CACHE_KEY) is not None:
+    if not force_refresh and cache.get(ESI_SOV_STRUCTURES_CACHE_KEY):
         return
 
-    structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi()
+    try:
+        structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi(
+            force_refresh=force_refresh
+        )
+    except NotModifiedError:
+        logger.info(msg="No structure changes found, nothing to update.")
+
+        return
+    except ContentTypeError:
+        logger.warning(
+            msg="ESI returned gibberish (ContentTypeError), skipping structure update."
+        )
+
+        return
+    except HTTPError as exc:
+        logger.error(msg=f"HTTPError while fetching structures from ESI: {exc}")
+
+        return
 
     logger.debug(
         msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
     )
-
-    # If no structures are returned from ESI, we can exit early
-    if not structures_from_esi:
-        logger.info(msg="No (new) sovereignty structures found, nothing to update.")
-
-        return
-
-    logger.debug(msg="Updating sovereignty structures …")
 
     # Pre-fetch current structures and campaigns for fast lookup
     current_structures = {
@@ -220,10 +230,8 @@ def update_sov_structures() -> None:
 
         esi_structure_ids.add(structure_id)
 
-        alliance_id = structure.alliance_id
-        sov_holder = alliances.get(alliance_id)
-        solar_system_id = structure.solar_system_id
-        structure_solar_system = solar_systems.get(solar_system_id)
+        sov_holder = alliances.get(structure.alliance_id)
+        structure_solar_system = solar_systems.get(structure.solar_system_id)
 
         # Get the vulnerability occupancy level
         if structure_id in set(

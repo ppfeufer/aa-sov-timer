@@ -2,9 +2,6 @@
 Our Models
 """
 
-# Third Party
-from aiopenapi3 import ContentTypeError
-
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -18,7 +15,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.providers import esi
+from sovtimer.providers import esi, etag
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -78,24 +75,23 @@ class SovereigntyStructure(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_structures_from_esi(cls):
+    def get_sov_structures_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov structures from ESI
 
+        :param force_refresh:
+        :type force_refresh:
         :return:
+        :rtype:
         """
 
-        try:
-            sovereignty_structures_esi = (
-                esi.client.Sovereignty.GetSovereigntyStructures().results()
-            )
-        except (OSError, ContentTypeError) as ex:
-            logger.info(
-                msg=(
-                    f"Error while trying to fetch sovereignty structures from ESI: {ex}"
-                )
-            )
-            sovereignty_structures_esi = None
+        sovereignty_structures_operation = (
+            esi.client.Sovereignty.GetSovereigntyStructures()
+        )
+
+        sovereignty_structures_esi = etag.etag_result(
+            operation=sovereignty_structures_operation, force_refresh=force_refresh
+        )
 
         return sovereignty_structures_esi
 
@@ -142,23 +138,19 @@ class Campaign(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_campaigns_from_esi(cls):
+    def get_sov_campaigns_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov campaigns from ESI
 
         :return:
         """
 
-        try:
-            sovereignty_campaigns_esi = (
-                esi.client.Sovereignty.GetSovereigntyCampaigns().results()
-            )
-        except (OSError, ContentTypeError) as ex:
-            logger.info(
-                msg=(
-                    f"Error while trying to fetch sovereignty campaigns from ESI: {ex}"
-                )
-            )
-            sovereignty_campaigns_esi = None
+        sovereignty_campaigns_operation = (
+            esi.client.Sovereignty.GetSovereigntyCampaigns()
+        )
+
+        sovereignty_campaigns_esi = etag.etag_result(
+            operation=sovereignty_campaigns_operation, force_refresh=force_refresh
+        )
 
         return sovereignty_campaigns_esi

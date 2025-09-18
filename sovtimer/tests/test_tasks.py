@@ -5,11 +5,18 @@ Tests for the sovtimer tasks.
 # Standard Library
 from unittest.mock import MagicMock, patch
 
+# Third Party
+from aiopenapi3 import ContentTypeError, HTTPError
+
 # Django
 from django.core.cache import cache
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
+from eveuniverse.models import EveEntity
+
 # AA Sovereignty Timer
+from sovtimer.handler.etag import NotModifiedError
 from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
@@ -25,26 +32,21 @@ class TestRunSovCampaignUpdatesTask(TestCase):
     Test the run_sov_campaign_updates task.
     """
 
-    @patch("sovtimer.tasks.is_esi_online")
     @patch("sovtimer.tasks.update_sov_structures.apply_async")
     @patch("sovtimer.tasks.update_sov_campaigns.apply_async")
-    def test_run_sov_campaign_updates_calls_tasks_when_esi_online(
-        self, mock_update_campaigns, mock_update_structures, mock_is_esi_online
+    def test_run_sov_campaign_updates_calls_tasks(
+        self, mock_update_campaigns, mock_update_structures
     ):
         """
-        Test that run_sov_campaign_updates calls the update tasks when ESI is online.
+        Test that run_sov_campaign_updates calls the update tasks with correct args.
 
         :param mock_update_campaigns:
         :type mock_update_campaigns:
         :param mock_update_structures:
         :type mock_update_structures:
-        :param mock_is_esi_online:
-        :type mock_is_esi_online:
         :return:
         :rtype:
         """
-
-        mock_is_esi_online.return_value = True
 
         run_sov_campaign_updates()
 
@@ -55,37 +57,122 @@ class TestRunSovCampaignUpdatesTask(TestCase):
             priority=TASK_PRIORITY, once=TASK_ONCE_ARGS
         )
 
-    @patch("sovtimer.tasks.is_esi_online")
-    @patch("sovtimer.tasks.update_sov_structures.apply_async")
-    @patch("sovtimer.tasks.update_sov_campaigns.apply_async")
-    def test_run_sov_campaign_updates_does_not_call_tasks_when_esi_offline(
-        self, mock_update_campaigns, mock_update_structures, mock_is_esi_online
-    ):
+    def test_run_sov_campaign_updates_handles_exceptions(self):
         """
-        Test that run_sov_campaign_updates does not call the update tasks when ESI is offline.
+        Test that run_sov_campaign_updates handles exceptions gracefully.
 
-        :param mock_update_campaigns:
-        :type mock_update_campaigns:
-        :param mock_update_structures:
-        :type mock_update_structures:
-        :param mock_is_esi_online:
-        :type mock_is_esi_online:
         :return:
         :rtype:
         """
 
-        mock_is_esi_online.return_value = False
+        with (
+            patch(
+                "sovtimer.tasks.update_sov_structures.apply_async"
+            ) as mock_update_structures,
+            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
+        ):
+            mock_update_structures.side_effect = Exception("Test exception")
 
-        run_sov_campaign_updates()
+            with self.assertRaises(Exception) as exc:
+                run_sov_campaign_updates()
 
-        mock_update_structures.assert_not_called()
-        mock_update_campaigns.assert_not_called()
+            self.assertEqual(str(exc.exception), "Test exception")
+
+    def test_run_sov_campaign_updates_logs_messages(self):
+        """
+        Test that run_sov_campaign_updates logs the correct messages.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch("sovtimer.tasks.logger") as mock_logger,
+            patch("sovtimer.tasks.update_sov_structures.apply_async"),
+            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
+        ):
+            run_sov_campaign_updates()
+
+            mock_logger.info.assert_any_call(
+                msg="Updating sovereignty structures and campaigns from ESI …"
+            )
 
 
 class TestUpdateSovCampaignsTask(TestCase):
     """
     Test the update_sov_campaigns task.
     """
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.info")
+    def test_logs_no_changes_when_campaigns_not_modified(
+        self, mock_logger_info, mock_get_sov_campaigns
+    ):
+        """
+        Test that update_sov_campaigns logs no changes when campaigns are not modified.
+
+        :param mock_logger_info:
+        :type mock_logger_info:
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = NotModifiedError
+
+        update_sov_campaigns()
+
+        mock_logger_info.assert_called_with(
+            msg="No campaign changes found, nothing to update."
+        )
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.warning")
+    def test_logs_warning_on_content_type_error(
+        self, mock_logger_warning, mock_get_sov_campaigns
+    ):
+        """
+        Test that update_sov_campaigns logs a warning on ContentTypeError.
+
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = ContentTypeError(
+            operation="op",
+            content_type="application/json",
+            message="error",
+            response="resp",
+        )
+
+        update_sov_campaigns()
+
+        mock_logger_warning.assert_called_with(
+            msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+        )
+
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.logger.error")
+    def test_logs_error_on_http_error(self, mock_logger_error, mock_get_sov_campaigns):
+        """
+        Test that update_sov_campaigns logs an error on HTTPError.
+
+        :param mock_logger_error:
+        :type mock_logger_error:
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.side_effect = HTTPError("Test HTTP Error")
+
+        update_sov_campaigns()
+
+        mock_logger_error.assert_called_with(
+            msg="HTTPError while fetching campaigns from ESI: Test HTTP Error"
+        )
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
     @patch("sovtimer.models.Campaign.objects.all")
@@ -214,6 +301,39 @@ class TestUpdateSovCampaignsTask(TestCase):
         self.assertEqual(mock_existing_campaign.progress_previous, 0.6)
         self.assertEqual(mock_existing_campaign.defender_score, 0.7)
 
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    @patch("sovtimer.models.Campaign.objects.bulk_create")
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    def test_creates_missing_eve_entities(
+        self,
+        mock_get_sov_campaigns,
+        mock_bulk_create_campaigns,
+        mock_bulk_create_entities,
+    ):
+        """
+        Test that update_sov_campaigns creates missing EveEntity records.
+
+        :param mock_get_sov_campaigns:
+        :type mock_get_sov_campaigns:
+        :param mock_bulk_create_campaigns:
+        :type mock_bulk_create_campaigns:
+        :param mock_bulk_create_entities:
+        :type mock_bulk_create_entities:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns.return_value = [
+            MagicMock(defender_id=100),
+            MagicMock(defender_id=101),
+        ]
+
+        update_sov_campaigns()
+
+        mock_bulk_create_entities.assert_called_once_with(
+            [EveEntity(id=100), EveEntity(id=101)], ignore_conflicts=True
+        )
+
 
 class TestUpdateSovStructuresTask(TestCase):
     """
@@ -322,3 +442,80 @@ class TestUpdateSovStructuresTask(TestCase):
         update_sov_structures()
 
         self.assertFalse(mock_get_structures.called)
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.info")
+    def test_logs_no_changes_when_structures_not_modified(
+        self, mock_logger_info, mock_get_sov_structures
+    ):
+        """
+        Test that update_sov_structures logs no changes when structures are not modified.
+
+        :param mock_logger_info:
+        :type mock_logger_info:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_structures.side_effect = NotModifiedError
+
+        cache.delete(key="sov_structures_cache")  # Ensure cache is clear
+
+        update_sov_structures()
+
+        mock_logger_info.assert_called_with(
+            msg="No structure changes found, nothing to update."
+        )
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.warning")
+    def test_logs_warning_on_content_type_error(
+        self, mock_logger_warning, mock_get_sov_structures
+    ):
+        """
+        Test that update_sov_structures logs a warning on ContentTypeError.
+
+        :param mock_logger_warning:
+        :type mock_logger_warning:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_structures.side_effect = ContentTypeError(
+            operation="op",
+            content_type="application/json",
+            message="error",
+            response="resp",
+        )
+
+        update_sov_structures()
+
+        mock_logger_warning.assert_called_with(
+            msg="ESI returned gibberish (ContentTypeError), skipping structure update."
+        )
+
+    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.logger.error")
+    def test_logs_error_on_http_error(self, mock_logger_error, mock_get_sov_structures):
+        """
+        Test that update_sov_structures logs an error on HTTPError.
+
+        :param mock_logger_error:
+        :type mock_logger_error:
+        :param mock_get_sov_structures:
+        :type mock_get_sov_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_structures.side_effect = HTTPError("Test HTTP Error")
+
+        update_sov_structures()
+
+        mock_logger_error.assert_called_with(
+            msg="HTTPError while fetching structures from ESI: Test HTTP Error"
+        )
