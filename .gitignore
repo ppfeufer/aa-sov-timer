@@ -20,3 +20,4 @@ alliance_auth.sqlite3
 .make/myauth-path
 
 .esi-compatibility-date
+.make/myauth-path
