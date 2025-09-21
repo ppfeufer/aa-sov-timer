@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Removed
+
+- Etag handling for ESI calls, since `django-esi` now handles this internally
+
 ## [3.0.0-alpha.4] - 2025-09-18
 
 > [!CAUTION]

@@ -2,12 +2,16 @@
 Our Models
 """
 
+# Third Party
+from aiopenapi3 import ContentTypeError, HTTPError
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
+from esi.exceptions import HTTPNotModified
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
@@ -15,7 +19,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.providers import esi, etag
+from sovtimer.providers import esi
 
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -85,15 +89,32 @@ class SovereigntyStructure(models.Model):
         :rtype:
         """
 
-        sovereignty_structures_operation = (
-            esi.client.Sovereignty.GetSovereigntyStructures()
-        )
+        try:
+            sov_structures_from_esi = (
+                esi.client.Sovereignty.GetSovereigntyStructures().result(
+                    force_refresh=force_refresh
+                )
+            )
+        except HTTPNotModified:
+            logger.info(
+                msg="No sovereignty structure changes found, nothing to update."
+            )
 
-        sovereignty_structures_esi = etag.etag_result(
-            operation=sovereignty_structures_operation, force_refresh=force_refresh
-        )
+            return None
+        except ContentTypeError:
+            logger.warning(
+                msg="ESI returned gibberish (ContentTypeError), skipping sovereignty structure update."
+            )
 
-        return sovereignty_structures_esi
+            return None
+        except HTTPError as exc:
+            logger.error(
+                msg=f"HTTPError while fetching sovereignty structures from ESI: {exc}"
+            )
+
+            return None
+
+        return sov_structures_from_esi
 
 
 class Campaign(models.Model):
@@ -145,12 +166,25 @@ class Campaign(models.Model):
         :return:
         """
 
-        sovereignty_campaigns_operation = (
-            esi.client.Sovereignty.GetSovereigntyCampaigns()
-        )
+        try:
+            campaigns_from_esi = (
+                esi.client.Sovereignty.GetSovereigntyCampaigns().result(
+                    force_refresh=force_refresh
+                )
+            )
+        except HTTPNotModified:
+            logger.info(msg="No campaign changes found, nothing to update.")
 
-        sovereignty_campaigns_esi = etag.etag_result(
-            operation=sovereignty_campaigns_operation, force_refresh=force_refresh
-        )
+            return None
+        except ContentTypeError:
+            logger.warning(
+                msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+            )
 
-        return sovereignty_campaigns_esi
+            return None
+        except HTTPError as exc:
+            logger.error(msg=f"HTTPError while fetching campaigns from ESI: {exc}")
+
+            return None
+
+        return campaigns_from_esi
