@@ -7,7 +7,7 @@ import json
 from http import HTTPStatus
 
 # Django
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory
 from django.urls import reverse
 
 # Alliance Auth
@@ -17,12 +17,13 @@ from allianceauth.eveonline.models import EveCharacter
 from app_utils.testing import add_character_to_user, create_user_from_evecharacter
 
 # AA Sovereignty Timer
+from sovtimer.tests import BaseTestCase
 from sovtimer.tests.fixtures.load_allianceauth import load_allianceauth
 from sovtimer.tests.fixtures.load_sovtimer import load_sovtimer
 from sovtimer.views import dashboard_data
 
 
-class TestAjaxCalls(TestCase):
+class TestAjaxCalls(BaseTestCase):
     """
     Test the ajax calls
     """
