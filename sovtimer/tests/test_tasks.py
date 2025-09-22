@@ -19,9 +19,10 @@ from sovtimer.tasks import (
     update_sov_campaigns,
     update_sov_structures,
 )
+from sovtimer.tests import BaseTestCase
 
 
-class TestRunSovCampaignUpdatesTask(TestCase):
+class TestRunSovCampaignUpdatesTask(BaseTestCase):
     """
     Test the run_sov_campaign_updates task.
     """
