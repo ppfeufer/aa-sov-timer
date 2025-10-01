@@ -41,11 +41,13 @@ dynamic = [
 dependencies = [
     "allianceauth>=4.9,<5",
     "allianceauth-app-utils>=1.25",
+    "django-esi>=8.0.0a4",
     "django-eveuniverse>=1.5.4",
 ]
 optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
+    "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
 urls.Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
@@ -61,3 +63,6 @@ include = [
 
 [tool.hatch.version]
 path = "sovtimer/__init__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true

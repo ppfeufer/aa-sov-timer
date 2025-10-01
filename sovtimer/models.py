@@ -2,12 +2,16 @@
 Our Models
 """
 
+# Third Party
+from aiopenapi3 import ContentTypeError, HTTPError
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
+from esi.exceptions import HTTPNotModified
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
@@ -75,27 +79,42 @@ class SovereigntyStructure(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_structures_from_esi(cls):
+    def get_sov_structures_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov structures from ESI
 
+        :param force_refresh:
+        :type force_refresh:
         :return:
+        :rtype:
         """
 
         try:
-            sovereignty_structures_esi = (
-                esi.client.Sovereignty.get_sovereignty_structures().results()
-            )
-        except OSError as ex:
-            logger.info(
-                msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"structures from ESI: {ex}"
+            sov_structures_from_esi = (
+                esi.client.Sovereignty.GetSovereigntyStructures().result(
+                    force_refresh=force_refresh
                 )
             )
-            sovereignty_structures_esi = None
+        except HTTPNotModified:
+            logger.info(
+                msg="No sovereignty structure changes found, nothing to update."
+            )
 
-        return sovereignty_structures_esi
+            return None
+        except ContentTypeError:
+            logger.warning(
+                msg="ESI returned gibberish (ContentTypeError), skipping sovereignty structure update."
+            )
+
+            return None
+        except HTTPError as exc:
+            logger.error(
+                msg=f"HTTPError while fetching sovereignty structures from ESI: {exc}"
+            )
+
+            return None
+
+        return sov_structures_from_esi
 
 
 class Campaign(models.Model):
@@ -140,7 +159,7 @@ class Campaign(models.Model):
         default_permissions = ()
 
     @classmethod
-    def get_sov_campaigns_from_esi(cls):
+    def get_sov_campaigns_from_esi(cls, force_refresh: bool = False):
         """
         Get all sov campaigns from ESI
 
@@ -148,16 +167,24 @@ class Campaign(models.Model):
         """
 
         try:
-            sovereignty_campaigns_esi = (
-                esi.client.Sovereignty.get_sovereignty_campaigns().results()
-            )
-        except OSError as ex:
-            logger.info(
-                msg=(
-                    "Something went wrong while trying to fetch sov "
-                    f"campaigns from ESI: {ex}"
+            campaigns_from_esi = (
+                esi.client.Sovereignty.GetSovereigntyCampaigns().result(
+                    force_refresh=force_refresh
                 )
             )
-            sovereignty_campaigns_esi = None
+        except HTTPNotModified:
+            logger.info(msg="No campaign changes found, nothing to update.")
 
-        return sovereignty_campaigns_esi
+            return None
+        except ContentTypeError:
+            logger.warning(
+                msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+            )
+
+            return None
+        except HTTPError as exc:
+            logger.error(msg=f"HTTPError while fetching campaigns from ESI: {exc}")
+
+            return None
+
+        return campaigns_from_esi
