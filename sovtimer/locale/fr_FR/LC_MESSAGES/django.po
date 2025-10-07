@@ -8,20 +8,21 @@
 # Mickael Gr4vity <patte.mickael@gmail.com>, 2024.
 # Acia Saraki <ouss2412@live.fr>, 2025.
 # The “Devcutter” Guy <mick162534@gmail.com>, 2025.
+# Hugo REGIBO <hugo@hugoregibo.be>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-09-02 07:47+0200\n"
-"PO-Revision-Date: 2025-08-03 02:43+0000\n"
-"Last-Translator: The “Devcutter” Guy <mick162534@gmail.com>\n"
+"POT-Creation-Date: 2025-10-07 11:47+0200\n"
+"PO-Revision-Date: 2025-09-22 09:43+0000\n"
+"Last-Translator: Hugo REGIBO <hugo@hugoregibo.be>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: sovtimer/__init__.py:9
 msgid "Sovereignty Timers"
@@ -78,12 +79,12 @@ msgstr "Système"
 #: sovtimer/templates/sovtimer/dashboard.html:17
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
 msgid "Constellation"
-msgstr ""
+msgstr "Constellation"
 
 #: sovtimer/templates/sovtimer/dashboard.html:18
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
 msgid "Region"
-msgstr ""
+msgstr "Région"
 
 #: sovtimer/templates/sovtimer/dashboard.html:19
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
@@ -107,28 +108,20 @@ msgid "Sovereignty campaign list"
 msgstr "Liste des compagnes pour la souveraineté"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:12
-#, fuzzy
-#| msgid "Sovereignty campaigns"
 msgid "Total campaigns:"
-msgstr "Campagnes de souveraineté"
+msgstr "Total des campagnes:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:13
-#, fuzzy
-#| msgid "Timers upcoming (< 4hrs):"
 msgid "Upcoming campaigns (< 4hrs):"
-msgstr "Minuteries à venir (< 4h) :"
+msgstr "Campagnes en approche (<4h):"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:14
-#, fuzzy
-#| msgid "Active campaign"
 msgid "Active campaigns:"
-msgstr "Campagne en cours"
+msgstr "Campagnes en cours:"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
-#, fuzzy
-#| msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "La liste des minuteries de souveraineté est automatiquement mise à jour toutes les 30 secondes. La progression des campagnes en cours est affichée comme suit : <i>Précédent - Tendance - Actuel</i>."
+msgstr "La liste des minuteries de campagnes est automatiquement mise à jour toutes les 30 secondes. La progression des campagnes en cours est affichée comme suit : <i>Précédent - Tendance - Actuel</i>."
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "ADM"
@@ -136,15 +129,15 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "Start"
-msgstr ""
+msgstr "Début"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
 msgid "Remaining"
-msgstr ""
+msgstr "Restant"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
 msgid "Progress"
-msgstr ""
+msgstr "Progrès"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
