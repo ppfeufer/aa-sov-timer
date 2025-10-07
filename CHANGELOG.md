@@ -47,6 +47,12 @@ Section Order:
 
 - Etag handling for ESI calls, since `django-esi` now handles this internally
 
+## [2.6.2] - 2025-10-07
+
+### Changed
+
+- Translations updated
+
 ## [3.0.0-alpha.4] - 2025-09-18
 
 > [!CAUTION]
@@ -78,14 +84,6 @@ Section Order:
 ### Changed
 
 - Attempting to catch ESI errors thrown by the OpenAPI client through `aiopenapi3` (See: https://gitlab.com/allianceauth/django-esi/-/issues/40)
-
-<!-- Your changes go here -->
-
-## [2.6.2] - 2025-10-07
-
-### Changed
-
-- Translations updated
 
 ## [3.0.0-alpha.2] - 2025-09-04
 
@@ -774,9 +772,9 @@ And restart your supervisor.
 [2.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.5.1...v2.6.0 "v2.6.0"
 [2.6.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.0...v2.6.1 "v2.6.1"
 [2.6.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v2.6.2 "v2.6.2"
-[3.0.0-alpha.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.1 "v3.0.0-alpha.1"
-[3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.2 "v3.0.0-alpha.2"
-[3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.3 "v3.0.0-alpha.3"
-[3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v3.0.0-alpha.4 "v3.0.0-alpha.4"
+[3.0.0-alpha.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.1 "v3.0.0-alpha.1"
+[3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.2 "v3.0.0-alpha.2"
+[3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.3 "v3.0.0-alpha.3"
+[3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
 [in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
