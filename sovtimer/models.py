@@ -95,6 +95,11 @@ class SovereigntyStructure(models.Model):
                     force_refresh=force_refresh
                 )
             )
+
+            logger.debug(
+                msg=f"Fetched {len(sov_structures_from_esi or [])} sovereignty structures from ESI."
+            )
+            logger.debug(msg=f"Sovereignty structure data: {sov_structures_from_esi}")
         except HTTPNotModified:
             logger.info(
                 msg="No sovereignty structure changes found, nothing to update."
@@ -172,6 +177,11 @@ class Campaign(models.Model):
                     force_refresh=force_refresh
                 )
             )
+
+            logger.debug(
+                msg=f"Fetched {len(campaigns_from_esi or [])} campaigns from ESI."
+            )
+            logger.debug(msg=f"Campaign data: {campaigns_from_esi}")
         except HTTPNotModified:
             logger.info(msg="No campaign changes found, nothing to update.")
 

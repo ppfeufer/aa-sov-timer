@@ -201,13 +201,17 @@ class TestUpdateSovCampaignsTask(TestCase):
         :rtype:
         """
 
-        mock_get_campaigns.return_value = None
+        mock_get_campaigns.return_value = ""
 
         update_sov_campaigns()
 
-        mock_logger_debug.assert_not_called()
-        mock_logger_info.assert_not_called()
-        mock_campaigns_all.return_value.delete.assert_not_called()
+        mock_logger_debug.assert_called_with(
+            msg="Number of sovereignty campaigns from ESI: 0"
+        )
+        mock_logger_info.assert_called_with(
+            msg="0 sovereignty campaigns updated from ESI."
+        )
+        mock_campaigns_all.return_value.delete.assert_called_once()
 
     @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
     @patch("sovtimer.models.Campaign.objects.all")
