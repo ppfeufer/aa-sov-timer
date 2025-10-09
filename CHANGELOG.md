@@ -43,11 +43,77 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Removed
+
+- Etag handling for ESI calls, since `django-esi` now handles this internally
+
 ## [2.6.2] - 2025-10-07
 
 ### Changed
 
 - Translations updated
+
+## [3.0.0-alpha.4] - 2025-09-18
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Added
+
+- ETag handling for ESI calls
+
+### Changed
+
+- JavaScript optimized
+
+## [3.0.0-alpha.3] - 2025-09-04
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Changed
+
+- Attempting to catch ESI errors thrown by the OpenAPI client through `aiopenapi3` (See: https://gitlab.com/allianceauth/django-esi/-/issues/40)
+
+## [3.0.0-alpha.2] - 2025-09-04
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Fixed
+
+- Warning: Cannot reinitialise DataTable
+
+## [3.0.0-alpha.1] - 2025-09-04
+
+> [!CAUTION]
+>
+> This is an ALPHA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an ALPHA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Changed
+
+- Switch to OpenAPI3 based ESI client
+  - Set ESI compatibility date to 2025-08-26 (August 26, 2025)
+- Improved logging for the sovereignty structures task
 
 ## [2.6.1] - 2025-09-02
 
@@ -706,5 +772,9 @@ And restart your supervisor.
 [2.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.5.1...v2.6.0 "v2.6.0"
 [2.6.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.0...v2.6.1 "v2.6.1"
 [2.6.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v2.6.2 "v2.6.2"
+[3.0.0-alpha.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.1 "v3.0.0-alpha.1"
+[3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.2 "v3.0.0-alpha.2"
+[3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.3 "v3.0.0-alpha.3"
+[3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
 [in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
