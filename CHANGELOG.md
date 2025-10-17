@@ -43,6 +43,19 @@ Section Order:
 
 <!-- Your changes go here -->
 
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
+### Changed
+
+- Updated dependencies
+  - `django-esi>=8.0.0b1`
+
 ### Removed
 
 - Etag handling for ESI calls, since `django-esi` now handles this internally
