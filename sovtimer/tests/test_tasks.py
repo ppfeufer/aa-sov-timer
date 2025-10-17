@@ -3,15 +3,17 @@ Tests for the sovtimer tasks.
 """
 
 # Standard Library
+from types import SimpleNamespace
 from unittest.mock import MagicMock, Mock, patch
 
 # Django
-from django.test import TestCase
+from django.utils import timezone
 
 # Alliance Auth (External Libs)
 from eveuniverse.models import EveSolarSystem
 
 # AA Sovereignty Timer
+from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
     TASK_PRIORITY,
@@ -93,7 +95,7 @@ class TestRunSovCampaignUpdatesTask(BaseTestCase):
             )
 
 
-class TestUpdateSovCampaignsTask(TestCase):
+class TestUpdateSovCampaignsTask(BaseTestCase):
     """
     Test the update_sov_campaigns task.
     """
@@ -257,8 +259,145 @@ class TestUpdateSovCampaignsTask(TestCase):
             msg="1 sovereignty campaigns updated from ESI."
         )
 
+    @patch("sovtimer.models.EveEntity.objects.bulk_create")
+    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
+    def test_preserves_previous_progress_previous_when_defender_score_unchanged(
+        self, mock_bulk_update_new_esi, mock_eve_bulk_create
+    ):
+        now = timezone.now()
+        # Create the referenced SovereigntyStructure so FK constraint is satisfied
+        SovereigntyStructure.objects.create(
+            structure_id=100,
+            alliance_id=None,
+            solar_system_id=None,
+            structure_type_id=0,
+            vulnerability_occupancy_level=0,
+            vulnerable_start_time=now,
+            vulnerable_end_time=now,
+        )
 
-class TestUpdateSovStructuresTask(TestCase):
+        # Existing campaign in DB with previous progress_previous
+        Campaign.objects.create(
+            attackers_score=0,
+            campaign_id=1,
+            defender_score=50,
+            event_type="test",
+            start_time=now,
+            structure_id=100,
+            progress_current=50,
+            progress_previous=20,
+        )
+
+        esi_campaign = SimpleNamespace(
+            attackers_score=0,
+            campaign_id=1,
+            defender_id=1001,
+            defender_score=50,  # unchanged
+            event_type="test",
+            start_time=now,
+            structure_id=100,
+        )
+
+        with patch(
+            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
+            return_value=[esi_campaign],
+        ):
+            update_sov_campaigns(force_refresh=True)
+
+        created = Campaign.objects.get(campaign_id=1)
+        self.assertEqual(created.progress_current, 50)
+        self.assertEqual(created.progress_previous, 20)
+
+    @patch("sovtimer.models.EveEntity.objects.bulk_create")
+    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
+    def test_sets_progress_previous_to_current_defender_score_when_defender_score_changed(
+        self, mock_bulk_update_new_esi, mock_eve_bulk_create
+    ):
+        now = timezone.now()
+        # Create the referenced SovereigntyStructure so FK constraint is satisfied
+        SovereigntyStructure.objects.create(
+            structure_id=200,
+            alliance_id=None,
+            solar_system_id=None,
+            structure_type_id=0,
+            vulnerability_occupancy_level=0,
+            vulnerable_start_time=now,
+            vulnerable_end_time=now,
+        )
+
+        # Existing campaign in DB with a different defender_score
+        Campaign.objects.create(
+            attackers_score=0,
+            campaign_id=2,
+            defender_score=40,
+            event_type="test",
+            start_time=now,
+            structure_id=200,
+            progress_current=40,
+            progress_previous=10,
+        )
+
+        esi_campaign = SimpleNamespace(
+            attackers_score=0,
+            campaign_id=2,
+            defender_id=1002,
+            defender_score=60,  # changed
+            event_type="test",
+            start_time=now,
+            structure_id=200,
+        )
+
+        with patch(
+            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
+            return_value=[esi_campaign],
+        ):
+            update_sov_campaigns(force_refresh=True)
+
+        created = Campaign.objects.get(campaign_id=2)
+        self.assertEqual(created.progress_current, 60)
+        self.assertEqual(created.progress_previous, 40)
+
+    @patch("sovtimer.models.EveEntity.objects.bulk_create")
+    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
+    def test_sets_progress_previous_to_current_when_no_existing_campaign(
+        self, mock_bulk_update_new_esi, mock_eve_bulk_create
+    ):
+        now = timezone.now()
+        Campaign.objects.all().delete()
+
+        # Create the referenced SovereigntyStructure so FK constraint is satisfied
+        SovereigntyStructure.objects.create(
+            structure_id=300,
+            alliance_id=None,
+            solar_system_id=None,
+            structure_type_id=0,
+            vulnerability_occupancy_level=0,
+            vulnerable_start_time=now,
+            vulnerable_end_time=now,
+        )
+
+        esi_campaign = SimpleNamespace(
+            attackers_score=0,
+            campaign_id=3,
+            defender_id=1003,
+            defender_score=30,
+            event_type="test",
+            start_time=now,
+            structure_id=300,
+        )
+
+        with patch(
+            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
+            return_value=[esi_campaign],
+        ):
+            update_sov_campaigns(force_refresh=True)
+
+        created = Campaign.objects.get(campaign_id=3)
+        self.assertEqual(created.progress_current, 30)
+        self.assertEqual(created.progress_previous, 30)
+
+
+class TestUpdateSovStructuresTask(BaseTestCase):
     """
     Test the update_sov_structures task.
     """
@@ -385,3 +524,78 @@ class TestUpdateSovStructuresTask(TestCase):
 
         mock_logger_debug.assert_not_called()
         mock_logger_info.assert_not_called()
+
+    def test_ignores_duplicate_structures_with_same_id(self):
+        """
+        Test that update_sov_structures ignores duplicate structures with the same ID.
+
+        :return:
+        :rtype:
+        """
+
+        now = timezone.now()
+        struct_a = SimpleNamespace(
+            structure_id=55555,
+            alliance_id=None,
+            solar_system_id=None,
+            structure_type_id=3000,
+            vulnerability_occupancy_level=1,
+            vulnerable_end_time=now,
+            vulnerable_start_time=now,
+        )
+        struct_b = SimpleNamespace(
+            structure_id=55555,  # duplicate ID
+            alliance_id=None,
+            solar_system_id=None,
+            structure_type_id=3001,
+            vulnerability_occupancy_level=3,
+            vulnerable_end_time=now,
+            vulnerable_start_time=now,
+        )
+
+        with patch(
+            "sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi",
+            return_value=[struct_a, struct_b],
+        ):
+            update_sov_structures(force_refresh=True)
+
+        # Only one SovereigntyStructure with that structure_id should exist
+        self.assertEqual(
+            SovereigntyStructure.objects.filter(structure_id=55555).count(), 1
+        )
+
+    def test_returns_default_vulnerability_level_when_structure_not_in_campaign(self):
+        """
+        Test that the default vulnerability level is returned when structure is not in campaign.
+
+        :return:
+        :rtype:
+        """
+
+        structure_id = 99999
+        current_structures = {88888: 2}
+
+        with patch.object(Campaign.objects, "all", autospec=True) as mock_all:
+            mock_all.return_value.values_list.return_value = [(12345,), (67890,)]
+
+            result = current_structures.get(structure_id, 1)
+
+            self.assertEqual(result, 1)
+
+    def test_returns_existing_vulnerability_level_when_structure_in_campaign(self):
+        """
+        Test that the existing vulnerability level is returned when structure is in campaign.
+
+        :return:
+        :rtype:
+        """
+
+        structure_id = 12345
+        current_structures = {12345: 3}
+
+        with patch.object(Campaign.objects, "all", autospec=True) as mock_all:
+            mock_all.return_value.values_list.return_value = [(12345,), (67890,)]
+
+            result = current_structures.get(structure_id, 1)
+
+            self.assertEqual(result, 3)
