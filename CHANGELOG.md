@@ -43,6 +43,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-beta.1] - 2025-10-17
+
 > [!CAUTION]
 >
 > This is a BETA version, not intended for production use!
@@ -55,6 +57,7 @@ Section Order:
 
 - Updated dependencies
   - `django-esi>=8.0.0b1`
+- Updated ESI compatibility date to 2025-09-30 (September 30, 2025)
 
 ### Removed
 
@@ -789,5 +792,6 @@ And restart your supervisor.
 [3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.2 "v3.0.0-alpha.2"
 [3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.3 "v3.0.0-alpha.3"
 [3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.4 "v3.0.0-alpha.4"
+[3.0.0-beta.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
 [in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
