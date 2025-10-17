@@ -18,3 +18,6 @@ alliance_auth.sqlite3
 /sovtimer/locale/en/
 .esi-compatibility-date
 .make/myauth-path
+
+.esi-compatibility-date
+.make/myauth-path
