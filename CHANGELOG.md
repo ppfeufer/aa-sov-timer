@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Loading spinner to DataTable while loading data via AJAX
+
 ### Changed
 
 - Set maximum required Python version to 3.13
