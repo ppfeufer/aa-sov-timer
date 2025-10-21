@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Set maximum required Python version to 3.13
+
 ## [3.0.0-beta.1] - 2025-10-17
 
 > [!CAUTION]
