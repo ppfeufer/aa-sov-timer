@@ -14,6 +14,5 @@ __esi_compatibility_date__ = "2025-09-30"
 __package_name__ = "aa-sov-timer"
 __app_name__ = "sovtimer"
 __app_name_verbose__ = "AA Sovereignty Timer"
-__app_name_useragent__ = "AA-Sovereignty-Timer"
 
 __github_url__ = f"https://github.com/ppfeufer/{__package_name__}"
