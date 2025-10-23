@@ -6,10 +6,10 @@ Unit tests for the Campaign model's interaction with ESI.
 from unittest.mock import MagicMock, patch
 
 # Third Party
-from aiopenapi3 import ContentTypeError, HTTPError
+from aiopenapi3 import ContentTypeError
 
 # Alliance Auth
-from esi.exceptions import HTTPNotModified
+from esi.exceptions import HTTPClientError, HTTPNotModified
 
 # AA Sovereignty Timer
 from sovtimer.models import Campaign
@@ -82,17 +82,17 @@ class CampaignESITestCase(BaseTestCase):
 
             self.assertIsNone(result)
 
-    def test_handles_http_error_in_sov_campaigns(self):
+    def test_handles_httpclienterror_error_in_sov_campaigns(self):
         """
-        Test handling of HTTPError when fetching sovereignty campaigns from ESI.
+        Test handling of HTTPClientError when fetching sovereignty campaigns from ESI.
 
         :return:
         :rtype:
         """
 
         mock_esi_client = MagicMock()
-        mock_esi_client.Sovereignty.GetSovereigntyCampaigns.return_value.result.side_effect = HTTPError(
-            "HTTP Error"
+        mock_esi_client.Sovereignty.GetSovereigntyCampaigns.return_value.result.side_effect = HTTPClientError(
+            "HTTPClientError", {}, {}
         )
         with patch("sovtimer.models.esi") as mock_esi_module:
             mock_esi_module.client = mock_esi_client

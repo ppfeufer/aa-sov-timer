@@ -3,7 +3,7 @@ Our Models
 """
 
 # Third Party
-from aiopenapi3 import ContentTypeError, HTTPError
+from aiopenapi3 import ContentTypeError
 
 # Django
 from django.db import models
@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
-from esi.exceptions import HTTPNotModified
+from esi.exceptions import HTTPClientError, HTTPNotModified
 
 # Alliance Auth (External Libs)
 from app_utils.logging import LoggerAddTag
@@ -112,9 +112,9 @@ class SovereigntyStructure(models.Model):
             )
 
             return None
-        except HTTPError as exc:
+        except HTTPClientError as exc:
             logger.error(
-                msg=f"HTTPError while fetching sovereignty structures from ESI: {exc}"
+                msg=f"Error while fetching sovereignty structures from ESI: {str(exc)}"
             )
 
             return None
@@ -192,8 +192,8 @@ class Campaign(models.Model):
             )
 
             return None
-        except HTTPError as exc:
-            logger.error(msg=f"HTTPError while fetching campaigns from ESI: {exc}")
+        except HTTPClientError as exc:
+            logger.error(msg=f"Error while fetching campaigns from ESI: {str(exc)}")
 
             return None
 
