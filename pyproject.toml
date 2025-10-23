@@ -18,7 +18,7 @@ license = { file = "LICENSE" }
 authors = [
     { name = "Peter Pfeufer", email = "develop@ppfeufer.de" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 classifiers = [
     "Environment :: Web Environment",
     "Framework :: Django",
@@ -32,7 +32,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
 ]
@@ -42,11 +41,13 @@ dynamic = [
 dependencies = [
     "allianceauth>=4.9,<5",
     "allianceauth-app-utils>=1.25",
+    "django-esi>=8.0.0b1",
     "django-eveuniverse>=1.5.4",
 ]
 optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
+    "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
 urls.Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
@@ -62,3 +63,6 @@ include = [
 
 [tool.hatch.version]
 path = "sovtimer/__init__.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true

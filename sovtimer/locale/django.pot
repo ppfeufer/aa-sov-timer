@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA Sov Timer 2.6.2\n"
+"Project-Id-Version: AA Sov Timer 3.0.0b1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-07 11:47+0200\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,45 +17,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: sovtimer/__init__.py:9
-msgid "Sovereignty Timers"
-msgstr ""
-
-#: sovtimer/apps.py:20
-#, python-brace-format
-msgid "Sovereignty Timer v{__version__}"
-msgstr ""
-
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr ""
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:40
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:77
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:78
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:111
+#: sovtimer/models.py:135
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:112
+#: sovtimer/models.py:136
 msgid "TCU defense"
 msgstr ""
 
-#: sovtimer/models.py:138
+#: sovtimer/models.py:162
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:139
+#: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
 msgstr ""
 
@@ -94,6 +86,10 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6

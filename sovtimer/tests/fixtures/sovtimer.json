@@ -64,32 +64,53 @@
             "vulnerability_occupancy_level": "6",
             "vulnerable_end_time": "2021-10-15 04:30:00.000000",
             "vulnerable_start_time": "2021-10-15 01:30:00.000000"
+        },
+        {
+            "structure_id": 1001300843329,
+            "alliance_id": 3001,
+            "solar_system_id": 30003114,
+            "structure_type_id": 32458,
+            "vulnerability_occupancy_level": "6",
+            "vulnerable_end_time": "2021-10-15 04:30:00.000000",
+            "vulnerable_start_time": "2021-10-15 01:30:00.000000"
         }
     ],
     "Campaign": [
         {
             "campaign_id": 95000,
-            "attackers_score": "0.33",
+            "attackers_score": "0.4",
             "defender_id": 3001,
-            "defender_score": "0.67",
-            "event_type": "ihub_defense",
+            "defender_score": "0.6",
+            "event_type": "tcu_defense",
             "solar_system_id": 30003114,
-            "start_time": "2021-10-12 11:38:37.000000",
+            "start_time": "2099-10-12 11:38:37.000000",
             "structure_id": 1000907692293,
-            "progress_current": "0.67",
+            "progress_current": "0.6",
             "progress_previous": "0.6"
         },
         {
             "campaign_id": 95001,
-            "attackers_score": "0.67",
+            "attackers_score": "0.04",
             "defender_id": 3001,
-            "defender_score": "0.33",
+            "defender_score": "0.96",
             "event_type": "tcu_defense",
             "solar_system_id": 30003114,
             "start_time": "2021-10-12 11:38:37.000000",
             "structure_id": 1001300843328,
-            "progress_current": "0.6",
-            "progress_previous": "0.67"
+            "progress_current": "0.04",
+            "progress_previous": "0.13"
+        },
+        {
+            "campaign_id": 95002,
+            "attackers_score": "0.04",
+            "defender_id": 3001,
+            "defender_score": "0.96",
+            "event_type": "tcu_defense",
+            "solar_system_id": 30003114,
+            "start_time": "2021-10-12 11:38:37.000000",
+            "structure_id": 1001300843329,
+            "progress_current": "0.13",
+            "progress_previous": "0.04"
         }
     ]
 }

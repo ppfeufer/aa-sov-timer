@@ -3,13 +3,14 @@ Test the app settings in local.py
 """
 
 # Django
-from django.test import TestCase, override_settings
+from django.test import override_settings
 
 # AA Sovereignty Timer
 from sovtimer.app_settings import debug_enabled
+from sovtimer.tests import BaseTestCase
 
 
-class TestAppSettings(TestCase):
+class TestAppSettings(BaseTestCase):
     """
     Tests for App Settings
     """
