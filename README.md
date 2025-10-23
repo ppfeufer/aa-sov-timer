@@ -24,7 +24,7 @@ ______________________________________________________________________
 - [Screenshots](#screenshots)
   - [AA Sov Timer Dashboard](#aa-sov-timer-dashboard)
 - [Installation](#installation)
-  - [Bare Metaal Installation](#bare-metaal-installation)
+  - [Bare Metal Installation](#bare-metal-installation)
     - [Step 1: Installing the App](#step-1-installing-the-app)
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
     - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
@@ -37,7 +37,7 @@ ______________________________________________________________________
     - [Step 3: Build Auth and Restart Your Containers](#step-3-build-auth-and-restart-your-containers)
     - [Step 4: Finalizing the Installation](#step-4-finalizing-the-installation)
 - [Updating](#updating)
-  - [Bare Metal Installation](#bare-metal-installation)
+  - [Bare Metal Installation](#bare-metal-installation-1)
   - [Docker Installation](#docker-installation-1)
   - [Common Steps](#common-steps)
 - [Changelog](#changelog)
@@ -66,7 +66,7 @@ ______________________________________________________________________
 - AA Sovereignty Timer needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse)
   to function. Please make sure it is installed before continuing.
 
-### Bare Metaal Installation<a name="bare-metaal-installation"></a>
+### Bare Metal Installation<a name="bare-metal-installation"></a>
 
 #### Step 1: Installing the App<a name="step-1-installing-the-app"></a>
 
@@ -177,7 +177,7 @@ auth sovtimer_load_initial_data
 
 ## Updating<a name="updating"></a>
 
-### Bare Metal Installation<a name="bare-metal-installation"></a>
+### Bare Metal Installation<a name="bare-metal-installation-1"></a>
 
 To update your existing installation of AA Sovereignty Timer, first enable your
 virtual environment.
