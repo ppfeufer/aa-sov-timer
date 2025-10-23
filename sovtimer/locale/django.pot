@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA Sov Timer 3.0.0a4\n"
+"Project-Id-Version: AA Sov Timer 3.0.0b1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-17 10:25+0200\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,6 +86,10 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
