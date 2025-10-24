@@ -50,11 +50,13 @@ optional-dependencies.tests-allianceauth-latest = [
     "requests-mock",
 ]
 urls.Changelog = "https://github.com/ppfeufer/aa-sov-timer/blob/master/CHANGELOG.md"
+urls.Codecov = "https://codecov.io/gh/ppfeufer/aa-sov-timer"
+urls.Discord = "https://discord.gg/fjnHAmk"
 urls.Documentation = "https://github.com/ppfeufer/aa-sov-timer/blob/master/README.md"
-urls.Donations = "https://ko-fi.com/ppfeufer"
-urls.Homepage = "https://github.com/ppfeufer/aa-sov-timer"
-urls.Source = "https://github.com/ppfeufer/aa-sov-timer.git"
+urls.Donation = "https://ko-fi.com/ppfeufer"
+urls.GitHub = "https://github.com/ppfeufer/aa-sov-timer"
 urls.Tracker = "https://github.com/ppfeufer/aa-sov-timer/issues"
+urls.Translation = "https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/"
 
 [tool.hatch.build]
 include = [
