@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
+# Peter Pfeufer <info@ppfeufer.de>, 2023, 2024, 2025.
 # Faer Yili <yilifaer@gmail.com>, 2024.
 # Dehao Wu <wudehao2000@163.com>, 2024.
 # MxdHana <236833425@qq.com>, 2024.
@@ -10,56 +10,48 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-07 11:47+0200\n"
-"PO-Revision-Date: 2024-05-15 09:21+0000\n"
-"Last-Translator: SAM_FPS <sam_fps@163.com>\n"
-"Language-Team: Chinese (Simplified) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
+"PO-Revision-Date: 2025-10-25 13:38+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.3\n"
+"X-Generator: Weblate 5.14\n"
 
-#: sovtimer/__init__.py:9
-msgid "Sovereignty Timers"
-msgstr "主权宣布设施计时器"
-
-#: sovtimer/apps.py:20
-#, python-brace-format
-msgid "Sovereignty Timer v{__version__}"
-msgstr "主权宣布设施计时器{__version__}"
-
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "主权宣布设施计时器"
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:40
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:77
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:78
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:111
+#: sovtimer/models.py:135
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:112
+#: sovtimer/models.py:136
 msgid "TCU defense"
 msgstr ""
 
-#: sovtimer/models.py:138
+#: sovtimer/models.py:162
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:139
+#: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
 msgstr ""
 
@@ -99,6 +91,10 @@ msgstr "是"
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
 msgstr "不"
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
+msgstr "加载中…"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
@@ -155,3 +151,10 @@ msgstr ""
 #: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr ""
+
+#~ msgid "Sovereignty Timers"
+#~ msgstr "主权宣布设施计时器"
+
+#, python-brace-format
+#~ msgid "Sovereignty Timer v{__version__}"
+#~ msgstr "主权宣布设施计时器{__version__}"
