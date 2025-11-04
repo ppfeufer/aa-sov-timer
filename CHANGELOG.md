@@ -49,6 +49,8 @@ Section Order:
 
 ### Changed
 
+- Updated dependencies
+  - `django-esi>=8.0.0b2`
 - Set maximum required Python version to 3.13
 
 ## [3.0.0-beta.1] - 2025-10-17
