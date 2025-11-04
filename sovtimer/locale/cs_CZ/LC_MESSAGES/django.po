@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-07 11:47+0200\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
 "PO-Revision-Date: 2024-07-10 14:26+0000\n"
 "Last-Translator: Dadas Aideron <dadas.aideron@gmail.com>\n"
 "Language-Team: Czech <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/cs/>\n"
@@ -17,45 +17,37 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 "X-Generator: Weblate 5.6.2\n"
 
-#: sovtimer/__init__.py:9
-msgid "Sovereignty Timers"
-msgstr ""
-
-#: sovtimer/apps.py:20
-#, python-brace-format
-msgid "Sovereignty Timer v{__version__}"
-msgstr ""
-
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr ""
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:40
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:77
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:78
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:111
+#: sovtimer/models.py:135
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:112
+#: sovtimer/models.py:136
 msgid "TCU defense"
 msgstr ""
 
-#: sovtimer/models.py:138
+#: sovtimer/models.py:162
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:139
+#: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
 msgstr ""
 
@@ -94,6 +86,10 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6

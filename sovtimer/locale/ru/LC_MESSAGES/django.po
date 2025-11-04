@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-07 11:47+0200\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -19,47 +19,39 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
-#: sovtimer/__init__.py:9
-msgid "Sovereignty Timers"
-msgstr "Таймеры суверенитета"
-
-#: sovtimer/apps.py:20
-#, python-brace-format
-msgid "Sovereignty Timer v{__version__}"
-msgstr "Таймеры суверенитета v{__version__}"
-
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Таймер суверенитета"
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:40
 msgid "Can access the Sovereignty Timer module"
 msgstr "Имеет доступ к модулю 'Таймер суверенитета'"
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:77
 msgid "Sovereignty structure"
 msgstr "Структура суверенитета"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:78
 msgid "Sovereignty structures"
 msgstr "Структуры суверенитета"
 
-#: sovtimer/models.py:111
+#: sovtimer/models.py:135
 #, fuzzy
 #| msgid "IHub defense"
 msgid "Sov Hub defense"
 msgstr "Защита IHub"
 
-#: sovtimer/models.py:112
+#: sovtimer/models.py:136
 msgid "TCU defense"
 msgstr "Защита TCU"
 
-#: sovtimer/models.py:138
+#: sovtimer/models.py:162
 msgid "Sovereignty campaign"
 msgstr "Опс по sov`у"
 
-#: sovtimer/models.py:139
+#: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
@@ -99,6 +91,10 @@ msgstr "Да"
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
 msgstr "Нет"
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
+msgstr "Загрузка …"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
@@ -164,6 +160,13 @@ msgstr "Защитники добиваются успеха"
 msgid "Attackers making progress"
 msgstr "Атакующие добиваются успеха"
 
+#~ msgid "Sovereignty Timers"
+#~ msgstr "Таймеры суверенитета"
+
+#, python-brace-format
+#~ msgid "Sovereignty Timer v{__version__}"
+#~ msgstr "Таймеры суверенитета v{__version__}"
+
 #~ msgid "Timers total:"
 #~ msgstr "Всего таймеров:"
 
@@ -191,9 +194,6 @@ msgstr "Атакующие добиваются успеха"
 
 #~ msgid "No records available"
 #~ msgstr "Записи недоступны"
-
-#~ msgid "Loading …"
-#~ msgstr "Загрузка …"
 
 #~ msgid "Processing …"
 #~ msgstr "Обработка …"

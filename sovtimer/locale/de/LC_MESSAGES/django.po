@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-07 11:47+0200\n"
+"POT-Creation-Date: 2025-10-23 15:47+0200\n"
 "PO-Revision-Date: 2025-06-20 16:44+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/de/>\n"
@@ -17,45 +17,37 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.11.4\n"
 
-#: sovtimer/__init__.py:9
-msgid "Sovereignty Timers"
-msgstr "Souveränitäts-Timer"
-
-#: sovtimer/apps.py:20
-#, python-brace-format
-msgid "Sovereignty Timer v{__version__}"
-msgstr "Souveränitäts-Timer v{__version__}"
-
-#: sovtimer/models.py:33 sovtimer/templates/sovtimer/base.html:7
+#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Souveränitäts-Timer"
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:40
 msgid "Can access the Sovereignty Timer module"
 msgstr "Kann das Souveränitäts-Timer Modul nutzen"
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:77
 msgid "Sovereignty structure"
 msgstr "Souveränitäts-Struktur"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:78
 msgid "Sovereignty structures"
 msgstr "Souveränitäts-Strukturen"
 
-#: sovtimer/models.py:111
+#: sovtimer/models.py:135
 msgid "Sov Hub defense"
 msgstr "Sov Hub Verteidigung"
 
-#: sovtimer/models.py:112
+#: sovtimer/models.py:136
 msgid "TCU defense"
 msgstr "TCU Verteidigung"
 
-#: sovtimer/models.py:138
+#: sovtimer/models.py:162
 msgid "Sovereignty campaign"
 msgstr "Souveränitäts-Kampagne"
 
-#: sovtimer/models.py:139
+#: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
 msgstr "Souveränitäts-Kampagnen"
 
@@ -95,6 +87,10 @@ msgstr "Ja"
 #: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
 msgid "No"
 msgstr "Nein"
+
+#: sovtimer/templates/sovtimer/partials/common/spinner.html:8
+msgid "Loading …"
+msgstr "Lade …"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
@@ -152,6 +148,13 @@ msgstr "Verteidiger machen Fortschritte"
 msgid "Attackers making progress"
 msgstr "Angreifer machen Fortschritte"
 
+#~ msgid "Sovereignty Timers"
+#~ msgstr "Souveränitäts-Timer"
+
+#, python-brace-format
+#~ msgid "Sovereignty Timer v{__version__}"
+#~ msgstr "Souveränitäts-Timer v{__version__}"
+
 #~ msgid "Timers total:"
 #~ msgstr "Alle Timer:"
 
@@ -179,9 +182,6 @@ msgstr "Angreifer machen Fortschritte"
 
 #~ msgid "No records available"
 #~ msgstr "Keine Datensätze vorhanden"
-
-#~ msgid "Loading …"
-#~ msgstr "Lade …"
 
 #~ msgid "Processing …"
 #~ msgstr "Verarbeite …"
