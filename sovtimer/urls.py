@@ -9,7 +9,7 @@ from django.urls import path
 from sovtimer import views
 from sovtimer.constants import INTERNAL_URL_PREFIX
 
-app_name: str = "sovtimer"
+app_name: str = "sovtimer"  # pylint: disable=invalid-name
 
 urlpatterns = [
     path(route="", view=views.dashboard, name="dashboard"),
