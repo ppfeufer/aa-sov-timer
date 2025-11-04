@@ -43,6 +43,16 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-beta.2] - 2025-11-04
+
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Added
 
 - Loading spinner to DataTable while loading data via AJAX
@@ -51,7 +61,7 @@ Section Order:
 
 - Updated dependencies
   - `django-esi>=8.0.0b2`
-- Set maximum required Python version to 3.13
+- Set maximum Python version to 3.13
 
 ## [3.0.0-beta.1] - 2025-10-17
 
@@ -803,5 +813,6 @@ And restart your supervisor.
 [3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.3 "v3.0.0-alpha.3"
 [3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.1 "v3.0.0-beta.1"
+[3.0.0-beta.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
 [in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
