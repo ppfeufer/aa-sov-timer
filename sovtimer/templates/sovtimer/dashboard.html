@@ -12,12 +12,6 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% translate "Type" as dtFilterType %}
-    {% translate "System" as dtFilterSystem %}
-    {% translate "Constellation" as dtFilterConstellation %}
-    {% translate "Region" as dtFilterRegion %}
-    {% translate "Owner / Defender" as dtFilterOwner %}
-    {% translate "Active campaign" as dtFilterActiveCampaign %}
     {% translate "Yes" as yes %}
     {% translate "No" as no %}
 
@@ -27,14 +21,6 @@
                 ajaxUpdate: '{% url "sovtimer:dashboard_data" %}'
             },
             translation: {
-                dtFilter: {
-                    type: '{{ dtFilterType|escapejs }}',
-                    system: '{{ dtFilterSystem|escapejs }}',
-                    constellation: '{{ dtFilterConstellation|escapejs }}',
-                    region: '{{ dtFilterRegion|escapejs }}',
-                    owner: '{{ dtFilterOwner|escapejs }}',
-                    activeCampaign: '{{ dtFilterActiveCampaign|escapejs }}',
-                },
                 yes: '{{ yes|escapejs }}',
                 no: '{{ no|escapejs }}',
             },
