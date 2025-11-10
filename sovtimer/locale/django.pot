@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 3.0.0b2\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-10 21:49+0100\n"
+"POT-Creation-Date: 2025-11-10 22:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,22 +56,22 @@ msgid "Type"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:63
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
 msgid "System"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:65
 msgid "Constellation"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:65
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:66
 msgid "Region"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/dashboard.html:19
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:66
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:67
 msgid "Owner / Defender"
 msgstr ""
 
@@ -100,32 +100,36 @@ msgid "Total"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
-msgid "Upcoming <small class=\"text-muted\">(< 4hrs)</small>"
+msgid "Upcoming"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:44
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+msgid "< 4hrs"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:45
 msgid "Active"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:56
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
 msgid ""
 "The campaign list is automatically updated every 30 seconds. Progress for "
 "any active campaigns will be shown as <i>Previous - Trend - Current</i>."
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:67
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:68
 msgid "ADM"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:68
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:69
 msgid "Start"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:69
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:70
 msgid "Remaining"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:70
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:71
 msgid "Progress"
 msgstr ""
 
