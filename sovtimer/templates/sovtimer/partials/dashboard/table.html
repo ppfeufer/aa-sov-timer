@@ -9,9 +9,47 @@
 
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-4">{% translate "Total campaigns:" %} <span class="aa-sovtimer-campaigns-total">0</span></div>
-            <div class="col-sm-4">{% translate "Upcoming campaigns (< 4hrs):" %} <span class="aa-sovtimer-campaigns-upcoming">0</span></div>
-            <div class="col-sm-4">{% translate "Active campaigns:" %} <span class="aa-sovtimer-campaigns-active">0</span></div>
+            <div class="col-md-4 mb-3">
+                <div class="card border-primary-subtle">
+                    <div class="card-body text-center">
+                        <div class="card-title text-center h4 mb-2">
+                            {% translate "Total" %}
+                        </div>
+
+                        <p class="card-text h5">
+                            <span class="aa-sovtimer-campaigns-total">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card border-warning">
+                    <div class="card-body text-center">
+                        <div class="card-title text-center h4 mb-2">
+                            {% blocktranslate %}Upcoming <small class="text-muted">(< 4hrs)</small>{% endblocktranslate %}
+                        </div>
+
+                        <p class="card-text h5">
+                            <span class="aa-sovtimer-campaigns-upcoming">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card border-danger">
+                    <div class="card-body text-center">
+                        <div class="card-title text-center h4 mb-2">
+                            {% translate "Active" %}
+                        </div>
+
+                        <p class="card-text h5">
+                            <span class="aa-sovtimer-campaigns-active">0</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <p class="small text-muted mt-3">
