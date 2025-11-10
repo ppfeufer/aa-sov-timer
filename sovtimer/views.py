@@ -166,7 +166,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 campaign_progress_icon = (
                     "<i "
                     'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-flat" '
-                    f'title="{progress_text}">trending_flat</i>'
+                    f'title="{progress_text}" data-bs-tooltip="aa-sovtimer">trending_flat</i>'
                 )
 
                 if campaign_progress_previous < campaign_pogress_current:
@@ -174,7 +174,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                     campaign_progress_icon = (
                         "<i "
                         'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" '
-                        f'title="{defender_progress_text}">trending_up</i>'
+                        f'title="{defender_progress_text}" data-bs-tooltip="aa-sovtimer">trending_up</i>'
                     )
 
                 if campaign_progress_previous > campaign_pogress_current:
@@ -182,7 +182,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                     campaign_progress_icon = (
                         "<i "
                         'class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" '
-                        f'title="{attacker_progress_text}">trending_down</i>'
+                        f'title="{attacker_progress_text}" data-bs-tooltip="aa-sovtimer">trending_down</i>'
                     )
 
                 constellation_id = campaign.structure.solar_system.eve_constellation.id
