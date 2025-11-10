@@ -74,14 +74,6 @@
         color: var(--bs-danger);
     }
 
-    .aa-sovtimer-campaigns-column-remaining-time {
-        width: 115px !important;
-    }
-
-    .aa-sovtimer-campaigns-column-progress {
-        width: 125px !important;
-    }
-
     .aa-sovtimer .aa-sovtimer-campaigns td {
         vertical-align: middle;
     }
@@ -93,5 +85,15 @@
     .aa-sovtimer .loading-spinner {
         width: 2.5rem;
         height: 2.5rem;
+    }
+}
+
+/* DataTables ColumnControl
+------------------------------------------------------------------------------------- */
+@media all {
+    table.dataTable span.dtcc div.dtcc-search>div select {
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        padding: 0.375rem;
     }
 }

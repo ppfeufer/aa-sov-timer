@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Switched to DataTables 2
+
 ## [3.0.0-beta.2] - 2025-11-04
 
 > [!CAUTION]

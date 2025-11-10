@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block extra_css %}
-    {% include "bundles/datatables-css-bs5.html" %}
+    {% include "sovtimer/bundles/datatables-2-css.html" with extColumnControl=True %}
     {% include "sovtimer/bundles/aa-sov-timer-css.html" %}
 {% endblock %}
 
@@ -43,7 +43,7 @@
     </script>
 
     {% include "bundles/moment-js.html" with locale=True %}
-    {% include "bundles/datatables-js-bs5.html" %}
+    {% include "sovtimer/bundles/datatables-2-js.html" with extColumnControl=True %}
     {% include "bundles/filterdropdown-js.html" %}
     {% include "sovtimer/bundles/aa-sov-timer-js.html" %}
 {% endblock %}
