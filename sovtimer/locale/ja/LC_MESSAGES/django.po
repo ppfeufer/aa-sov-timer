@@ -1,22 +1,23 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
+# Peter Pfeufer <info@ppfeufer.de>, 2023, 2024, 2025.
 # Deleted User <noreply+44@weblate.org>, 2024.
+# Dexsar <dexsar.paf@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-23 15:47+0200\n"
-"PO-Revision-Date: 2024-08-06 03:28+0000\n"
-"Last-Translator: Deleted User <noreply+44@weblate.org>\n"
+"POT-Creation-Date: 2025-11-10 22:19+0100\n"
+"PO-Revision-Date: 2025-11-06 09:17+0000\n"
+"Last-Translator: Dexsar <dexsar.paf@gmail.com>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.14\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:37
 #: sovtimer/templates/sovtimer/base.html:7
@@ -50,94 +51,83 @@ msgstr "領有権キャンペーン"
 
 #: sovtimer/models.py:163
 msgid "Sovereignty campaigns"
-msgstr ""
+msgstr "領有権キャンペーン"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:25
-msgid "Type"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
-msgid "System"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
-msgid "Constellation"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
-msgid "Region"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:19
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
-msgid "Owner / Defender"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:20
-msgid "Active campaign"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:163
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:163
 msgid "Yes"
 msgstr "はい"
 
-#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:161
 msgid "No"
 msgstr "いいえ"
 
 #: sovtimer/templates/sovtimer/partials/common/spinner.html:8
 msgid "Loading …"
-msgstr ""
+msgstr "Loading …"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
-msgstr ""
+msgstr "領土キャンペーンリスト"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:12
-#, fuzzy
-#| msgid "Sovereignty campaign"
-msgid "Total campaigns:"
-msgstr "領有権キャンペーン"
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:13
-msgid "Upcoming campaigns (< 4hrs):"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:14
-msgid "Active campaigns:"
-msgstr ""
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
-msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
+msgid "Total"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
-msgid "ADM"
+msgid "Upcoming"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+msgid "< 4hrs"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:45
+msgid "Active"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
+msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgstr "キャンペーンリストは30秒ごとに自動更新されます。アクティブなキャンペーンの進捗状況は<i>Previous - Trend - Current</i>として表示されます。"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
+msgid "System"
+msgstr "システム（星系）"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:65
+msgid "Constellation"
+msgstr "コンステレーション"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:66
+msgid "Region"
+msgstr "リージョン"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:67
+msgid "Owner / Defender"
+msgstr "オーナー / 守備側"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:68
+msgid "ADM"
+msgstr "ADM"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:69
 msgid "Start"
-msgstr ""
+msgstr "始める"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:70
 msgid "Remaining"
-msgstr ""
+msgstr "残り"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:71
 msgid "Progress"
-msgstr ""
+msgstr "進行状況"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
 msgid "Do you want to help translate this app into your language or improve the existing translation?"
-msgstr ""
+msgstr "このアプリをあなたの言語に翻訳するお手伝いをしたり、既存の翻訳を改善したりしませんか？"
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
-msgstr ""
+msgstr "翻訳者チームに参加しましょう！"
 
 #: sovtimer/views.py:165
 msgid "Neither side has made any progress yet"
@@ -150,6 +140,21 @@ msgstr ""
 #: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr ""
+
+#~ msgid "Type"
+#~ msgstr "タイプ"
+
+#~ msgid "Active campaign"
+#~ msgstr "アクティブなキャンペーン"
+
+#~ msgid "Total campaigns:"
+#~ msgstr "全てのキャンペーン"
+
+#~ msgid "Upcoming campaigns (< 4hrs):"
+#~ msgstr "4時間以内に開始のキャンペーン:"
+
+#~ msgid "Active campaigns:"
+#~ msgstr "アクティブなキャンペーン:"
 
 #~ msgid "Sovereignty Timers"
 #~ msgstr "領有権タイマー"
