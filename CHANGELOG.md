@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Bootstrap tooltips for the progress icons
+
 ### Changed
 
 - Info panel styling improved

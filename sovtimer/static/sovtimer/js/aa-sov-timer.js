@@ -1,4 +1,4 @@
-/* global sovtimerJsSettingsDefaults, sovtimerJsSettingsOverride, moment, objectDeepMerge, fetchGet, DataTable */
+/* global sovtimerJsSettingsDefaults, sovtimerJsSettingsOverride, moment, objectDeepMerge, fetchGet, DataTable, bootstrap */
 
 $(document).ready(() => {
     'use strict';
@@ -11,6 +11,35 @@ $(document).ready(() => {
         campaignsTotal: $('.aa-sovtimer-campaigns-total'),
         campaignsUpcoming: $('.aa-sovtimer-campaigns-upcoming'),
         campaignsActive: $('.aa-sovtimer-campaigns-active')
+    };
+
+    /**
+     * Bootstrap tooltip
+     *
+     * @param {string} [selector=body] Selector for the tooltip elements, defaults to 'body'
+     *                                 to apply to all elements with the data-bs-tooltip attribute.
+     *                                 Example: 'body', '.my-tooltip-class', '#my-tooltip-id'
+     *                                 If you want to apply it to a specific element, use that element's selector.
+     *                                 If you want to apply it to all elements with the data-bs-tooltip attribute,
+     *                                 use 'body' or leave it empty.
+     * @param {string} [namespace=aa-srp] Namespace for the tooltip
+     * @returns {void}
+     */
+    const _bootstrapTooltip = ({selector = 'body', namespace = 'aa-sovtimer'}) => {
+        document.querySelectorAll(`${selector} [data-bs-tooltip="${namespace}"]`)
+            .forEach((tooltipTriggerEl) => {
+                // Dispose existing tooltip instance if it exists
+                const existing = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                if (existing) {
+                    existing.dispose();
+                }
+
+                // Remove any leftover tooltip elements
+                $('.bs-tooltip-auto').remove();
+
+                // Create new tooltip instance
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
     };
 
     /**
@@ -192,18 +221,29 @@ $(document).ready(() => {
                     // Initial campaign counts update
                     _updateCampaignCounts(dt.rows().data().toArray());
 
+                    // Initialize Bootstrap tooltips
+                    _bootstrapTooltip({selector: '.aa-sovtimer'});
+
                     // Update the remaining time every second
                     setInterval(() => {
-                        dt.rows().every((index) => {
-                            const row = dt.row(index);
-                            const remaining = _secondsToRemainingTime(row.data().remaining_time_in_seconds);
+                        dt.rows().every(function () {
+                            const rowApi = this;
+                            const data = rowApi.data();
+                            const remaining = _secondsToRemainingTime(Number(data.remaining_time_in_seconds));
 
-                            row.data({
-                                ...row.data(),
-                                remaining_time_in_seconds: remaining.remainingTimeInSeconds,
-                                remaining_time: remaining.countdown
-                            });
+                            // update the underlying row data used by the display renderer
+                            data.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
+                            data.remaining_time = remaining.countdown;
+                            // rowApi.data(data);
+
+                            // update only the Remaining Time column DOM (column index 6)
+                            const cellNode = dt.cell(rowApi.index(), 6).node();
+
+                            if (cellNode) {
+                                cellNode.innerHTML = remaining.countdown;
+                            }
                         });
+                        dt.draw(false);
                     }, 1000);
 
                     // Update the table data every 30 seconds
@@ -212,6 +252,7 @@ $(document).ready(() => {
                             .then((newData) => {
                                 dt.clear().rows.add(newData).draw();
                                 _updateCampaignCounts(newData);
+                                _bootstrapTooltip({selector: '.aa-sovtimer'});
                             })
                             .catch(console.error);
                     }, 30000);

@@ -115,7 +115,7 @@ class TestAjaxCalls(BaseTestCase):
         )
         self.assertLess(response_data[1]["remaining_time_in_seconds"], 0)
         self.assertIn(
-            '13%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" title="Attackers making progress">trending_down</i>04%',
+            '13%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-down" title="Attackers making progress" data-bs-tooltip="aa-sovtimer">trending_down</i>04%',
             response_data[1]["campaign_progress"],
         )
 
@@ -125,7 +125,7 @@ class TestAjaxCalls(BaseTestCase):
         )
         self.assertLess(response_data[2]["remaining_time_in_seconds"], 0)
         self.assertIn(
-            '04%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" title="Defenders making progress">trending_up</i>13%',
+            '04%<i class="material-icons aa-sovtimer-trend aa-sovtimer-trend-up" title="Defenders making progress" data-bs-tooltip="aa-sovtimer">trending_up</i>13%',
             response_data[2]["campaign_progress"],
         )
 
