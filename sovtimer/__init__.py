@@ -5,11 +5,11 @@ App init
 # Django
 from django.utils.translation import gettext_lazy as _
 
-__version__ = "3.0.0-beta.2"
+__version__ = "3.0.0-beta.3"
 __title__ = "Sovereignty Timer"
 __title_translated__ = _("Sovereignty Timer")
 
-__esi_compatibility_date__ = "2025-09-30"
+__esi_compatibility_date__ = "2025-11-06"
 
 __package_name__ = "aa-sov-timer"
 __app_name__ = "sovtimer"
