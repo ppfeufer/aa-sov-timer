@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-10-23 15:47+0200\n"
+"POT-Creation-Date: 2025-11-10 22:19+0100\n"
 "PO-Revision-Date: 2025-09-22 09:43+0000\n"
 "Last-Translator: Hugo REGIBO <hugo@hugoregibo.be>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
@@ -58,40 +58,11 @@ msgstr "Campagne de souveraineté"
 msgid "Sovereignty campaigns"
 msgstr "Campagnes de souveraineté"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:25
-msgid "Type"
-msgstr "Type"
-
-#: sovtimer/templates/sovtimer/dashboard.html:16
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:26
-msgid "System"
-msgstr "Système"
-
-#: sovtimer/templates/sovtimer/dashboard.html:17
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:27
-msgid "Constellation"
-msgstr "Constellation"
-
-#: sovtimer/templates/sovtimer/dashboard.html:18
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:28
-msgid "Region"
-msgstr "Région"
-
-#: sovtimer/templates/sovtimer/dashboard.html:19
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:29
-msgid "Owner / Defender"
-msgstr "Propriétaire / Protecteur"
-
-#: sovtimer/templates/sovtimer/dashboard.html:20
-msgid "Active campaign"
-msgstr "Campagne en cours"
-
-#: sovtimer/templates/sovtimer/dashboard.html:21 sovtimer/views.py:163
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:163
 msgid "Yes"
 msgstr "Oui"
 
-#: sovtimer/templates/sovtimer/dashboard.html:22 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:161
 msgid "No"
 msgstr "Non"
 
@@ -103,35 +74,55 @@ msgstr "Chargement …"
 msgid "Sovereignty campaign list"
 msgstr "Liste des compagnes pour la souveraineté"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:12
-msgid "Total campaigns:"
-msgstr "Total des campagnes:"
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:13
-msgid "Upcoming campaigns (< 4hrs):"
-msgstr "Campagnes en approche (<4h):"
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:14
-msgid "Active campaigns:"
-msgstr "Campagnes en cours:"
-
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:18
-msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "La liste des minuteries de campagnes est automatiquement mise à jour toutes les 30 secondes. La progression des campagnes en cours est affichée comme suit : <i>Précédent - Tendance - Actuel</i>."
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
+msgid "Total"
+msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
-msgid "ADM"
+msgid "Upcoming"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
+msgid "< 4hrs"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:45
+msgid "Active"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
+msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgstr "La liste des minuteries de campagnes est automatiquement mise à jour toutes les 30 secondes. La progression des campagnes en cours est affichée comme suit : <i>Précédent - Tendance - Actuel</i>."
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
+msgid "System"
+msgstr "Système"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:65
+msgid "Constellation"
+msgstr "Constellation"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:66
+msgid "Region"
+msgstr "Région"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:67
+msgid "Owner / Defender"
+msgstr "Propriétaire / Protecteur"
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:68
+msgid "ADM"
+msgstr ""
+
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:69
 msgid "Start"
 msgstr "Début"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:32
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:70
 msgid "Remaining"
 msgstr "Restant"
 
-#: sovtimer/templates/sovtimer/partials/dashboard/table.html:33
+#: sovtimer/templates/sovtimer/partials/dashboard/table.html:71
 msgid "Progress"
 msgstr "Progrès"
 
@@ -154,6 +145,21 @@ msgstr "Les défenseurs progressent"
 #: sovtimer/views.py:181
 msgid "Attackers making progress"
 msgstr "Les attaquants progressent"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Active campaign"
+#~ msgstr "Campagne en cours"
+
+#~ msgid "Total campaigns:"
+#~ msgstr "Total des campagnes:"
+
+#~ msgid "Upcoming campaigns (< 4hrs):"
+#~ msgstr "Campagnes en approche (<4h):"
+
+#~ msgid "Active campaigns:"
+#~ msgstr "Campagnes en cours:"
 
 #~ msgid "Sovereignty Timers"
 #~ msgstr "Minuteries de souveraineté"
