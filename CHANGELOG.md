@@ -43,6 +43,16 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0-beta.3] - 2025-11-11
+
+> [!CAUTION]
+>
+> This is a BETA version, not intended for production use!
+> Please test it in a safe environment first and [report any issues you find](https://github.com/ppfeufer/aa-sov-timer/issues).
+>
+> This version is pulling in an BETA version of `django-esi` as well,
+> so please be aware that this might break at any time.
+
 ### Added
 
 - Bootstrap tooltips for the progress icons
@@ -51,6 +61,8 @@ Section Order:
 
 - Info panel styling improved
 - Switched to DataTables 2
+- Updated ESI compatibility date to 2025-11-06 (November 6, 2025)
+- Translations updated
 
 ## [3.0.0-beta.2] - 2025-11-04
 
@@ -823,5 +835,6 @@ And restart your supervisor.
 [3.0.0-alpha.4]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.4 "v3.0.0-alpha.4"
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [3.0.0-beta.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.2 "v3.0.0-beta.2"
+[3.0.0-beta.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.3 "v3.0.0-beta.3"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
 [in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
