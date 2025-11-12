@@ -43,6 +43,25 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.0.0] - 2025-11-12
+
+### Added
+
+- Bootstrap tooltips for the progress icons
+- Loading spinner to DataTable while loading data via AJAX
+
+### Changed
+
+- Switched to OpenAPI3 specification for ESI endpoints
+  - Dependency to `django-esi` set to `>=8,<9`
+  - Set compatibility date to 2025-11-06 (November 6th, 2025)
+- Info panel styling improved
+- Switched to DataTables 2
+- Improved logging for the sovereignty structures task
+- JavaScript optimized
+- Set maximum Python version to 3.13
+- Translations updated
+
 ## [3.0.0-beta.3] - 2025-11-11
 
 > [!CAUTION]
@@ -829,6 +848,7 @@ And restart your supervisor.
 [2.6.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.5.1...v2.6.0 "v2.6.0"
 [2.6.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.0...v2.6.1 "v2.6.1"
 [2.6.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.1...v2.6.2 "v2.6.2"
+[3.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0 "v3.0.0"
 [3.0.0-alpha.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.1 "v3.0.0-alpha.1"
 [3.0.0-alpha.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.2 "v3.0.0-alpha.2"
 [3.0.0-alpha.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-alpha.3 "v3.0.0-alpha.3"
@@ -837,4 +857,4 @@ And restart your supervisor.
 [3.0.0-beta.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [3.0.0-beta.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.3 "v3.0.0-beta.3"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.0.0...HEAD "In Development"
