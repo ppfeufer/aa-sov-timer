@@ -6,7 +6,6 @@ The views
 import datetime as dt
 
 # Django
-from django.contrib.auth.decorators import login_required, permission_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -31,8 +30,8 @@ from sovtimer.models import Campaign, SovereigntyStructure
 logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 
-@login_required
-@permission_required(perm="sovtimer.basic_access")
+# @login_required
+# @permission_required(perm="sovtimer.basic_access")
 def dashboard(request: WSGIRequest) -> HttpResponse:
     """
     Index view
