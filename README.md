@@ -29,13 +29,14 @@ ______________________________________________________________________
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
     - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
     - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
-    - [Step 5: Setting up Permission](#step-5-setting-up-permission)
-    - [Step 6: Keep Campaigns Updated](#step-6-keep-campaigns-updated)
+    - [Step 5: Restart Supervisor](#step-5-restart-supervisor)
   - [Docker Installation](#docker-installation)
     - [Step 1: Add the App](#step-1-add-the-app)
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings-1)
     - [Step 3: Build Auth and Restart Your Containers](#step-3-build-auth-and-restart-your-containers)
     - [Step 4: Finalizing the Installation](#step-4-finalizing-the-installation)
+  - [Common Steps / Configuration](#common-steps--configuration)
+    - [(Optional) Allow Public Views](#optional-allow-public-views)
 - [Updating](#updating)
   - [Bare Metal Installation](#bare-metal-installation-1)
   - [Docker Installation](#docker-installation-1)
@@ -81,10 +82,17 @@ pip install aa-sov-timer==3.0.0
 
 Configure your AA settings (`local.py`) as follows:
 
-- Add `'eveuniverse',` to `INSTALLED_APPS` if not already done for another app
-- Add `'sovtimer',` to `INSTALLED_APPS`
+- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done for another app
+- Add `"sovtimer",` to `INSTALLED_APPS`
+- Add the Scheduled Task
 
-Restart your supervisor
+```python
+# AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
+CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
+    "task": "sovtimer.tasks.run_sov_campaign_updates",
+    "schedule": 30,
+}
+```
 
 #### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
 
@@ -108,25 +116,11 @@ python manage.py sovtimer_load_initial_data
 
 Both commands might take a moment or two, so be patient ...
 
-#### Step 5: Setting up Permission<a name="step-5-setting-up-permission"></a>
+#### Step 5: Restart Supervisor<a name="step-5-restart-supervisor"></a>
 
-Now you can set up permissions in Alliance Auth for your users.
-Add `sovtimer | Sovereignty Timer | Can access the Sovereignty Timer module` to
-the states and/or groups you would like to have access.
+Once you have completed all previous steps, restart your AA supervisor service to apply the changes.
 
-#### Step 6: Keep Campaigns Updated<a name="step-6-keep-campaigns-updated"></a>
-
-Add the following scheduled task to your `local.py`. One done, restart your supervisor.
-
-```python
-# AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
-CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
-    "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30,
-}
-```
-
-Now your system is updating the sovereignty campaigns every 30 seconds.
+**Continue with the [Common Steps / Configuration](#common-steps--configuration) below to finish the installation.**
 
 ### Docker Installation<a name="docker-installation"></a>
 
@@ -142,8 +136,8 @@ aa-sov-timer==3.0.0
 
 Configure your AA settings (`conf/local.py`) as follows:
 
-- Add `'eveuniverse',` to `INSTALLED_APPS` if not already done for another app
-- Add `'sovtimer',` to `INSTALLED_APPS`
+- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done for another app
+- Add `"sovtimer",` to `INSTALLED_APPS`
 - Add the Scheduled Task
 
 ```python
@@ -174,6 +168,28 @@ auth migrate
 auth eveuniverse_load_data map
 auth sovtimer_load_initial_data
 ```
+
+**Continue with the [Common Steps / Configuration](#common-steps--configuration) below to finish the installation.**
+
+### Common Steps / Configuration<a name="common-steps--configuration"></a>
+
+#### (Optional) Allow Public Views<a name="optional-allow-public-views"></a>
+
+This app supports AA's feature of public views. \
+To allow this feature, please add `"sovtimer",`, to the list of `APPS_WITH_PUBLIC_VIEWS` in your `local.py` or `conf/local.py` for Docker:
+
+```python
+APPS_WITH_PUBLIC_VIEWS = [
+    "sovtimer",
+]
+```
+
+> [!NOTE]
+>
+> If you don't have a list for `APPS_WITH_PUBLIC_VIEWS` yet, then add the whole
+> block from here.
+
+Restart your supervisor service or your Docker containers to apply the changes.
 
 ## Updating<a name="updating"></a>
 

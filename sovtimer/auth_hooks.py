@@ -33,11 +33,7 @@ class AaSovtimerMenuItem(MenuItemHook):  # pylint: disable=too-few-public-method
         :return:
         """
 
-        return (
-            MenuItemHook.render(self, request=request)
-            if request.user.has_perm("sovtimer.basic_access")
-            else ""
-        )
+        return MenuItemHook.render(self, request=request)
 
 
 @hooks.register("menu_item_hook")
@@ -59,4 +55,9 @@ def register_urls():
     :return:
     """
 
-    return UrlHook(urls=urls, namespace="sovtimer", base_url=r"^sovereignty-timer/")
+    return UrlHook(
+        urls=urls,
+        namespace="sovtimer",
+        base_url=r"^sovereignty-timer/",
+        excluded_views=["sovtimer.views.dashboard", "sovtimer.views.dashboard_data"],
+    )

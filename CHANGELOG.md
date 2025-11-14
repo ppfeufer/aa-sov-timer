@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- Allow for public access if enabled in settings
 - Improved JS performance when recalculating remaining time for campaigns
 - Improvement to the campaign table
 
