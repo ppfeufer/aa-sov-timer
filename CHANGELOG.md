@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- ESI handler to handle ESI calls and deduplicate code
+
 ### Changed
 
 - Improvement to the campaign table
