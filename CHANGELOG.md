@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Improvement to the campaign table
+
 ## [3.0.0] - 2025-11-12
 
 ### Added

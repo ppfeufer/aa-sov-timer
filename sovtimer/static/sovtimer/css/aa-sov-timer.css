@@ -88,9 +88,15 @@
     }
 }
 
-/* DataTables ColumnControl
+/* DataTables
 ------------------------------------------------------------------------------------- */
 @media all {
+    .dt-container .dt-info {
+        margin-top: 0.85rem;
+    }
+
+    /* DataTables ColumnControl
+    --------------------------------------------------------------------------------- */
     table.dataTable span.dtcc div.dtcc-search>div select {
         background-color: var(--bs-body-bg);
         color: var(--bs-body-color);

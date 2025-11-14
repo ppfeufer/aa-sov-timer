@@ -32,8 +32,8 @@
                     },
                     dataTables: {
                         paging: true,
-                        language: {url: '{{ DT_LANG_PATH }}'},
-                        dom: 'lrt',
+                        languageUrl: "{{ DT_LANG_PATH }}",
+                        dom: 'lrtip', // Removing the search bar (Default is 'lfrtip')
                         ordering: {
                             indicators: false,
                             handler: false
