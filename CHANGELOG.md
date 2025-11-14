@@ -43,13 +43,15 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.1.0] - 2025-11-14
+
 ### Added
 
 - ESI handler to handle ESI calls and deduplicate code
+- Allow for public access if enabled in settings
 
 ### Changed
 
-- Allow for public access if enabled in settings
 - Improved JS performance when recalculating remaining time for campaigns
 - Improvement to the campaign table
 
@@ -866,5 +868,6 @@ And restart your supervisor.
 [3.0.0-beta.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.1 "v3.0.0-beta.1"
 [3.0.0-beta.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.2 "v3.0.0-beta.2"
 [3.0.0-beta.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.3 "v3.0.0-beta.3"
+[3.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.0.0...v3.1.0 "v3.1.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.0.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.1.0...HEAD "In Development"
