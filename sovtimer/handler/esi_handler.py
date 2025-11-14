@@ -54,7 +54,7 @@ def result(  # pylint: disable=too-many-arguments too-many-positional-arguments
     :rtype: tuple[Any, Response] | Any
     """
 
-    logger.debug(f"Handling ESI operation: {operation.operation}")
+    logger.debug(f"Handling ESI operation: {operation.operation.operationId}")
 
     try:
         esi_result = operation.result(
@@ -66,8 +66,8 @@ def result(  # pylint: disable=too-many-arguments too-many-positional-arguments
         )
     except HTTPNotModified:
         logger.debug(
-            "ESI returned 304 Not Modified for operation. "
-            f"{'Using cached data.' if return_cached_for_304 else 'Skipping update.'}"
+            f"ESI returned 304 Not Modified for operation: {operation.operation.operationId} "
+            f"- {'Using cached data.' if return_cached_for_304 else 'Skipping update.'}"
         )
 
         esi_result = operation.result(use_etag=False) if return_cached_for_304 else None
