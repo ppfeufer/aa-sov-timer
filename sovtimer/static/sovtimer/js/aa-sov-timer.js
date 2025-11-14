@@ -225,26 +225,53 @@ $(document).ready(() => {
                     _bootstrapTooltip({selector: '.aa-sovtimer'});
 
                     // Update the remaining time every second
-                    setInterval(() => {
-                        dt.rows().every(function () {
-                            const rowApi = this;
-                            const data = rowApi.data();
-                            const remaining = _secondsToRemainingTime(Number(data.remaining_time_in_seconds));
+                    // Cache cell nodes and remaining seconds to avoid expensive API calls each tick
+                    let _rowCache = dt.rows().indexes().toArray().map((rowIdx) => {
+                        const rowData = dt.row(rowIdx).data();
 
-                            // update the underlying row data used by the display renderer
-                            data.remaining_time_in_seconds = remaining.remainingTimeInSeconds;
-                            data.remaining_time = remaining.countdown;
-                            // rowApi.data(data);
+                        return {
+                            rowIdx,
+                            cellNode: dt.cell(rowIdx, 6).node(),
+                            remainingSeconds: Number(rowData.remaining_time_in_seconds)
+                        };
+                    });
 
-                            // update only the Remaining Time column DOM (column index 6)
-                            const cellNode = dt.cell(rowApi.index(), 6).node();
+                    /**
+                     * Rebuild row cache.
+                     *
+                     * @private
+                     */
+                    const _rebuildRowCache = () => {
+                        _rowCache = dt.rows().indexes().toArray().map((rowIdx) => {
+                            const rowData = dt.row(rowIdx).data();
 
-                            if (cellNode) {
-                                cellNode.innerHTML = remaining.countdown;
-                            }
+                            return {
+                                rowIdx,
+                                cellNode: dt.cell(rowIdx, 6).node(),
+                                remainingSeconds: Number(rowData.remaining_time_in_seconds)
+                            };
                         });
-                        dt.draw(false);
-                    }, 1000);
+                    };
+
+                    /**
+                     * Tick function to update remaining time.
+                     *
+                     * @private
+                     */
+                    const _tick = () => {
+                        for (let i = 0; i < _rowCache.length; i++) {
+                            const r = _rowCache[i];
+                            r.remainingSeconds = Number(r.remainingSeconds) - 1;
+                            const remaining = _secondsToRemainingTime(r.remainingSeconds);
+
+                            // Update only the Remaining Time cell DOM (column index 6)
+                            if (r.cellNode) {
+                                r.cellNode.innerHTML = remaining.countdown;
+                            }
+                        }
+                    };
+
+                    setInterval(_tick, 1000);
 
                     // Update the table data every 30 seconds
                     setInterval(() => {
@@ -256,6 +283,18 @@ $(document).ready(() => {
                             })
                             .catch(console.error);
                     }, 30000);
+
+                    // On DataTable draw, run …
+                    dt.on('draw', () => {
+                        // Keep cache in sync when table is redrawn or data replaced
+                        _rebuildRowCache();
+
+                        // Update campaign counts
+                        _updateCampaignCounts(dt.rows().data().toArray());
+
+                        // Re-initialize tooltips
+                        _bootstrapTooltip({selector: '.aa-sovtimer'});
+                    });
                 }
             });
         })

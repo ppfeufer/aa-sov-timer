@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- Improved JS performance when recalculating remaining time for campaigns
 - Improvement to the campaign table
 
 ## [3.0.0] - 2025-11-12
