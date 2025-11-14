@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-12 03:15+0100\n"
+"POT-Creation-Date: 2025-11-14 23:31+0100\n"
 "PO-Revision-Date: 2025-11-06 09:17+0000\n"
 "Last-Translator: Dexsar <dexsar.paf@gmail.com>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
@@ -19,45 +19,45 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.14\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/__init__.py:10 sovtimer/models.py:34
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "領有権タイマー"
 
-#: sovtimer/models.py:40
+#: sovtimer/models.py:37
 msgid "Can access the Sovereignty Timer module"
 msgstr "領有権タイマーのモジュールにアクセス可能です"
 
-#: sovtimer/models.py:77
+#: sovtimer/models.py:74
 msgid "Sovereignty structure"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:78
+#: sovtimer/models.py:75
 msgid "Sovereignty structures"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:135
+#: sovtimer/models.py:117
 msgid "Sov Hub defense"
 msgstr "領有権ハブの防衛"
 
-#: sovtimer/models.py:136
+#: sovtimer/models.py:118
 msgid "TCU defense"
 msgstr "TCUの防衛"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:144
 msgid "Sovereignty campaign"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/models.py:163
+#: sovtimer/models.py:145
 msgid "Sovereignty campaigns"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:163
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:162
 msgid "Yes"
 msgstr "はい"
 
-#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:160
 msgid "No"
 msgstr "いいえ"
 
@@ -129,15 +129,15 @@ msgstr "このアプリをあなたの言語に翻訳するお手伝いをした
 msgid "Join our team of translators!"
 msgstr "翻訳者チームに参加しましょう！"
 
-#: sovtimer/views.py:165
+#: sovtimer/views.py:164
 msgid "Neither side has made any progress yet"
 msgstr ""
 
-#: sovtimer/views.py:173
+#: sovtimer/views.py:172
 msgid "Defenders making progress"
 msgstr ""
 
-#: sovtimer/views.py:181
+#: sovtimer/views.py:180
 msgid "Attackers making progress"
 msgstr ""
 

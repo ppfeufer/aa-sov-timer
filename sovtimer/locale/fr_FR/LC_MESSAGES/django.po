@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-12 03:15+0100\n"
+"POT-Creation-Date: 2025-11-14 23:31+0100\n"
 "PO-Revision-Date: 2025-09-22 09:43+0000\n"
 "Last-Translator: Hugo REGIBO <hugo@hugoregibo.be>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
@@ -24,45 +24,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.13.3\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:37
+#: sovtimer/__init__.py:10 sovtimer/models.py:34
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Minuterie de souveraineté"
 
-#: sovtimer/models.py:40
+#: sovtimer/models.py:37
 msgid "Can access the Sovereignty Timer module"
 msgstr "Peut accéder le module Minuterie de souveraineté"
 
-#: sovtimer/models.py:77
+#: sovtimer/models.py:74
 msgid "Sovereignty structure"
 msgstr "Structure de souveraineté"
 
-#: sovtimer/models.py:78
+#: sovtimer/models.py:75
 msgid "Sovereignty structures"
 msgstr "Structures de souveraineté"
 
-#: sovtimer/models.py:135
+#: sovtimer/models.py:117
 msgid "Sov Hub defense"
 msgstr "Défense du hub de souveraineté"
 
-#: sovtimer/models.py:136
+#: sovtimer/models.py:118
 msgid "TCU defense"
 msgstr ""
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:144
 msgid "Sovereignty campaign"
 msgstr "Campagne de souveraineté"
 
-#: sovtimer/models.py:163
+#: sovtimer/models.py:145
 msgid "Sovereignty campaigns"
 msgstr "Campagnes de souveraineté"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:163
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:162
 msgid "Yes"
 msgstr "Oui"
 
-#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:161
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:160
 msgid "No"
 msgstr "Non"
 
@@ -134,15 +134,15 @@ msgstr "Voulez-vous aider à traduire cette application dans votre langue ou am�
 msgid "Join our team of translators!"
 msgstr "Rejoignez notre équipe de traducteurs !"
 
-#: sovtimer/views.py:165
+#: sovtimer/views.py:164
 msgid "Neither side has made any progress yet"
 msgstr "Aucun camp n’a encore fait de progrès."
 
-#: sovtimer/views.py:173
+#: sovtimer/views.py:172
 msgid "Defenders making progress"
 msgstr "Les défenseurs progressent"
 
-#: sovtimer/views.py:181
+#: sovtimer/views.py:180
 msgid "Attackers making progress"
 msgstr "Les attaquants progressent"
 
