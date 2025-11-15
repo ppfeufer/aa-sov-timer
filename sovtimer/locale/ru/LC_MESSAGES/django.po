@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-14 23:31+0100\n"
+"POT-Creation-Date: 2025-11-16 00:19+0100\n"
 "PO-Revision-Date: 2024-12-15 10:37+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -55,7 +55,7 @@ msgstr "Опс по sov`у"
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:162
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:167
 msgid "Yes"
 msgstr "Да"
 
@@ -133,15 +133,15 @@ msgstr "Вы хотите помочь перевести это приложе�
 msgid "Join our team of translators!"
 msgstr "Присоединяйтесь к нашей команде переводчиков!"
 
-#: sovtimer/views.py:164
+#: sovtimer/views.py:170
 msgid "Neither side has made any progress yet"
 msgstr "Ни одна из сторон не демонстрирует прогресса"
 
-#: sovtimer/views.py:172
+#: sovtimer/views.py:178
 msgid "Defenders making progress"
 msgstr "Защитники добиваются успеха"
 
-#: sovtimer/views.py:180
+#: sovtimer/views.py:186
 msgid "Attackers making progress"
 msgstr "Атакующие добиваются успеха"
 
