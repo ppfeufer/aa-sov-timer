@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- DataTables updated to v2.3.5
 - Campaigns are now filterable by their state (upcoming, active, all)
 - Clearer log messages on ESI exceptions
 
