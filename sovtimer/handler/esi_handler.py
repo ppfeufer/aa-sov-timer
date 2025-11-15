@@ -73,12 +73,12 @@ def result(  # pylint: disable=too-many-arguments too-many-positional-arguments
         esi_result = operation.result(use_etag=False) if return_cached_for_304 else None
     except ContentTypeError:
         logger.warning(
-            msg="ESI returned gibberish (ContentTypeError), skipping campaign update."
+            msg="ESI returned gibberish (ContentTypeError) - Skipping update."
         )
 
         esi_result = None
     except HTTPClientError as exc:
-        logger.error(msg=f"Error while fetching campaigns from ESI: {str(exc)}")
+        logger.error(msg=f"Error while fetching data from ESI: {str(exc)}")
 
         esi_result = None
 
