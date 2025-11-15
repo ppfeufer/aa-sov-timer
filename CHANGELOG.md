@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Don't use deprecated DataTable options
+
 ### Changed
 
 - Clearer log messages on ESI exceptions

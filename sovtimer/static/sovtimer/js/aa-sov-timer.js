@@ -125,7 +125,7 @@ $(document).ready(() => {
             const dt = new DataTable(sovCampaignTable, { // eslint-disable-line no-unused-vars
                 language: {url: sovtimerSettings.dataTables.languageUrl},
                 data: tableData,
-                dom: sovtimerSettings.dataTables.dom,
+                layout: sovtimerSettings.dataTables.layout,
                 ordering: sovtimerSettings.dataTables.ordering,
                 columnControl: sovtimerSettings.dataTables.columnControl,
                 columns: [
