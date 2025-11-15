@@ -1,5 +1,4 @@
-/*!
- * DataTables Bootstrap 5 integration
+/*! DataTables Bootstrap 5 integration
  * © SpryMedia Ltd - datatables.net/license
  */
 
