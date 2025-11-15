@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Clearer log messages on ESI exceptions
+
 ## [3.1.0] - 2025-11-14
 
 ### Added
