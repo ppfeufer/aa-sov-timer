@@ -158,8 +158,14 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
             campaign_progress_html = campaign_pogress_current_percentage_formatted
 
             active_campaign = _("No")
+            campaign_status = "inactive"
+
+            if 14400 >= remaining_time_in_seconds >= 0:
+                campaign_status = "upcoming"
+
             if remaining_time_in_seconds < 0:
                 active_campaign = _("Yes")
+                campaign_status = "active"
 
                 progress_text = _("Neither side has made any progress yet")
                 campaign_progress_icon = (
@@ -226,6 +232,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                     "campaign_progress": campaign_progress_html,
                     # Active filter column (hidden)
                     "active_campaign": active_campaign,
+                    "campaign_status": campaign_status,
                 }
             )
 
