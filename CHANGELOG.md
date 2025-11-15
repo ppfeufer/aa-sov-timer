@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- Campaigns are now filterable by their state (upcoming, active, all)
 - Clearer log messages on ESI exceptions
 
 ## [3.1.0] - 2025-11-14

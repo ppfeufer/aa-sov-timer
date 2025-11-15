@@ -186,7 +186,7 @@ $(document).ready(() => {
                         data: {
                             display: d => d.campaign_progress,
                             sort: d => d.campaign_progress,
-                            filter: d => d.active_campaign
+                            filter: d => d.campaign_status
                         }
                     }
                 ],
@@ -217,12 +217,6 @@ $(document).ready(() => {
                 initComplete: () => {
                     // Get DataTable instance
                     const dt = sovCampaignTable.DataTable();
-
-                    // Initial campaign counts update
-                    _updateCampaignCounts(dt.rows().data().toArray());
-
-                    // Initialize Bootstrap tooltips
-                    _bootstrapTooltip({selector: '.aa-sovtimer'});
 
                     // Update the remaining time every second
                     // Cache cell nodes and remaining seconds to avoid expensive API calls each tick
@@ -271,6 +265,19 @@ $(document).ready(() => {
                         }
                     };
 
+                    // Initial campaign counts update
+                    _updateCampaignCounts(dt.rows().data().toArray());
+
+                    // Initialize Bootstrap tooltips
+                    _bootstrapTooltip({selector: '.aa-sovtimer'});
+
+                    // Initial cache build
+                    _rebuildRowCache();
+
+                    // Initial tick to avoid 1 second delay
+                    _tick();
+
+
                     setInterval(_tick, 1000);
 
                     // Update the table data every 30 seconds
@@ -283,6 +290,50 @@ $(document).ready(() => {
                             })
                             .catch(console.error);
                     }, 30000);
+
+
+                    // Campaign filtering is done via DataTables filtering
+                    // Listen for custom filter events to trigger DataTables search
+                    (() => {
+                        const _filterCampaigns = (selector, predicate) => {
+                            $(selector).click(() => {
+                                // Clear any existing custom filters before applying a new one
+                                $.fn.dataTable.ext.search = [];
+
+                                const filter = (settings, searchData, index, rowData) => {
+                                    if (!rowData) {
+                                        return true;
+                                    }
+
+                                    return predicate(rowData);
+                                };
+
+                                $.fn.dataTable.ext.search.push(filter);
+
+                                $('.aa-sovtimer-filter-active').removeClass('aa-sovtimer-filter-active');
+                                $(selector).addClass('aa-sovtimer-filter-active');
+
+                                dt.draw();
+                            });
+                        };
+
+                        _filterCampaigns(
+                            '#aa-sovtimer-filter-total-campaigns',
+                            () => true
+                        );
+
+                        _filterCampaigns(
+                            '#aa-sovtimer-filter-upcoming-campaigns',
+                            rowData => rowData.campaign_status === 'upcoming'
+                        );
+
+                        _filterCampaigns(
+                            '#aa-sovtimer-filter-active-campaigns',
+                            rowData => rowData.campaign_status === 'active'
+                        );
+                    })();
+
+
 
                     // On DataTable draw, run …
                     dt.on('draw', () => {
