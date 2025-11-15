@@ -22,7 +22,7 @@ $(document).ready(() => {
      *                                 If you want to apply it to a specific element, use that element's selector.
      *                                 If you want to apply it to all elements with the data-bs-tooltip attribute,
      *                                 use 'body' or leave it empty.
-     * @param {string} [namespace=aa-srp] Namespace for the tooltip
+     * @param {string} [namespace=aa-sovtimer] Namespace for the tooltip
      * @returns {void}
      */
     const _bootstrapTooltip = ({selector = 'body', namespace = 'aa-sovtimer'}) => {
@@ -265,6 +265,44 @@ $(document).ready(() => {
                         }
                     };
 
+                    /**
+                     * Filter campaigns based on a predicate.
+                     *
+                     * @param {string} selector The selector for the filter button.
+                     * @param {callback} predicate The predicate function to filter rows.
+                     * @private
+                     */
+                    const _filterCampaigns = (selector, predicate) => {
+                        $(selector).click(() => {
+                            // Clear any existing custom filters before applying a new one
+                            $.fn.dataTable.ext.search = [];
+
+                            /**
+                             * Custom filter function.
+                             *
+                             * @param {Object} settings DataTable settings object.
+                             * @param {Array} searchData Search data for the row.
+                             * @param {int} index Row index.
+                             * @param {Object} rowData Row data object.
+                             * @return {boolean} True if the row matches the filter, false otherwise.
+                             */
+                            const filter = (settings, searchData, index, rowData) => {
+                                if (!rowData) {
+                                    return true;
+                                }
+
+                                return predicate(rowData);
+                            };
+
+                            $.fn.dataTable.ext.search.push(filter);
+
+                            $('.aa-sovtimer-filter-active').removeClass('aa-sovtimer-filter-active');
+                            $(selector).addClass('aa-sovtimer-filter-active');
+
+                            dt.draw();
+                        });
+                    };
+
                     // Initial campaign counts update
                     _updateCampaignCounts(dt.rows().data().toArray());
 
@@ -277,7 +315,7 @@ $(document).ready(() => {
                     // Initial tick to avoid 1 second delay
                     _tick();
 
-
+                    // Set interval for ticking every second to update remaining time
                     setInterval(_tick, 1000);
 
                     // Update the table data every 30 seconds
@@ -291,49 +329,14 @@ $(document).ready(() => {
                             .catch(console.error);
                     }, 30000);
 
+                    // Define filters
+                    const _filters = [
+                        ['#aa-sovtimer-filter-total-campaigns', () => true],
+                        ['#aa-sovtimer-filter-upcoming-campaigns', rowData => rowData.campaign_status === 'upcoming'],
+                        ['#aa-sovtimer-filter-active-campaigns', rowData => rowData.campaign_status === 'active']
+                    ];
 
-                    // Campaign filtering is done via DataTables filtering
-                    // Listen for custom filter events to trigger DataTables search
-                    (() => {
-                        const _filterCampaigns = (selector, predicate) => {
-                            $(selector).click(() => {
-                                // Clear any existing custom filters before applying a new one
-                                $.fn.dataTable.ext.search = [];
-
-                                const filter = (settings, searchData, index, rowData) => {
-                                    if (!rowData) {
-                                        return true;
-                                    }
-
-                                    return predicate(rowData);
-                                };
-
-                                $.fn.dataTable.ext.search.push(filter);
-
-                                $('.aa-sovtimer-filter-active').removeClass('aa-sovtimer-filter-active');
-                                $(selector).addClass('aa-sovtimer-filter-active');
-
-                                dt.draw();
-                            });
-                        };
-
-                        _filterCampaigns(
-                            '#aa-sovtimer-filter-total-campaigns',
-                            () => true
-                        );
-
-                        _filterCampaigns(
-                            '#aa-sovtimer-filter-upcoming-campaigns',
-                            rowData => rowData.campaign_status === 'upcoming'
-                        );
-
-                        _filterCampaigns(
-                            '#aa-sovtimer-filter-active-campaigns',
-                            rowData => rowData.campaign_status === 'active'
-                        );
-                    })();
-
-
+                    _filters.forEach(([selector, predicate]) => _filterCampaigns(selector, predicate));
 
                     // On DataTable draw, run …
                     dt.on('draw', () => {
