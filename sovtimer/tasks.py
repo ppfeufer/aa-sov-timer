@@ -46,10 +46,16 @@ TASK_DEFAULTS_ONCE = {**TASK_DEFAULTS, **TASK_ONCE}
 @shared_task(**TASK_DEFAULTS_ONCE)
 def run_sov_campaign_updates() -> None:
     """
-    Update all sovereignty campaigns and structures
+    Update all sovereignty campaigns and structures.
 
-    This task is used to update all sovereignty campaigns and structures from ESI.
-    It should be called by a periodic task, or in your `local.py` settings file via:
+    This task triggers the update of sovereignty campaigns and structures by chaining
+    two Celery tasks: `update_sov_structures` and `update_sov_campaigns`. It ensures
+    that both tasks are executed sequentially and with the specified priority and
+    task-once arguments.
+
+    The task is designed to be scheduled periodically, for example, every 30 seconds,
+    to keep the sovereignty data up-to-date. Below is an example of how to configure
+    this task in the `local.py` settings file:
 
     ```python
     # AA Sovereignty Timer - https://github.com/ppfeufer/aa-sov-timer
@@ -62,8 +68,10 @@ def run_sov_campaign_updates() -> None:
     ```
     """
 
+    # Log the start of the update process
     logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
 
+    # Chain the update tasks for structures and campaigns, and execute them asynchronously
     chain(
         update_sov_structures.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
         update_sov_campaigns.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
@@ -73,70 +81,84 @@ def run_sov_campaign_updates() -> None:
 @shared_task(**TASK_DEFAULTS_ONCE)
 def update_sov_campaigns(force_refresh: bool = False) -> None:
     """
-    Update sovereignty campaigns
+    Update sovereignty campaigns from ESI (EVE Swagger Interface).
 
-    This task is used to update the sovereignty campaigns from ESI.
+    This task fetches sovereignty campaigns from the EVE Swagger Interface (ESI),
+    processes the data, and updates the database with the latest information. It ensures
+    that all related entities (e.g., defenders) are pre-fetched or created as needed to
+    minimize database hits.
+
+    :param force_refresh: Whether to force refresh the data from ESI.
+    :type force_refresh: bool
+    :return: None
+    :rtype: None
     """
 
-    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(
-        force_refresh=force_refresh
+    # Fetch campaigns from ESI
+    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(force_refresh)
+
+    # Exit early if no campaigns are returned
+    if not campaigns_from_esi:
+        return
+
+    # Log the number of campaigns fetched from ESI
+    logger.debug(f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi)}")
+
+    # Collect all unique defender IDs from the fetched campaigns
+    defender_ids = {campaign.defender_id for campaign in campaigns_from_esi}
+
+    # Fetch existing campaigns from the database and map them by campaign ID
+    existing_campaigns = {c.campaign_id: c for c in Campaign.objects.all()}
+
+    # Ensure all defenders exist in the EveEntity model
+    EveEntity.objects.bulk_create(
+        [EveEntity(id=defender_id) for defender_id in defender_ids],
+        ignore_conflicts=True,
     )
 
-    if campaigns_from_esi is not None:
-        logger.debug(
-            msg=f"Number of sovereignty campaigns from ESI: {len(campaigns_from_esi or [])}"
-        )
+    # Prepare a list to hold new Campaign instances for bulk creation
+    campaigns = []
+    for campaign in campaigns_from_esi:
+        # Retrieve the previous campaign from the database, if it exists
+        previous_campaign = existing_campaigns.get(campaign.campaign_id)
 
-        campaigns = []
-        defender_ids = {campaign.defender_id for campaign in campaigns_from_esi}
-
-        existing_campaigns = {c.campaign_id: c for c in Campaign.objects.all()}
-
-        EveEntity.objects.bulk_create(
-            [EveEntity(id=defender_id) for defender_id in defender_ids],
-            ignore_conflicts=True,
-        )
-
-        for campaign in campaigns_from_esi:
-            campaign_id = campaign.campaign_id
-            campaign_current__defender_score = campaign.defender_score
-            campaign_current__progress_previous = campaign_current__defender_score
-
-            if campaign_id in existing_campaigns:
-                campaign_previous = existing_campaigns[campaign_id]
-                campaign_previous__progress_previous = (
-                    campaign_previous.progress_previous
-                )
-                campaign_previous__progress = campaign_previous.defender_score
-                campaign_current__progress_previous = campaign_previous__progress
-
-                if campaign_previous__progress == campaign_current__defender_score:
-                    campaign_current__progress_previous = (
-                        campaign_previous__progress_previous
-                    )
-
-            campaigns.append(
-                Campaign(
-                    attackers_score=campaign.attackers_score,
-                    campaign_id=campaign_id,
-                    defender_score=campaign.defender_score,
-                    event_type=campaign.event_type,
-                    start_time=campaign.start_time,
-                    structure_id=campaign.structure_id,
-                    progress_current=campaign_current__defender_score,
-                    progress_previous=campaign_current__progress_previous,
-                )
+        # Determine the progress_previous value based on the defender score
+        progress_previous = (
+            previous_campaign.progress_previous
+            if previous_campaign
+            and previous_campaign.defender_score == campaign.defender_score
+            else (
+                previous_campaign.defender_score
+                if previous_campaign
+                else campaign.defender_score
             )
-
-        Campaign.objects.all().delete()
-        Campaign.objects.bulk_create(
-            objs=campaigns,
-            batch_size=500,
-            # ignore_conflicts=True,
         )
-        EveEntity.objects.bulk_update_new_esi()
 
-        logger.info(msg=f"{len(campaigns)} sovereignty campaigns updated from ESI.")
+        # Create a new Campaign instance
+        campaigns.append(
+            Campaign(
+                attackers_score=campaign.attackers_score,
+                campaign_id=campaign.campaign_id,
+                defender_score=campaign.defender_score,
+                event_type=campaign.event_type,
+                start_time=campaign.start_time,
+                structure_id=campaign.structure_id,
+                progress_current=campaign.defender_score,
+                progress_previous=progress_previous,
+            )
+        )
+
+    # Delete all existing campaigns from the database
+    Campaign.objects.all().delete()
+
+    # Bulk create the new campaigns in the database
+    Campaign.objects.bulk_create(campaigns, batch_size=500)
+
+    # Update EVE entities from ESI
+    EveEntity.objects.bulk_update_new_esi()
+
+    # Log the number of campaigns updated
+    logger.info(f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
@@ -251,6 +273,7 @@ def update_sov_structures(force_refresh: bool = False) -> None:
         )
         # Update EVE entities from ESI
         EveEntity.objects.bulk_update_new_esi()
+
         # Remove structures that are no longer in the ESI data
         SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
 

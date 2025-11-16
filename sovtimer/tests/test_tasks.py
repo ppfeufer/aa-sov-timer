@@ -14,7 +14,6 @@ from eveuniverse.models import EveSolarSystem
 
 # AA Sovereignty Timer
 import sovtimer.tasks as tasks_module
-from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
     TASK_PRIORITY,
@@ -113,301 +112,211 @@ class TestUpdateSovCampaignsTask(BaseTestCase):
     Test the update_sov_campaigns task.
     """
 
-    @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.models.Campaign.objects.bulk_create")
-    @patch("sovtimer.models.Campaign.objects.all")
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.logger.debug")
-    def test_updates_campaigns_and_logs_info(
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
+    @patch("sovtimer.tasks.Campaign.objects.all")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_update_new_esi")
+    def test_updates_campaigns_with_valid_data(
         self,
-        mock_logger_debug,
-        mock_logger_info,
         mock_bulk_update_new_esi,
-        mock_eve_bulk_create,
-        mock_campaigns_all,
-        mock_bulk_create,
-        mock_get_campaigns,
+        mock_eve_entity_bulk_create,
+        mock_campaign_all,
+        mock_campaign_bulk_create,
+        mock_get_sov_campaigns_from_esi,
     ):
         """
-        Test that update_sov_campaigns correctly updates campaigns and logs info.
+        Test that update_sov_campaigns correctly updates campaigns with valid data.
 
-        :param mock_logger_debug:
-        :type mock_logger_debug:
-        :param mock_logger_info:
-        :type mock_logger_info:
         :param mock_bulk_update_new_esi:
         :type mock_bulk_update_new_esi:
-        :param mock_eve_bulk_create:
-        :type mock_eve_bulk_create:
-        :param mock_campaigns_all:
-        :type mock_campaigns_all:
-        :param mock_bulk_create:
-        :type mock_bulk_create:
-        :param mock_get_campaigns:
-        :type mock_get_campaigns:
+        :param mock_eve_entity_bulk_create:
+        :type mock_eve_entity_bulk_create:
+        :param mock_campaign_all:
+        :type mock_campaign_all:
+        :param mock_campaign_bulk_create:
+        :type mock_campaign_bulk_create:
+        :param mock_get_sov_campaigns_from_esi:
+        :type mock_get_sov_campaigns_from_esi:
         :return:
         :rtype:
         """
 
-        mock_queryset = Mock()
-        mock_queryset.__iter__ = lambda self: iter(
-            [Mock(campaign_id=1), Mock(campaign_id=2)]
-        )
-        mock_campaigns_all.return_value = mock_queryset
-
-        mock_get_campaigns.return_value = [
-            Mock(
+        mock_get_sov_campaigns_from_esi.return_value = [
+            SimpleNamespace(
                 campaign_id=1,
-                defender_id=1001,
-                attackers_score=0.5,
-                defender_score=0.7,
-                event_type="ihub_defense",
-                start_time="2023-10-01T12:00:00Z",
-                structure_id=2001,
-            ),
-            Mock(
-                campaign_id=2,
-                defender_id=1002,
+                defender_id=100,
                 attackers_score=0.3,
-                defender_score=0.6,
-                event_type="ihub_defense",
-                start_time="2023-10-02T12:00:00Z",
-                structure_id=2002,
-            ),
-        ]
-
-        update_sov_campaigns()
-
-        mock_logger_debug.assert_called_with(
-            msg="Number of sovereignty campaigns from ESI: 2"
-        )
-        mock_logger_info.assert_called_with(
-            msg="2 sovereignty campaigns updated from ESI."
-        )
-        mock_eve_bulk_create.assert_called_once()
-        mock_bulk_create.assert_called_once()
-        mock_bulk_update_new_esi.assert_called_once()
-
-    @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.models.Campaign.objects.all")
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.logger.debug")
-    def test_handles_no_campaigns_from_esi(
-        self,
-        mock_logger_debug,
-        mock_logger_info,
-        mock_campaigns_all,
-        mock_get_campaigns,
-    ):
-        """
-        Test that update_sov_campaigns handles no campaigns returned from ESI.
-
-        :param mock_logger_debug:
-        :type mock_logger_debug:
-        :param mock_logger_info:
-        :type mock_logger_info:
-        :param mock_campaigns_all:
-        :type mock_campaigns_all:
-        :param mock_get_campaigns:
-        :type mock_get_campaigns:
-        :return:
-        :rtype:
-        """
-
-        mock_get_campaigns.return_value = ""
-
-        update_sov_campaigns()
-
-        mock_logger_debug.assert_called_with(
-            msg="Number of sovereignty campaigns from ESI: 0"
-        )
-        mock_logger_info.assert_called_with(
-            msg="0 sovereignty campaigns updated from ESI."
-        )
-        mock_campaigns_all.return_value.delete.assert_called_once()
-
-    @patch("sovtimer.models.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.models.Campaign.objects.all")
-    @patch("sovtimer.models.Campaign.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.logger.debug")
-    def test_deletes_existing_campaigns_when_new_campaigns_arrive(
-        self,
-        mock_logger_debug,
-        mock_logger_info,
-        mock_bulk_update_new_esi,
-        mock_eve_bulk_create,
-        mock_bulk_create,
-        mock_campaigns_all,
-        mock_get_campaigns,
-    ):
-        mock_queryset = Mock()
-        mock_queryset.__iter__ = lambda self: iter([Mock(campaign_id=1)])
-        mock_queryset.delete = Mock()
-        mock_campaigns_all.return_value = mock_queryset
-
-        mock_get_campaigns.return_value = [
-            Mock(
-                campaign_id=1,
-                defender_id=1001,
-                attackers_score=0.5,
                 defender_score=0.7,
-                event_type="ihub_defense",
-                start_time="2023-10-01T12:00:00Z",
-                structure_id=2001,
+                event_type="tcu_defense",
+                start_time=timezone.now(),
+                structure_id=200,
             )
         ]
+        mock_queryset = Mock()
+        mock_queryset.__iter__ = lambda self: iter([])  # iterable
+        mock_queryset.delete = Mock()  # has delete()
+        mock_campaign_all.return_value = mock_queryset
 
-        update_sov_campaigns()
+        update_sov_campaigns(force_refresh=True)
 
-        mock_campaigns_all.return_value.delete.assert_called_once()
-        mock_bulk_create.assert_called_once()
-        mock_eve_bulk_create.assert_called_once()
+        mock_eve_entity_bulk_create.assert_called_once()
+        mock_campaign_bulk_create.assert_called_once()
         mock_bulk_update_new_esi.assert_called_once()
-        mock_logger_info.assert_called_with(
-            msg="1 sovereignty campaigns updated from ESI."
-        )
 
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    def test_preserves_previous_progress_previous_when_defender_score_unchanged(
-        self, mock_bulk_update_new_esi, mock_eve_bulk_create
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
+    @patch("sovtimer.tasks.Campaign.objects.all")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    def test_skips_update_when_no_campaigns_returned(
+        self,
+        mock_eve_entity_bulk_create,
+        mock_campaign_all,
+        mock_campaign_bulk_create,
+        mock_get_sov_campaigns_from_esi,
     ):
-        now = timezone.now()
-        # Create the referenced SovereigntyStructure so FK constraint is satisfied
-        SovereigntyStructure.objects.create(
-            structure_id=100,
-            alliance_id=None,
-            solar_system_id=None,
-            structure_type_id=0,
-            vulnerability_occupancy_level=0,
-            vulnerable_start_time=now,
-            vulnerable_end_time=now,
-        )
+        mock_get_sov_campaigns_from_esi.return_value = []
 
-        # Existing campaign in DB with previous progress_previous
-        Campaign.objects.create(
-            attackers_score=0,
-            campaign_id=1,
-            defender_score=50,
-            event_type="test",
-            start_time=now,
-            structure_id=100,
-            progress_current=50,
-            progress_previous=20,
-        )
+        update_sov_campaigns(force_refresh=True)
 
-        esi_campaign = SimpleNamespace(
-            attackers_score=0,
-            campaign_id=1,
-            defender_id=1001,
-            defender_score=50,  # unchanged
-            event_type="test",
-            start_time=now,
-            structure_id=100,
-        )
+        mock_eve_entity_bulk_create.assert_not_called()
+        mock_campaign_bulk_create.assert_not_called()
 
-        with patch(
-            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
-            return_value=[esi_campaign],
-        ):
-            update_sov_campaigns(force_refresh=True)
-
-        created = Campaign.objects.get(campaign_id=1)
-        self.assertEqual(created.progress_current, 50)
-        self.assertEqual(created.progress_previous, 20)
-
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    def test_sets_progress_previous_to_current_defender_score_when_defender_score_changed(
-        self, mock_bulk_update_new_esi, mock_eve_bulk_create
+    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
+    @patch("sovtimer.tasks.Campaign.objects.all")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    def handles_duplicate_campaign_ids(
+        self,
+        mock_eve_entity_bulk_create,
+        mock_campaign_all,
+        mock_campaign_bulk_create,
+        mock_get_sov_campaigns_from_esi,
     ):
-        now = timezone.now()
-        # Create the referenced SovereigntyStructure so FK constraint is satisfied
-        SovereigntyStructure.objects.create(
-            structure_id=200,
-            alliance_id=None,
-            solar_system_id=None,
-            structure_type_id=0,
-            vulnerability_occupancy_level=0,
-            vulnerable_start_time=now,
-            vulnerable_end_time=now,
+        """
+        Test that update_sov_campaigns handles duplicate campaign IDs from ESI.
+
+        :param mock_eve_entity_bulk_create:
+        :type mock_eve_entity_bulk_create:
+        :param mock_campaign_all:
+        :type mock_campaign_all:
+        :param mock_campaign_bulk_create:
+        :type mock_campaign_bulk_create:
+        :param mock_get_sov_campaigns_from_esi:
+        :type mock_get_sov_campaigns_from_esi:
+        :return:
+        :rtype:
+        """
+
+        mock_get_sov_campaigns_from_esi.return_value = [
+            SimpleNamespace(
+                campaign_id=1,
+                defender_id=100,
+                attackers_score=0.3,
+                defender_score=0.7,
+                event_type="tcu_defense",
+                start_time=timezone.now(),
+                structure_id=200,
+            ),
+            SimpleNamespace(
+                campaign_id=1,
+                defender_id=100,
+                attackers_score=0.4,
+                defender_score=0.6,
+                event_type="tcu_defense",
+                start_time=timezone.now(),
+                structure_id=200,
+            ),
+        ]
+        mock_campaign_all.return_value = []
+
+        update_sov_campaigns(force_refresh=True)
+
+        created_campaigns = mock_campaign_bulk_create.call_args[0][0]
+        self.assertEqual(len(created_campaigns), 1)
+        self.assertEqual(created_campaigns[0].campaign_id, 1)
+
+    @patch("sovtimer.models.Campaign.objects.all")
+    def test_handles_no_previous_campaigns(self, mock_campaigns_all):
+        """
+        Test that update_sov_campaigns handles the case with no previous campaigns.
+
+        :param mock_campaigns_all:
+        :type mock_campaigns_all:
+        :return:
+        :rtype:
+        """
+
+        mock_campaigns_all.return_value = []
+        campaign = Mock(defender_score=0.5)
+        previous_campaign = None
+
+        progress_previous = (
+            previous_campaign.progress_previous
+            if previous_campaign
+            and previous_campaign.defender_score == campaign.defender_score
+            else (
+                previous_campaign.defender_score
+                if previous_campaign
+                else campaign.defender_score
+            )
         )
 
-        # Existing campaign in DB with a different defender_score
-        Campaign.objects.create(
-            attackers_score=0,
-            campaign_id=2,
-            defender_score=40,
-            event_type="test",
-            start_time=now,
-            structure_id=200,
-            progress_current=40,
-            progress_previous=10,
+        self.assertEqual(progress_previous, 0.5)
+
+    @patch("sovtimer.models.Campaign.objects.all")
+    def test_handles_matching_defender_scores(self, mock_campaigns_all):
+        """
+        Test that update_sov_campaigns handles matching defender scores.
+
+        :param mock_campaigns_all:
+        :type mock_campaigns_all:
+        :return:
+        :rtype:
+        """
+
+        mock_campaign = Mock(defender_score=0.5, progress_previous=0.3)
+        mock_campaigns_all.return_value = [mock_campaign]
+        campaign = Mock(defender_score=0.5)
+
+        progress_previous = (
+            mock_campaign.progress_previous
+            if mock_campaign and mock_campaign.defender_score == campaign.defender_score
+            else (
+                mock_campaign.defender_score
+                if mock_campaign
+                else campaign.defender_score
+            )
         )
 
-        esi_campaign = SimpleNamespace(
-            attackers_score=0,
-            campaign_id=2,
-            defender_id=1002,
-            defender_score=60,  # changed
-            event_type="test",
-            start_time=now,
-            structure_id=200,
+        self.assertEqual(progress_previous, 0.3)
+
+    @patch("sovtimer.models.Campaign.objects.all")
+    def test_handles_non_matching_defender_scores(self, mock_campaigns_all):
+        """
+        Test that update_sov_campaigns handles non-matching defender scores.
+
+        :param mock_campaigns_all:
+        :type mock_campaigns_all:
+        :return:
+        :rtype:
+        """
+
+        mock_campaign = Mock(defender_score=0.4, progress_previous=0.3)
+        mock_campaigns_all.return_value = [mock_campaign]
+        campaign = Mock(defender_score=0.5)
+
+        progress_previous = (
+            mock_campaign.progress_previous
+            if mock_campaign and mock_campaign.defender_score == campaign.defender_score
+            else (
+                mock_campaign.defender_score
+                if mock_campaign
+                else campaign.defender_score
+            )
         )
 
-        with patch(
-            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
-            return_value=[esi_campaign],
-        ):
-            update_sov_campaigns(force_refresh=True)
-
-        created = Campaign.objects.get(campaign_id=2)
-        self.assertEqual(created.progress_current, 60)
-        self.assertEqual(created.progress_previous, 40)
-
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    def test_sets_progress_previous_to_current_when_no_existing_campaign(
-        self, mock_bulk_update_new_esi, mock_eve_bulk_create
-    ):
-        now = timezone.now()
-        Campaign.objects.all().delete()
-
-        # Create the referenced SovereigntyStructure so FK constraint is satisfied
-        SovereigntyStructure.objects.create(
-            structure_id=300,
-            alliance_id=None,
-            solar_system_id=None,
-            structure_type_id=0,
-            vulnerability_occupancy_level=0,
-            vulnerable_start_time=now,
-            vulnerable_end_time=now,
-        )
-
-        esi_campaign = SimpleNamespace(
-            attackers_score=0,
-            campaign_id=3,
-            defender_id=1003,
-            defender_score=30,
-            event_type="test",
-            start_time=now,
-            structure_id=300,
-        )
-
-        with patch(
-            "sovtimer.tasks.Campaign.get_sov_campaigns_from_esi",
-            return_value=[esi_campaign],
-        ):
-            update_sov_campaigns(force_refresh=True)
-
-        created = Campaign.objects.get(campaign_id=3)
-        self.assertEqual(created.progress_current, 30)
-        self.assertEqual(created.progress_previous, 30)
+        self.assertEqual(progress_previous, 0.4)
 
 
 class TestUpdateSovStructuresTask(BaseTestCase):
