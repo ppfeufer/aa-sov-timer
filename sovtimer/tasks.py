@@ -142,111 +142,116 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
 @shared_task(**TASK_DEFAULTS_ONCE)
 def update_sov_structures(force_refresh: bool = False) -> None:
     """
-    Update sovereignty structures
+    Update sovereignty structures from ESI (EVE Swagger Interface).
 
-    This task is used to update the sovereignty structures from ESI.
+    This task fetches sovereignty structures from ESI, processes the data, and updates
+    the database with the latest information. It ensures that all related entities
+    (alliances and solar systems) are pre-fetched or created as needed to minimize
+    database hits.
+
+    :param force_refresh: Whether to force refresh the data from ESI.
+    :type force_refresh: bool
+    :return: None
+    :rtype: None
     """
 
+    # Fetch sovereignty structures from ESI
     structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi(
-        force_refresh=force_refresh
+        force_refresh
     )
 
-    if structures_from_esi is not None:
-        logger.debug(
-            msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
+    # Exit early if no structures are returned
+    if not structures_from_esi:
+        return
+
+    logger.debug(
+        msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
+    )
+
+    # Pre-fetch current structures and their vulnerability levels for fast lookup
+    current_structures = {
+        s["structure_id"]: s["vulnerability_occupancy_level"]
+        for s in SovereigntyStructure.objects.values(
+            "structure_id", "vulnerability_occupancy_level"
+        )
+    }
+
+    # Get all structure IDs that are currently part of campaigns
+    campaign_structure_ids = set(
+        Campaign.objects.values_list("structure_id", flat=True)
+    )
+
+    # Collect all alliance IDs from the fetched structures
+    alliance_ids = {s.alliance_id for s in structures_from_esi if s.alliance_id}
+
+    # Ensure all alliances exist in the EveEntity model
+    EveEntity.objects.bulk_create(
+        [EveEntity(id=aid) for aid in alliance_ids], ignore_conflicts=True
+    )
+
+    # Fetch alliances from the database
+    alliances = {e.id: e for e in EveEntity.objects.filter(id__in=alliance_ids)}
+
+    # Collect all solar system IDs from the fetched structures
+    solar_system_ids = {
+        s.solar_system_id for s in structures_from_esi if s.solar_system_id
+    }
+
+    # Fetch solar systems from the database
+    solar_systems = {
+        ss.id: ss for ss in EveSolarSystem.objects.filter(id__in=solar_system_ids)
+    }
+
+    esi_structure_ids = set()  # Track structure IDs from ESI to avoid duplicates
+    sov_structures = []  # List to hold SovereigntyStructure instances for bulk creation
+
+    # Build SovereigntyStructure instances from the fetched data
+    for structure in structures_from_esi:
+        # Skip structures with missing or duplicate IDs
+        if not structure.structure_id or structure.structure_id in esi_structure_ids:
+            continue
+
+        esi_structure_ids.add(structure.structure_id)
+
+        # Determine the vulnerability level based on current structures or campaigns
+        vulnerability = (
+            current_structures.get(structure.structure_id, 1)
+            if structure.structure_id in campaign_structure_ids
+            else structure.vulnerability_occupancy_level or 1
         )
 
-        # Pre-fetch current structures and campaigns for fast lookup
-        current_structures = {
-            s["structure_id"]: s["vulnerability_occupancy_level"]
-            for s in SovereigntyStructure.objects.all().values(
-                "structure_id", "vulnerability_occupancy_level"
+        # Create a SovereigntyStructure instance
+        sov_structures.append(
+            SovereigntyStructure(
+                alliance=alliances.get(structure.alliance_id),
+                solar_system=solar_systems.get(structure.solar_system_id),
+                structure_id=structure.structure_id,
+                structure_type_id=structure.structure_type_id,
+                vulnerability_occupancy_level=vulnerability,
+                vulnerable_end_time=structure.vulnerable_end_time,
+                vulnerable_start_time=structure.vulnerable_start_time,
             )
-        }
-
-        # Pre-fetch EveEntities and SolarSystems to avoid repeated DB hits
-        alliance_ids = {s.alliance_id for s in structures_from_esi if s.alliance_id}
-
-        # Ensure we have EveEntity entries for all alliances
-        EveEntity.objects.bulk_create(
-            [EveEntity(id=aid) for aid in alliance_ids],
-            ignore_conflicts=True,
         )
 
-        # Fetch existing solar systems and alliances from the database
-        solar_system_ids = {
-            s.solar_system_id for s in structures_from_esi if s.solar_system_id
-        }
-
-        # Ensure we have EveSolarSystem entries for all solar systems
-        solar_systems = {
-            ss.id: ss for ss in EveSolarSystem.objects.filter(id__in=solar_system_ids)
-        }
-
-        # Ensure we have EveEntity entries for all alliances
-        alliances = {e.id: e for e in EveEntity.objects.filter(id__in=alliance_ids)}
-
-        esi_structure_ids = set()
-        sov_structures = []
-
-        # Iterate through the structures from ESI and prepare them for bulk creation
-        for structure in structures_from_esi:
-            structure_id = structure.structure_id
-
-            # Skip structures without an ID or if they already exist in the set
-            if not structure_id or structure_id in esi_structure_ids:
-                continue
-
-            esi_structure_ids.add(structure_id)
-
-            sov_holder = alliances.get(structure.alliance_id)
-            structure_solar_system = solar_systems.get(structure.solar_system_id)
-
-            # Get the vulnerability occupancy level
-            if structure_id in set(
-                Campaign.objects.all().values_list("structure_id", flat=True)
-            ):
-                vulnerability_occupancy_level = current_structures.get(structure_id, 1)
-            else:
-                vulnerability_occupancy_level = (
-                    structure.vulnerability_occupancy_level or 1
-                )
-
-            # Append the structure to the list for bulk creation
-            sov_structures.append(
-                SovereigntyStructure(
-                    alliance=sov_holder,
-                    solar_system=structure_solar_system,
-                    structure_id=structure_id,
-                    structure_type_id=structure.structure_type_id,
-                    vulnerability_occupancy_level=vulnerability_occupancy_level,
-                    vulnerable_end_time=structure.vulnerable_end_time,
-                    vulnerable_start_time=structure.vulnerable_start_time,
-                )
-            )
-
-        # Create or update the sovereignty structures in bulk
-        with transaction.atomic():
-            SovereigntyStructure.objects.bulk_create(
-                objs=sov_structures,
-                batch_size=500,
-                update_conflicts=True,
-                update_fields=[
-                    "alliance",
-                    "solar_system",
-                    "structure_type_id",
-                    "vulnerability_occupancy_level",
-                    "vulnerable_end_time",
-                    "vulnerable_start_time",
-                ],
-            )
-
-            # Update EveEntity objects with new ESI data
-            EveEntity.objects.bulk_update_new_esi()
-
-            # Delete structures that are no longer present in ESI
-            SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
-
-        logger.info(
-            msg=f"{len(sov_structures)} sovereignty structures updated from ESI."
+    # Perform bulk database operations within a transaction
+    with transaction.atomic():
+        # Bulk create or update sovereignty structures
+        SovereigntyStructure.objects.bulk_create(
+            sov_structures,
+            batch_size=500,
+            update_conflicts=True,
+            update_fields=[
+                "alliance",
+                "solar_system",
+                "structure_type_id",
+                "vulnerability_occupancy_level",
+                "vulnerable_end_time",
+                "vulnerable_start_time",
+            ],
         )
+        # Update EVE entities from ESI
+        EveEntity.objects.bulk_update_new_esi()
+        # Remove structures that are no longer in the ESI data
+        SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
+
+    logger.info(f"{len(sov_structures)} sovereignty structures updated from ESI.")

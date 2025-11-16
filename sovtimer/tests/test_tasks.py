@@ -4,7 +4,7 @@ Tests for the sovtimer tasks.
 
 # Standard Library
 from types import SimpleNamespace
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import Mock, patch
 
 # Django
 from django.utils import timezone
@@ -13,6 +13,7 @@ from django.utils import timezone
 from eveuniverse.models import EveSolarSystem
 
 # AA Sovereignty Timer
+import sovtimer.tasks as tasks_module
 from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
     TASK_ONCE_ARGS,
@@ -415,45 +416,41 @@ class TestUpdateSovStructuresTask(BaseTestCase):
     """
 
     @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
-    @patch("sovtimer.models.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.models.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.models.SovereigntyStructure.objects.all")
-    @patch("sovtimer.models.EveEntity.objects.bulk_create")
-    @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
-    @patch("sovtimer.models.EveSolarSystem.objects.filter")
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.logger.debug")
-    def test_updates_structures_and_logs_info(
+    @patch("sovtimer.tasks.Campaign.objects.values_list")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_update_new_esi")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_create")
+    @patch("sovtimer.tasks.EveEntity.objects.filter")
+    @patch("sovtimer.tasks.EveSolarSystem.objects.filter")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
+    def test_updates_structures_with_valid_data(
         self,
-        mock_logger_debug,
-        mock_logger_info,
-        mock_solar_system_filter,
-        mock_bulk_update_new_esi,
-        mock_eve_bulk_create,
-        mock_structures_all,
-        mock_structures_exclude,
+        mock_exclude,
         mock_bulk_create,
+        mock_solar_system_filter,
+        mock_alliance_filter,
+        mock_bulk_create_eve,
+        mock_bulk_update_new_esi,
+        mock_campaign_values_list,
         mock_get_structures,
     ):
         """
-        Test that update_sov_structures correctly updates structures and logs info.
+        Test that update_sov_structures correctly updates structures with valid data.
 
-        :param mock_logger_debug:
-        :type mock_logger_debug:
-        :param mock_logger_info:
-        :type mock_logger_info:
-        :param mock_solar_system_filter:
-        :type mock_solar_system_filter:
-        :param mock_bulk_update_new_esi:
-        :type mock_bulk_update_new_esi:
-        :param mock_eve_bulk_create:
-        :type mock_eve_bulk_create:
-        :param mock_structures_all:
-        :type mock_structures_all:
-        :param mock_structures_exclude:
-        :type mock_structures_exclude:
+        :param mock_exclude:
+        :type mock_exclude:
         :param mock_bulk_create:
         :type mock_bulk_create:
+        :param mock_solar_system_filter:
+        :type mock_solar_system_filter:
+        :param mock_alliance_filter:
+        :type mock_alliance_filter:
+        :param mock_bulk_create_eve:
+        :type mock_bulk_create_eve:
+        :param mock_bulk_update_new_esi:
+        :type mock_bulk_update_new_esi:
+        :param mock_campaign_values_list:
+        :type mock_campaign_values_list:
         :param mock_get_structures:
         :type mock_get_structures:
         :return:
@@ -461,123 +458,196 @@ class TestUpdateSovStructuresTask(BaseTestCase):
         """
 
         mock_get_structures.return_value = [
-            Mock(
+            SimpleNamespace(
                 structure_id=1,
-                alliance_id=1001,
-                solar_system_id=2001,
-                structure_type_id=3001,
+                alliance_id=100,
+                solar_system_id=200,
+                structure_type_id=300,
                 vulnerability_occupancy_level=0.5,
-                vulnerable_start_time="2023-10-01T12:00:00Z",
-                vulnerable_end_time="2023-10-02T12:00:00Z",
+                vulnerable_start_time=timezone.now(),
+                vulnerable_end_time=timezone.now(),
             )
         ]
-        mock_structures_all.return_value.values.return_value = [
-            {"structure_id": 1, "vulnerability_occupancy_level": 0.5}
-        ]
+        mock_campaign_values_list.return_value = []
 
-        mock_solar_system = MagicMock(spec=EveSolarSystem)
-        mock_solar_system.id = 2001
-        mock_solar_system._state = MagicMock()  # Add the _state attribute
-        mock_solar_system_filter.return_value = [mock_solar_system]
+        mock_alliance_filter.return_value = [tasks_module.EveEntity(id=100)]
+        mock_solar_system_filter.return_value = [EveSolarSystem(id=200)]
 
-        mock_structures_exclude.return_value.delete = Mock()
+        update_sov_structures(force_refresh=True)
 
-        update_sov_structures()
-
-        mock_logger_debug.assert_called_with(
-            msg="Number of sovereignty structures from ESI: 1"
-        )
-        mock_logger_info.assert_called_with(
-            msg="1 sovereignty structures updated from ESI."
-        )
-        mock_eve_bulk_create.assert_called_once()
         mock_bulk_create.assert_called_once()
-        mock_bulk_update_new_esi.assert_called_once()
+        mock_exclude.assert_called_once()
 
     @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.logger.debug")
-    def test_handles_no_structures_from_esi(
-        self, mock_logger_debug, mock_logger_info, mock_get_structures
+    @patch("sovtimer.tasks.Campaign.objects.values_list")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
+    def test_handles_empty_esi_response(
+        self, mock_bulk_create, mock_campaign_values_list, mock_get_structures
     ):
-        mock_get_structures.return_value = None
-
-        update_sov_structures()
-
-        mock_logger_debug.assert_not_called()
-        mock_logger_info.assert_not_called()
-
-    def test_ignores_duplicate_structures_with_same_id(self):
         """
-        Test that update_sov_structures ignores duplicate structures with the same ID.
+        Test that update_sov_structures handles an empty response from ESI.
 
+        :param mock_bulk_create:
+        :type mock_bulk_create:
+        :param mock_campaign_values_list:
+        :type mock_campaign_values_list:
+        :param mock_get_structures:
+        :type mock_get_structures:
         :return:
         :rtype:
         """
 
-        now = timezone.now()
-        struct_a = SimpleNamespace(
-            structure_id=55555,
-            alliance_id=None,
-            solar_system_id=None,
-            structure_type_id=3000,
-            vulnerability_occupancy_level=1,
-            vulnerable_end_time=now,
-            vulnerable_start_time=now,
-        )
-        struct_b = SimpleNamespace(
-            structure_id=55555,  # duplicate ID
-            alliance_id=None,
-            solar_system_id=None,
-            structure_type_id=3001,
-            vulnerability_occupancy_level=3,
-            vulnerable_end_time=now,
-            vulnerable_start_time=now,
-        )
+        mock_get_structures.return_value = []
+        mock_campaign_values_list.return_value = []
 
-        with patch(
-            "sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi",
-            return_value=[struct_a, struct_b],
-        ):
-            update_sov_structures(force_refresh=True)
+        update_sov_structures(force_refresh=True)
 
-        # Only one SovereigntyStructure with that structure_id should exist
-        self.assertEqual(
-            SovereigntyStructure.objects.filter(structure_id=55555).count(), 1
-        )
+        mock_bulk_create.assert_not_called()
 
-    def test_returns_default_vulnerability_level_when_structure_not_in_campaign(self):
+    @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.values_list")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
+    def test_assigns_default_vulnerability_when_missing(
+        self, mock_bulk_create, mock_campaign_values_list, mock_get_structures
+    ):
         """
-        Test that the default vulnerability level is returned when structure is not in campaign.
+        Test that update_sov_structures assigns default vulnerability level when missing.
 
+        :param mock_bulk_create:
+        :type mock_bulk_create:
+        :param mock_campaign_values_list:
+        :type mock_campaign_values_list:
+        :param mock_get_structures:
+        :type mock_get_structures:
         :return:
         :rtype:
         """
 
-        structure_id = 99999
-        current_structures = {88888: 2}
+        mock_get_structures.return_value = [
+            SimpleNamespace(
+                structure_id=1,
+                alliance_id=None,
+                solar_system_id=None,
+                structure_type_id=300,
+                vulnerability_occupancy_level=None,
+                vulnerable_start_time=None,
+                vulnerable_end_time=None,
+            )
+        ]
+        mock_campaign_values_list.return_value = []
 
-        with patch.object(Campaign.objects, "all", autospec=True) as mock_all:
-            mock_all.return_value.values_list.return_value = [(12345,), (67890,)]
+        update_sov_structures(force_refresh=True)
 
-            result = current_structures.get(structure_id, 1)
+        created_structures = mock_bulk_create.call_args[0][0]
+        self.assertEqual(created_structures[0].vulnerability_occupancy_level, 1)
 
-            self.assertEqual(result, 1)
-
-    def test_returns_existing_vulnerability_level_when_structure_in_campaign(self):
+    @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.values_list")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_update_new_esi")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
+    def test_removes_structures_not_in_esi(
+        self,
+        mock_exclude,
+        mock_bulk_create,
+        mock_bulk_update_new_esi,
+        mock_campaign_values_list,
+        mock_get_structures,
+    ):
         """
-        Test that the existing vulnerability level is returned when structure is in campaign.
+        Test that update_sov_structures removes structures not present in ESI data.
 
+        :param mock_exclude:
+        :type mock_exclude:
+        :param mock_bulk_create:
+        :type mock_bulk_create:
+        :param mock_bulk_update_new_esi:
+        :type mock_bulk_update_new_esi:
+        :param mock_campaign_values_list:
+        :type mock_campaign_values_list:
+        :param mock_get_structures:
+        :type mock_get_structures:
         :return:
         :rtype:
         """
 
-        structure_id = 12345
-        current_structures = {12345: 3}
+        mock_get_structures.return_value = [
+            SimpleNamespace(
+                structure_id=1,
+                alliance_id=100,
+                solar_system_id=200,
+                structure_type_id=300,
+                vulnerability_occupancy_level=0.5,
+                vulnerable_start_time=timezone.now(),
+                vulnerable_end_time=timezone.now(),
+            )
+        ]
+        mock_campaign_values_list.return_value = []
 
-        with patch.object(Campaign.objects, "all", autospec=True) as mock_all:
-            mock_all.return_value.values_list.return_value = [(12345,), (67890,)]
+        update_sov_structures(force_refresh=True)
 
-            result = current_structures.get(structure_id, 1)
+        mock_exclude.assert_called_once_with(pk__in={1})
 
-            self.assertEqual(result, 3)
+    @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch("sovtimer.tasks.Campaign.objects.values_list")
+    @patch("sovtimer.tasks.EveEntity.objects.bulk_update_new_esi")
+    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
+    def test_skips_structure_with_missing_or_duplicate_id(
+        self,
+        mock_bulk_create,
+        mock_bulk_update_new_esi,
+        mock_campaign_values_list,
+        mock_get_structures,
+    ):
+        """
+        Test that update_sov_structures skips structures with missing or duplicate IDs.
+
+        :param mock_bulk_create:
+        :type mock_bulk_create:
+        :param mock_bulk_update_new_esi:
+        :type mock_bulk_update_new_esi:
+        :param mock_campaign_values_list:
+        :type mock_campaign_values_list:
+        :param mock_get_structures:
+        :type mock_get_structures:
+        :return:
+        :rtype:
+        """
+
+        mock_get_structures.return_value = [
+            SimpleNamespace(
+                structure_id=None,
+                alliance_id=100,
+                solar_system_id=200,
+                structure_type_id=300,
+                vulnerability_occupancy_level=0.5,
+                vulnerable_start_time=timezone.now(),
+                vulnerable_end_time=timezone.now(),
+            ),
+            SimpleNamespace(
+                structure_id=1,
+                alliance_id=100,
+                solar_system_id=200,
+                structure_type_id=300,
+                vulnerability_occupancy_level=0.5,
+                vulnerable_start_time=timezone.now(),
+                vulnerable_end_time=timezone.now(),
+            ),
+            SimpleNamespace(
+                structure_id=1,
+                alliance_id=101,
+                solar_system_id=201,
+                structure_type_id=301,
+                vulnerability_occupancy_level=0.6,
+                vulnerable_start_time=timezone.now(),
+                vulnerable_end_time=timezone.now(),
+            ),
+        ]
+        mock_campaign_values_list.return_value = []
+
+        update_sov_structures(force_refresh=True)
+
+        created_structures = mock_bulk_create.call_args[0][0]
+
+        self.assertEqual(len(created_structures), 1)
+        self.assertEqual(created_structures[0].structure_id, 1)
