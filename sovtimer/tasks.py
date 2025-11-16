@@ -3,7 +3,7 @@ The tasks
 """
 
 # Third Party
-from celery import shared_task
+from celery import chain, shared_task
 
 # Django
 from django.core.cache import cache
@@ -65,8 +65,10 @@ def run_sov_campaign_updates() -> None:
 
     logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
 
-    update_sov_structures.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
-    update_sov_campaigns.apply_async(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS)
+    chain(
+        update_sov_structures.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
+        update_sov_campaigns.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
+    ).apply_async()
 
 
 @shared_task(**TASK_DEFAULTS_ONCE)
