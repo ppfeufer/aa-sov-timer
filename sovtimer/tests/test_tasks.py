@@ -421,16 +421,12 @@ class TestUpdateSovStructuresTask(BaseTestCase):
     @patch("sovtimer.models.EveEntity.objects.bulk_create")
     @patch("sovtimer.models.EveEntity.objects.bulk_update_new_esi")
     @patch("sovtimer.models.EveSolarSystem.objects.filter")
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
     @patch("sovtimer.tasks.logger.info")
     @patch("sovtimer.tasks.logger.debug")
     def test_updates_structures_and_logs_info(
         self,
         mock_logger_debug,
         mock_logger_info,
-        mock_cache_set,
-        mock_cache_get,
         mock_solar_system_filter,
         mock_bulk_update_new_esi,
         mock_eve_bulk_create,
@@ -446,10 +442,6 @@ class TestUpdateSovStructuresTask(BaseTestCase):
         :type mock_logger_debug:
         :param mock_logger_info:
         :type mock_logger_info:
-        :param mock_cache_set:
-        :type mock_cache_set:
-        :param mock_cache_get:
-        :type mock_cache_get:
         :param mock_solar_system_filter:
         :type mock_solar_system_filter:
         :param mock_bulk_update_new_esi:
@@ -468,7 +460,6 @@ class TestUpdateSovStructuresTask(BaseTestCase):
         :rtype:
         """
 
-        mock_cache_get.return_value = None
         mock_get_structures.return_value = [
             Mock(
                 structure_id=1,
@@ -502,27 +493,6 @@ class TestUpdateSovStructuresTask(BaseTestCase):
         mock_eve_bulk_create.assert_called_once()
         mock_bulk_create.assert_called_once()
         mock_bulk_update_new_esi.assert_called_once()
-        mock_cache_set.assert_called_once()
-
-    @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
-    @patch("sovtimer.tasks.cache.get")
-    def test_skips_update_when_cache_is_set(self, mock_cache_get, mock_get_structures):
-        """
-        Test that update_sov_structures skips update when cache is set.
-
-        :param mock_cache_get:
-        :type mock_cache_get:
-        :param mock_get_structures:
-        :type mock_get_structures:
-        :return:
-        :rtype:
-        """
-
-        mock_cache_get.return_value = True
-
-        update_sov_structures()
-
-        mock_get_structures.assert_not_called()
 
     @patch("sovtimer.models.SovereigntyStructure.get_sov_structures_from_esi")
     @patch("sovtimer.tasks.logger.info")
