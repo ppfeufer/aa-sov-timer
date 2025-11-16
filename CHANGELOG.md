@@ -47,6 +47,10 @@ Section Order:
 
 - Chaining update tasks to ensure they always run in the correct order
 
+### Removed
+
+- Task cache, since `django-esi` now handles ETag caching internally
+
 ## [3.2.0] - 2025-11-16
 
 ### Fixed

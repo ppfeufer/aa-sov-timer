@@ -6,7 +6,6 @@ The tasks
 from celery import chain, shared_task
 
 # Django
-from django.core.cache import cache
 from django.db import transaction
 
 # Alliance Auth
@@ -148,10 +147,6 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     This task is used to update the sovereignty structures from ESI.
     """
 
-    # Check if the cache indicates that the structures have already been updated
-    if not force_refresh and cache.get(ESI_SOV_STRUCTURES_CACHE_KEY):
-        return
-
     structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi(
         force_refresh=force_refresh
     )
@@ -251,9 +246,6 @@ def update_sov_structures(force_refresh: bool = False) -> None:
 
             # Delete structures that are no longer present in ESI
             SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()
-
-        # Set the cache to indicate that the structures have been updated
-        cache.set(key=ESI_SOV_STRUCTURES_CACHE_KEY, value=True, timeout=100)
 
         logger.info(
             msg=f"{len(sov_structures)} sovereignty structures updated from ESI."
