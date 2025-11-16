@@ -29,13 +29,13 @@ class TestRunSovCampaignUpdatesTask(BaseTestCase):
     Test the run_sov_campaign_updates task.
     """
 
-    @patch("sovtimer.tasks.update_sov_structures.apply_async")
-    @patch("sovtimer.tasks.update_sov_campaigns.apply_async")
-    def test_run_sov_campaign_updates_calls_tasks(
+    @patch("sovtimer.tasks.update_sov_structures.s")
+    @patch("sovtimer.tasks.update_sov_campaigns.s")
+    def test_updates_both_structures_and_campaigns(
         self, mock_update_campaigns, mock_update_structures
     ):
         """
-        Test that run_sov_campaign_updates calls the update tasks with correct args.
+        Test that run_sov_campaign_updates calls both update tasks with correct params.
 
         :param mock_update_campaigns:
         :type mock_update_campaigns:
@@ -47,52 +47,64 @@ class TestRunSovCampaignUpdatesTask(BaseTestCase):
 
         run_sov_campaign_updates()
 
-        mock_update_structures.assert_called_once_with(
-            priority=TASK_PRIORITY, once=TASK_ONCE_ARGS
-        )
-        mock_update_campaigns.assert_called_once_with(
-            priority=TASK_PRIORITY, once=TASK_ONCE_ARGS
-        )
+        mock_update_structures.assert_called_once()
+        mock_update_campaigns.assert_called_once()
 
-    def test_run_sov_campaign_updates_handles_exceptions(self):
+        struct_kwargs = mock_update_structures.return_value.set.call_args.kwargs
+        self.assertEqual(struct_kwargs.get("priority"), TASK_PRIORITY)
+        self.assertEqual(struct_kwargs.get("once"), TASK_ONCE_ARGS)
+
+        camp_kwargs = mock_update_campaigns.return_value.set.call_args.kwargs
+        self.assertEqual(camp_kwargs.get("priority"), TASK_PRIORITY)
+        self.assertEqual(camp_kwargs.get("once"), TASK_ONCE_ARGS)
+
+    @patch("sovtimer.tasks.update_sov_structures.s")
+    @patch("sovtimer.tasks.update_sov_campaigns.s")
+    def test_handles_exceptions_gracefully(
+        self, mock_update_campaigns, mock_update_structures
+    ):
         """
         Test that run_sov_campaign_updates handles exceptions gracefully.
 
+        :param mock_update_campaigns:
+        :type mock_update_campaigns:
+        :param mock_update_structures:
+        :type mock_update_structures:
         :return:
         :rtype:
         """
 
-        with (
-            patch(
-                "sovtimer.tasks.update_sov_structures.apply_async"
-            ) as mock_update_structures,
-            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
-        ):
-            mock_update_structures.side_effect = Exception("Test exception")
+        mock_update_structures.side_effect = Exception("Test exception")
 
-            with self.assertRaises(Exception) as exc:
-                run_sov_campaign_updates()
-
-            self.assertEqual(str(exc.exception), "Test exception")
-
-    def test_run_sov_campaign_updates_logs_messages(self):
-        """
-        Test that run_sov_campaign_updates logs the correct messages.
-
-        :return:
-        :rtype:
-        """
-
-        with (
-            patch("sovtimer.tasks.logger") as mock_logger,
-            patch("sovtimer.tasks.update_sov_structures.apply_async"),
-            patch("sovtimer.tasks.update_sov_campaigns.apply_async"),
-        ):
+        with self.assertRaises(Exception) as exc:
             run_sov_campaign_updates()
 
-            mock_logger.info.assert_any_call(
-                msg="Updating sovereignty structures and campaigns from ESI …"
-            )
+        self.assertEqual(str(exc.exception), "Test exception")
+
+    @patch("sovtimer.tasks.logger")
+    @patch("sovtimer.tasks.update_sov_structures.s")
+    @patch("sovtimer.tasks.update_sov_campaigns.s")
+    def test_logs_update_message(
+        self, mock_update_campaigns, mock_update_structures, mock_logger
+    ):
+        """
+        Test that run_sov_campaign_updates logs the update message.
+
+        :param mock_update_campaigns:
+        :type mock_update_campaigns:
+        :param mock_update_structures:
+        :type mock_update_structures:
+        :param mock_logger:
+        :type mock_logger:
+        :return:
+        :rtype:
+        """
+
+        run_sov_campaign_updates()
+
+        mock_logger.info.assert_called_once_with(
+            msg="Updating sovereignty structures and campaigns from ESI …"
+        )
 
 
 class TestUpdateSovCampaignsTask(BaseTestCase):

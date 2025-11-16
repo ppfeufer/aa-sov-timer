@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Chaining update tasks to ensure they always run in the correct order
+
 ## [3.2.0] - 2025-11-16
 
 ### Fixed
