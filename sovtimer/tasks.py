@@ -98,7 +98,7 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
     campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(force_refresh)
 
     # Exit early if no campaigns are returned
-    if not campaigns_from_esi:
+    if campaigns_from_esi is None:
         return
 
     # Log the number of campaigns fetched from ESI
@@ -183,7 +183,7 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     )
 
     # Exit early if no structures are returned
-    if not structures_from_esi:
+    if structures_from_esi is None:
         return
 
     logger.debug(
