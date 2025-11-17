@@ -43,6 +43,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.2.1] - 2025-11-17
+
 ### Changed
 
 - Task code cleaned up and simplified
@@ -892,5 +894,6 @@ And restart your supervisor.
 [3.0.0-beta.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v2.6.2...v3.0.0-beta.3 "v3.0.0-beta.3"
 [3.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.0.0...v3.1.0 "v3.1.0"
 [3.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.1.0...v3.2.0 "v3.2.0"
+[3.2.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.0...v3.2.1 "v3.2.1"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.1...HEAD "In Development"
