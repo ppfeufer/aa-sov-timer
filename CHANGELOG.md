@@ -45,6 +45,7 @@ Section Order:
 
 ### Changed
 
+- Task code cleaned up and simplified
 - Chaining update tasks to ensure they always run in the correct order
 
 ### Removed
