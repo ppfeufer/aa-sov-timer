@@ -4,12 +4,9 @@ from http import HTTPStatus
 # Django
 from django.urls import reverse
 
-# Alliance Auth (External Libs)
-from app_utils.testing import create_fake_user
-
 # AA Sovereignty Timer
 from sovtimer.tests import BaseTestCase
-from sovtimer.tests.utils import response_content_to_str
+from sovtimer.tests.utils import create_fake_user, response_content_to_str
 
 
 class TestClassAaSovtimerMenuItem(BaseTestCase):
