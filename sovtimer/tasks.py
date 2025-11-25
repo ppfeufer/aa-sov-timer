@@ -13,14 +13,14 @@ from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
 
 # Alliance Auth (External Libs)
-from app_utils.logging import LoggerAddTag
 from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
 from sovtimer.models import Campaign, SovereigntyStructure
+from sovtimer.providers import AppLogger
 
-logger = LoggerAddTag(my_logger=get_extension_logger(name=__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 
 ESI_ERROR_LIMIT = 50
