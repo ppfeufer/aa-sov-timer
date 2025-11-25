@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Ajax call refactored
+
 ### Removed
 
 - `allianceauth-app-utils` as dependency
