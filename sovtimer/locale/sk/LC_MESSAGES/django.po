@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-17 02:15+0100\n"
+"POT-Creation-Date: 2025-12-02 08:28+0100\n"
 "PO-Revision-Date: 2024-05-10 14:12+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Slovak <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/sk/>\n"
@@ -18,45 +18,45 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.3\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:34
+#: sovtimer/__init__.py:10 sovtimer/models.py:33
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr ""
 
-#: sovtimer/models.py:37
+#: sovtimer/models.py:36
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:73
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:75
+#: sovtimer/models.py:74
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:117
+#: sovtimer/models.py:116
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:118
+#: sovtimer/models.py:117
 msgid "TCU defense"
 msgstr ""
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:143
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:145
+#: sovtimer/models.py:144
 msgid "Sovereignty campaigns"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:167
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:147
 msgid "Yes"
 msgstr ""
 
-#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:160
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:140
 msgid "No"
 msgstr ""
 
@@ -128,14 +128,14 @@ msgstr ""
 msgid "Join our team of translators!"
 msgstr ""
 
-#: sovtimer/views.py:170
-msgid "Neither side has made any progress yet"
-msgstr ""
-
-#: sovtimer/views.py:178
+#: sovtimer/views.py:151
 msgid "Defenders making progress"
 msgstr ""
 
-#: sovtimer/views.py:186
+#: sovtimer/views.py:155
 msgid "Attackers making progress"
+msgstr ""
+
+#: sovtimer/views.py:159
+msgid "Neither side has made any progress yet"
 msgstr ""

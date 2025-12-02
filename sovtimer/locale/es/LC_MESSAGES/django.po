@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-17 02:15+0100\n"
+"POT-Creation-Date: 2025-12-02 08:28+0100\n"
 "PO-Revision-Date: 2025-07-29 20:18+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/es/>\n"
@@ -18,53 +18,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.12.2\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:34
+#: sovtimer/__init__.py:10 sovtimer/models.py:33
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Temporizador de Soberanía"
 
-#: sovtimer/models.py:37
+#: sovtimer/models.py:36
 msgid "Can access the Sovereignty Timer module"
 msgstr "Puede acceder al modulo temporizador de Soberanía"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:73
 msgid "Sovereignty structure"
 msgstr "Temporizador de Soberanía"
 
-#: sovtimer/models.py:75
+#: sovtimer/models.py:74
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "Temporizadores de Soberanía"
 
-#: sovtimer/models.py:117
+#: sovtimer/models.py:116
 #, fuzzy
 #| msgid "IHub Defense"
 msgid "Sov Hub defense"
 msgstr "Defensa del IHub"
 
-#: sovtimer/models.py:118
+#: sovtimer/models.py:117
 msgid "TCU defense"
 msgstr "Defensa del TCU"
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:143
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaign"
 msgstr "Lista de Campañas de Soberanía"
 
-#: sovtimer/models.py:145
+#: sovtimer/models.py:144
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
 msgstr "Lista de Campañas de Soberanía"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:167
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:147
 msgid "Yes"
 msgstr "Si"
 
-#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:160
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:140
 msgid "No"
 msgstr "No"
 
@@ -138,17 +138,17 @@ msgstr "¿Quieres ayudar a traducir esta aplicación a tu idioma o mejorar la tr
 msgid "Join our team of translators!"
 msgstr "¡Únete a nuestro equipo de traductores!"
 
-#: sovtimer/views.py:170
-msgid "Neither side has made any progress yet"
-msgstr "Ninguna de las partes ha hecho ningún progreso todavía"
-
-#: sovtimer/views.py:178
+#: sovtimer/views.py:151
 msgid "Defenders making progress"
 msgstr "Progreso del Defensor"
 
-#: sovtimer/views.py:186
+#: sovtimer/views.py:155
 msgid "Attackers making progress"
 msgstr "Progreso del Atacante"
+
+#: sovtimer/views.py:159
+msgid "Neither side has made any progress yet"
+msgstr "Ninguna de las partes ha hecho ningún progreso todavía"
 
 #~ msgid "Type"
 #~ msgstr "Tipo"

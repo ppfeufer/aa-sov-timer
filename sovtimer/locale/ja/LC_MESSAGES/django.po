@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2025-11-17 02:15+0100\n"
-"PO-Revision-Date: 2025-11-06 09:17+0000\n"
+"POT-Creation-Date: 2025-12-02 08:28+0100\n"
+"PO-Revision-Date: 2025-11-25 06:29+0000\n"
 "Last-Translator: Dexsar <dexsar.paf@gmail.com>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
 "Language: ja\n"
@@ -17,47 +17,47 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:34
+#: sovtimer/__init__.py:10 sovtimer/models.py:33
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "領有権タイマー"
 
-#: sovtimer/models.py:37
+#: sovtimer/models.py:36
 msgid "Can access the Sovereignty Timer module"
 msgstr "領有権タイマーのモジュールにアクセス可能です"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:73
 msgid "Sovereignty structure"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:75
+#: sovtimer/models.py:74
 msgid "Sovereignty structures"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:117
+#: sovtimer/models.py:116
 msgid "Sov Hub defense"
 msgstr "領有権ハブの防衛"
 
-#: sovtimer/models.py:118
+#: sovtimer/models.py:117
 msgid "TCU defense"
 msgstr "TCUの防衛"
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:143
 msgid "Sovereignty campaign"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/models.py:145
+#: sovtimer/models.py:144
 msgid "Sovereignty campaigns"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:167
+#: sovtimer/templates/sovtimer/dashboard.html:15 sovtimer/views.py:147
 msgid "Yes"
 msgstr "はい"
 
-#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:160
+#: sovtimer/templates/sovtimer/dashboard.html:16 sovtimer/views.py:140
 msgid "No"
 msgstr "いいえ"
 
@@ -71,19 +71,19 @@ msgstr "領土キャンペーンリスト"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
 msgid "Total"
-msgstr ""
+msgstr "合計"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Upcoming"
-msgstr ""
+msgstr "近日予定"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:31
 msgid "< 4hrs"
-msgstr ""
+msgstr "＜4時間（以内）"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:45
 msgid "Active"
-msgstr ""
+msgstr "現在有効"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
@@ -129,17 +129,17 @@ msgstr "このアプリをあなたの言語に翻訳するお手伝いをした
 msgid "Join our team of translators!"
 msgstr "翻訳者チームに参加しましょう！"
 
-#: sovtimer/views.py:170
-msgid "Neither side has made any progress yet"
-msgstr ""
-
-#: sovtimer/views.py:178
+#: sovtimer/views.py:151
 msgid "Defenders making progress"
-msgstr ""
+msgstr "防衛側が進展中"
 
-#: sovtimer/views.py:186
+#: sovtimer/views.py:155
 msgid "Attackers making progress"
-msgstr ""
+msgstr "攻撃側が進展中"
+
+#: sovtimer/views.py:159
+msgid "Neither side has made any progress yet"
+msgstr "両サイドとも未着手"
 
 #~ msgid "Type"
 #~ msgstr "タイプ"
