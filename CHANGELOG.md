@@ -43,9 +43,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.3.0] - 2025-12-02
+
 ### Changed
 
 - Ajax call refactored
+- Translations updated
 
 ### Removed
 
@@ -903,5 +906,6 @@ And restart your supervisor.
 [3.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.0.0...v3.1.0 "v3.1.0"
 [3.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.1.0...v3.2.0 "v3.2.0"
 [3.2.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.0...v3.2.1 "v3.2.1"
+[3.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.1...v3.3.0 "v3.3.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.0...HEAD "In Development"

@@ -75,7 +75,7 @@ Make sure you're in the virtual environment (venv) of your Alliance Auth install
 Then install the latest version:
 
 ```shell
-pip install aa-sov-timer==3.2.1
+pip install aa-sov-timer==3.3.0
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings"></a>
@@ -129,7 +129,7 @@ Once you have completed all previous steps, restart your AA supervisor service t
 Add the app to your `conf/requirements.txt`:
 
 ```text
-aa-sov-timer==3.2.1
+aa-sov-timer==3.3.0
 ```
 
 #### Step 2: Update Your AA Settings<a name="step-2-update-your-aa-settings-1"></a>
@@ -202,7 +202,7 @@ Then run the following commands from your AA project directory (the one that
 contains `manage.py`).
 
 ```shell
-pip install aa-sov-timer==3.2.1
+pip install aa-sov-timer==3.3.0
 
 python manage.py collectstatic
 python manage.py migrate
@@ -215,7 +215,7 @@ Finally, restart your AA supervisor service.
 To update your existing installation of AA Sovereignty Timer, all you need to do is to update the respective line in your `conf/requirements.txt` file to the latest version.
 
 ```text
-aa-sov-timer==3.2.1
+aa-sov-timer==3.3.0
 ```
 
 Now rebuild your containers and restart them:
