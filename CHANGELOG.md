@@ -43,6 +43,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Improve error handling during downtime
+  - Account for `HTTPError`
+  - Account for `RequestError`
+
 ## [3.3.0] - 2025-12-02
 
 ### Changed
