@@ -7,7 +7,7 @@ from http import HTTPStatus
 from unittest.mock import MagicMock
 
 # Third Party
-from aiopenapi3 import ContentTypeError
+from aiopenapi3 import ContentTypeError, HTTPError, RequestError
 
 # Alliance Auth
 from esi.exceptions import HTTPClientError, HTTPNotModified
@@ -104,6 +104,38 @@ class TestHandlerEsi(BaseTestCase):
         op.result.side_effect = HTTPClientError(
             HTTPStatus.BAD_REQUEST, {}, b"Client error"
         )
+
+        res = result(op)
+
+        self.assertIsNone(res)
+
+    def test_returns_none_when_http_error_occurs(self):
+        """
+        Test that the result function returns None when an HTTPError exception is raised.
+
+        :return:
+        :rtype:
+        """
+
+        op = MagicMock()
+        op.operation.operationId = "test_operation"
+        op.result.side_effect = HTTPError()
+
+        res = result(op)
+
+        self.assertIsNone(res)
+
+    def test_returns_none_when_request_error_occurs(self):
+        """
+        Test that the result function returns None when an RequestError exception is raised.
+
+        :return:
+        :rtype:
+        """
+
+        op = MagicMock()
+        op.operation.operationId = "test_operation"
+        op.result.side_effect = RequestError(op.operation, MagicMock(), b"", {})
 
         res = result(op)
 
