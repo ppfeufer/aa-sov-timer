@@ -43,6 +43,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.3.2] - 2026-01-05
+
+### Changed
+
+- Translations updated
+
 ## [3.3.1] - 2025-12-18
 
 ### Fixed
@@ -916,5 +922,6 @@ And restart your supervisor.
 [3.2.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.0...v3.2.1 "v3.2.1"
 [3.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.2.1...v3.3.0 "v3.3.0"
 [3.3.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.0...v3.3.1 "v3.3.1"
+[3.3.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.1...v3.3.2 "v3.3.2"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.2...HEAD "In Development"
