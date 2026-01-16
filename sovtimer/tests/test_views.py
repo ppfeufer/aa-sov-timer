@@ -156,8 +156,8 @@ class TestDashboardData(BaseTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(len(response.json()), 1)
-        self.assertEqual(response.json()[0]["solar_system_name"], "System A")
-        self.assertEqual(response.json()[0]["defender_name"], "Alliance A")
+        self.assertEqual(response.json()[0]["solar_system"]["sort"], "System A")
+        self.assertEqual(response.json()[0]["defender"]["sort"], "Alliance A")
         self.assertEqual(response.json()[0]["campaign_status"], "active")
 
     @patch("sovtimer.views.Campaign.Type")
@@ -305,5 +305,6 @@ class TestDashboardData(BaseTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(len(response.json()), 1)
         self.assertIn(
-            "Attackers making progress", response.json()[0]["campaign_progress"]
+            "Attackers making progress",
+            response.json()[0]["campaign_progress"]["display"],
         )

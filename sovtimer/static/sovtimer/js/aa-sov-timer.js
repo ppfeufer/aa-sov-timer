@@ -45,19 +45,21 @@ $(document).ready(() => {
     /**
      * Remove search from column control.
      *
-     * @param {Array} columnControl Column control.
-     * @param {int} index Index of the column to remove search from.
      * @return {Array} Modified column control.
      * @private
      */
-    const _removeSearchFromColumnControl = (columnControl, index = 1) => {
-        const cc = JSON.parse(JSON.stringify(columnControl));
+    const _removeSearchFromColumnControl = () => {
+        return sovtimerSettings.dataTables.columnControl.map((control, index) => index === 1 ? { ...control, content: [] } : control);
+    };
 
-        if (cc[index]) {
-            cc[index].content = [];
-        }
-
-        return cc;
+    /**
+     * Remove all controls from column control.
+     *
+     * @return {Array} Modified column control.
+     * @private
+     */
+    const _removeColumnControl = () => { // eslint-disable-line no-unused-vars
+        return sovtimerSettings.dataTables.columnControl.map((control) => ({ ...control, content: [] }));
     };
 
     /**
@@ -95,16 +97,17 @@ $(document).ready(() => {
         const counts = data.reduce((campaigns, item) => {
             campaigns.total++;
 
-            if (
-                item.active_campaign === sovtimerSettings.translation.no
-                && item.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold // jshint ignore:line
-            ) {
-                campaigns.upcoming++;
+            if (item.campaign_status && Object.prototype.hasOwnProperty.call(campaigns, item.campaign_status)) {
+                campaigns[item.campaign_status]++;
             }
 
-            if (item.active_campaign === sovtimerSettings.translation.yes) {
-                campaigns.active++;
-            }
+            // if (item.campaign_status === 'upcoming') {
+            //     campaigns.upcoming++;
+            // }
+            //
+            // if (item.campaign_status === 'active') {
+            //     campaigns.active++;
+            // }
 
             return campaigns;
         }, {total: 0, upcoming: 0, active: 0});
@@ -132,33 +135,33 @@ $(document).ready(() => {
                     // Column: 0 - System
                     {
                         data: {
-                            display: d => d.solar_system_name_html,
-                            sort: d => d.solar_system_name,
-                            filter: d => d.solar_system_name
+                            display: d => d.solar_system.display,
+                            sort: d => d.solar_system.sort,
+                            filter: d => d.solar_system.sort
                         }
                     },
                     // Column: 1 - Constellation
                     {
                         data: {
-                            display: d => d.constellation_name_html,
-                            sort: d => d.constellation_name,
-                            filter: d => d.constellation_name
+                            display: d => d.constellation.display,
+                            sort: d => d.constellation.sort,
+                            filter: d => d.constellation.sort
                         }
                     },
                     // Column: 2 - Region
                     {
                         data: {
-                            display: d => d.region_name_html,
-                            sort: d => d.region_name,
-                            filter: d => d.region_name
+                            display: d => d.region.display,
+                            sort: d => d.region.sort,
+                            filter: d => d.region.sort
                         }
                     },
                     // Column: 3 - Defender
                     {
                         data: {
-                            display: d => d.defender_name_html,
-                            sort: d => d.defender_name,
-                            filter: d => d.defender_name
+                            display: d => d.defender.display,
+                            sort: d => d.defender.sort,
+                            filter: d => d.defender.sort
                         }
                     },
                     // Column: 4 - Activity Defense Multiplier
@@ -176,16 +179,16 @@ $(document).ready(() => {
                     // Column: 6 - Remaining Time
                     {
                         data: {
-                            display: d => d.remaining_time,
-                            sort: d => parseInt(d.remaining_time_in_seconds, 10),
-                            filter: d => parseInt(d.remaining_time_in_seconds, 10)
+                            display: d => d.remaining_time.display,
+                            sort: d => d.remaining_time.seconds,
+                            filter: d => d.remaining_time.seconds
                         }
                     },
                     // Column: 7 - Campaign Progress
                     {
                         data: {
-                            display: d => d.campaign_progress,
-                            sort: d => d.campaign_progress,
+                            display: d => d.campaign_progress.display,
+                            sort: d => d.campaign_progress.current,
                             filter: d => d.campaign_status
                         }
                     }
@@ -193,25 +196,18 @@ $(document).ready(() => {
                 columnDefs: [
                     {
                         targets: [4, 5, 6, 7],
-                        columnControl: _removeSearchFromColumnControl(sovtimerSettings.dataTables.columnControl, 1)
+                        columnControl: _removeSearchFromColumnControl()
                     },
-                    {target: 6, type: 'string', width: 175},
-                    {target: 7, type: 'string', width: 175}
+                    {
+                        targets: [6, 7],
+                        type: 'float',
+                        width: 175
+                    },
                 ],
                 order: [[5, 'asc']],
                 createdRow: (row, data) => {
-                    // Upcoming timer (< 4 hrs)
-                    if (
-                        data.active_campaign === sovtimerSettings.translation.no
-                        && data.remaining_time_in_seconds <= sovtimerSettings.upcomingTimerThreshold // jshint ignore: line
-                    ) {
-                        $(row).addClass('aa-sovtimer-upcoming-campaign');
-                    }
-
-                    // Active timer
-                    if (data.active_campaign === sovtimerSettings.translation.yes) {
-                        $(row).addClass('aa-sovtimer-active-campaign');
-                    }
+                    // Add a class for upcoming or active campaigns
+                    $(row).addClass(`aa-sovtimer-${data.campaign_status}-campaign`);
                 },
                 paging: false,
                 initComplete: () => {
@@ -226,7 +222,7 @@ $(document).ready(() => {
                         return {
                             rowIdx,
                             cellNode: dt.cell(rowIdx, 6).node(),
-                            remainingSeconds: Number(rowData.remaining_time_in_seconds)
+                            remainingSeconds: Number(rowData.remaining_time.seconds)
                         };
                     });
 
@@ -242,7 +238,7 @@ $(document).ready(() => {
                             return {
                                 rowIdx,
                                 cellNode: dt.cell(rowIdx, 6).node(),
-                                remainingSeconds: Number(rowData.remaining_time_in_seconds)
+                                remainingSeconds: Number(rowData.remaining_time.seconds)
                             };
                         });
                     };

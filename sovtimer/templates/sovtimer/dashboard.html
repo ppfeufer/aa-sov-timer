@@ -12,17 +12,10 @@
 {% endblock %}
 
 {% block extra_javascript %}
-    {% translate "Yes" as yes %}
-    {% translate "No" as no %}
-
     <script>
         const sovtimerJsSettingsOverride = {
             url: {
                 ajaxUpdate: '{% url "sovtimer:dashboard_data" %}'
-            },
-            translation: {
-                yes: '{{ yes|escapejs }}',
-                no: '{{ no|escapejs }}',
             },
             upcomingTimerThreshold: 4 * 60 * 60, // 4 hours in seconds
         };

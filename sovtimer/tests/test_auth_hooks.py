@@ -24,7 +24,7 @@ class TestClassAaSovtimerMenuItem(BaseTestCase):
 
         # User
         cls.user_1001 = create_fake_user(
-            character_id=1001, character_name="Peter Parker"
+            character_id=1009, character_name="Peter Parker"
         )
 
         cls.html_menu = f"""
