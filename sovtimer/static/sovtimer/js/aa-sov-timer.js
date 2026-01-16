@@ -169,7 +169,7 @@ $(document).ready(() => {
                     {
                         data: {
                             display: d => d.start_time ? moment(d.start_time).utc().format(sovtimerSettings.datetimeFormat.datetimeLong) : '',
-                            sort: d => d.start_time || '',
+                            sort: d => d.start_time ? moment(d.start_time).unix() : 0,
                             filter: d => d.start_time || ''
                         }
                     },
