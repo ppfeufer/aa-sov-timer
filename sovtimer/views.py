@@ -136,15 +136,12 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
         curr_formatted = _fmt_float_to_percentage(campaign.progress_current)
 
         campaign_progress_html = curr_formatted
-
-        active_campaign = _("No")
         campaign_status = "inactive"
 
         if 0 <= remaining_time_in_seconds <= 14400:
             campaign_status = "upcoming"
 
         if remaining_time_in_seconds < 0:
-            active_campaign = _("Yes")
             campaign_status = "active"
 
             if campaign.progress_previous < campaign.progress_current:
@@ -182,21 +179,35 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
         data.append(
             {
-                "event_type": Campaign.Type(campaign.event_type).label,
-                "solar_system_name": campaign_system_name,
-                "solar_system_name_html": solar_system_name_html,
-                "constellation_name": constellation_name,
-                "constellation_name_html": constellation_name_html,
-                "region_name": region_name,
-                "region_name_html": region_name_html,
-                "defender_name": defender_name,
-                "defender_name_html": defender_name_html,
+                # "event_type": Campaign.Type(campaign.event_type).label,
+                "solar_system": {
+                    "display": solar_system_name_html,
+                    "sort": campaign_system_name,
+                },
+                "constellation": {
+                    "display": constellation_name_html,
+                    "sort": constellation_name,
+                },
+                "region": {
+                    "display": region_name_html,
+                    "sort": region_name,
+                },
+                "defender": {
+                    "display": defender_name_html,
+                    "sort": defender_name,
+                },
                 "adm": structure_adm,
                 "start_time": start_time,
-                "remaining_time": "",
-                "remaining_time_in_seconds": remaining_time_in_seconds,
-                "campaign_progress": campaign_progress_html,
-                "active_campaign": active_campaign,
+                "remaining_time": {
+                    "display": "",
+                    "seconds": remaining_time_in_seconds,
+                },
+                # "remaining_time_in_seconds": remaining_time_in_seconds,
+                "campaign_progress": {
+                    "current": campaign.progress_current,
+                    "previous": campaign.progress_previous,
+                    "display": campaign_progress_html,
+                },
                 "campaign_status": campaign_status,
             }
         )

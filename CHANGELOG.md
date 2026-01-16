@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- DataTable processing refactored/improved
 - Enabled global search in the campaign table
 - Allow clicking on table headers to change the sorting order
 
