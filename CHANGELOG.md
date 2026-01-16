@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- Allow click on table headers to change the sorting order
+
 ## [3.3.2] - 2026-01-05
 
 ### Changed
