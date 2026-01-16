@@ -49,6 +49,7 @@ Section Order:
 
 ### Changed
 
+- Enabled global search in the campaign table
 - Allow clicking on table headers to change the sorting order
 
 ## [3.3.2] - 2026-01-05

@@ -33,15 +33,15 @@
                     dataTables: {
                         paging: true,
                         languageUrl: '{{ DT_LANG_PATH }}',
-                        layout: {
+                        layout: { // see https://datatables.net/reference/option/layout
                             topStart: 'pageLength',
-                            topEnd: null, // Removing the default search bar (Default is 'search', see https://datatables.net/reference/option/layout#Default)
+                            topEnd: 'search',
                             bottomStart: 'info',
                             bottomEnd: 'paging'
                         },
-                        ordering: {
-                            indicators: false,
-                            handler: true
+                        ordering: { // https://datatables.net/reference/option/ordering
+                            handler: true, // Enable ordering by clicking on column headers
+                            indicators: false, // Disable ordering indicators on column headers so ColumnControl can manage them
                         },
                         columnControl: [
                             {
