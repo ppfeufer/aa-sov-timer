@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Removed
+
+- Unexpected argument from task chain
+
 ## [3.5.0] - 2026-01-23
 
 > [!IMPORTANT]

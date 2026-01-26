@@ -73,8 +73,8 @@ def run_sov_campaign_updates() -> None:
 
     # Chain the update tasks for structures and campaigns, and execute them asynchronously
     chain(
-        update_sov_structures.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
-        update_sov_campaigns.s().set(priority=TASK_PRIORITY, once=TASK_ONCE_ARGS),
+        update_sov_structures.s().set(priority=TASK_PRIORITY),
+        update_sov_campaigns.s().set(priority=TASK_PRIORITY),
     ).apply_async()
 
 

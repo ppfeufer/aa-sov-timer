@@ -61,6 +61,12 @@ ______________________________________________________________________
 >
 > Please make sure you meet all preconditions before you proceed.
 
+> [!IMPORTANT]
+>
+> This app is utilising features that are only available in Alliance Auth >= 4.12.0.
+> Please make sure to update your Alliance Auth instance before installing this app,
+> otherwise, an update to Alliance Auth will be pulled in unsupervised.
+
 - AA Sovereignty Timer is a plugin for Alliance Auth. If you don't have Alliance
   Auth running already, please install it first before proceeding. (see the official
   [AA installation guide](https://allianceauth.readthedocs.io/en/latest/installation/allianceauth.html) for details)
