@@ -12,7 +12,6 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 import sovtimer.tasks as tasks_module
 from sovtimer.models import Campaign, SovereigntyStructure
 from sovtimer.tasks import (
-    TASK_ONCE_ARGS,
     TASK_PRIORITY,
     run_sov_campaign_updates,
     update_sov_campaigns,
@@ -49,11 +48,9 @@ class TestRunSovCampaignUpdatesTask(BaseTestCase):
 
         struct_kwargs = mock_update_structures.return_value.set.call_args.kwargs
         self.assertEqual(struct_kwargs.get("priority"), TASK_PRIORITY)
-        self.assertEqual(struct_kwargs.get("once"), TASK_ONCE_ARGS)
 
         camp_kwargs = mock_update_campaigns.return_value.set.call_args.kwargs
         self.assertEqual(camp_kwargs.get("priority"), TASK_PRIORITY)
-        self.assertEqual(camp_kwargs.get("once"), TASK_ONCE_ARGS)
 
     @patch("sovtimer.tasks.update_sov_structures.s")
     @patch("sovtimer.tasks.update_sov_campaigns.s")
