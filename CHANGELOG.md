@@ -43,6 +43,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Added
+
+- Background to "Total Campaigns" filter above the campaign table to indicate
+  the current filter
+
 ### Removed
 
 - Unexpected argument from task chain

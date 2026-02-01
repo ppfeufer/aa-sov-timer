@@ -46,6 +46,12 @@
         --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
     }
 
+    #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active,
+    #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active small {
+        background-color: var(--bs-primary-bg-subtle);
+        color: var(--bs-primary-text-emphasis) !important;
+    }
+
     #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active,
     #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active small {
         background-color: var(--bs-danger-bg-subtle);
