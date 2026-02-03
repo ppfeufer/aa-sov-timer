@@ -43,10 +43,16 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [3.5.1] - 2026-02-03
+
 ### Added
 
 - Background to "Total Campaigns" filter above the campaign table to indicate
   the current filter
+
+### Changed
+
+- Translations updated
 
 ### Removed
 
@@ -960,5 +966,6 @@ And restart your supervisor.
 [3.3.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.1...v3.3.2 "v3.3.2"
 [3.4.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.3.2...v3.4.0 "v3.4.0"
 [3.5.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.4.0...v3.5.0 "v3.5.0"
+[3.5.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.0...v3.5.1 "v3.5.1"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.1...HEAD "In Development"
