@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # erka Ekanon <M6musicT@hotmail.fr>, 2024.
-# Peter Pfeufer <info@ppfeufer.de>, 2024.
+# Peter Pfeufer <info@ppfeufer.de>, 2024, 2026.
 # Matthias P <randomusernetcom@gmail.com>, 2024.
 # Houbi_Houba <paul.lacape@live.fr>, 2024.
 # Mickael Gr4vity <patte.mickael@gmail.com>, 2024.
@@ -13,16 +13,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-01-16 23:52+0100\n"
-"PO-Revision-Date: 2025-09-22 09:43+0000\n"
-"Last-Translator: Hugo REGIBO <hugo@hugoregibo.be>\n"
+"POT-Creation-Date: 2026-02-03 14:48+0100\n"
+"PO-Revision-Date: 2026-02-01 14:23+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:33
 #: sovtimer/templates/sovtimer/base.html:7
@@ -68,7 +68,7 @@ msgstr "Liste des compagnes pour la souveraineté"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:16
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:30
 msgid "Upcoming"
@@ -80,7 +80,7 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:45
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
