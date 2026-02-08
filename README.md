@@ -22,7 +22,9 @@ ______________________________________________________________________
 <!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
 - [Screenshots](#screenshots)
-  - [AA Sov Timer Dashboard](#aa-sov-timer-dashboard)
+  - [All Timers](#all-timers)
+  - [Upcoming Timers (Filtered)](#upcoming-timers-filtered)
+  - [Active Timers (Filtered)](#active-timers-filtered)
 - [Installation](#installation)
   - [Bare Metal Installation](#bare-metal-installation)
     - [Step 1: Installing the App](#step-1-installing-the-app)
@@ -51,9 +53,17 @@ ______________________________________________________________________
 
 ## Screenshots<a name="screenshots"></a>
 
-### AA Sov Timer Dashboard<a name="aa-sov-timer-dashboard"></a>
+### All Timers<a name="all-timers"></a>
 
-![AA Sov Timer Dashboard](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer.jpg "AA Sov Timer Dashboard")
+![AA Sov Timer DashboardAA Sov Timer (All Timers)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer.jpg "AA Sov Timer (All Timers)")
+
+### Upcoming Timers (Filtered)<a name="upcoming-timers-filtered"></a>
+
+![AA Sov Timer (Upcoming Timers)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-upcoming-filtered.jpg "AA Sov Timer (Upcoming Timers)")
+
+### Active Timers (Filtered)<a name="active-timers-filtered"></a>
+
+![AA Sov Timer (Active Timers)](https://raw.githubusercontent.com/ppfeufer/aa-sov-timer/master/docs/images/presentation/aa-sov-timer-active-filtered.jpg "AA Sov Timer (Active Timers)")
 
 ## Installation<a name="installation"></a>
 
