@@ -9,12 +9,13 @@
 # AKA Patrick <hsc844766246@gmail.com>, 2025.
 # LichenKass <yuanchengwei_sz@163.com>, 2025.
 # nm l <mmttyyluo@gmail.com>, 2026.
+# shkno <l13244536339@163.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
 "POT-Creation-Date: 2026-02-03 14:48+0100\n"
-"PO-Revision-Date: 2026-01-26 02:17+0000\n"
+"PO-Revision-Date: 2026-02-12 05:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -85,7 +86,7 @@ msgstr "运行中"
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
 #, fuzzy
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "活动列表每30秒自动刷新，进行中活动进度展示格式：往期数值-趋势-当前数值"
+msgstr "活动列表每30秒自动刷新，进行中活动进度展示格式：往期数值-趋势-当前数值。"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
 msgid "System"

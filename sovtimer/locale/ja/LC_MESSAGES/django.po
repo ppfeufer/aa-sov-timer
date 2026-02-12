@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
 "POT-Creation-Date: 2026-02-03 14:48+0100\n"
-"PO-Revision-Date: 2026-02-01 14:23+0000\n"
+"PO-Revision-Date: 2026-02-05 01:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
 "Language: ja\n"
@@ -55,7 +55,7 @@ msgstr "領有権キャンペーン"
 
 #: sovtimer/templates/sovtimer/partials/common/spinner.html:8
 msgid "Loading …"
-msgstr "Loading …"
+msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
