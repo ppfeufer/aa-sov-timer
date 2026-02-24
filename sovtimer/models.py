@@ -14,8 +14,7 @@ from eveuniverse.models import EveEntity, EveSolarSystem
 
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.handler import esi_handler
-from sovtimer.providers import AppLogger, esi
+from sovtimer.providers import AppLogger, ESIHandler
 
 logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -85,9 +84,8 @@ class SovereigntyStructure(models.Model):
         :rtype:
         """
 
-        operation = esi.client.Sovereignty.GetSovereigntyStructures()
-        sov_structures_from_esi = esi_handler.result(
-            operation=operation, force_refresh=force_refresh
+        sov_structures_from_esi = ESIHandler.get_sovereignty_structures(
+            force_refresh=force_refresh
         )
 
         if sov_structures_from_esi:
@@ -152,9 +150,8 @@ class Campaign(models.Model):
         :return:
         """
 
-        operation = esi.client.Sovereignty.GetSovereigntyCampaigns()
-        campaigns_from_esi = esi_handler.result(
-            operation=operation, force_refresh=force_refresh
+        campaigns_from_esi = ESIHandler.get_sovereignty_campaigns(
+            force_refresh=force_refresh
         )
 
         if campaigns_from_esi:

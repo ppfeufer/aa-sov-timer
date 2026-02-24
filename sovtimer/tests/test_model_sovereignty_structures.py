@@ -3,13 +3,7 @@ Unit tests for the SovereigntyStructure model's interaction with ESI.
 """
 
 # Standard Library
-from unittest.mock import MagicMock, patch
-
-# Third Party
-from aiopenapi3 import ContentTypeError
-
-# Alliance Auth
-from esi.exceptions import HTTPClientError, HTTPNotModified
+from unittest.mock import patch
 
 # AA Sovereignty Timer
 from sovtimer.models import SovereigntyStructure
@@ -21,80 +15,86 @@ class SovereigntyStructureESITestCase(BaseTestCase):
     Test suite for the SovereigntyStructure model's interaction with ESI.
     """
 
-    def test_gets_sov_structures_from_esi_with_valid_data(self):
+    def test_returns_sov_structures_when_esi_returns_data(self):
         """
-        Test fetching sovereignty structures from ESI with valid data.
+        Test that sovereignty structures are returned when ESI provides data.
 
         :return:
         :rtype:
         """
 
-        mock_esi_client = MagicMock()
-        mock_esi_client.Sovereignty.GetSovereigntyStructures.return_value.result.return_value = [
-            {"structure_id": 1},
-            {"structure_id": 2},
-        ]
+        with patch(
+            "sovtimer.models.ESIHandler.get_sovereignty_structures"
+        ) as mock_esi_handler:
+            mock_esi_handler.return_value = [{"structure_id": 1}, {"structure_id": 2}]
 
-        with patch("sovtimer.models.esi") as mock_esi_module:
-            mock_esi_module.client = mock_esi_client
             result = SovereigntyStructure.get_sov_structures_from_esi()
 
-            self.assertEqual(result, [{"structure_id": 1}, {"structure_id": 2}])
+            self.assertEqual(len(result), 2)
+            mock_esi_handler.assert_called_once_with(force_refresh=False)
 
-    def test_returns_none_when_no_changes_in_sov_structures(self):
+    def test_returns_empty_list_when_esi_returns_no_data(self):
         """
-        Test handling of no changes in sovereignty structures from ESI.
+        Test that an empty list is returned when ESI provides no data.
 
         :return:
         :rtype:
         """
 
-        mock_esi_client = MagicMock()
-        mock_esi_client.Sovereignty.GetSovereigntyStructures.return_value.result.side_effect = HTTPNotModified(
-            status_code=304, headers={}
-        )
+        with patch(
+            "sovtimer.models.ESIHandler.get_sovereignty_structures"
+        ) as mock_esi_handler:
+            mock_esi_handler.return_value = []
 
-        with patch("sovtimer.models.esi") as mock_esi_module:
-            mock_esi_module.client = mock_esi_client
             result = SovereigntyStructure.get_sov_structures_from_esi()
 
-            self.assertIsNone(result)
+            self.assertEqual(result, [])
+            mock_esi_handler.assert_called_once_with(force_refresh=False)
 
-    def test_handles_content_type_error_in_sov_structures(self):
+    def test_logs_info_message_when_no_data_is_returned(self):
         """
-        Test handling of ContentTypeError when fetching sovereignty structures from ESI.
+        Test that an info message is logged when ESI returns no data.
 
         :return:
         :rtype:
         """
 
-        mock_esi_client = MagicMock()
-        mock_esi_client.Sovereignty.GetSovereigntyStructures.return_value.result.side_effect = ContentTypeError(
-            operation="dummy_op",
-            content_type="application/json",
-            message="dummy message",
-            response=None,
-        )
+        with (
+            patch(
+                "sovtimer.models.ESIHandler.get_sovereignty_structures"
+            ) as mock_esi_handler,
+            patch("sovtimer.models.logger.info") as mock_logger,
+        ):
+            mock_esi_handler.return_value = []
 
-        with patch("sovtimer.models.esi") as mock_esi_module:
-            mock_esi_module.client = mock_esi_client
-            result = SovereigntyStructure.get_sov_structures_from_esi()
+            SovereigntyStructure.get_sov_structures_from_esi()
 
-            self.assertIsNone(result)
+            mock_logger.assert_called_once_with(
+                msg="No sovereignty structure changes found, nothing to update."
+            )
 
-    def test_handles_httpclienterror_error_in_sov_structures(self):
+    def test_logs_debug_message_when_data_is_returned(self):
         """
-        Test handling of HTTPClientError when fetching sovereignty structures from ESI.
+        Test that a debug message is logged when ESI returns data.
 
         :return:
         :rtype:
         """
 
-        mock_esi_client = MagicMock()
-        mock_esi_client.Sovereignty.GetSovereigntyStructures.return_value.result.side_effect = HTTPClientError(
-            "HTTPClientError", {}, {}
-        )
-        with patch("sovtimer.models.esi") as mock_esi_module:
-            mock_esi_module.client = mock_esi_client
-            result = SovereigntyStructure.get_sov_structures_from_esi()
-            self.assertIsNone(result)
+        with (
+            patch(
+                "sovtimer.models.ESIHandler.get_sovereignty_structures"
+            ) as mock_esi_handler,
+            patch("sovtimer.models.logger.debug") as mock_logger,
+        ):
+            mock_esi_handler.return_value = [{"structure_id": 1}, {"structure_id": 2}]
+
+            SovereigntyStructure.get_sov_structures_from_esi()
+
+            self.assertEqual(mock_logger.call_count, 2)
+            mock_logger.assert_any_call(
+                msg="Fetched 2 sovereignty structures from ESI."
+            )
+            mock_logger.assert_any_call(
+                msg="Sovereignty structure data: [{'structure_id': 1}, {'structure_id': 2}]"
+            )

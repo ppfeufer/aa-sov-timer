@@ -4,15 +4,23 @@ Providers
 
 # Standard Library
 import logging
+from typing import Any
+
+# Third Party
+from aiopenapi3 import ContentTypeError
+from httpx import Response
 
 # Alliance Auth
-from esi.openapi_clients import ESIClientProvider
+from allianceauth.services.hooks import get_extension_logger
+from esi.exceptions import HTTPClientError, HTTPNotModified
+from esi.openapi_clients import ESIClientProvider, EsiOperation
 
 # AA Sovereignty Timer
 from sovtimer import (
     __app_name_verbose__,
     __esi_compatibility_date__,
     __github_url__,
+    __title__,
     __version__,
 )
 
@@ -24,8 +32,116 @@ esi = ESIClientProvider(
     ua_appname=__app_name_verbose__,
     ua_version=__version__,
     ua_url=__github_url__,
-    operations=["GetSovereigntyCampaigns", "GetSovereigntyStructures"],
+    operations=[
+        # Sovereignty
+        "GetSovereigntyCampaigns",
+        "GetSovereigntyStructures",
+        # Universe
+        "GetUniverseConstellationsConstellationId",
+        "GetUniverseRegionsRegionId",
+        "GetUniverseSolarSystemsSolarSystemId",
+    ],
 )
+
+
+class ESIHandler:
+    """
+    Handler for ESI operations, providing a method to retrieve results while handling exceptions.
+    """
+
+    @classmethod
+    def result(  # pylint: disable=too-many-arguments, too-many-positional-arguments
+        cls,
+        operation: EsiOperation,
+        use_etag: bool = True,
+        return_response: bool = False,
+        force_refresh: bool = False,
+        use_cache: bool = True,
+        **extra,
+    ) -> tuple[Any, Response] | Any:
+        """
+        Retrieve the result of an ESI operation, handling HTTPNotModified exceptions.
+
+        :param operation: The ESI operation to execute.
+        :type operation: EsiOperation
+        :param use_etag: Whether to use ETag for caching.
+        :type use_etag: bool
+        :param return_response: Whether to return the full response object.
+        :type return_response: bool
+        :param force_refresh: Whether to force a refresh of the data.
+        :type force_refresh: bool
+        :param use_cache: Whether to use cached data.
+        :type use_cache: bool
+        :param extra: Additional parameters to pass to the operation.
+        :type extra: dict
+        :return: The result of the ESI operation, optionally with the response object.
+        :rtype: tuple[Any, Response] | Any
+        """
+
+        logger.debug(f"Handling ESI operation: {operation.operation.operationId}")
+
+        try:
+            esi_result = operation.result(
+                use_etag=use_etag,
+                return_response=return_response,
+                force_refresh=force_refresh,
+                use_cache=use_cache,
+                **extra,
+            )
+        except HTTPNotModified:
+            logger.debug(
+                f"ESI returned 304 Not Modified for operation: {operation.operation.operationId} - Skipping update."
+            )
+
+            esi_result = None
+        except ContentTypeError:
+            logger.warning(
+                msg="ESI returned gibberish (ContentTypeError) - Skipping update."
+            )
+
+            esi_result = None
+        except HTTPClientError as exc:
+            logger.error(msg=f"Error while fetching data from ESI: {str(exc)}")
+
+            esi_result = None
+
+        return esi_result
+
+    @classmethod
+    def get_sovereignty_campaigns(
+        cls, force_refresh: bool = False
+    ) -> list[dict] | None:
+        """
+        Get sovereignty campaigns from ESI.
+
+        :return: List of sovereignty campaigns or None if an error occurred.
+        :rtype: list[dict] | None
+        """
+
+        logger.debug("Fetching sovereignty campaigns from ESI...")
+
+        return cls.result(
+            operation=esi.client.Sovereignty.GetSovereigntyCampaigns(),
+            force_refresh=force_refresh,
+        )
+
+    @classmethod
+    def get_sovereignty_structures(
+        cls, force_refresh: bool = False
+    ) -> list[dict] | None:
+        """
+        Get sovereignty structures from ESI.
+
+        :return: List of sovereignty structures or None if an error occurred.
+        :rtype: list[dict] | None
+        """
+
+        logger.debug("Fetching sovereignty structures from ESI...")
+
+        return cls.result(
+            operation=esi.client.Sovereignty.GetSovereigntyStructures(),
+            force_refresh=force_refresh,
+        )
 
 
 class AppLogger(logging.LoggerAdapter):
@@ -63,3 +179,6 @@ class AppLogger(logging.LoggerAdapter):
         """
 
         return f"[{self.prefix}] {msg}", kwargs
+
+
+logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
