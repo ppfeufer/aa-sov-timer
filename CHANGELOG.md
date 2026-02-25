@@ -43,6 +43,67 @@ Section Order:
 
 <!-- Your changes go here -->
 
+> [!IMPORTANT]
+>
+> This version includes a dependency change, so please make sure to read the update
+> instructions carefully before updating to this version, otherwise, the app will
+> not work properly.
+
+### Changed
+
+- Moved the operational code away from `eveuniverse`, using `django-eveonline-sde`
+  instead, for all static EVE data. This also means that the SDE needs to be imported
+  into the database now, which is done via a management command. Please make sure to
+  run this command after updating to this version; otherwise, the app will not work
+  properly.
+
+### Update Instructions
+
+After installing this version, modify your `INSTALLED_APPS` in your `local.py` (or
+`conf/local.py` for Docker installations):
+
+```python
+INSTALLED_APPS = [
+    # ...
+    "eve_sde",  # Only if not already added for another app
+    "sovtimer",  # This one should already be in there
+    # ...
+]
+
+# This line is right below the `INSTALLED_APPS` list, and only if not already added for another app
+INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+```
+
+Add the following new task to ensure the SDE data is kept up to date:
+
+```python
+if "eve_sde" in INSTALLED_APPS:
+    # Run at 12:00 UTC each day
+    CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+        "task": "eve_sde.tasks.check_for_sde_updates",
+        "schedule": crontab(minute="0", hour="12"),
+    }
+```
+
+After running migrations, make sure to run the following commands to import the SDE
+data into your database:
+
+#### Bare Metal Installations
+
+```shell
+python manage.py esde_load_sde
+python manage.py sovtimer_load_initial_data
+```
+
+Restart your supervisor after running the commands.
+
+#### Docker Installations
+
+```shell
+auth esde_load_sde
+pauth sovtimer_load_initial_data
+```
+
 ## [3.5.1] - 2026-02-03
 
 ### Added

@@ -1,5 +1,5 @@
 """
-Test the app settings in local.py
+Tests for the app settings
 """
 
 # Django
@@ -12,27 +12,27 @@ from sovtimer.tests import BaseTestCase
 
 class TestAppSettings(BaseTestCase):
     """
-    Tests for App Settings
+    Test the app settings
     """
 
-    @override_settings(DEBUG=True)
-    def test_debug_enabled_with_debug_true(self) -> None:
+    def test_returns_true_when_debug_is_enabled(self):
         """
-        Test debug_enabled with DEBUG = True
+        Test that the debug_enabled function returns True when DEBUG is enabled
 
         :return:
         :rtype:
         """
 
-        self.assertTrue(debug_enabled())
+        with override_settings(DEBUG=True):
+            self.assertTrue(debug_enabled())
 
-    @override_settings(DEBUG=False)
-    def test_debug_enabled_with_debug_false(self) -> None:
+    def test_returns_false_when_debug_is_disabled(self):
         """
-        Test debug_enabled with DEBUG = False
+        Test that the debug_enabled function returns False when DEBUG is disabled
 
         :return:
         :rtype:
         """
 
-        self.assertFalse(debug_enabled())
+        with override_settings(DEBUG=False):
+            self.assertFalse(debug_enabled())

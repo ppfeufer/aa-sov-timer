@@ -136,7 +136,7 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyCampaigns"),
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch("sovtimer.providers.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}, {"campaign_id": 2}]
@@ -160,7 +160,7 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyCampaigns"),
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch(
                 "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
             ) as mock_result,
@@ -184,8 +184,8 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch("sovtimer.providers.logger.debug") as mock_logger,
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyCampaigns"),
             patch("sovtimer.providers.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}]
@@ -209,12 +209,13 @@ class TestESIHandlerGetSovereigntyStructures(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyStructures"),
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch("sovtimer.providers.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"structure_id": 1}, {"structure_id": 2}]
 
             result = ESIHandler.get_sovereignty_structures()
+
             self.assertEqual(len(result), 2)
             mock_result.assert_called_once()
 
@@ -232,7 +233,7 @@ class TestESIHandlerGetSovereigntyStructures(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyStructures"),
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch(
                 "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
             ) as mock_result,
@@ -256,8 +257,8 @@ class TestESIHandlerGetSovereigntyStructures(BaseTestCase):
         """
 
         with (
+            patch("sovtimer.providers.esi", new=MagicMock()),
             patch("sovtimer.providers.logger.debug") as mock_logger,
-            patch("sovtimer.providers.esi.client.Sovereignty.GetSovereigntyStructures"),
             patch("sovtimer.providers.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"structure_id": 1}]
@@ -265,6 +266,60 @@ class TestESIHandlerGetSovereigntyStructures(BaseTestCase):
             ESIHandler.get_sovereignty_structures()
 
             mock_logger.assert_any_call("Fetching sovereignty structures from ESI...")
+
+
+class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
+    """
+    Test the ESIHandler.get_alliances_alliance_id method.
+    """
+
+    @patch("sovtimer.providers.esi", new=MagicMock())
+    @patch("sovtimer.providers.ESIHandler.result")
+    def test_returns_alliance_data_when_operation_succeeds(self, mock_result):
+        """
+        Test that the method returns alliance data when the ESI operation succeeds.
+
+        :param mock_result:
+        :type mock_result:
+        :return:
+        :rtype:
+        """
+
+        mock_response = {"alliance_id": 12345, "name": "Test Alliance"}
+        mock_result.return_value = mock_response
+
+        result = ESIHandler.get_alliances_alliance_id(alliance_id=12345)
+
+        self.assertEqual(result, mock_response)
+        mock_result.assert_called_once()
+        _, called_kwargs = mock_result.call_args
+        self.assertIn("operation", called_kwargs)
+        self.assertFalse(called_kwargs.get("force_refresh"))
+
+    @patch("sovtimer.providers.esi", new=MagicMock())
+    @patch("sovtimer.providers.ESIHandler.result")
+    def test_passes_force_refresh_to_result_operation(self, mock_result):
+        """
+        Test that the force_refresh parameter is passed correctly to the ESIHandler.result method.
+
+        :param mock_result:
+        :type mock_result:
+        :return:
+        :rtype:
+        """
+
+        mock_response = {"alliance_id": 12345, "name": "Test Alliance"}
+        mock_result.return_value = mock_response
+
+        result = ESIHandler.get_alliances_alliance_id(
+            alliance_id=12345, force_refresh=True
+        )
+
+        self.assertEqual(result, mock_response)
+        mock_result.assert_called_once()
+        _, called_kwargs = mock_result.call_args
+        self.assertIn("operation", called_kwargs)
+        self.assertTrue(called_kwargs.get("force_refresh"))
 
 
 class TestAppLogger(BaseTestCase):

@@ -33,13 +33,11 @@ esi = ESIClientProvider(
     ua_version=__version__,
     ua_url=__github_url__,
     operations=[
+        # Alliance
+        "GetAlliancesAllianceId",
         # Sovereignty
         "GetSovereigntyCampaigns",
         "GetSovereigntyStructures",
-        # Universe
-        "GetUniverseConstellationsConstellationId",
-        "GetUniverseRegionsRegionId",
-        "GetUniverseSolarSystemsSolarSystemId",
     ],
 )
 
@@ -106,6 +104,32 @@ class ESIHandler:
             esi_result = None
 
         return esi_result
+
+    @classmethod
+    def get_alliances_alliance_id(
+        cls, alliance_id: int, force_refresh: bool = False
+    ) -> dict | None:
+        """
+        Get alliance information from ESI.
+
+        :param alliance_id: The ID of the alliance to retrieve.
+        :type alliance_id: int
+        :param force_refresh: Whether to force a refresh of the data from ESI, bypassing any caches.
+        :type force_refresh: bool
+        :return: Alliance information or None if an error occurred.
+        :rtype: dict | None
+        """
+
+        logger.debug(
+            f"Fetching alliance information for alliance ID {alliance_id} from ESI..."
+        )
+
+        return cls.result(
+            operation=esi.client.Alliance.GetAlliancesAllianceId(
+                alliance_id=alliance_id
+            ),
+            force_refresh=force_refresh,
+        )
 
     @classmethod
     def get_sovereignty_campaigns(

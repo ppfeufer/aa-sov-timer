@@ -71,8 +71,8 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
         "structure",
         "structure__alliance",
         "structure__solar_system",
-        "structure__solar_system__eve_constellation",
-        "structure__solar_system__eve_constellation__eve_region",
+        "structure__solar_system__constellation",
+        "structure__solar_system__constellation__region",
     ).filter(structure__isnull=False)
 
     campaign_system_ids = set(
@@ -98,13 +98,13 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
     for campaign in sovereignty_campaigns:
         alliance = campaign.structure.alliance
         solar_system = campaign.structure.solar_system
-        constellation = solar_system.eve_constellation
-        region = constellation.eve_region
+        constellation = solar_system.constellation
+        region = constellation.region
 
         # Defender
         defender_name = alliance.name
-        defender_url = dotlan_alliance_url(eve_obj=alliance)
-        defender_logo_url = alliance_logo_url(alliance_id=alliance.id, size=32)
+        defender_url = dotlan_alliance_url(eve_obj=alliance.alliance_id)
+        defender_logo_url = alliance_logo_url(alliance_id=alliance.alliance_id, size=32)
         defender_name_html = (
             f'<a href="{defender_url}" target="_blank" rel="noopener noreferer">'
             f'<img class="aa-sovtimer-entity-logo-left me-2" src="{defender_logo_url}" '
@@ -112,7 +112,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
         )
 
         # Region / System / Constellation URLs and HTML (compute region_url once)
-        region_url = dotlan_region_url(eve_obj=region)
+        region_url = dotlan_region_url(eve_obj=region.id)
         campaign_system_name = solar_system.name
         solar_system_url = f"{region_url}/{campaign_system_name}"
         solar_system_name_html = f'<a href="{solar_system_url}" target="_blank" rel="noopener noreferer">{campaign_system_name}</a>'

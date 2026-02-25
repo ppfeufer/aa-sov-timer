@@ -1,3 +1,7 @@
+"""
+Unit tests for sovtimer views
+"""
+
 # Standard Library
 from datetime import datetime
 from datetime import timezone as dt_timezone
@@ -130,13 +134,28 @@ class TestDashboardData(BaseTestCase):
         mock_campaign_type.return_value = MagicMock(label="active")
 
         mock_campaign = MagicMock()
-        mock_campaign.structure.solar_system_id = 1
-        mock_campaign.structure.alliance.name = "Alliance A"
-        mock_campaign.structure.solar_system.name = "System A"
-        mock_campaign.structure.solar_system.eve_constellation.name = "Constellation A"
-        mock_campaign.structure.solar_system.eve_constellation.eve_region.name = (
-            "Region A"
-        )
+        structure = MagicMock()
+        structure.solar_system_id = 1
+
+        alliance = MagicMock()
+        alliance.name = "Alliance A"
+        alliance.alliance_id = 111
+        structure.alliance = alliance
+
+        solar_system = MagicMock()
+        solar_system.name = "System A"
+
+        constellation = MagicMock()
+        constellation.name = "Constellation A"
+        constellation.id = 7002
+        region = MagicMock()
+        region.name = "Region A"
+        region.id = 7001
+        constellation.region = region
+        solar_system.constellation = constellation
+        structure.solar_system = solar_system
+
+        mock_campaign.structure = structure
         mock_campaign.start_time = now()
         mock_campaign.progress_previous = 0.2
         mock_campaign.progress_current = 0.5
@@ -182,13 +201,27 @@ class TestDashboardData(BaseTestCase):
         mock_campaign_type.return_value = MagicMock(label="other")
 
         mock_campaign = MagicMock()
-        mock_campaign.structure.solar_system_id = 1
-        mock_campaign.structure.alliance.name = "Alliance B"
-        mock_campaign.structure.solar_system.name = "System B"
-        mock_campaign.structure.solar_system.eve_constellation.name = "Constellation B"
-        mock_campaign.structure.solar_system.eve_constellation.eve_region.name = (
-            "Region B"
-        )
+        structure = MagicMock()
+        structure.solar_system_id = 1
+
+        alliance = MagicMock()
+        alliance.name = "Alliance B"
+        alliance.alliance_id = 222
+        structure.alliance = alliance
+
+        solar_system = MagicMock()
+        solar_system.name = "System B"
+
+        constellation = MagicMock()
+        constellation.name = "Constellation B"
+        region = MagicMock()
+        region.name = "Region B"
+        region.id = 7003
+        constellation.region = region
+        solar_system.constellation = constellation
+        structure.solar_system = solar_system
+
+        mock_campaign.structure = structure
         mock_campaign.start_time = now()
         mock_campaign.progress_previous = 0.3
         mock_campaign.progress_current = 0.3
@@ -219,7 +252,7 @@ class TestDashboardData(BaseTestCase):
         mock_campaign_type,
     ):
         """
-        Test that the campaign status is "upcoming" when within the timeframe
+        Test that the campaign status is "upcoming" when the current time is within 4 hours of the campaign start time
 
         :param mock_structure_filter:
         :type mock_structure_filter:
@@ -242,19 +275,28 @@ class TestDashboardData(BaseTestCase):
         mock_campaign.progress_current = 0.2
         mock_campaign.event_type = 1
 
-        # Populate structure and nested attributes as plain strings to ensure JSON serializability
-        mock_campaign.structure = MagicMock()
-        mock_campaign.structure.solar_system_id = 1
-        mock_campaign.structure.alliance = MagicMock()
-        mock_campaign.structure.alliance.name = "Alliance U"
-        mock_campaign.structure.solar_system = MagicMock()
-        mock_campaign.structure.solar_system.name = "System U"
-        mock_campaign.structure.solar_system.eve_constellation = MagicMock()
-        mock_campaign.structure.solar_system.eve_constellation.name = "Constellation U"
-        mock_campaign.structure.solar_system.eve_constellation.eve_region = MagicMock()
-        mock_campaign.structure.solar_system.eve_constellation.eve_region.name = (
-            "Region U"
-        )
+        structure = MagicMock()
+        structure.solar_system_id = 1
+
+        alliance = MagicMock()
+        alliance.name = "Alliance U"
+        alliance.alliance_id = 333
+        structure.alliance = alliance
+
+        solar_system = MagicMock()
+        solar_system.name = "System U"
+
+        constellation = MagicMock()
+        constellation.name = "Constellation U"
+        constellation.id = 7004
+        region = MagicMock()
+        region.name = "Region U"
+        region.id = 7005
+        constellation.region = region
+        solar_system.constellation = constellation
+        structure.solar_system = solar_system
+
+        mock_campaign.structure = structure
 
         qs_mock = MagicMock()
         qs_mock.__iter__.return_value = iter([mock_campaign])
@@ -278,18 +320,46 @@ class TestDashboardData(BaseTestCase):
     def test_sets_attackers_progress_when_previous_progress_is_higher(
         self, mock_structure_filter, mock_campaign_select_related, mock_campaign_type
     ):
+        """
+        Test that the dashboard_data view sets "Attackers making progress" when the previous progress is higher than the current progress
+
+        :param mock_structure_filter:
+        :type mock_structure_filter:
+        :param mock_campaign_select_related:
+        :type mock_campaign_select_related:
+        :param mock_campaign_type:
+        :type mock_campaign_type:
+        :return:
+        :rtype:
+        """
+
         mock_campaign_type.return_value = MagicMock(label="active")
 
         mock_campaign = MagicMock()
         mock_campaign.progress_previous = 0.6
         mock_campaign.progress_current = 0.4
-        mock_campaign.structure.solar_system_id = 1
-        mock_campaign.structure.alliance.name = "Alliance X"
-        mock_campaign.structure.solar_system.name = "System X"
-        mock_campaign.structure.solar_system.eve_constellation.name = "Constellation X"
-        mock_campaign.structure.solar_system.eve_constellation.eve_region.name = (
-            "Region X"
-        )
+
+        structure = MagicMock()
+        structure.solar_system_id = 1
+
+        alliance = MagicMock()
+        alliance.name = "Alliance X"
+        alliance.alliance_id = 444
+        structure.alliance = alliance
+
+        solar_system = MagicMock()
+        solar_system.name = "System X"
+
+        constellation = MagicMock()
+        constellation.name = "Constellation X"
+        region = MagicMock()
+        region.name = "Region X"
+        region.id = 7006
+        constellation.region = region
+        solar_system.constellation = constellation
+        structure.solar_system = solar_system
+
+        mock_campaign.structure = structure
         mock_campaign.start_time = now()
         mock_campaign.event_type = 1
 
