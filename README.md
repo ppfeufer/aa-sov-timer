@@ -102,6 +102,7 @@ Configure your AA settings (`local.py`) as follows:
   INSTALLED_APPS = [
       # ...
       "eve_sde",  # Only if not already added for another app
+      "eveuniverse",  # This is still needed, but we are migrating away from it. It's a multi-step process, so we need to keep it for now.
       "sovtimer",
       # ...
   ]
@@ -176,6 +177,7 @@ Configure your AA settings (`conf/local.py`) as follows:
   INSTALLED_APPS = [
       # ...
       "eve_sde",  # Only if not already added for another app
+      "eveuniverse",  # This is still needed, but we are migrating away from it. It's a multi-step process, so we need to keep it for now.
       "sovtimer",
       # ...
   ]

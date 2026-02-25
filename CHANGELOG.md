@@ -43,7 +43,7 @@ Section Order:
 
 <!-- Your changes go here -->
 
-> [!IMPORTANT]
+> [!WARNING]
 >
 > This version includes a dependency change, so please make sure to read the update
 > instructions carefully before updating to this version, otherwise, the app will
