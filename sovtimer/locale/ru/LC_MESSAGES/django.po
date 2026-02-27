@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-02-03 14:48+0100\n"
+"POT-Creation-Date: 2026-02-27 11:19+0100\n"
 "PO-Revision-Date: 2026-01-09 17:17+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -19,39 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.15.1\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:33
+#: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "Таймер суверенитета"
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:38
 msgid "Can access the Sovereignty Timer module"
 msgstr "Имеет доступ к модулю 'Таймер суверенитета'"
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:56
+msgid "Alliance"
+msgstr ""
+
+#: sovtimer/models.py:57
+msgid "Alliances"
+msgstr ""
+
+#: sovtimer/models.py:153
 msgid "Sovereignty structure"
 msgstr "Структура суверенитета"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:154
 msgid "Sovereignty structures"
 msgstr "Структуры суверенитета"
 
-#: sovtimer/models.py:116
+#: sovtimer/models.py:194
 #, fuzzy
 #| msgid "IHub defense"
 msgid "Sov Hub defense"
 msgstr "Защита IHub"
 
-#: sovtimer/models.py:117
-msgid "TCU defense"
-msgstr "Защита TCU"
-
-#: sovtimer/models.py:143
+#: sovtimer/models.py:222
 msgid "Sovereignty campaign"
 msgstr "Опс по sov`у"
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:223
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
@@ -136,6 +140,9 @@ msgstr "Атакующие добиваются успеха"
 #: sovtimer/views.py:156
 msgid "Neither side has made any progress yet"
 msgstr "Ни одна из сторон не демонстрирует прогресса"
+
+#~ msgid "TCU defense"
+#~ msgstr "Защита TCU"
 
 #~ msgid "Yes"
 #~ msgstr "Да"
