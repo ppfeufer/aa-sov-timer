@@ -101,7 +101,7 @@ Restart your supervisor after running the commands.
 
 ```shell
 auth esde_load_sde
-pauth sovtimer_load_initial_data
+auth sovtimer_load_initial_data
 ```
 
 ## [3.5.1] - 2026-02-03
