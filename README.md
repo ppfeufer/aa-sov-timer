@@ -30,7 +30,7 @@ ______________________________________________________________________
     - [Step 1: Installing the App](#step-1-installing-the-app)
     - [Step 2: Update Your AA Settings](#step-2-update-your-aa-settings)
     - [Step 3: Finalizing the Installation](#step-3-finalizing-the-installation)
-    - [Step 4: Preload Eve Universe Data](#step-4-preload-eve-universe-data)
+    - [Step 4: Preload EVE SDE Data](#step-4-preload-eve-sde-data)
     - [Step 5: Restart Supervisor](#step-5-restart-supervisor)
   - [Docker Installation](#docker-installation)
     - [Step 1: Add the App](#step-1-add-the-app)
@@ -80,8 +80,6 @@ ______________________________________________________________________
 - AA Sovereignty Timer is a plugin for Alliance Auth. If you don't have Alliance
   Auth running already, please install it first before proceeding. (see the official
   [AA installation guide](https://allianceauth.readthedocs.io/en/latest/installation/allianceauth.html) for details)
-- AA Sovereignty Timer needs the app [django-eveuniverse](https://gitlab.com/ErikKalkoken/django-eveuniverse)
-  to function. Please make sure it is installed before continuing.
 
 ### Bare Metal Installation<a name="bare-metal-installation"></a>
 
@@ -98,17 +96,38 @@ pip install aa-sov-timer==3.5.1
 
 Configure your AA settings (`local.py`) as follows:
 
-- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done for another app
-- Add `"sovtimer",` to `INSTALLED_APPS`
-- Add the Scheduled Task
+- Modify `INSTALLED_APPS` to include the following entries:
 
-```python
-# AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
-CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
-    "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30,
-}
-```
+  ```python
+  INSTALLED_APPS = [
+      # ...
+      "eve_sde",  # Only if not already added for another app
+      "eveuniverse",  # This is still needed, but we are migrating away from it. It's a multi-step process, so we need to keep it for now.
+      "sovtimer",
+      # ...
+  ]
+
+  # This line right below the `INSTALLED_APPS` list, and only if not already added for another app
+  INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+  ```
+
+- Add the Scheduled Tasks
+
+  ```python
+  if "sovtimer" in INSTALLED_APPS:
+      # AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
+      CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
+          "task": "sovtimer.tasks.run_sov_campaign_updates",
+          "schedule": 30,
+      }
+
+  if "eve_sde" in INSTALLED_APPS:
+      # Run at 12:00 UTC each day
+      CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+          "task": "eve_sde.tasks.check_for_sde_updates",
+          "schedule": crontab(minute="0", hour="12"),
+      }
+  ```
 
 #### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
 
@@ -119,14 +138,14 @@ python manage.py collectstatic
 python manage.py migrate
 ```
 
-#### Step 4: Preload Eve Universe Data<a name="step-4-preload-eve-universe-data"></a>
+#### Step 4: Preload EVE SDE Data<a name="step-4-preload-eve-sde-data"></a>
 
-AA Sovereignty Timer uses Eve Universe data to map IDs to names for solar systems,
-regions and constellations. So you need to preload some data from ESI once.
+AA Sovereignty Timer uses EVE SDE data to map IDs to names for solar systems,
+regions and constellations. So you need to preload some data from SDE once.
 If you already have run this command, you can skip this step.
 
 ```shell
-python manage.py eveuniverse_load_data map
+python manage.py esde_load_sde
 python manage.py sovtimer_load_initial_data
 ```
 
@@ -152,17 +171,38 @@ aa-sov-timer==3.5.1
 
 Configure your AA settings (`conf/local.py`) as follows:
 
-- Add `"eveuniverse",` to `INSTALLED_APPS` if not already done for another app
-- Add `"sovtimer",` to `INSTALLED_APPS`
-- Add the Scheduled Task
+- Modify `INSTALLED_APPS` to include the following entries:
 
-```python
-# AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
-CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
-    "task": "sovtimer.tasks.run_sov_campaign_updates",
-    "schedule": 30,
-}
-```
+  ```python
+  INSTALLED_APPS = [
+      # ...
+      "eve_sde",  # Only if not already added for another app
+      "eveuniverse",  # This is still needed, but we are migrating away from it. It's a multi-step process, so we need to keep it for now.
+      "sovtimer",
+      # ...
+  ]
+
+  # This line right below the `INSTALLED_APPS` list, and only if not already added for another app
+  INSTALLED_APPS = ["modeltranslation"] + INSTALLED_APPS
+  ```
+
+- Add the Scheduled Tasks
+
+  ```python
+  if "sovtimer" in INSTALLED_APPS:
+      # AA Sovereignty Timer - Run sovereignty related updates every 30 seconds
+      CELERYBEAT_SCHEDULE["sovtimer.tasks.run_sov_campaign_updates"] = {
+          "task": "sovtimer.tasks.run_sov_campaign_updates",
+          "schedule": 30,
+      }
+
+  if "eve_sde" in INSTALLED_APPS:
+      # Run at 12:00 UTC each day
+      CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
+          "task": "eve_sde.tasks.check_for_sde_updates",
+          "schedule": crontab(minute="0", hour="12"),
+      }
+  ```
 
 #### Step 3: Build Auth and Restart Your Containers<a name="step-3-build-auth-and-restart-your-containers"></a>
 
@@ -173,7 +213,7 @@ docker compose --env-file=.env up -d
 
 #### Step 4: Finalizing the Installation<a name="step-4-finalizing-the-installation"></a>
 
-Run migrations, copy static files and load EVE universe data:
+Run migrations, copy static files and load EVE SDE data:
 
 ```shell
 docker compose exec allianceauth_gunicorn bash
@@ -181,7 +221,7 @@ docker compose exec allianceauth_gunicorn bash
 auth collectstatic
 auth migrate
 
-auth eveuniverse_load_data map
+auth esde_load_sde
 auth sovtimer_load_initial_data
 ```
 

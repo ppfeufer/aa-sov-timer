@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 3.5.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-02-03 14:48+0100\n"
+"POT-Creation-Date: 2026-02-27 11:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,37 +17,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:33
+#: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr ""
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:38
 msgid "Can access the Sovereignty Timer module"
 msgstr ""
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:56
+msgid "Alliance"
+msgstr ""
+
+#: sovtimer/models.py:57
+msgid "Alliances"
+msgstr ""
+
+#: sovtimer/models.py:153
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:154
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:116
+#: sovtimer/models.py:194
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:117
-msgid "TCU defense"
-msgstr ""
-
-#: sovtimer/models.py:143
+#: sovtimer/models.py:222
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:223
 msgid "Sovereignty campaigns"
 msgstr ""
 

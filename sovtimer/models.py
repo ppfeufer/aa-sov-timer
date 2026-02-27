@@ -2,6 +2,12 @@
 Our Models
 """
 
+# Standard Library
+from collections.abc import Iterable
+
+# Third Party
+from eve_sde.models import SolarSystem
+
 # Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -9,13 +15,9 @@ from django.utils.translation import gettext_lazy as _
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveEntity, EveSolarSystem
-
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.handler import esi_handler
-from sovtimer.providers import AppLogger, esi
+from sovtimer.providers import AppLogger, ESIHandler
 
 logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -36,6 +38,84 @@ class AaSovtimer(models.Model):
         permissions = (("basic_access", _("Can access the Sovereignty Timer module")),)
 
 
+class Alliance(models.Model):
+    """
+    Sovereignty holding alliance
+    """
+
+    alliance_id = models.PositiveBigIntegerField(
+        primary_key=True, db_index=True, unique=True
+    )
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        """
+        Meta definitions
+        """
+
+        verbose_name = _("Alliance")
+        verbose_name_plural = _("Alliances")
+        default_permissions = ()
+
+    @classmethod
+    def bulk_get_or_create_from_esi(
+        cls, alliance_ids: Iterable[int], force_refresh: bool = False
+    ) -> dict[int, "Alliance"]:
+        """
+        Bulk get or create alliances from ESI
+
+        :param alliance_ids: List of alliance IDs to fetch or create
+        :type alliance_ids: Iterable[int]
+        :param force_refresh: Whether to force refresh data from ESI, bypassing any caches
+        :type force_refresh: bool
+        :return: Dictionary mapping alliance IDs to Alliance instances
+        :rtype: dict[int, Alliance]
+        """
+
+        existing_alliances = cls.objects.filter(alliance_id__in=alliance_ids)
+        existing_alliance_ids = set(
+            existing_alliances.values_list("alliance_id", flat=True)
+        )
+        alliances_to_create = alliance_ids - existing_alliance_ids
+
+        # Create a list of new Alliance instances to be created in bulk
+        new_alliances = []
+        for alliance_id in alliances_to_create:
+            alliance_data = ESIHandler.get_alliances_alliance_id(
+                alliance_id=alliance_id, force_refresh=force_refresh
+            )
+
+            logger.debug(
+                f"Fetched alliance data for alliance ID {alliance_id} from ESI"
+            )
+
+            if alliance_data:
+                new_alliances.append(
+                    cls(
+                        alliance_id=alliance_id,
+                        name=alliance_data.name,
+                    )
+                )
+            else:
+                logger.warning(
+                    f"Failed to fetch data for alliance ID {alliance_id} from ESI. Skipping creation."
+                )
+
+        logger.debug("New Alliances to create: %s", new_alliances)
+
+        # Bulk create new alliances and collect them in a list
+        created_alliances = []
+        if new_alliances:
+            created_alliances = cls.objects.bulk_create(new_alliances)
+
+        # Combine existing and newly created alliances into a single dictionary
+        all_alliances = {
+            alliance.alliance_id: alliance for alliance in existing_alliances
+        } | {alliance.alliance_id: alliance for alliance in created_alliances}
+
+        return all_alliances
+
+
 class SovereigntyStructure(models.Model):
     """
     Sov structures
@@ -45,7 +125,7 @@ class SovereigntyStructure(models.Model):
         primary_key=True, db_index=True, unique=True
     )
     alliance = models.ForeignKey(
-        to=EveEntity,
+        to=Alliance,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -53,7 +133,7 @@ class SovereigntyStructure(models.Model):
         related_name="sov_structure_alliance",
     )
     solar_system = models.ForeignKey(
-        to=EveSolarSystem,
+        to=SolarSystem,
         on_delete=models.CASCADE,
         default=None,
         null=True,
@@ -74,8 +154,8 @@ class SovereigntyStructure(models.Model):
         verbose_name_plural = _("Sovereignty structures")
         default_permissions = ()
 
-    @classmethod
-    def get_sov_structures_from_esi(cls, force_refresh: bool = False):
+    @staticmethod
+    def get_sov_structures_from_esi(force_refresh: bool = False):
         """
         Get all sov structures from ESI
 
@@ -85,16 +165,14 @@ class SovereigntyStructure(models.Model):
         :rtype:
         """
 
-        operation = esi.client.Sovereignty.GetSovereigntyStructures()
-        sov_structures_from_esi = esi_handler.result(
-            operation=operation, force_refresh=force_refresh
+        sov_structures_from_esi = ESIHandler.get_sovereignty_structures(
+            force_refresh=force_refresh
         )
 
         if sov_structures_from_esi:
             logger.debug(
-                msg=f"Fetched {len(sov_structures_from_esi or [])} sovereignty structures from ESI."
+                msg=f"Fetched {len(sov_structures_from_esi or [])} sovereignty structures from ESI"
             )
-            logger.debug(msg=f"Sovereignty structure data: {sov_structures_from_esi}")
         else:
             logger.info(
                 msg="No sovereignty structure changes found, nothing to update."
@@ -113,15 +191,16 @@ class Campaign(models.Model):
         Choices for Comment Types
         """
 
-        SOVHUB_DEFENSE = "ihub_defense", _("Sov Hub defense")
-        TCU_DEFENSE = "tcu_defense", _("TCU defense")
+        SOVHUB_DEFENSE = "sovhub", _("Sov Hub defense")
 
     campaign_id = models.PositiveBigIntegerField(
         primary_key=True, db_index=True, unique=True
     )
     attackers_score = models.FloatField(default=0.4)
     defender_score = models.FloatField(default=0.6)
-    event_type = models.CharField(max_length=12, choices=Type.choices)
+    event_type = models.CharField(
+        max_length=12, choices=Type.choices, default=Type.SOVHUB_DEFENSE
+    )
     start_time = models.DateTimeField()
     structure = models.OneToOneField(
         to=SovereigntyStructure,
@@ -144,24 +223,22 @@ class Campaign(models.Model):
         verbose_name_plural = _("Sovereignty campaigns")
         default_permissions = ()
 
-    @classmethod
-    def get_sov_campaigns_from_esi(cls, force_refresh: bool = False):
+    @staticmethod
+    def get_sov_campaigns_from_esi(force_refresh: bool = False):
         """
         Get all sov campaigns from ESI
 
         :return:
         """
 
-        operation = esi.client.Sovereignty.GetSovereigntyCampaigns()
-        campaigns_from_esi = esi_handler.result(
-            operation=operation, force_refresh=force_refresh
+        campaigns_from_esi = ESIHandler.get_sovereignty_campaigns(
+            force_refresh=force_refresh
         )
 
         if campaigns_from_esi:
             logger.debug(
-                msg=f"Fetched {len(campaigns_from_esi or [])} campaigns from ESI."
+                msg=f"Fetched {len(campaigns_from_esi or [])} campaigns from ESI"
             )
-            logger.debug(msg=f"Campaign data: {campaigns_from_esi}")
         else:
             logger.info(msg="No campaign changes found, nothing to update.")
 

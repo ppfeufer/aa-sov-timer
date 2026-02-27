@@ -4,6 +4,7 @@ The tasks
 
 # Third Party
 from celery import chain, shared_task
+from eve_sde.models import SolarSystem
 
 # Django
 from django.db import transaction
@@ -12,12 +13,9 @@ from django.db import transaction
 from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
 
-# Alliance Auth (External Libs)
-from eveuniverse.models import EveEntity, EveSolarSystem
-
 # AA Sovereignty Timer
 from sovtimer import __title__
-from sovtimer.models import Campaign, SovereigntyStructure
+from sovtimer.models import Alliance, Campaign, SovereigntyStructure
 from sovtimer.providers import AppLogger
 
 logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
@@ -110,10 +108,9 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
     # Fetch existing campaigns from the database and map them by campaign ID
     existing_campaigns = {c.campaign_id: c for c in Campaign.objects.all()}
 
-    # Ensure all defenders exist in the EveEntity model
-    EveEntity.objects.bulk_create(
-        [EveEntity(id=defender_id) for defender_id in defender_ids],
-        ignore_conflicts=True,
+    # Ensure all defenders exist in the Alliance model
+    Alliance.bulk_get_or_create_from_esi(
+        alliance_ids=defender_ids, force_refresh=force_refresh
     )
 
     # Prepare a list to hold new Campaign instances for bulk creation
@@ -153,9 +150,6 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
 
     # Bulk create the new campaigns in the database
     Campaign.objects.bulk_create(campaigns, batch_size=500)
-
-    # Update EVE entities from ESI
-    EveEntity.objects.bulk_update_new_esi()
 
     # Log the number of campaigns updated
     logger.info(f"{len(campaigns)} sovereignty campaigns updated from ESI.")
@@ -206,13 +200,10 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     # Collect all alliance IDs from the fetched structures
     alliance_ids = {s.alliance_id for s in structures_from_esi if s.alliance_id}
 
-    # Ensure all alliances exist in the EveEntity model
-    EveEntity.objects.bulk_create(
-        [EveEntity(id=aid) for aid in alliance_ids], ignore_conflicts=True
+    # Fetch alliances from the database or create them if they don't exist
+    alliances = Alliance.bulk_get_or_create_from_esi(
+        alliance_ids=alliance_ids, force_refresh=force_refresh
     )
-
-    # Fetch alliances from the database
-    alliances = {e.id: e for e in EveEntity.objects.filter(id__in=alliance_ids)}
 
     # Collect all solar system IDs from the fetched structures
     solar_system_ids = {
@@ -221,7 +212,7 @@ def update_sov_structures(force_refresh: bool = False) -> None:
 
     # Fetch solar systems from the database
     solar_systems = {
-        ss.id: ss for ss in EveSolarSystem.objects.filter(id__in=solar_system_ids)
+        ss.id: ss for ss in SolarSystem.objects.filter(id__in=solar_system_ids)
     }
 
     esi_structure_ids = set()  # Track structure IDs from ESI to avoid duplicates
@@ -271,8 +262,6 @@ def update_sov_structures(force_refresh: bool = False) -> None:
                 "vulnerable_start_time",
             ],
         )
-        # Update EVE entities from ESI
-        EveEntity.objects.bulk_update_new_esi()
 
         # Remove structures that are no longer in the ESI data
         SovereigntyStructure.objects.exclude(pk__in=esi_structure_ids).delete()

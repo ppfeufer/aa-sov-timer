@@ -2,14 +2,11 @@
 App settings
 """
 
-# Standard Library
-from re import RegexFlag
-
 # Django
 from django.conf import settings
 
 
-def debug_enabled() -> RegexFlag:
+def debug_enabled() -> bool:
     """
     Check if DEBUG is enabled
 
