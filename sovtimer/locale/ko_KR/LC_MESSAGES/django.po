@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-02-03 14:48+0100\n"
+"POT-Creation-Date: 2026-02-27 11:19+0100\n"
 "PO-Revision-Date: 2025-04-28 07:24+0000\n"
 "Last-Translator: SiO4 <hohoit0078@gmail.com>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
@@ -21,45 +21,47 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.11.1\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:33
+#: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "소버린티 타이머"
 
-#: sovtimer/models.py:36
+#: sovtimer/models.py:38
 msgid "Can access the Sovereignty Timer module"
 msgstr "소버린티 타이머 모듈에 접근할 수 있는 권한"
 
-#: sovtimer/models.py:73
+#: sovtimer/models.py:56
+msgid "Alliance"
+msgstr ""
+
+#: sovtimer/models.py:57
+msgid "Alliances"
+msgstr ""
+
+#: sovtimer/models.py:153
 #, fuzzy
 #| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
 msgstr "소버린티 구조물"
 
-#: sovtimer/models.py:74
+#: sovtimer/models.py:154
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
-#: sovtimer/models.py:116
+#: sovtimer/models.py:194
 #, fuzzy
 #| msgid "IHub Defense"
 msgid "Sov Hub defense"
 msgstr "IHub 방어"
 
-#: sovtimer/models.py:117
-#, fuzzy
-#| msgid "TCU Defense"
-msgid "TCU defense"
-msgstr "TCU 방어"
-
-#: sovtimer/models.py:143
+#: sovtimer/models.py:222
 msgid "Sovereignty campaign"
 msgstr "소버린티 캠페인"
 
-#: sovtimer/models.py:144
+#: sovtimer/models.py:223
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
@@ -148,6 +150,11 @@ msgstr "공격자 우세"
 #: sovtimer/views.py:156
 msgid "Neither side has made any progress yet"
 msgstr "양 측 모두 진행하지 못하고 있습니다"
+
+#, fuzzy
+#~| msgid "TCU Defense"
+#~ msgid "TCU defense"
+#~ msgstr "TCU 방어"
 
 #~ msgid "Yes"
 #~ msgstr "예"
