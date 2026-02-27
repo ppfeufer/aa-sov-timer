@@ -43,6 +43,12 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.0.1] - 2026-02-27
+
+### Removed
+
+- Actually remove the dependency to `eveuniverse` …
+
 ## [4.0.0] - 2026-02-27
 
 > [!WARNING]
@@ -1031,5 +1037,6 @@ And restart your supervisor.
 [3.5.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.4.0...v3.5.0 "v3.5.0"
 [3.5.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.0...v3.5.1 "v3.5.1"
 [4.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.1...v4.0.0 "v4.0.0"
+[4.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.0...v4.0.1 "v4.0.1"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.1...HEAD "In Development"
