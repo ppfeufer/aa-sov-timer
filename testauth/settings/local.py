@@ -62,7 +62,6 @@ if os.environ.get("USE_MYSQL", True) is True:
 # Add any additional apps to this list.
 INSTALLED_APPS += [
     PACKAGE,
-    "eveuniverse",
     "eve_sde",
 ]
 
