@@ -5,9 +5,6 @@ Loading initial data into sovtimer tables
 # Django
 from django.core.management.base import BaseCommand
 
-# Alliance Auth (External Libs)
-from eveuniverse.core.esitools import is_esi_online
-
 # AA Sovereignty Timer
 from sovtimer.tasks import update_sov_campaigns, update_sov_structures
 
@@ -35,13 +32,6 @@ class Command(BaseCommand):
 
         :return:
         """
-
-        if not is_esi_online():
-            self.stdout.write(
-                msg="ESI is currently offline. Can not start ESI related tasks. Aborting"
-            )
-
-            return
 
         update_sov_structures(force_refresh=True)
         update_sov_campaigns(force_refresh=True)

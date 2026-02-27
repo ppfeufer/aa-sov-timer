@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("eveuniverse", "0004_effect_longer_name"),
         ("sovtimer", "0002_aasovtimercampaigns_aasovtimerstructures"),
     ]
 
