@@ -99,7 +99,7 @@ Configure your AA settings (`local.py`) as follows:
 - Modify `INSTALLED_APPS` to include the following entries:
 
   ```python
-  INSTALLED_APPS = [
+  INSTALLED_APPS += [
       # ...
       "eve_sde",  # Only if not already added for another app
       "sovtimer",
