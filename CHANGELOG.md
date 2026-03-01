@@ -93,23 +93,18 @@ if "eve_sde" in INSTALLED_APPS:
     }
 ```
 
-After running migrations, make sure to run the following commands to import the SDE
-data into your database:
-
-#### Bare Metal Installations
+Migrate and populate SDE:
 
 ```shell
+python manage.py migrate eve_sde
 python manage.py esde_load_sde
-python manage.py sovtimer_load_initial_data
 ```
 
-Restart your supervisor after running the commands.
-
-#### Docker Installations
+Migare the app and run static collection:
 
 ```shell
-auth esde_load_sde
-auth sovtimer_load_initial_data
+python manage.py migrate sovtimer
+python manage.py collectstatic --noinput
 ```
 
 ## [3.5.1] - 2026-02-03
