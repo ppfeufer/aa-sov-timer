@@ -57,12 +57,9 @@ urls.GitHub = "https://github.com/ppfeufer/aa-sov-timer"
 urls.Tracker = "https://github.com/ppfeufer/aa-sov-timer/issues"
 urls.Translation = "https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/"
 
-[tool.hatch.build]
-include = [
+[tool.hatch]
+build.include = [
     "/sovtimer",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
-[tool.hatch.version]
-path = "sovtimer/__init__.py"
+metadata.allow-direct-references = true
+version.path = "sovtimer/__init__.py"
