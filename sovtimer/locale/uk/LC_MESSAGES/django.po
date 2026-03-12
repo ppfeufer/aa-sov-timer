@@ -4,13 +4,13 @@
 # "Andrii M." <elfleg0las88@gmail.com>, 2023, 2024.
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024.
 # M <skrypets@gmail.com>, 2025.
-# s0k0l -_- <salarysalo@gmail.com>, 2025.
+# s0k0l -_- <salarysalo@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
 "POT-Creation-Date: 2026-02-27 11:19+0100\n"
-"PO-Revision-Date: 2025-11-15 22:39+0000\n"
+"PO-Revision-Date: 2026-03-12 14:23+0000\n"
 "Last-Translator: s0k0l -_- <salarysalo@gmail.com>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
@@ -32,11 +32,11 @@ msgstr "Є доступ до модуля Таймерів Сувереніте�
 
 #: sovtimer/models.py:56
 msgid "Alliance"
-msgstr ""
+msgstr "Ал'янс"
 
 #: sovtimer/models.py:57
 msgid "Alliances"
-msgstr ""
+msgstr "Ал'янси"
 
 #: sovtimer/models.py:153
 msgid "Sovereignty structure"
