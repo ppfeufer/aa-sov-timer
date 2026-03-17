@@ -3,7 +3,11 @@ Test for the providers module.
 """
 
 # Standard Library
+import importlib
 import logging
+import sys
+import types
+import typing
 from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
@@ -16,6 +20,43 @@ from esi.exceptions import HTTPClientError, HTTPNotModified
 # AA Sovereignty Timer
 from sovtimer.providers import AppLogger, ESIHandler
 from sovtimer.tests import BaseTestCase
+
+
+class TestTypingTypeCheckingIfCondition(BaseTestCase):
+    def test_when_typing_TYPE_CHECKING_true_then_stub_types_are_imported_into_module_namespace(
+        self,
+    ):
+        """
+        Test that when `typing.TYPE_CHECKING` is set to `True`, the stub types from `esi.stubs` are imported into the module namespace.
+
+        :return:
+        :rtype:
+        """
+        fake_stubs = types.ModuleType("esi.stubs")
+        fake_stubs.AllianceDetail = type("AllianceDetail", (), {})
+        fake_stubs.SovereigntyCampaignsGet = type("SovereigntyCampaignsGet", (), {})
+        fake_stubs.SovereigntyStructuresGet = type("SovereigntyStructuresGet", (), {})
+
+        original_sys_modules = sys.modules.copy()
+
+        try:
+            sys.modules["esi.stubs"] = fake_stubs
+
+            with patch.object(typing, "TYPE_CHECKING", True):
+                providers = importlib.import_module("sovtimer.providers")
+                importlib.reload(providers)
+
+                self.assertTrue(hasattr(providers, "AllianceDetail"))
+                self.assertTrue(hasattr(providers, "SovereigntyCampaignsGet"))
+                self.assertTrue(hasattr(providers, "SovereigntyStructuresGet"))
+        finally:
+            sys.modules.clear()
+            sys.modules.update(original_sys_modules)
+
+            try:
+                importlib.reload(importlib.import_module("sovtimer.providers"))
+            except Exception:
+                pass
 
 
 class TestESIHandlerResult(BaseTestCase):

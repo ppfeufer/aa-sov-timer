@@ -43,6 +43,10 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Changed
+
+- (Internal) Better type hinting
+
 ## [4.0.1] - 2026-02-27
 
 ### Removed
