@@ -4,6 +4,7 @@ Providers
 
 # Standard Library
 import logging
+import typing
 from typing import Any
 
 # Third Party
@@ -23,6 +24,14 @@ from sovtimer import (
     __title__,
     __version__,
 )
+
+if typing.TYPE_CHECKING:
+    # Alliance Auth
+    from esi.stubs import (
+        AllianceDetail,
+        SovereigntyCampaignsGet,
+        SovereigntyStructuresGet,
+    )
 
 # ESI client
 esi = ESIClientProvider(
@@ -108,7 +117,7 @@ class ESIHandler:
     @classmethod
     def get_alliances_alliance_id(
         cls, alliance_id: int, force_refresh: bool = False
-    ) -> dict | None:
+    ) -> "AllianceDetail | None":
         """
         Get alliance information from ESI.
 
@@ -117,7 +126,7 @@ class ESIHandler:
         :param force_refresh: Whether to force a refresh of the data from ESI, bypassing any caches.
         :type force_refresh: bool
         :return: Alliance information or None if an error occurred.
-        :rtype: dict | None
+        :rtype: AllianceDetail | None
         """
 
         logger.debug(
@@ -134,12 +143,12 @@ class ESIHandler:
     @classmethod
     def get_sovereignty_campaigns(
         cls, force_refresh: bool = False
-    ) -> list[dict] | None:
+    ) -> "list[SovereigntyCampaignsGet] | None":
         """
         Get sovereignty campaigns from ESI.
 
         :return: List of sovereignty campaigns or None if an error occurred.
-        :rtype: list[dict] | None
+        :rtype: list[SovereigntyCampaignsGet] | None
         """
 
         logger.debug("Fetching sovereignty campaigns from ESI...")
@@ -152,12 +161,12 @@ class ESIHandler:
     @classmethod
     def get_sovereignty_structures(
         cls, force_refresh: bool = False
-    ) -> list[dict] | None:
+    ) -> "list[SovereigntyStructuresGet] | None":
         """
         Get sovereignty structures from ESI.
 
         :return: List of sovereignty structures or None if an error occurred.
-        :rtype: list[dict] | None
+        :rtype: list[SovereigntyStructuresGet] | None
         """
 
         logger.debug("Fetching sovereignty structures from ESI...")

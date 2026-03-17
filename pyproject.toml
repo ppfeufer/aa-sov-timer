@@ -43,6 +43,12 @@ dependencies = [
     "django-esi>=8.3.1",
     "django-eveonline-sde>=0.0.1b1",
 ]
+optional-dependencies.tests-allianceauth-development = [
+    "allianceauth @ git+https://gitlab.com/allianceauth/allianceauth#egg=master",
+    "coverage",
+    "django-webtest",
+    "requests-mock",
+]
 optional-dependencies.tests-allianceauth-latest = [
     "coverage",
     "django-webtest",
