@@ -32,6 +32,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
         :return:
         :rtype:
         """
+
         fake_stubs = types.ModuleType("esi.stubs")
         fake_stubs.AllianceDetail = type("AllianceDetail", (), {})
         fake_stubs.SovereigntyCampaignsGet = type("SovereigntyCampaignsGet", (), {})
