@@ -41,7 +41,7 @@ dynamic = [
 dependencies = [
     "allianceauth>=4.12",
     "django-esi>=8.3.1",
-    "django-eveonline-sde>=0.0.1b1",
+    "django-eveonline-sde>=0.0.1b9",
 ]
 optional-dependencies.tests-allianceauth-development = [
     "allianceauth @ git+https://gitlab.com/allianceauth/allianceauth#egg=master",

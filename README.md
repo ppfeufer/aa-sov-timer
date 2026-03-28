@@ -121,11 +121,15 @@ Configure your AA settings (`local.py`) as follows:
       }
 
   if "eve_sde" in INSTALLED_APPS:
-      # Run at 12:00 UTC each day
+      # Run at 12:00 each day
       CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
           "task": "eve_sde.tasks.check_for_sde_updates",
           "schedule": crontab(minute="0", hour="12"),
       }
+
+      # Set the following when you have a bare metal installation, or Docker with a
+      # non-standard storage for `myauth`
+      ESDE_TASK_SPLIT = True
   ```
 
 #### Step 3: Finalizing the Installation<a name="step-3-finalizing-the-installation"></a>
@@ -195,11 +199,15 @@ Configure your AA settings (`conf/local.py`) as follows:
       }
 
   if "eve_sde" in INSTALLED_APPS:
-      # Run at 12:00 UTC each day
+      # Run at 12:00 each day
       CELERYBEAT_SCHEDULE["EVE SDE :: Check for SDE Updates"] = {
           "task": "eve_sde.tasks.check_for_sde_updates",
           "schedule": crontab(minute="0", hour="12"),
       }
+
+      # Set the following when you have a bare metal installation, or Docker with a
+      # non-standard storage for `myauth`
+      ESDE_TASK_SPLIT = True
   ```
 
 #### Step 3: Build Auth and Restart Your Containers<a name="step-3-build-auth-and-restart-your-containers"></a>
