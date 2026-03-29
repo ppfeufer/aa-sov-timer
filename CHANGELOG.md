@@ -43,6 +43,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Fail gracefully on `RequestError`, which can be thrown by `django-esi` when ESI is
+  unavailable, instead of crashing the task (Downtime, Endpoint down, etc.)
+
 ### Changed
 
 - (Internal) Better type hinting

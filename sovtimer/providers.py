@@ -8,7 +8,7 @@ import typing
 from typing import Any
 
 # Third Party
-from aiopenapi3 import ContentTypeError
+from aiopenapi3 import ContentTypeError, RequestError
 from httpx import Response
 
 # Alliance Auth
@@ -107,7 +107,7 @@ class ESIHandler:
             )
 
             esi_result = None
-        except HTTPClientError as exc:
+        except (HTTPClientError, RequestError) as exc:
             logger.error(msg=f"Error while fetching data from ESI: {str(exc)}")
 
             esi_result = None
