@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-02-27 11:19+0100\n"
-"PO-Revision-Date: 2026-02-05 01:23+0000\n"
+"POT-Creation-Date: 2026-04-07 19:56+0200\n"
+"PO-Revision-Date: 2026-03-22 19:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
 "Language: ja\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
@@ -31,7 +31,7 @@ msgstr "領有権タイマーのモジュールにアクセス可能です"
 
 #: sovtimer/models.py:56
 msgid "Alliance"
-msgstr ""
+msgstr "アライアンス"
 
 #: sovtimer/models.py:57
 msgid "Alliances"

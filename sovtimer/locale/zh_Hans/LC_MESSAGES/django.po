@@ -7,15 +7,15 @@
 # MxdHana <236833425@qq.com>, 2024.
 # SAM_FPS <sam_fps@163.com>, 2024.
 # AKA Patrick <hsc844766246@gmail.com>, 2025.
-# LichenKass <yuanchengwei_sz@163.com>, 2025.
+# LichenKass <yuanchengwei_sz@163.com>, 2025, 2026.
 # nm l <mmttyyluo@gmail.com>, 2026.
 # shkno <l13244536339@163.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-02-27 11:19+0100\n"
-"PO-Revision-Date: 2026-02-12 05:23+0000\n"
+"POT-Creation-Date: 2026-04-07 19:56+0200\n"
+"PO-Revision-Date: 2026-03-06 10:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Chinese (Simplified Han script) <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.1\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
