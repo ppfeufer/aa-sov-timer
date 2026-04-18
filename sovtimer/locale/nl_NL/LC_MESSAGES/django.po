@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
 "POT-Creation-Date: 2026-04-07 19:56+0200\n"
-"PO-Revision-Date: 2026-02-01 14:23+0000\n"
+"PO-Revision-Date: 2026-04-18 04:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Dutch <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/nl/>\n"
 "Language: nl_NL\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:35
 #: sovtimer/templates/sovtimer/base.html:7
@@ -121,7 +121,7 @@ msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
 msgid "Join our team of translators!"
-msgstr ""
+msgstr "Kom ons team van vertalers versterken!"
 
 #: sovtimer/views.py:148
 msgid "Defenders making progress"
