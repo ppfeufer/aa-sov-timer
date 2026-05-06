@@ -62,7 +62,6 @@ class TestUpdateSovStructures(BaseTestCase):
                 structure_id=1001,
                 alliance_id=2001,
                 solar_system_id=3001,
-                structure_type_id=4001,
                 vulnerability_occupancy_level=0.5,
                 vulnerable_start_time="2023-01-01T12:00:00Z",
                 vulnerable_end_time="2023-01-01T18:00:00Z",
@@ -381,6 +380,6 @@ class TestRunSovCampaignUpdates(BaseTestCase):
         run_sov_campaign_updates()
 
         mock_logger_info.assert_called_once_with(
-            msg="Updating sovereignty structures and campaigns from ESI …"
+            msg="Updating sovereignty structures and campaigns from ESI…"
         )
         mock_chain.return_value.apply_async.assert_called_once()

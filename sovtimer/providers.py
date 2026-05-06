@@ -4,8 +4,7 @@ Providers
 
 # Standard Library
 import logging
-import typing
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 # Third Party
 from aiopenapi3 import ContentTypeError, RequestError
@@ -25,18 +24,15 @@ from sovtimer import (
     __version__,
 )
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     # Alliance Auth
-    from esi.stubs import (
-        AllianceDetail,
-        SovereigntyCampaignsGet,
-        SovereigntyStructuresGet,
-    )
+    from esi.stubs import AllianceDetail, SovereigntyCampaignsGetItem
 
 # ESI client
 esi = ESIClientProvider(
     # Use the latest compatibility date, see https://esi.evetech.net/meta/compatibility-dates
     compatibility_date=__esi_compatibility_date__,
+    # spec_file=os.path.join(os.path.dirname(os.path.abspath(__file__)), "openapi.json"),
     # User agent for the ESI client
     ua_appname=__app_name_verbose__,
     ua_version=__version__,
@@ -47,6 +43,7 @@ esi = ESIClientProvider(
         # Sovereignty
         "GetSovereigntyCampaigns",
         "GetSovereigntyStructures",
+        "GetSovereigntySystems",
     ],
 )
 
@@ -65,7 +62,7 @@ class ESIHandler:
         force_refresh: bool = False,
         use_cache: bool = True,
         **extra,
-    ) -> tuple[Any, Response] | Any:
+    ) -> Any | tuple[Any, Response] | None:
         """
         Retrieve the result of an ESI operation, handling HTTPNotModified exceptions.
 
@@ -81,20 +78,42 @@ class ESIHandler:
         :type use_cache: bool
         :param extra: Additional parameters to pass to the operation.
         :type extra: dict
-        :return: The result of the ESI operation, optionally with the response object.
-        :rtype: tuple[Any, Response] | Any
+        :return: The result of the ESI operation.
+        :rtype: Any | tuple[Any, Response] | None
         """
 
         logger.debug(f"Handling ESI operation: {operation.operation.operationId}")
+        logger.debug(
+            f"Operation parameters: use_etag={use_etag}, return_response={return_response}, force_refresh={force_refresh}, use_cache={use_cache}, extra={extra}"
+        )
+
+        response: Response | None = None
 
         try:
-            esi_result = operation.result(
-                use_etag=use_etag,
-                return_response=return_response,
-                force_refresh=force_refresh,
-                use_cache=use_cache,
-                **extra,
-            )
+            # Call operation.result differently depending on whether the caller
+            # requested the raw Response object. Some implementations return a
+            # single result when return_response is False and a (result, response)
+            # tuple when True, so only unpack when return_response is True.
+            if return_response:
+                esi_result, response = operation.result(
+                    use_etag=use_etag,
+                    return_response=return_response,
+                    force_refresh=force_refresh,
+                    use_cache=use_cache,
+                    **extra,
+                )
+
+                logger.debug(
+                    f"ESI Response for operation: {operation.operation.operationId}: {response}"
+                )
+            else:
+                esi_result = operation.result(
+                    use_etag=use_etag,
+                    return_response=return_response,
+                    force_refresh=force_refresh,
+                    use_cache=use_cache,
+                    **extra,
+                )
         except HTTPNotModified:
             logger.debug(
                 f"ESI returned 304 Not Modified for operation: {operation.operation.operationId} - Skipping update."
@@ -112,68 +131,104 @@ class ESIHandler:
 
             esi_result = None
 
+        # If caller requested the raw response, return a tuple (result, response)
+        if return_response:
+            return esi_result, response
+
         return esi_result
 
     @classmethod
     def get_alliances_alliance_id(
-        cls, alliance_id: int, force_refresh: bool = False
-    ) -> "AllianceDetail | None":
+        cls,
+        alliance_id: int,
+        use_etags: bool = True,
+        force_refresh: bool = False,
+        return_response: bool = False,
+    ) -> "AllianceDetail | tuple[AllianceDetail, Response] | Any":
         """
         Get alliance information from ESI.
 
         :param alliance_id: The ID of the alliance to retrieve.
         :type alliance_id: int
+        :param use_etags: Whether to use ETag for caching.
+        :type use_etags: bool
         :param force_refresh: Whether to force a refresh of the data from ESI, bypassing any caches.
         :type force_refresh: bool
+        :param return_response: Whether to return the full response object.
+        :type return_response: bool
         :return: Alliance information or None if an error occurred.
-        :rtype: AllianceDetail | None
+        :rtype: AllianceDetail | tuple[AllianceDetail, Response] | None
         """
 
         logger.debug(
-            f"Fetching alliance information for alliance ID {alliance_id} from ESI..."
+            f"Fetching alliance information for alliance ID {alliance_id} from ESI…"
         )
 
         return cls.result(
             operation=esi.client.Alliance.GetAlliancesAllianceId(
                 alliance_id=alliance_id
             ),
+            use_etag=use_etags,
             force_refresh=force_refresh,
+            return_response=return_response,
         )
 
     @classmethod
     def get_sovereignty_campaigns(
-        cls, force_refresh: bool = False
-    ) -> "list[SovereigntyCampaignsGet] | None":
+        cls,
+        use_etags: bool = True,
+        force_refresh: bool = False,
+        return_response: bool = False,
+    ) -> "list[SovereigntyCampaignsGetItem] | tuple[list[SovereigntyCampaignsGetItem], Response] | None":
         """
         Get sovereignty campaigns from ESI.
 
+        :param use_etags: Whether to use ETag for caching.
+        :type use_etags: bool
+        :param force_refresh: Whether to force a refresh of the data from ESI, bypassing any caches.
+        :type force_refresh: bool
+        :param return_response: Whether to return the full response object.
+        :type return_response: bool
         :return: List of sovereignty campaigns or None if an error occurred.
-        :rtype: list[SovereigntyCampaignsGet] | None
+        :rtype: list[SovereigntyCampaignsGetItem] | tuple[list[SovereigntyCampaignsGetItem], Response] | None
         """
 
-        logger.debug("Fetching sovereignty campaigns from ESI...")
+        logger.debug("Fetching sovereignty campaigns from ESI…")
 
         return cls.result(
             operation=esi.client.Sovereignty.GetSovereigntyCampaigns(),
+            use_etag=use_etags,
             force_refresh=force_refresh,
+            return_response=return_response,
         )
 
     @classmethod
-    def get_sovereignty_structures(
-        cls, force_refresh: bool = False
-    ) -> "list[SovereigntyStructuresGet] | None":
+    def get_sovereignty_systems(
+        cls,
+        use_etags: bool = True,
+        force_refresh: bool = False,
+        return_response: bool = False,
+    ):
         """
-        Get sovereignty structures from ESI.
+        Get sovereignty systems from ESI.
 
-        :return: List of sovereignty structures or None if an error occurred.
-        :rtype: list[SovereigntyStructuresGet] | None
+        :param use_etags: Whether to use ETag for caching.
+        :type use_etags: bool
+        :param force_refresh: Whether to force a refresh of the data from ESI, bypassing any caches.
+        :type force_refresh: bool
+        :param return_response: Whether to return the full response object.
+        :type return_response: bool
+        :return: List of sovereignty systems or None if an error occurred.
+        :rtype: list | tuple[list, Response] | None
         """
 
-        logger.debug("Fetching sovereignty structures from ESI...")
+        logger.debug("Fetching sovereignty systems from ESI…")
 
         return cls.result(
-            operation=esi.client.Sovereignty.GetSovereigntyStructures(),
+            operation=esi.client.Sovereignty.GetSovereigntySystems(),
+            use_etag=use_etags,
             force_refresh=force_refresh,
+            return_response=return_response,
         )
 
 
@@ -185,7 +240,7 @@ class AppLogger(logging.LoggerAdapter):
     Credits to: Erik Kalkoken
     """
 
-    def __init__(self, my_logger, prefix):
+    def __init__(self, my_logger: logging.Logger, prefix: str = "Sovereignty Timer"):
         """
         Initializes the AppLogger with a logger and a prefix.
 

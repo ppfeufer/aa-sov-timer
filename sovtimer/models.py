@@ -4,6 +4,7 @@ Our Models
 
 # Standard Library
 from collections.abc import Iterable
+from typing import TYPE_CHECKING, Any
 
 # Third Party
 from eve_sde.models import SolarSystem
@@ -18,6 +19,13 @@ from allianceauth.services.hooks import get_extension_logger
 # AA Sovereignty Timer
 from sovtimer import __title__
 from sovtimer.providers import AppLogger, ESIHandler
+
+if TYPE_CHECKING:
+    # Third Party
+    from httpx import Response
+
+    # Alliance Auth
+    from esi.stubs import SovereigntyCampaignsGetItem
 
 logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
@@ -140,7 +148,6 @@ class SovereigntyStructure(models.Model):
         blank=True,
         related_name="sov_structure_solar_system",
     )
-    structure_type_id = models.PositiveBigIntegerField()
     vulnerability_occupancy_level = models.FloatField(default=1)
     vulnerable_end_time = models.DateTimeField(null=True, blank=True)
     vulnerable_start_time = models.DateTimeField(null=True, blank=True)
@@ -155,21 +162,61 @@ class SovereigntyStructure(models.Model):
         default_permissions = ()
 
     @staticmethod
-    def get_sov_structures_from_esi(force_refresh: bool = False):
+    def get_sov_structures_from_esi(
+        use_etags: bool = True, force_refresh: bool = False
+    ) -> list[Any] | None:
         """
         Get all sov structures from ESI
 
-        :param force_refresh:
-        :type force_refresh:
-        :return:
-        :rtype:
+        :param use_etags: Whether to use ETag for caching.
+        :type use_etags: bool
+        :param force_refresh: Whether to force a refresh of the data.
+        :type force_refresh: bool
+        :return: List of sovereignty structures or None if an error occurred.
+        :rtype: list[Any] | None
         """
 
-        sov_structures_from_esi = ESIHandler.get_sovereignty_structures(
-            force_refresh=force_refresh
+        sov_structures_from_esi = None
+
+        sov_systems_from_esi = ESIHandler.get_sovereignty_systems(
+            use_etags=use_etags, force_refresh=force_refresh
         )
 
-        if sov_structures_from_esi:
+        if sov_systems_from_esi:
+            sov_structures_from_esi = []
+
+            for sov_system in sov_systems_from_esi.solar_systems:
+                try:
+                    if sov_system.claim.root.alliance:
+                        claim = sov_system.claim.root.alliance
+
+                        sov_structure = {
+                            "solar_system_id": sov_system.solar_system_id,
+                            "alliance_id": claim.alliance_id,
+                            "corporation_id": claim.corporation_id,
+                            "claimed_since": claim.claimed_since,
+                            "sovereignty_hub": {
+                                "id": claim.sovereignty_hub.id,
+                            },
+                            "is_capital_system": claim.is_capital_system,
+                            "development": {
+                                "activity_defense_multiplier": claim.development.activity_defense_multiplier,
+                                "military_level": claim.development.military_level,
+                                "industrial_level": claim.development.industrial_level,
+                                "strategic_level": claim.development.strategic_level,
+                            },
+                        }
+
+                        if claim.sovereignty_hub.vulnerability_window:
+                            sov_structure["sovereignty_hub"]["vulnerability_window"] = {
+                                "start": claim.sovereignty_hub.vulnerability_window.start,
+                                "end": claim.sovereignty_hub.vulnerability_window.end,
+                            }
+
+                        sov_structures_from_esi.append(sov_structure)
+                except AttributeError:
+                    continue
+
             logger.debug(
                 msg=f"Fetched {len(sov_structures_from_esi or [])} sovereignty structures from ESI"
             )
@@ -224,15 +271,28 @@ class Campaign(models.Model):
         default_permissions = ()
 
     @staticmethod
-    def get_sov_campaigns_from_esi(force_refresh: bool = False):
+    def get_sov_campaigns_from_esi(
+        use_etags: bool = True,
+        force_refresh: bool = False,
+        return_response: bool = False,
+    ) -> "list[SovereigntyCampaignsGetItem] | tuple[list[SovereigntyCampaignsGetItem], Response] | None":
         """
         Get all sov campaigns from ESI
 
+        :param use_etags:
+        :type use_etags:
+        :param force_refresh:
+        :type force_refresh:
+        :param return_response:
+        :type return_response:
         :return:
+        :rtype:
         """
 
         campaigns_from_esi = ESIHandler.get_sovereignty_campaigns(
-            force_refresh=force_refresh
+            use_etags=use_etags,
+            force_refresh=force_refresh,
+            return_response=return_response,
         )
 
         if campaigns_from_esi:

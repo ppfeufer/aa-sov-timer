@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
-        Ask before running …
+        Ask before running…
 
         :param args:
         :param options:
@@ -48,7 +48,7 @@ class Command(BaseCommand):
             msg=(
                 "This will start the initial import for SOV campaigns and structures. "
                 "It's quite a bit to import, so this might take a moment or two. "
-                "Please be patient …"
+                "Please be patient…"
             )
         )
 

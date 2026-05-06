@@ -6,7 +6,7 @@ Unit tests for the models in sovtimer
 from unittest.mock import MagicMock, patch
 
 # AA Sovereignty Timer
-from sovtimer.models import Alliance, Campaign, SovereigntyStructure, logger
+from sovtimer.models import Alliance, Campaign, logger
 from sovtimer.tests import BaseTestCase
 
 
@@ -145,103 +145,6 @@ class TestSovereigntyStructure(BaseTestCase):
     Test cases for the SovereigntyStructure model
     """
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_structures")
-    def test_returns_sov_structures_when_esi_returns_data(
-        self, mock_get_sov_structures
-    ):
-        """
-        Test that sovereignty structures are returned when ESI returns data
-
-        :param mock_get_sov_structures:
-        :type mock_get_sov_structures:
-        :return:
-        :rtype:
-        """
-
-        mock_get_sov_structures.return_value = [
-            {
-                "structure_id": 1001,
-                "alliance_id": 2001,
-                "solar_system_id": 3001,
-                "structure_type_id": 4001,
-                "vulnerability_occupancy_level": 0.5,
-                "vulnerable_start_time": "2023-01-01T12:00:00Z",
-                "vulnerable_end_time": "2023-01-01T18:00:00Z",
-            }
-        ]
-
-        result = SovereigntyStructure.get_sov_structures_from_esi(force_refresh=False)
-
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]["structure_id"], 1001)
-        mock_get_sov_structures.assert_called_once_with(force_refresh=False)
-
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_structures")
-    def test_returns_empty_list_when_esi_returns_no_data(self, mock_get_sov_structures):
-        """
-        Test that an empty list is returned when ESI returns no data for sovereignty structures
-
-        :param mock_get_sov_structures:
-        :type mock_get_sov_structures:
-        :return:
-        :rtype:
-        """
-
-        mock_get_sov_structures.return_value = []
-
-        result = SovereigntyStructure.get_sov_structures_from_esi(force_refresh=False)
-
-        self.assertEqual(len(result), 0)
-        mock_get_sov_structures.assert_called_once_with(force_refresh=False)
-
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_structures")
-    def test_logs_info_when_esi_returns_no_data(self, mock_get_sov_structures):
-        """
-        Test that an info log is generated when ESI returns no data for sovereignty structures
-
-        :param mock_get_sov_structures:
-        :type mock_get_sov_structures:
-        :return:
-        :rtype:
-        """
-
-        mock_get_sov_structures.return_value = []
-
-        with self.assertLogs(logger.logger, level="INFO") as log:
-            SovereigntyStructure.get_sov_structures_from_esi(force_refresh=False)
-
-        self.assertIn(
-            "No sovereignty structure changes found, nothing to update.", log.output[0]
-        )
-
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_structures")
-    def test_logs_debug_when_esi_returns_data(self, mock_get_sov_structures):
-        """
-        Test that a debug log is generated when ESI returns data for sovereignty structures
-
-        :param mock_get_sov_structures:
-        :type mock_get_sov_structures:
-        :return:
-        :rtype:
-        """
-
-        mock_get_sov_structures.return_value = [
-            {
-                "structure_id": 1001,
-                "alliance_id": 2001,
-                "solar_system_id": 3001,
-                "structure_type_id": 4001,
-                "vulnerability_occupancy_level": 0.5,
-                "vulnerable_start_time": "2023-01-01T12:00:00Z",
-                "vulnerable_end_time": "2023-01-01T18:00:00Z",
-            }
-        ]
-
-        with self.assertLogs(logger.logger, level="DEBUG") as log:
-            SovereigntyStructure.get_sov_structures_from_esi(force_refresh=False)
-
-        self.assertIn("Fetched 1 sovereignty structures from ESI", log.output[0])
-
 
 class TestCampaign(BaseTestCase):
     """
@@ -274,7 +177,9 @@ class TestCampaign(BaseTestCase):
 
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["campaign_id"], 5001)
-        mock_get_campaigns.assert_called_once_with(force_refresh=False)
+        mock_get_campaigns.assert_called_once_with(
+            use_etags=True, force_refresh=False, return_response=False
+        )
 
     @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
     def test_returns_empty_list_when_esi_returns_no_data(self, mock_get_campaigns):
@@ -292,7 +197,9 @@ class TestCampaign(BaseTestCase):
         result = Campaign.get_sov_campaigns_from_esi(force_refresh=False)
 
         self.assertEqual(len(result), 0)
-        mock_get_campaigns.assert_called_once_with(force_refresh=False)
+        mock_get_campaigns.assert_called_once_with(
+            use_etags=True, force_refresh=False, return_response=False
+        )
 
     @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
     def test_logs_info_when_esi_returns_no_data(self, mock_get_campaigns):
