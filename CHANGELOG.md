@@ -44,6 +44,16 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.0.3] - 2026-05-06
+
+### Changed
+
+- Translations updated
+
+### Miscellaneous
+
+- Ready for Alliance Auth v5
+
 ## [4.0.2] - 2026-04-07
 
 ### Fixed
@@ -1051,5 +1061,6 @@ And restart your supervisor.
 [4.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v3.5.1...v4.0.0 "v4.0.0"
 [4.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.0...v4.0.1 "v4.0.1"
 [4.0.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.1...v4.0.2 "v4.0.2"
+[4.0.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.2...v4.0.3 "v4.0.3"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.2...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.3...HEAD "In Development"
