@@ -3,11 +3,115 @@ Unit tests for the models in sovtimer
 """
 
 # Standard Library
+import importlib
+import sys
+import types
+import typing
 from unittest.mock import MagicMock, patch
 
 # AA Sovereignty Timer
-from sovtimer.models import Alliance, Campaign, logger
+from sovtimer.models import Alliance, Campaign, SovereigntyStructure, logger
 from sovtimer.tests import BaseTestCase
+
+
+class TypeCheckingImportBehavior(BaseTestCase):
+    """
+    Test the TYPE_CHECKING import behavior in sovtimer.models to ensure that type
+    checking symbols are only imported when TYPE_CHECKING is True
+    """
+
+    def test_imports_type_checking_symbols_when_flag_is_true(self):
+        """
+        Test imports TYPE_CHECKING symbols when flag is true
+
+        :return:
+        :rtype:
+        """
+
+        # Preserve any existing modules to restore later
+        orig_httpx = sys.modules.get("httpx")
+        orig_esi = sys.modules.get("esi")
+        orig_esi_stubs = sys.modules.get("esi.stubs")
+
+        # Inject placeholder modules so the imports inside TYPE_CHECKING succeed
+        sys.modules["httpx"] = types.ModuleType("httpx")
+        sys.modules["esi"] = types.ModuleType("esi")
+        sys.modules["esi.stubs"] = types.ModuleType("esi.stubs")
+        sys.modules["httpx"].Response = object()
+        sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
+
+        with patch.object(typing, "TYPE_CHECKING", True):
+            models = importlib.reload(importlib.import_module("sovtimer.models"))
+
+            self.assertIn("Response", models.__dict__)
+            self.assertIn("SovereigntyCampaignsGetItem", models.__dict__)
+            self.assertIs(models.__dict__["Response"], sys.modules["httpx"].Response)
+            self.assertIs(
+                models.__dict__["SovereigntyCampaignsGetItem"],
+                sys.modules["esi.stubs"].SovereigntyCampaignsGetItem,
+            )
+
+        # Restore original modules and reload the module to leave global state unchanged
+        if orig_httpx is None:
+            del sys.modules["httpx"]
+        else:
+            sys.modules["httpx"] = orig_httpx
+
+        if orig_esi_stubs is None:
+            del sys.modules["esi.stubs"]
+        else:
+            sys.modules["esi.stubs"] = orig_esi_stubs
+
+        if orig_esi is None:
+            del sys.modules["esi"]
+        else:
+            sys.modules["esi"] = orig_esi
+
+        importlib.reload(importlib.import_module("sovtimer.models"))
+
+    def test_does_not_import_type_checking_symbols_when_flag_is_false(self):
+        """
+        Test does not import TYPE_CHECKING symbols when flag is false
+
+        :return:
+        :rtype:
+        """
+
+        # Preserve any existing modules to restore later
+        orig_httpx = sys.modules.get("httpx")
+        orig_esi = sys.modules.get("esi")
+        orig_esi_stubs = sys.modules.get("esi.stubs")
+
+        # Inject placeholder modules so imports would succeed if executed
+        sys.modules["httpx"] = types.ModuleType("httpx")
+        sys.modules["esi"] = types.ModuleType("esi")
+        sys.modules["esi.stubs"] = types.ModuleType("esi.stubs")
+        sys.modules["httpx"].Response = object()
+        sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
+
+        with patch.object(typing, "TYPE_CHECKING", False):
+            models = importlib.reload(importlib.import_module("sovtimer.models"))
+
+            self.assertNotIn("Response", models.__dict__)
+            self.assertNotIn("SovereigntyCampaignsGetItem", models.__dict__)
+
+        # Restore original modules and reload the module to leave global state unchanged
+        if orig_httpx is None:
+            del sys.modules["httpx"]
+        else:
+            sys.modules["httpx"] = orig_httpx
+
+        if orig_esi_stubs is None:
+            del sys.modules["esi.stubs"]
+        else:
+            sys.modules["esi.stubs"] = orig_esi_stubs
+
+        if orig_esi is None:
+            del sys.modules["esi"]
+        else:
+            sys.modules["esi"] = orig_esi
+
+        importlib.reload(importlib.import_module("sovtimer.models"))
 
 
 class TestAlliance(BaseTestCase):
@@ -144,6 +248,266 @@ class TestSovereigntyStructure(BaseTestCase):
     """
     Test cases for the SovereigntyStructure model
     """
+
+    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    def test_returns_none_when_esihandler_returns_none(self, mock_get):
+        """
+        Test that none is returned when ESI returns None
+
+        :param mock_get:
+        :type mock_get:
+        :return:
+        :rtype:
+        """
+
+        mock_get.return_value = None
+
+        result = SovereigntyStructure.get_sov_structures_from_esi(
+            use_etags=False, force_refresh=False
+        )
+
+        self.assertIsNone(result)
+        mock_get.assert_called_once_with(use_etags=False, force_refresh=False)
+
+    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    def test_returns_parsed_structure_list_when_esihandler_returns_data(self, mock_get):
+        """
+        Test that data is returned when ESI returns parsed data
+
+        :param mock_get:
+        :type mock_get:
+        :return:
+        :rtype:
+        """
+
+        sovereignty_hub = MagicMock()
+        sovereignty_hub.id = 12345
+        vulnerability_window = MagicMock()
+        vulnerability_window.start = "2023-01-01T12:00:00Z"
+        vulnerability_window.end = "2023-01-01T18:00:00Z"
+        sovereignty_hub.vulnerability_window = vulnerability_window
+
+        development = MagicMock()
+        development.activity_defense_multiplier = 0.5
+        development.military_level = 1
+        development.industrial_level = 2
+        development.strategic_level = 3
+
+        claim_obj = MagicMock()
+        claim_obj.alliance_id = 2001
+        claim_obj.corporation_id = 4001
+        claim_obj.claimed_since = "2023-01-01T00:00:00Z"
+        claim_obj.sovereignty_hub = sovereignty_hub
+        claim_obj.is_capital_system = True
+        claim_obj.development = development
+
+        root = MagicMock()
+        root.alliance = claim_obj
+
+        sov_system = MagicMock()
+        sov_system.solar_system_id = 3001
+        sov_system.claim = MagicMock(root=root)
+
+        mock_get.return_value = MagicMock(solar_systems=[sov_system])
+
+        result = SovereigntyStructure.get_sov_structures_from_esi(
+            use_etags=True, force_refresh=True
+        )
+
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 1)
+
+        structure = result[0]
+        self.assertIn("solar_system_id", structure)
+        self.assertIn("alliance_id", structure)
+        self.assertIn("sovereignty_hub", structure)
+        self.assertEqual(structure["solar_system_id"], 3001)
+        self.assertEqual(structure["alliance_id"], 2001)
+        self.assertEqual(structure["sovereignty_hub"]["id"], 12345)
+        self.assertIn("vulnerability_window", structure["sovereignty_hub"])
+        self.assertEqual(structure["development"]["activity_defense_multiplier"], 0.5)
+        mock_get.assert_called_once_with(use_etags=True, force_refresh=True)
+
+    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    def test_skips_systems_without_alliance_and_continues_processing_others(
+        self, mock_get
+    ):
+        """
+        Test skips system without alliance and continues processing
+
+        :param mock_get:
+        :type mock_get:
+        :return:
+        :rtype:
+        """
+
+        class BadClaim:
+            """
+            Bad Claim
+            """
+
+            @property
+            def root(self):
+                """
+                Raise AttributeError
+
+                :return:
+                :rtype:
+                """
+
+                raise AttributeError
+
+        bad_system = MagicMock()
+        bad_system.solar_system_id = 1111
+        bad_system.claim = BadClaim()
+
+        sovereignty_hub = MagicMock()
+        sovereignty_hub.id = 22222
+        sovereignty_hub.vulnerability_window = None
+
+        development = MagicMock()
+        development.activity_defense_multiplier = None
+        development.military_level = 0
+        development.industrial_level = 0
+        development.strategic_level = 0
+
+        claim_obj = MagicMock()
+        claim_obj.alliance_id = 3001
+        claim_obj.corporation_id = 5001
+        claim_obj.claimed_since = None
+        claim_obj.sovereignty_hub = sovereignty_hub
+        claim_obj.is_capital_system = False
+        claim_obj.development = development
+
+        root = MagicMock()
+        root.alliance = claim_obj
+
+        good_system = MagicMock()
+        good_system.solar_system_id = 4001
+        good_system.claim = MagicMock(root=root)
+
+        mock_get.return_value = MagicMock(solar_systems=[bad_system, good_system])
+
+        result = SovereigntyStructure.get_sov_structures_from_esi()
+
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["solar_system_id"], 4001)
+        mock_get.assert_called_once_with(use_etags=True, force_refresh=False)
+
+    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    def test_skips_system_when_development_raises_attribute_error(self, mock_get):
+        """
+        Test skips system when system development is raises AttributeError and continues processing others
+
+        :param mock_get:
+        :type mock_get:
+        :return:
+        :rtype:
+        """
+
+        sovereignty_hub = MagicMock()
+        sovereignty_hub.id = 99999
+        claim_obj = MagicMock()
+        claim_obj.alliance_id = 7001
+        claim_obj.corporation_id = 8001
+        claim_obj.claimed_since = None
+        claim_obj.sovereignty_hub = sovereignty_hub
+        claim_obj.is_capital_system = False
+
+        class BadDevelopment:
+            """
+            Bad Development
+            """
+
+            @property
+            def activity_defense_multiplier(self):
+                """
+                Raise AttributeError
+
+                :return:
+                :rtype:
+                """
+
+                raise AttributeError
+
+            @property
+            def military_level(self):
+                """
+                Raise AttributeError
+
+                :return:
+                :rtype:
+                """
+
+                raise AttributeError
+
+            @property
+            def industrial_level(self):
+                """
+                Raise AttributeError
+
+                :return:
+                :rtype:
+                """
+
+                raise AttributeError
+
+            @property
+            def strategic_level(self):
+                """
+                Raise AttributeError
+
+                :return:
+                :rtype:
+                """
+
+                raise AttributeError
+
+        claim_obj.development = BadDevelopment()
+
+        root = MagicMock()
+        root.alliance = claim_obj
+
+        bad_system = MagicMock()
+        bad_system.solar_system_id = 7777
+        bad_system.claim = MagicMock(root=root)
+
+        mock_get.return_value = MagicMock(solar_systems=[bad_system])
+
+        result = SovereigntyStructure.get_sov_structures_from_esi()
+
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 0)
+        mock_get.assert_called_once_with(use_etags=True, force_refresh=False)
+
+    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    def test_handles_system_with_no_alliance_field_gracefully(self, mock_get):
+        """
+        Test handles system with no alliance field gracefully
+
+        :param mock_get:
+        :type mock_get:
+        :return:
+        :rtype:
+        """
+        # sov_system.claim.root.alliance is None -> should be skipped and result empty list
+        root = MagicMock()
+        root.alliance = None
+
+        sov_system = MagicMock()
+        sov_system.solar_system_id = 1010
+        sov_system.claim = MagicMock(root=root)
+
+        mock_get.return_value = MagicMock(solar_systems=[sov_system])
+
+        result = SovereigntyStructure.get_sov_structures_from_esi(
+            use_etags=True, force_refresh=True
+        )
+
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 0)
+        mock_get.assert_called_once_with(use_etags=True, force_refresh=True)
 
 
 class TestCampaign(BaseTestCase):
