@@ -50,6 +50,7 @@ Section Order:
   information, which also includes the correct ADMs for each system. This also means
   that sovereignty structures are now updated when changes are available, to ensure
   the ADM information is up to date as well.
+- Set ESI compatibility date to `2026-05-19`
 
 ## [4.0.3] - 2026-05-06
 
