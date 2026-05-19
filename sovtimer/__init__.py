@@ -9,7 +9,7 @@ __version__ = "4.0.3"
 __title__ = "Sovereignty Timer"
 __title_translated__ = _("Sovereignty Timer")
 
-__esi_compatibility_date__ = "2025-11-06"
+__esi_compatibility_date__ = "2026-05-19"
 
 __package_name__ = "aa-sov-timer"
 __app_name__ = "sovtimer"

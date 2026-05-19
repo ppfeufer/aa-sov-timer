@@ -27,7 +27,8 @@ class BaseTestCase(TestCase):
         .. code-block:: python
 
             class TestMyStuff(BaseTestCase):
-                def test_should_do_what_i_need(self): ...
+                def test_should_do_what_i_need(self):
+                    …
 
     """
 

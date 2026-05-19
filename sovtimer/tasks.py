@@ -7,6 +7,7 @@ from celery import chain, shared_task
 from eve_sde.models import SolarSystem
 
 # Django
+from django.core.cache import cache
 from django.db import transaction
 
 # Alliance Auth
@@ -15,33 +16,25 @@ from allianceauth.services.tasks import QueueOnce
 
 # AA Sovereignty Timer
 from sovtimer import __title__
+from sovtimer.constants import Constants
 from sovtimer.models import Alliance, Campaign, SovereigntyStructure
 from sovtimer.providers import AppLogger
 
 logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
 
 
-ESI_ERROR_LIMIT = 50
-ESI_TIMEOUT_ONCE_ERROR_LIMIT_REACHED = 60
-ESI_SOV_STRUCTURES_CACHE_KEY = "sov_structures_cache"
-ESI_MAX_RETRIES = 5
-
-TASK_TIME_LIMIT = 600  # Stop after 10 minutes
-
 # Params for all tasks
-TASK_PRIORITY = 6
-TASK_ONCE_ARGS = {"graceful": True}
-TASK_ONCE = {"base": QueueOnce, "once": TASK_ONCE_ARGS}
-
 TASK_DEFAULTS = {
-    "time_limit": TASK_TIME_LIMIT,
-    "max_retries": ESI_MAX_RETRIES,
-    "default_retry_delay": 300,
+    **{
+        "time_limit": Constants.TASK_RUN_TTL,
+        "max_retries": Constants.TASK_ESI_MAX_RETRIES,
+        "default_retry_delay": Constants.TASK_DEFAULT_RETRY_DELAY,
+    },
+    **{"base": QueueOnce, "once": {"graceful": True}},
 }
-TASK_DEFAULTS_ONCE = {**TASK_DEFAULTS, **TASK_ONCE}
 
 
-@shared_task(**TASK_DEFAULTS_ONCE)
+@shared_task(**TASK_DEFAULTS)
 def run_sov_campaign_updates() -> None:
     """
     Update all sovereignty campaigns and structures.
@@ -67,17 +60,23 @@ def run_sov_campaign_updates() -> None:
     """
 
     # Log the start of the update process
-    logger.info(msg="Updating sovereignty structures and campaigns from ESI …")
+    logger.info(msg="Updating sovereignty structures and campaigns from ESI…")
 
     # Chain the update tasks for structures and campaigns, and execute them asynchronously
+    # Use immutable signatures (.si) so the result of the previous task is NOT
+    # passed as the first positional argument to the next task.
     chain(
-        update_sov_structures.s().set(priority=TASK_PRIORITY),
-        update_sov_campaigns.s().set(priority=TASK_PRIORITY),
+        update_sov_structures.si(use_etags=True, force_refresh=False).set(
+            priority=Constants.TASK_PRIORITY
+        ),
+        update_sov_campaigns.si(use_etags=True, force_refresh=False).set(
+            priority=Constants.TASK_PRIORITY
+        ),
     ).apply_async()
 
 
-@shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_campaigns(force_refresh: bool = False) -> None:
+@shared_task(**TASK_DEFAULTS)
+def update_sov_campaigns(use_etags: bool = True, force_refresh: bool = False) -> None:
     """
     Update sovereignty campaigns from ESI (EVE Swagger Interface).
 
@@ -86,6 +85,8 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
     that all related entities (e.g., defenders) are pre-fetched or created as needed to
     minimize database hits.
 
+    :param use_etags: Whether to use ETags instead of hashes.
+    :type use_etags: bool
     :param force_refresh: Whether to force refresh the data from ESI.
     :type force_refresh: bool
     :return: None
@@ -93,7 +94,9 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
     """
 
     # Fetch campaigns from ESI
-    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(force_refresh)
+    campaigns_from_esi = Campaign.get_sov_campaigns_from_esi(
+        use_etags=use_etags, force_refresh=force_refresh
+    )
 
     # Exit early if no campaigns are returned
     if campaigns_from_esi is None:
@@ -134,8 +137,8 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
         # Create a new Campaign instance
         campaigns.append(
             Campaign(
-                attackers_score=campaign.attackers_score,
                 campaign_id=campaign.campaign_id,
+                attackers_score=campaign.attackers_score,
                 defender_score=campaign.defender_score,
                 event_type=campaign.event_type,
                 start_time=campaign.start_time,
@@ -155,8 +158,10 @@ def update_sov_campaigns(force_refresh: bool = False) -> None:
     logger.info(f"{len(campaigns)} sovereignty campaigns updated from ESI.")
 
 
-@shared_task(**TASK_DEFAULTS_ONCE)
-def update_sov_structures(force_refresh: bool = False) -> None:
+@shared_task(**TASK_DEFAULTS)
+def update_sov_structures(  # pylint: disable=too-many-locals
+    use_etags: bool = True, force_refresh: bool = False
+) -> None:
     """
     Update sovereignty structures from ESI (EVE Swagger Interface).
 
@@ -165,15 +170,30 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     (alliances and solar systems) are pre-fetched or created as needed to minimize
     database hits.
 
+    :param use_etags: Whether to use ETags instead of hashes.
+    :type use_etags: bool
     :param force_refresh: Whether to force refresh the data from ESI.
     :type force_refresh: bool
     :return: None
     :rtype: None
     """
 
+    if cache.get(Constants.TASK_STRUCTURE_CACHE_KEY) and force_refresh is False:
+        logger.debug(
+            "Cache TTL not yet expired for sovereignty structures, skipping update."
+        )
+
+        return
+
+    cache.set(
+        key=Constants.TASK_STRUCTURE_CACHE_KEY,
+        value=True,
+        timeout=Constants.TASK_STRUCTURE_CACHE_TTL,
+    )
+
     # Fetch sovereignty structures from ESI
     structures_from_esi = SovereigntyStructure.get_sov_structures_from_esi(
-        force_refresh
+        use_etags=use_etags, force_refresh=force_refresh
     )
 
     # Exit early if no structures are returned
@@ -184,21 +204,8 @@ def update_sov_structures(force_refresh: bool = False) -> None:
         msg=f"Number of sovereignty structures from ESI: {len(structures_from_esi or [])}"
     )
 
-    # Pre-fetch current structures and their vulnerability levels for fast lookup
-    current_structures = {
-        s["structure_id"]: s["vulnerability_occupancy_level"]
-        for s in SovereigntyStructure.objects.values(
-            "structure_id", "vulnerability_occupancy_level"
-        )
-    }
-
-    # Get all structure IDs that are currently part of campaigns
-    campaign_structure_ids = set(
-        Campaign.objects.values_list("structure_id", flat=True)
-    )
-
     # Collect all alliance IDs from the fetched structures
-    alliance_ids = {s.alliance_id for s in structures_from_esi if s.alliance_id}
+    alliance_ids = {s["alliance_id"] for s in structures_from_esi}
 
     # Fetch alliances from the database or create them if they don't exist
     alliances = Alliance.bulk_get_or_create_from_esi(
@@ -206,9 +213,7 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     )
 
     # Collect all solar system IDs from the fetched structures
-    solar_system_ids = {
-        s.solar_system_id for s in structures_from_esi if s.solar_system_id
-    }
+    solar_system_ids = {s["solar_system_id"] for s in structures_from_esi}
 
     # Fetch solar systems from the database
     solar_systems = {
@@ -221,28 +226,54 @@ def update_sov_structures(force_refresh: bool = False) -> None:
     # Build SovereigntyStructure instances from the fetched data
     for structure in structures_from_esi:
         # Skip structures with missing or duplicate IDs
-        if not structure.structure_id or structure.structure_id in esi_structure_ids:
+        if (
+            not structure["sovereignty_hub"]["id"]
+            or structure["sovereignty_hub"]["id"] in esi_structure_ids
+        ):
             continue
 
-        esi_structure_ids.add(structure.structure_id)
+        esi_structure_ids.add(structure["sovereignty_hub"]["id"])
 
-        # Determine the vulnerability level based on current structures or campaigns
-        vulnerability = (
-            current_structures.get(structure.structure_id, 1)
-            if structure.structure_id in campaign_structure_ids
-            else structure.vulnerability_occupancy_level or 1
+        # Determine the vulnerability level. The value is provided by the
+        # alliance development data at:
+        # structure['development']['activity_defense_multiplier']
+        try:
+            activity_defense_multiplier = structure["development"][
+                "activity_defense_multiplier"
+            ]
+        except AttributeError:
+            activity_defense_multiplier = None
+
+        vulnerability_occupancy_level = (
+            activity_defense_multiplier
+            if activity_defense_multiplier is not None
+            else 1
         )
 
-        # Create a SovereigntyStructure instance
+        # Safely retrieve vulnerability window start/end if available
+        sov_hub = (
+            structure.get("sovereignty_hub") if isinstance(structure, dict) else None
+        )
+        vulnerability_window = None
+        vulnerable_start_time = None
+        vulnerable_end_time = None
+
+        if isinstance(sov_hub, dict):
+            vulnerability_window = sov_hub.get("vulnerability_window")
+
+        if isinstance(vulnerability_window, dict):
+            vulnerable_start_time = vulnerability_window.get("start")
+            vulnerable_end_time = vulnerability_window.get("end")
+
+        # Create a SovereigntyStructure instance for bulk creation. Use .get on alliances and solar_systems to avoid KeyError if missing.
         sov_structures.append(
             SovereigntyStructure(
-                alliance=alliances.get(structure.alliance_id),
-                solar_system=solar_systems.get(structure.solar_system_id),
-                structure_id=structure.structure_id,
-                structure_type_id=structure.structure_type_id,
-                vulnerability_occupancy_level=vulnerability,
-                vulnerable_end_time=structure.vulnerable_end_time,
-                vulnerable_start_time=structure.vulnerable_start_time,
+                alliance=alliances.get(structure["alliance_id"]),
+                solar_system=solar_systems.get(structure["solar_system_id"]),
+                structure_id=structure["sovereignty_hub"]["id"],
+                vulnerability_occupancy_level=vulnerability_occupancy_level,
+                vulnerable_start_time=vulnerable_start_time,
+                vulnerable_end_time=vulnerable_end_time,
             )
         )
 
@@ -256,7 +287,6 @@ def update_sov_structures(force_refresh: bool = False) -> None:
             update_fields=[
                 "alliance",
                 "solar_system",
-                "structure_type_id",
                 "vulnerability_occupancy_level",
                 "vulnerable_end_time",
                 "vulnerable_start_time",

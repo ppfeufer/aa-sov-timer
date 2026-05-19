@@ -8,7 +8,6 @@ import logging
 import sys
 import types
 import typing
-from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
 # Third Party
@@ -23,6 +22,10 @@ from sovtimer.tests import BaseTestCase
 
 
 class TestTypingTypeCheckingIfCondition(BaseTestCase):
+    """
+    Test the `typing.TYPE_CHECKING` if condition.
+    """
+
     def test_when_typing_TYPE_CHECKING_true_then_stub_types_are_imported_into_module_namespace(
         self,
     ):
@@ -35,8 +38,9 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
 
         fake_stubs = types.ModuleType("esi.stubs")
         fake_stubs.AllianceDetail = type("AllianceDetail", (), {})
-        fake_stubs.SovereigntyCampaignsGet = type("SovereigntyCampaignsGet", (), {})
-        fake_stubs.SovereigntyStructuresGet = type("SovereigntyStructuresGet", (), {})
+        fake_stubs.SovereigntyCampaignsGetItem = type(
+            "SovereigntyCampaignsGetItem", (), {}
+        )
 
         original_sys_modules = sys.modules.copy()
 
@@ -48,8 +52,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
                 importlib.reload(providers)
 
                 self.assertTrue(hasattr(providers, "AllianceDetail"))
-                self.assertTrue(hasattr(providers, "SovereigntyCampaignsGet"))
-                self.assertTrue(hasattr(providers, "SovereigntyStructuresGet"))
+                self.assertTrue(hasattr(providers, "SovereigntyCampaignsGetItem"))
         finally:
             sys.modules.clear()
             sys.modules.update(original_sys_modules)
@@ -65,123 +68,161 @@ class TestESIHandlerResult(BaseTestCase):
     Test the ESIHandler.result method.
     """
 
-    def test_handles_successful_operation(self):
+    def test_returns_result_when_operation_succeeds(self):
         """
-        Test that a successful ESI operation returns the expected result.
+        Test returning an ESIHandler result.
 
         :return:
         :rtype:
         """
 
-        mock_operation = MagicMock()
-        mock_operation.result.return_value = "success"
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.return_value = {"data": 1}
 
-        response = ESIHandler.result(mock_operation)
-
-        self.assertEqual(response, "success")
-        mock_operation.result.assert_called_once()
-
-    def test_handles_http_not_modified_exception(self):
-        """
-        Test that an HTTPNotModified exception is handled correctly.
-
-        :return:
-        :rtype:
-        """
-
-        mock_operation = MagicMock()
-        mock_operation.result.side_effect = HTTPNotModified(
-            status_code=HTTPStatus.NOT_MODIFIED, headers={}
-        )
-
-        response = ESIHandler.result(mock_operation)
-
-        self.assertIsNone(response)
-        mock_operation.result.assert_called_once()
-
-    def test_handles_content_type_error(self):
-        """
-        Test that a ContentTypeError exception is handled correctly.
-
-        :return:
-        :rtype:
-        """
-
-        mock_operation = MagicMock()
-        mock_response = MagicMock()
-        mock_operation.result.side_effect = ContentTypeError(
-            operation=mock_operation,
-            content_type="application/json",
-            message="Invalid content type",
-            response=mock_response,
-        )
-
-        response = ESIHandler.result(mock_operation)
-
-        self.assertIsNone(response)
-        mock_operation.result.assert_called_once()
-
-    def test_returns_none_when_http_client_error_occurs(self):
-        """
-        Test that an HTTPClientError exception is raised correctly.
-
-        :return:
-        :rtype:
-        """
-
-        mock_operation = MagicMock()
-        mock_operation.result.side_effect = HTTPClientError(
-            HTTPStatus.BAD_REQUEST, headers={}, data={}
-        )
-
-        response = ESIHandler.result(mock_operation)
-
-        self.assertIsNone(response)
-        mock_operation.result.assert_called_once()
-
-    def test_returns_none_when_request_error_occurs(self):
-        """
-        Test that an HTTPRequestError exception is raised correctly.
-
-        :return:
-        :rtype:
-        """
-
-        mock_operation = MagicMock()
-        mock_operation.result.side_effect = RequestError(
-            operation=mock_operation,
-            request=MagicMock(),
-            data={},
-            parameters={},
-        )
-
-        response = ESIHandler.result(mock_operation)
-
-        self.assertIsNone(response)
-        mock_operation.result.assert_called_once()
-
-    def test_passes_extra_parameters_to_operation(self):
-        """
-        Test that extra parameters are passed correctly to the ESI operation.
-
-        :return:
-        :rtype:
-        """
-
-        mock_operation = MagicMock()
-        mock_operation.result.return_value = "success"
-
-        response = ESIHandler.result(
-            mock_operation, use_etag=False, extra_param="value"
-        )
-
-        self.assertEqual(response, "success")
-        mock_operation.result.assert_called_once_with(
-            use_etag=False,
+        result = ESIHandler.result(
+            operation=operation,
+            use_etag=True,
             return_response=False,
             force_refresh=False,
             use_cache=True,
-            extra_param="value",
+        )
+
+        self.assertEqual(result, {"data": 1})
+        operation.result.assert_called_once_with(
+            use_etag=True, return_response=False, force_refresh=False, use_cache=True
+        )
+
+    def test_returns_result_and_response_when_return_response_true(self):
+        """
+        Test returning an ESIHandler result along with the response when `return_response` is set to `True`.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        response_obj = MagicMock()
+        operation.result.return_value = ([1, 2, 3], response_obj)
+
+        result = ESIHandler.result(
+            operation=operation,
+            use_etag=False,
+            return_response=True,
+            force_refresh=True,
+            use_cache=False,
+        )
+
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(result[0], [1, 2, 3])
+        self.assertIs(result[1], response_obj)
+        operation.result.assert_called_once_with(
+            use_etag=False, return_response=True, force_refresh=True, use_cache=False
+        )
+
+    def test_returns_none_on_http_not_modified(self):
+        """
+        Test returns `None` on HTTP Not Modified.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        # HTTPNotModified requires status_code and headers
+        operation.result.side_effect = HTTPNotModified(304, {})
+
+        result = ESIHandler.result(operation=operation, return_response=False)
+
+        self.assertIsNone(result)
+
+    def test_returns_none_tuple_on_http_not_modified_when_return_response_true(self):
+        """
+        Test returns `None` on HTTP Not Modified when `return_response` is set to `True`.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        # HTTPNotModified requires status_code and headers
+        operation.result.side_effect = HTTPNotModified(304, {})
+
+        result = ESIHandler.result(operation=operation, return_response=True)
+
+        self.assertEqual(result, (None, None))
+
+    def test_returns_none_on_content_type_error(self):
+        """
+        Test returns `None` on content type error.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        # ContentTypeError requires operation, content_type, message and response
+        operation.result.side_effect = ContentTypeError(
+            None, "application/json", "invalid", None
+        )
+
+        result = ESIHandler.result(operation=operation)
+
+        self.assertIsNone(result)
+
+    def test_returns_none_on_client_or_request_error(self):
+        """
+        Test returns `None` on client or request error.
+
+        :return:
+        :rtype:
+        """
+
+        # HTTPClientError requires status_code, headers and data; construct with dummy values
+        client_exc = HTTPClientError(500, {}, None)
+        # RequestError requires operation, request, data and parameters
+        request_exc = RequestError(None, None, None, None)
+
+        for exc in (client_exc, request_exc):
+            operation = MagicMock()
+            operation.operation = MagicMock(operationId="GetSomething")
+            operation.result.side_effect = exc
+
+            result = ESIHandler.result(operation=operation)
+            self.assertIsNone(result)
+
+    def test_passes_extra_kwargs_to_operation_result(self):
+        """
+        Test passes extra kwargs to operation result.
+
+        :return:
+        :rtype:
+        """
+
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.return_value = "ok"
+
+        result = ESIHandler.result(
+            operation=operation,
+            use_etag=False,
+            return_response=False,
+            force_refresh=True,
+            use_cache=False,
+            foo="bar",
+        )
+
+        self.assertEqual(result, "ok")
+        operation.result.assert_called_once_with(
+            use_etag=False,
+            return_response=False,
+            force_refresh=True,
+            use_cache=False,
+            foo="bar",
         )
 
 
@@ -255,80 +296,7 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
 
             ESIHandler.get_sovereignty_campaigns()
 
-            mock_logger.assert_any_call("Fetching sovereignty campaigns from ESI...")
-
-
-class TestESIHandlerGetSovereigntyStructures(BaseTestCase):
-    """
-    Test the ESIHandler.get_sovereignty_structures method.
-    """
-
-    def test_returns_structures_when_esi_returns_data(self):
-        """
-        Test that the method returns sovereignty structures when ESI returns data.
-
-        :return:
-        :rtype:
-        """
-
-        with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
-        ):
-            mock_result.return_value = [{"structure_id": 1}, {"structure_id": 2}]
-
-            result = ESIHandler.get_sovereignty_structures()
-
-            self.assertEqual(len(result), 2)
-            mock_result.assert_called_once()
-
-            _, called_kwargs = mock_result.call_args
-
-            self.assertIn("operation", called_kwargs)
-            self.assertFalse(called_kwargs.get("force_refresh"))
-
-    def test_raises_exception_when_result_raises(self):
-        """
-        Test that an exception is raised when the ESIHandler.result method raises an exception.
-
-        :return:
-        :rtype:
-        """
-
-        with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch(
-                "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
-            ) as mock_result,
-        ):
-            with self.assertRaises(Exception):
-                ESIHandler.get_sovereignty_structures()
-
-            mock_result.assert_called_once()
-
-            _, called_kwargs = mock_result.call_args
-
-            self.assertIn("operation", called_kwargs)
-            self.assertFalse(called_kwargs.get("force_refresh"))
-
-    def test_logs_debug_message_when_fetching_structures(self):
-        """
-        Test that a debug message is logged when fetching sovereignty structures from ESI.
-
-        :return:
-        :rtype:
-        """
-
-        with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.logger.debug") as mock_logger,
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
-        ):
-            mock_result.return_value = [{"structure_id": 1}]
-
-            ESIHandler.get_sovereignty_structures()
-
-            mock_logger.assert_any_call("Fetching sovereignty structures from ESI...")
+            mock_logger.assert_any_call("Fetching sovereignty campaigns from ESI…")
 
 
 class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
@@ -383,6 +351,77 @@ class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
         _, called_kwargs = mock_result.call_args
         self.assertIn("operation", called_kwargs)
         self.assertTrue(called_kwargs.get("force_refresh"))
+
+
+class TestESIHandlerGetSovereigntySystems(BaseTestCase):
+    """
+    Test the ESIHandler.get_sovereignty_systems method.
+    """
+
+    def test_returns_systems_when_esi_returns_data(self):
+        """
+        Test that the ESIHandler.get_sovereignty_systems method returns a list of systems.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch("sovtimer.providers.esi", new=MagicMock()),
+            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+        ):
+            mock_result.return_value = [{"system_id": 1}, {"system_id": 2}]
+
+            result = ESIHandler.get_sovereignty_systems()
+
+            self.assertEqual(len(result), 2)
+            mock_result.assert_called_once()
+
+            _, called_kwargs = mock_result.call_args
+
+            self.assertIn("operation", called_kwargs)
+            self.assertFalse(called_kwargs.get("force_refresh"))
+
+    def test_raises_exception_when_result_raises(self):
+        """
+        Test that an exception is raised when the ESIHandler.result method raises an exception.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch("sovtimer.providers.esi", new=MagicMock()),
+            patch(
+                "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
+            ) as mock_result,
+        ):
+            with self.assertRaises(Exception):
+                ESIHandler.get_sovereignty_systems()
+
+            mock_result.assert_called_once()
+            _, called_kwargs = mock_result.call_args
+            self.assertIn("operation", called_kwargs)
+            self.assertFalse(called_kwargs.get("force_refresh"))
+
+    def test_logs_debug_message_when_fetching_systems(self):
+        """
+        Test that the AppLogger provider correctly logs system information.
+
+        :return:
+        :rtype:
+        """
+
+        with (
+            patch("sovtimer.providers.esi", new=MagicMock()),
+            patch("sovtimer.providers.logger.debug") as mock_logger,
+            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+        ):
+            mock_result.return_value = [{"system_id": 1}]
+
+            ESIHandler.get_sovereignty_systems()
+
+            mock_logger.assert_any_call("Fetching sovereignty systems from ESI…")
 
 
 class TestAppLogger(BaseTestCase):
