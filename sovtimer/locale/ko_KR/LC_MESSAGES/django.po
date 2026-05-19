@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-05-06 10:06+0200\n"
-"PO-Revision-Date: 2026-03-22 19:23+0000\n"
+"POT-Creation-Date: 2026-05-19 16:49+0200\n"
+"PO-Revision-Date: 2026-05-19 14:58+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
 "Language: ko_KR\n"
@@ -19,57 +19,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 2026.5\n"
 
-#: sovtimer/__init__.py:10 sovtimer/models.py:35
+#: sovtimer/__init__.py:10 sovtimer/models.py:43
 #: sovtimer/templates/sovtimer/base.html:7
 #: sovtimer/templates/sovtimer/base.html:11
 msgid "Sovereignty Timer"
 msgstr "소버린티 타이머"
 
-#: sovtimer/models.py:38
+#: sovtimer/models.py:46
 msgid "Can access the Sovereignty Timer module"
 msgstr "소버린티 타이머 모듈에 접근할 수 있는 권한"
 
-#: sovtimer/models.py:56
+#: sovtimer/models.py:64
 msgid "Alliance"
 msgstr "얼라이언스"
 
-#: sovtimer/models.py:57
+#: sovtimer/models.py:65
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:153
+#: sovtimer/models.py:160
 #, fuzzy
 #| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
 msgstr "소버린티 구조물"
 
-#: sovtimer/models.py:154
+#: sovtimer/models.py:161
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
-#: sovtimer/models.py:194
+#: sovtimer/models.py:241
 #, fuzzy
 #| msgid "IHub Defense"
 msgid "Sov Hub defense"
 msgstr "IHub 방어"
 
-#: sovtimer/models.py:222
+#: sovtimer/models.py:269
 msgid "Sovereignty campaign"
 msgstr "소버린티 캠페인"
 
-#: sovtimer/models.py:223
+#: sovtimer/models.py:270
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
 msgstr "소버린티 캠페인 목록"
 
 #: sovtimer/templates/sovtimer/partials/common/spinner.html:8
-msgid "Loading …"
-msgstr "로딩 …"
+msgid "Loading…"
+msgstr "로딩…"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 #, fuzzy
