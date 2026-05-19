@@ -44,9 +44,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.1.0] - 2026-05-19
+
 ### Changed
 
-- Switched to new ESI endpoint `sovereignty/systems` to get the sovereignty
+- Switched to the new ESI endpoint `sovereignty/systems` to get the sovereignty
   information, which also includes the correct ADMs for each system. This also means
   that sovereignty structures are now updated when changes are available, to ensure
   the ADM information is up to date as well.
@@ -1070,5 +1072,6 @@ And restart your supervisor.
 [4.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.0...v4.0.1 "v4.0.1"
 [4.0.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.1...v4.0.2 "v4.0.2"
 [4.0.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.2...v4.0.3 "v4.0.3"
+[4.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.3...v4.1.0 "v4.1.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.3...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.1.0...HEAD "In Development"
