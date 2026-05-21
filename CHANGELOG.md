@@ -44,6 +44,11 @@ Section Order:
 
 <!-- Your changes go here -->
 
+### Fixed
+
+- Class 'Iterable' does not define '__sub__', so the '-' operator cannot be used on
+  its instances
+
 ## [4.1.0] - 2026-05-19
 
 ### Changed
