@@ -44,6 +44,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [4.2.0] - 2026-06-02
+
 ### Fixed
 
 - Grammar - No space before ellipsis
@@ -54,6 +56,7 @@ Section Order:
 
 - Task `QueueOnce` options
 - Modular providers
+- Translations updated
 
 ## [4.1.0] - 2026-05-19
 
@@ -1084,5 +1087,6 @@ And restart your supervisor.
 [4.0.2]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.1...v4.0.2 "v4.0.2"
 [4.0.3]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.2...v4.0.3 "v4.0.3"
 [4.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.0.3...v4.1.0 "v4.1.0"
+[4.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.1.0...v4.2.0 "v4.2.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.1.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.2.0...HEAD "In Development"
