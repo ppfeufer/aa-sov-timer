@@ -30,7 +30,7 @@ TASK_DEFAULTS = {
         "max_retries": Constants.TASK_ESI_MAX_RETRIES,
         "default_retry_delay": Constants.TASK_DEFAULT_RETRY_DELAY,
     },
-    **{"base": QueueOnce, "once": {"graceful": True}},
+    **{"base": QueueOnce},
 }
 
 
