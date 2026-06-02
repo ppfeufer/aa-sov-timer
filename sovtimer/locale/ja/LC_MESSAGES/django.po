@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-05-19 16:49+0200\n"
+"POT-Creation-Date: 2026-06-02 18:21+0200\n"
 "PO-Revision-Date: 2026-03-22 19:23+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
@@ -37,23 +37,23 @@ msgstr "アライアンス"
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:160
+#: sovtimer/models.py:161
 msgid "Sovereignty structure"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:162
 msgid "Sovereignty structures"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:241
+#: sovtimer/models.py:242
 msgid "Sov Hub defense"
 msgstr "領有権ハブの防衛"
 
-#: sovtimer/models.py:269
+#: sovtimer/models.py:270
 msgid "Sovereignty campaign"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:271
 msgid "Sovereignty campaigns"
 msgstr "領有権キャンペーン"
 
@@ -125,15 +125,15 @@ msgstr "このアプリをあなたの言語に翻訳するお手伝いをした
 msgid "Join our team of translators!"
 msgstr "翻訳者チームに参加しましょう！"
 
-#: sovtimer/views.py:148
+#: sovtimer/views.py:147
 msgid "Defenders making progress"
 msgstr "防衛側が進展中"
 
-#: sovtimer/views.py:152
+#: sovtimer/views.py:151
 msgid "Attackers making progress"
 msgstr "攻撃側が進展中"
 
-#: sovtimer/views.py:156
+#: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "両サイドとも未着手"
 

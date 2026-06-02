@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-05-19 16:49+0200\n"
+"POT-Creation-Date: 2026-06-02 18:21+0200\n"
 "PO-Revision-Date: 2026-05-19 14:58+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
@@ -42,23 +42,23 @@ msgstr "Alliance"
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:160
+#: sovtimer/models.py:161
 msgid "Sovereignty structure"
 msgstr "Structure de souveraineté"
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:162
 msgid "Sovereignty structures"
 msgstr "Structures de souveraineté"
 
-#: sovtimer/models.py:241
+#: sovtimer/models.py:242
 msgid "Sov Hub defense"
 msgstr "Défense du hub de souveraineté"
 
-#: sovtimer/models.py:269
+#: sovtimer/models.py:270
 msgid "Sovereignty campaign"
 msgstr "Campagne de souveraineté"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:271
 msgid "Sovereignty campaigns"
 msgstr "Campagnes de souveraineté"
 
@@ -130,15 +130,15 @@ msgstr "Voulez-vous aider à traduire cette application dans votre langue ou am�
 msgid "Join our team of translators!"
 msgstr "Rejoignez notre équipe de traducteurs !"
 
-#: sovtimer/views.py:148
+#: sovtimer/views.py:147
 msgid "Defenders making progress"
 msgstr "Les défenseurs progressent"
 
-#: sovtimer/views.py:152
+#: sovtimer/views.py:151
 msgid "Attackers making progress"
 msgstr "Les attaquants progressent"
 
-#: sovtimer/views.py:156
+#: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "Aucun camp n’a encore fait de progrès."
 
