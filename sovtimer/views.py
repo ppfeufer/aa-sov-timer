@@ -19,11 +19,10 @@ from allianceauth.eveonline.templatetags.evelinks import (
 from allianceauth.services.hooks import get_extension_logger
 
 # AA Sovereignty Timer
-from sovtimer import __title__
 from sovtimer.models import Campaign, SovereigntyStructure
-from sovtimer.providers import AppLogger
+from sovtimer.providers.applogger import AppLogger
 
-logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(name=__name__))
 
 
 def _fmt_float_to_percentage(value: float) -> str:
