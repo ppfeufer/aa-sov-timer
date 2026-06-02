@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-05-19 16:49+0200\n"
+"POT-Creation-Date: 2026-06-02 18:21+0200\n"
 "PO-Revision-Date: 2026-05-19 14:58+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
@@ -39,29 +39,29 @@ msgstr "얼라이언스"
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:160
+#: sovtimer/models.py:161
 #, fuzzy
 #| msgid "Sovereignty Timer"
 msgid "Sovereignty structure"
 msgstr "소버린티 구조물"
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:162
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
-#: sovtimer/models.py:241
+#: sovtimer/models.py:242
 #, fuzzy
 #| msgid "IHub Defense"
 msgid "Sov Hub defense"
 msgstr "IHub 방어"
 
-#: sovtimer/models.py:269
+#: sovtimer/models.py:270
 msgid "Sovereignty campaign"
 msgstr "소버린티 캠페인"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:271
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
@@ -139,15 +139,15 @@ msgstr "이 앱을 번역하거나 기존 번역을 개선하고 싶으신가요
 msgid "Join our team of translators!"
 msgstr "번역가 팀에 참여하세요!"
 
-#: sovtimer/views.py:148
+#: sovtimer/views.py:147
 msgid "Defenders making progress"
 msgstr "방어자 우세"
 
-#: sovtimer/views.py:152
+#: sovtimer/views.py:151
 msgid "Attackers making progress"
 msgstr "공격자 우세"
 
-#: sovtimer/views.py:156
+#: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "양 측 모두 진행하지 못하고 있습니다"
 
