@@ -84,7 +84,8 @@ class Alliance(models.Model):
         existing_alliance_ids = set(
             existing_alliances.values_list("alliance_id", flat=True)
         )
-        alliances_to_create = alliance_ids - existing_alliance_ids
+
+        alliances_to_create = set(alliance_ids) - existing_alliance_ids
 
         # Create a list of new Alliance instances to be created in bulk
         new_alliances = []
