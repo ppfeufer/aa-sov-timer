@@ -334,7 +334,7 @@ $(document).ready(() => {
 
                     _filters.forEach(([selector, predicate]) => _filterCampaigns(selector, predicate));
 
-                    // On DataTable draw, run …
+                    // On DataTable draw, run…
                     dt.on('draw', () => {
                         // Keep cache in sync when table is redrawn or data replaced
                         _rebuildRowCache();
