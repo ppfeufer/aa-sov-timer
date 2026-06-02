@@ -17,7 +17,9 @@ from aiopenapi3 import ContentTypeError, RequestError
 from esi.exceptions import HTTPClientError, HTTPNotModified
 
 # AA Sovereignty Timer
-from sovtimer.providers import AppLogger, ESIHandler
+from sovtimer import __title__
+from sovtimer.providers.applogger import AppLogger
+from sovtimer.providers.esi import ESIHandler
 from sovtimer.tests import BaseTestCase
 
 
@@ -48,7 +50,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
             sys.modules["esi.stubs"] = fake_stubs
 
             with patch.object(typing, "TYPE_CHECKING", True):
-                providers = importlib.import_module("sovtimer.providers")
+                providers = importlib.import_module("sovtimer.providers.esi")
                 importlib.reload(providers)
 
                 self.assertTrue(hasattr(providers, "AllianceDetail"))
@@ -58,7 +60,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
             sys.modules.update(original_sys_modules)
 
             try:
-                importlib.reload(importlib.import_module("sovtimer.providers"))
+                importlib.reload(importlib.import_module("sovtimer.providers.esi"))
             except Exception:
                 pass
 
@@ -240,8 +242,8 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}, {"campaign_id": 2}]
 
@@ -264,9 +266,10 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
             patch(
-                "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
+                "sovtimer.providers.esi.ESIHandler.result",
+                side_effect=Exception("Error"),
             ) as mock_result,
         ):
             with self.assertRaises(Exception):
@@ -288,9 +291,9 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.logger.debug") as mock_logger,
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.logger.debug") as mock_logger,
+            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}]
 
@@ -304,8 +307,8 @@ class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
     Test the ESIHandler.get_alliances_alliance_id method.
     """
 
-    @patch("sovtimer.providers.esi", new=MagicMock())
-    @patch("sovtimer.providers.ESIHandler.result")
+    @patch("sovtimer.providers.esi.esi", new=MagicMock())
+    @patch("sovtimer.providers.esi.ESIHandler.result")
     def test_returns_alliance_data_when_operation_succeeds(self, mock_result):
         """
         Test that the method returns alliance data when the ESI operation succeeds.
@@ -327,8 +330,8 @@ class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
         self.assertIn("operation", called_kwargs)
         self.assertFalse(called_kwargs.get("force_refresh"))
 
-    @patch("sovtimer.providers.esi", new=MagicMock())
-    @patch("sovtimer.providers.ESIHandler.result")
+    @patch("sovtimer.providers.esi.esi", new=MagicMock())
+    @patch("sovtimer.providers.esi.ESIHandler.result")
     def test_passes_force_refresh_to_result_operation(self, mock_result):
         """
         Test that the force_refresh parameter is passed correctly to the ESIHandler.result method.
@@ -367,8 +370,8 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"system_id": 1}, {"system_id": 2}]
 
@@ -391,9 +394,10 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
             patch(
-                "sovtimer.providers.ESIHandler.result", side_effect=Exception("Error")
+                "sovtimer.providers.esi.ESIHandler.result",
+                side_effect=Exception("Error"),
             ) as mock_result,
         ):
             with self.assertRaises(Exception):
@@ -413,9 +417,9 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi", new=MagicMock()),
-            patch("sovtimer.providers.logger.debug") as mock_logger,
-            patch("sovtimer.providers.ESIHandler.result") as mock_result,
+            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch("sovtimer.providers.esi.logger.debug") as mock_logger,
+            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"system_id": 1}]
 
@@ -438,62 +442,12 @@ class TestAppLogger(BaseTestCase):
         """
 
         logger = logging.getLogger("test_logger")
-        app_logger = AppLogger(logger, "PREFIX")
+        app_logger = AppLogger(logger)
 
         with self.assertLogs("test_logger", level="INFO") as log:
             app_logger.info("This is a test message")
 
-        self.assertIn("[PREFIX] This is a test message", log.output[0])
-
-    def test_handles_empty_prefix(self):
-        """
-        Tests that the AppLogger handles an empty prefix correctly.
-
-        :return:
-        :rtype:
-        """
-
-        logger = logging.getLogger("test_logger")
-        app_logger = AppLogger(logger, "")
-
-        with self.assertLogs("test_logger", level="INFO") as log:
-            app_logger.info("Message without prefix")
-
-        self.assertIn("Message without prefix", log.output[0])
-
-    def test_handles_non_string_prefix(self):
-        """
-        Tests that the AppLogger handles a non-string prefix correctly.
-
-        :return:
-        :rtype:
-        """
-
-        logger = logging.getLogger("test_logger")
-        app_logger = AppLogger(logger, 123)
-
-        with self.assertLogs("test_logger", level="INFO") as log:
-            app_logger.info("Message with numeric prefix")
-
-        self.assertIn("[123] Message with numeric prefix", log.output[0])
-
-    def test_handles_special_characters_in_prefix(self):
-        """
-        Tests that the AppLogger handles special characters in the prefix correctly.
-
-        :return:
-        :rtype:
-        """
-
-        logger = logging.getLogger("test_logger")
-        app_logger = AppLogger(logger, "!@#$%^&*()")
-
-        with self.assertLogs("test_logger", level="INFO") as log:
-            app_logger.info("Message with special characters in prefix")
-
-        self.assertIn(
-            "[!@#$%^&*()] Message with special characters in prefix", log.output[0]
-        )
+        self.assertIn(f"[{__title__}] This is a test message", log.output[0])
 
     def test_handles_empty_message(self):
         """
@@ -504,9 +458,9 @@ class TestAppLogger(BaseTestCase):
         """
 
         logger = logging.getLogger("test_logger")
-        app_logger = AppLogger(logger, "PREFIX")
+        app_logger = AppLogger(logger)
 
         with self.assertLogs("test_logger", level="INFO") as log:
             app_logger.info("")
 
-        self.assertIn("[PREFIX] ", log.output[0])
+        self.assertIn(f"[{__title__}] ", log.output[0])

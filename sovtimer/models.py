@@ -17,8 +17,8 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.services.hooks import get_extension_logger
 
 # AA Sovereignty Timer
-from sovtimer import __title__
-from sovtimer.providers import AppLogger, ESIHandler
+from sovtimer.providers.applogger import AppLogger
+from sovtimer.providers.esi import ESIHandler
 
 if TYPE_CHECKING:
     # Third Party
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     # Alliance Auth
     from esi.stubs import SovereigntyCampaignsGetItem
 
-logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(name=__name__))
 
 
 class AaSovtimer(models.Model):

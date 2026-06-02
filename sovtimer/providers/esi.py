@@ -3,7 +3,6 @@ Providers
 """
 
 # Standard Library
-import logging
 from typing import TYPE_CHECKING, Any
 
 # Third Party
@@ -20,13 +19,15 @@ from sovtimer import (
     __app_name_verbose__,
     __esi_compatibility_date__,
     __github_url__,
-    __title__,
     __version__,
 )
+from sovtimer.providers.applogger import AppLogger
 
 if TYPE_CHECKING:
     # Alliance Auth
     from esi.stubs import AllianceDetail, SovereigntyCampaignsGetItem
+
+logger = AppLogger(get_extension_logger(__name__))
 
 # ESI client
 esi = ESIClientProvider(
@@ -230,43 +231,3 @@ class ESIHandler:
             force_refresh=force_refresh,
             return_response=return_response,
         )
-
-
-class AppLogger(logging.LoggerAdapter):
-    """
-    Custom logger adapter that adds a prefix to log messages.
-
-    Taken from the `allianceauth-app-utils` package.
-    Credits to: Erik Kalkoken
-    """
-
-    def __init__(self, my_logger: logging.Logger, prefix: str = "Sovereignty Timer"):
-        """
-        Initializes the AppLogger with a logger and a prefix.
-
-        :param my_logger: Logger instance
-        :type my_logger: logging.Logger
-        :param prefix: Prefix string to add to log messages
-        :type prefix: str
-        """
-
-        super().__init__(my_logger, {})
-
-        self.prefix = prefix
-
-    def process(self, msg, kwargs):
-        """
-        Prepares the log message by adding the prefix.
-
-        :param msg: Log message
-        :type msg: str
-        :param kwargs: Additional keyword arguments
-        :type kwargs: dict
-        :return: Prefixed log message and kwargs
-        :rtype: tuple
-        """
-
-        return f"[{self.prefix}] {msg}", kwargs
-
-
-logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)

@@ -15,12 +15,11 @@ from allianceauth.services.hooks import get_extension_logger
 from allianceauth.services.tasks import QueueOnce
 
 # AA Sovereignty Timer
-from sovtimer import __title__
 from sovtimer.constants import Constants
 from sovtimer.models import Alliance, Campaign, SovereigntyStructure
-from sovtimer.providers import AppLogger
+from sovtimer.providers.applogger import AppLogger
 
-logger = AppLogger(my_logger=get_extension_logger(name=__name__), prefix=__title__)
+logger = AppLogger(my_logger=get_extension_logger(name=__name__))
 
 
 # Params for all tasks

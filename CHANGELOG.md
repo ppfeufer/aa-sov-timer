@@ -46,12 +46,13 @@ Section Order:
 
 ### Fixed
 
-- Class 'Iterable' does not define '__sub__', so the '-' operator cannot be used on
+- Class `Iterable` does not define `__sub__`, so the `-` operator cannot be used on
   its instances
 
 ### Changed
 
 - Task `QueueOnce` options
+- Modular providers
 
 ## [4.1.0] - 2026-05-19
 
