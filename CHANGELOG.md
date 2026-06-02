@@ -46,6 +46,7 @@ Section Order:
 
 ### Fixed
 
+- Grammar - No space before ellipsis
 - Class `Iterable` does not define `__sub__`, so the `-` operator cannot be used on
   its instances
 
@@ -90,7 +91,7 @@ Section Order:
 
 ### Removed
 
-- Actually remove the dependency to `eveuniverse` …
+- Actually remove the dependency to `eveuniverse`…
 
 ## [4.0.0] - 2026-02-27
 
