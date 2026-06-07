@@ -6,21 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
-    replaces = [
-        ("sovtimer", "0001_initial"),
-        ("sovtimer", "0002_aasovtimercampaigns_aasovtimerstructures"),
-        ("sovtimer", "0003_auto_20201113_1033"),
-        ("sovtimer", "0004_auto_20201113_1856"),
-        ("sovtimer", "0005_auto_20201114_0720"),
-        ("sovtimer", "0006_rename_models"),
-        ("sovtimer", "0007_cleanup_models"),
-        ("sovtimer", "0008_fix_campaign_attackers_score"),
-        ("sovtimer", "0009_alter_campaign_options_and_more"),
-        ("sovtimer", "0010_alter_campaign_event_type"),
-        ("sovtimer", "0011_alliance_alter_campaign_event_type_and_more"),
-    ]
-
     initial = True
 
     dependencies = [("eve_sde", "0012_alter_constellation_region")]

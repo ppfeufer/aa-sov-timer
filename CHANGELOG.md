@@ -51,9 +51,16 @@ Section Order:
 > Please make sure to update your Alliance Auth instance **before** you install this
 > version, otherwise an update to Alliance Auth will be pulled in unsupervised.
 
+> [!WARNING]
+>
+> If you haven't updated to AA Sovereignty Timer v4 yet, please make sure to read the
+> update instructions and update to at least v4.0.0 before updating to this version,
+> otherwise, the app will not work properly.
+
 ### Removed
 
 - Support for Alliance Auth v4
+- Deprecated migrations
 
 ## [4.2.0] - 2026-06-02
 
