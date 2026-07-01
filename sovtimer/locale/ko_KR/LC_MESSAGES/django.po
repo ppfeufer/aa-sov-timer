@@ -9,9 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
-"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-06-02 18:21+0200\n"
-"PO-Revision-Date: 2026-05-19 14:58+0000\n"
+"Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/\n"
+"POT-Creation-Date: 2026-07-01 10:58+0000\n"
+"PO-Revision-Date: 2026-06-26 17:57+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
 "Language: ko_KR\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:43
 #: sovtimer/templates/sovtimer/base.html:7
@@ -52,10 +52,8 @@ msgid "Sovereignty structures"
 msgstr "소버린티 타이머"
 
 #: sovtimer/models.py:242
-#, fuzzy
-#| msgid "IHub Defense"
 msgid "Sov Hub defense"
-msgstr "IHub 방어"
+msgstr ""
 
 #: sovtimer/models.py:270
 msgid "Sovereignty campaign"
@@ -94,10 +92,8 @@ msgid "Active"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
-#, fuzzy
-#| msgid "The sovereignty timer list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "소버린티 타이머 리스트는 30초마다 자동으로 업데이트 됩니다. 진행 중인 캠페인의 진행도는 <i>이전 - 변화량 - 현재</i>로 표시됩니다."
+msgstr "소버린티 타이머 리스트는 30초마다 자동으로 업데이트 됩니다. 진행 중인 캠페인의 진행도는 <i>이전 - 변화량 - 현재</i> 로 표시됩니다."
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
 msgid "System"
