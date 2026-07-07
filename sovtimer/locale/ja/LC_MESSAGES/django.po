@@ -2,22 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Peter Pfeufer <info@ppfeufer.de>, 2023, 2024, 2025, 2026.
-# Deleted User <noreply+44@weblate.org>, 2024.
-# Dexsar <dexsar.paf@gmail.com>, 2025.
+# Deleted User <noreply+44@weblate.org>, 2024, 2026.
+# Dexsar <dexsar.paf@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-06-02 18:21+0200\n"
-"PO-Revision-Date: 2026-03-22 19:23+0000\n"
-"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
+"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"PO-Revision-Date: 2026-07-07 08:31+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: sovtimer/__init__.py:10 sovtimer/models.py:43
 #: sovtimer/templates/sovtimer/base.html:7
@@ -83,7 +83,7 @@ msgstr "有効"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
 msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
-msgstr "キャンペーンリストは30秒ごとに自動更新されます。アクティブなキャンペーンの進捗状況は<i>Previous - Trend - Current</i>として表示されます。"
+msgstr "キャンペーンリストは30秒ごとに自動更新されます。アクティブなキャンペーンの進捗状況は <i>Previous - Trend - Current</i> として表示されます。"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
 msgid "System"
