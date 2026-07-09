@@ -307,7 +307,7 @@ See [CHANGELOG.md][changelog] for a detailed list of changes and improvements.
 
 ## Translation Status<a name="translation-status"></a>
 
-[![Translation status](https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-sov-timer/multi-auto.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
+[![Translation status](https://weblate.ppfeufer.de/widget/alliance-auth-apps/aa-sov-timer/matrix-auto.svg)](https://weblate.ppfeufer.de/engage/alliance-auth-apps/)
 
 Do you want to help translate this app into your language or improve the existing
 translation? - [Join our team of translators][weblate engage]!

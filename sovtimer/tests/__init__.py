@@ -7,11 +7,11 @@ import re
 import socket
 
 # Django
-from django.contrib.auth.models import User
 from django.core.handlers.wsgi import WSGIRequest
 from django.test import TestCase
 
 # Alliance Auth
+from allianceauth.authentication.models import User
 from allianceauth.tests.auth_utils import AuthUtils
 
 
