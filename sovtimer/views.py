@@ -102,8 +102,8 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
 
         # Defender
         defender_name = alliance.name
-        defender_url = dotlan_alliance_url(eve_obj=alliance.alliance_id)
-        defender_logo_url = alliance_logo_url(alliance_id=alliance.alliance_id, size=32)
+        defender_url = dotlan_alliance_url(eve_obj=alliance.pk)
+        defender_logo_url = alliance_logo_url(alliance_id=alliance.pk, size=32)
         defender_name_html = (
             f'<a href="{defender_url}" target="_blank" rel="noopener noreferer">'
             f'<img class="aa-sovtimer-entity-logo-left me-2" src="{defender_logo_url}" '
@@ -111,7 +111,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
         )
 
         # Region / System / Constellation URLs and HTML (compute region_url once)
-        region_url = dotlan_region_url(eve_obj=region.id)
+        region_url = dotlan_region_url(eve_obj=region.pk)
         campaign_system_name = solar_system.name
         solar_system_url = f"{region_url}/{campaign_system_name}"
         solar_system_name_html = f'<a href="{solar_system_url}" target="_blank" rel="noopener noreferer">{campaign_system_name}</a>'
@@ -161,8 +161,7 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
                 f'title="{title}" data-bs-tooltip="aa-sovtimer">{icon_name}</i>'
             )
 
-            constellation_id = constellation.id
-            zkb_href = f"https://zkillboard.com/constellation/{constellation_id}/"
+            zkb_href = f"https://zkillboard.com/constellation/{constellation.pk}/"
             zkb_icon = f'<img src="{static("sovtimer/images/zkillboard.png")}" alt="zKillboard">'
             constellation_killboard_link = (
                 f'<a href="{zkb_href}" target="_blank" rel="noopener noreferer" '

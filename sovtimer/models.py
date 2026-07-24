@@ -80,10 +80,8 @@ class Alliance(models.Model):
         :rtype: dict[int, Alliance]
         """
 
-        existing_alliances = cls.objects.filter(alliance_id__in=alliance_ids)
-        existing_alliance_ids = set(
-            existing_alliances.values_list("alliance_id", flat=True)
-        )
+        existing_alliances = cls.objects.filter(pk__in=alliance_ids)
+        existing_alliance_ids = set(existing_alliances.values_list("pk", flat=True))
 
         alliances_to_create = set(alliance_ids) - existing_alliance_ids
 
@@ -118,9 +116,9 @@ class Alliance(models.Model):
             created_alliances = cls.objects.bulk_create(new_alliances)
 
         # Combine existing and newly created alliances into a single dictionary
-        all_alliances = {
-            alliance.alliance_id: alliance for alliance in existing_alliances
-        } | {alliance.alliance_id: alliance for alliance in created_alliances}
+        all_alliances = {alliance.pk: alliance for alliance in existing_alliances} | {
+            alliance.pk: alliance for alliance in created_alliances
+        }
 
         return all_alliances
 
