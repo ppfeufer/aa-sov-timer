@@ -216,7 +216,7 @@ def update_sov_structures(  # pylint: disable=too-many-locals
 
     # Fetch solar systems from the database
     solar_systems = {
-        ss.id: ss for ss in SolarSystem.objects.filter(id__in=solar_system_ids)
+        ss.id: ss for ss in SolarSystem.objects.filter(pk__in=solar_system_ids)
     }
 
     esi_structure_ids = set()  # Track structure IDs from ESI to avoid duplicates

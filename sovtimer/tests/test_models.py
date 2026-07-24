@@ -139,8 +139,8 @@ class TestAlliance(BaseTestCase):
         """
 
         mock_existing_alliances = [
-            Alliance(alliance_id=1, name="Alliance 1"),
-            Alliance(alliance_id=2, name="Alliance 2"),
+            Alliance(pk=1, name="Alliance 1"),
+            Alliance(pk=2, name="Alliance 2"),
         ]
         mock_qs = MagicMock()
         mock_qs.__iter__.return_value = iter(mock_existing_alliances)
@@ -154,7 +154,7 @@ class TestAlliance(BaseTestCase):
         self.assertEqual(len(result), 2)
         self.assertEqual(result[1].name, "Alliance 1")
         self.assertEqual(result[2].name, "Alliance 2")
-        mock_filter.assert_called_once_with(alliance_id__in={1, 2})
+        mock_filter.assert_called_once_with(pk__in={1, 2})
         mock_bulk_create.assert_not_called()
         mock_get_alliance.assert_not_called()
 
@@ -178,7 +178,7 @@ class TestAlliance(BaseTestCase):
         """
 
         mock_existing_alliances = [
-            Alliance(alliance_id=1, name="Alliance 1"),
+            Alliance(pk=1, name="Alliance 1"),
         ]
         mock_qs = MagicMock()
         mock_qs.__iter__.return_value = iter(mock_existing_alliances)
@@ -192,8 +192,8 @@ class TestAlliance(BaseTestCase):
         mock_get_alliance.side_effect = [a2, a3]
 
         mock_bulk_create.return_value = [
-            Alliance(alliance_id=2, name="Alliance 2"),
-            Alliance(alliance_id=3, name="Alliance 3"),
+            Alliance(pk=2, name="Alliance 2"),
+            Alliance(pk=3, name="Alliance 3"),
         ]
 
         result = Alliance.bulk_get_or_create_from_esi(
@@ -204,7 +204,7 @@ class TestAlliance(BaseTestCase):
         self.assertEqual(result[1].name, "Alliance 1")
         self.assertEqual(result[2].name, "Alliance 2")
         self.assertEqual(result[3].name, "Alliance 3")
-        mock_filter.assert_called_once_with(alliance_id__in={1, 2, 3})
+        mock_filter.assert_called_once_with(pk__in={1, 2, 3})
         mock_get_alliance.assert_any_call(alliance_id=2, force_refresh=False)
         mock_get_alliance.assert_any_call(alliance_id=3, force_refresh=False)
         mock_bulk_create.assert_called_once()
@@ -239,7 +239,7 @@ class TestAlliance(BaseTestCase):
         )
 
         self.assertEqual(len(result), 0)
-        mock_filter.assert_called_once_with(alliance_id__in={1})
+        mock_filter.assert_called_once_with(pk__in={1})
         mock_get_alliance.assert_called_once_with(alliance_id=1, force_refresh=False)
         mock_bulk_create.assert_not_called()
 

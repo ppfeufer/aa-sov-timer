@@ -144,7 +144,7 @@ class TestUpdateSovStructures(BaseTestCase):
         ]
 
         mock_bulk_get_or_create.return_value = {
-            2001: Alliance(alliance_id=2001, name="Alliance 2001")
+            2001: Alliance(pk=2001, name="Alliance 2001")
         }
         mock_solar_system_filter.return_value = [SolarSystem(id=3001)]
         mock_bulk_create.return_value = None
@@ -157,7 +157,7 @@ class TestUpdateSovStructures(BaseTestCase):
         mock_bulk_get_or_create.assert_called_once_with(
             alliance_ids={2001}, force_refresh=False
         )
-        mock_solar_system_filter.assert_called_once_with(id__in={3001})
+        mock_solar_system_filter.assert_called_once_with(pk__in={3001})
         mock_bulk_create.assert_called_once()
         created = mock_bulk_create.call_args[0][0]
         self.assertEqual(len(created), 1)

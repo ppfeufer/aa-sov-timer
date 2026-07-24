@@ -147,10 +147,10 @@ class TestDashboardData(BaseTestCase):
 
         constellation = MagicMock()
         constellation.name = "Constellation A"
-        constellation.id = 7002
+        constellation.pk = 7002
         region = MagicMock()
         region.name = "Region A"
-        region.id = 7001
+        region.pk = 7001
         constellation.region = region
         solar_system.constellation = constellation
         structure.solar_system = solar_system
@@ -216,7 +216,7 @@ class TestDashboardData(BaseTestCase):
         constellation.name = "Constellation B"
         region = MagicMock()
         region.name = "Region B"
-        region.id = 7003
+        region.pk = 7003
         constellation.region = region
         solar_system.constellation = constellation
         structure.solar_system = solar_system
@@ -288,10 +288,10 @@ class TestDashboardData(BaseTestCase):
 
         constellation = MagicMock()
         constellation.name = "Constellation U"
-        constellation.id = 7004
+        constellation.pk = 7004
         region = MagicMock()
         region.name = "Region U"
-        region.id = 7005
+        region.pk = 7005
         constellation.region = region
         solar_system.constellation = constellation
         structure.solar_system = solar_system
@@ -354,7 +354,7 @@ class TestDashboardData(BaseTestCase):
         constellation.name = "Constellation X"
         region = MagicMock()
         region.name = "Region X"
-        region.id = 7006
+        region.pk = 7006
         constellation.region = region
         solar_system.constellation = constellation
         structure.solar_system = solar_system
