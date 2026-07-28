@@ -10,116 +10,112 @@
 }
 
 @media all {
-    .material-icons {
-        direction: ltr;
-        display: inline-block;
-        font-family: var(--icon-font-family);
-        font-size: 24px; /* Preferred icon size */
-        font-style: normal;
-        font-weight: normal;
-        letter-spacing: normal;
-        line-height: 1;
-        overflow-wrap: normal;
-        text-transform: none;
-        white-space: nowrap;
-    }
-}
+    .aa-sovtimer {
+        .material-icons {
+            direction: ltr;
+            display: inline-block;
+            font-family: var(--icon-font-family), serif;
+            font-size: 24px; /* Preferred icon size */
+            font-style: normal;
+            font-weight: normal;
+            letter-spacing: normal;
+            line-height: 1;
+            overflow-wrap: normal;
+            text-transform: none;
+            white-space: nowrap;
+        }
 
-@media all {
-    .aa-sovtimer-timer-elapsed {
-        color: var(--bs-danger);
-    }
+        .aa-sovtimer-timer-elapsed {
+            color: var(--bs-danger);
+        }
 
-    .aa-sov-timer-zkb-icon img {
-        position: relative;
-        top: -2px;
-    }
+        .aa-sov-timer-zkb-icon img {
+            position: relative;
+            top: -2px;
+        }
 
-    .aa-sovtimer-active-campaign {
-        border-left: 1px solid var(--bs-danger);
-        border-right: 1px solid var(--bs-danger);
-    }
+        .aa-sovtimer-active-campaign {
+            border-left: 1px solid var(--bs-danger);
+            border-right: 1px solid var(--bs-danger);
+        }
 
-    .aa-sovtimer-active-campaign td {
-        background-color: var(--bs-danger-bg-subtle) !important;
+        .aa-sovtimer-active-campaign td {
+            background-color: var(--bs-danger-bg-subtle) !important;
 
-        --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
-    }
+            --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
+        }
 
-    #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active,
-    #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active small {
-        background-color: var(--bs-primary-bg-subtle);
-        color: var(--bs-primary-text-emphasis) !important;
-    }
+        #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active,
+        #aa-sovtimer-filter-total-campaigns.aa-sovtimer-filter-active small {
+            background-color: var(--bs-primary-bg-subtle);
+            color: var(--bs-primary-text-emphasis) !important;
+        }
 
-    #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active,
-    #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active small {
-        background-color: var(--bs-danger-bg-subtle);
-        color: var(--bs-danger-text-emphasis) !important;
+        #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active,
+        #aa-sovtimer-filter-active-campaigns.aa-sovtimer-filter-active small {
+            background-color: var(--bs-danger-bg-subtle);
+            color: var(--bs-danger-text-emphasis) !important;
 
-        --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
-    }
+            --bs-table-color-type: var(--bs-danger-text-emphasis) !important;
+        }
 
-    .aa-sovtimer-upcoming-campaign {
-        border-left: 1px solid var(--bs-warning);
-        border-right: 1px solid var(--bs-warning);
-    }
+        .aa-sovtimer-upcoming-campaign {
+            border-left: 1px solid var(--bs-warning);
+            border-right: 1px solid var(--bs-warning);
+        }
 
-    .aa-sovtimer-upcoming-campaign td {
-        background-color: var(--bs-warning-bg-subtle) !important;
+        .aa-sovtimer-upcoming-campaign td {
+            background-color: var(--bs-warning-bg-subtle) !important;
 
-        --bs-table-color-type: var(--bs-warning-text-emphasis) !important;
-    }
+            --bs-table-color-type: var(--bs-warning-text-emphasis) !important;
+        }
 
-    #aa-sovtimer-filter-upcoming-campaigns.aa-sovtimer-filter-active,
-    #aa-sovtimer-filter-upcoming-campaigns.aa-sovtimer-filter-active small {
-        background-color: var(--bs-warning-bg-subtle);
-        color: var(--bs-warning-text-emphasis) !important;
-    }
+        #aa-sovtimer-filter-upcoming-campaigns.aa-sovtimer-filter-active,
+        #aa-sovtimer-filter-upcoming-campaigns.aa-sovtimer-filter-active small {
+            background-color: var(--bs-warning-bg-subtle);
+            color: var(--bs-warning-text-emphasis) !important;
+        }
 
-    .aa-sovtimer-trend {
-        cursor: default;
-        display: inline-block;
-        left: 0.35rem;
-        margin-right: 0.75rem;
-        position: relative;
-        top: 0.35rem;
-    }
+        .aa-sovtimer-trend {
+            cursor: default;
+            display: inline-block;
+            left: 0.35rem;
+            margin-right: 0.75rem;
+            position: relative;
+            top: 0.35rem;
+        }
 
-    .aa-sovtimer-trend-up {
-        color: var(--bs-success);
-    }
+        .aa-sovtimer-trend-up {
+            color: var(--bs-success);
+        }
 
-    .aa-sovtimer-trend-down {
-        color: var(--bs-danger);
-    }
+        .aa-sovtimer-trend-down {
+            color: var(--bs-danger);
+        }
 
-    .aa-sovtimer .aa-sovtimer-campaigns td {
-        vertical-align: middle;
-    }
-}
+        .aa-sovtimer-campaigns td {
+            vertical-align: middle;
+        }
 
-/* Loading Spinner
-------------------------------------------------------------------------------------- */
-@media all {
-    .aa-sovtimer .loading-spinner {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-}
+        /* Loading Spinner
+        ----------------------------------------------------------------------------- */
+        .loading-spinner {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
 
-/* DataTables
-------------------------------------------------------------------------------------- */
-@media all {
-    /* DataTables ColumnControl
-    --------------------------------------------------------------------------------- */
-    table.dataTable span.dtcc div.dtcc-search>div select {
-        background-color: var(--bs-body-bg);
-        color: var(--bs-body-color);
-        padding: 0.375rem;
-    }
+        /* DataTables - ColumnControl
+        ----------------------------------------------------------------------------- */
+        table.dataTable {
+            span.dtcc div.dtcc-search > div select {
+                background-color: var(--bs-body-bg);
+                color: var(--bs-body-color);
+                padding: 0.375rem;
+            }
 
-    table.dataTable .dt-column-header div.dtcc-search-title {
-        display: none;
+            .dt-column-header div.dtcc-search-title {
+                display: none;
+            }
+        }
     }
 }
