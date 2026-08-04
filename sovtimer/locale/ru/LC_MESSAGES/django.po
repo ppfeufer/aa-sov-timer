@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
 "PO-Revision-Date: 2026-07-07 08:31+0000\n"
 "Last-Translator: Nikolay <nick.postnikov@gmail.com>\n"
 "Language-Team: Russian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ru/>\n"
@@ -37,23 +37,23 @@ msgstr "Альянс"
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr "Структура суверенитета"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 msgid "Sovereignty structures"
 msgstr "Структуры суверенитета"
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 msgid "Sovereignty campaign"
 msgstr "Опс по sov`у"
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 msgid "Sovereignty campaigns"
 msgstr "Опс по суверенитету"
 
@@ -138,95 +138,3 @@ msgstr "Атакующие добиваются успеха"
 #: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "Ни одна из сторон не демонстрирует прогресса"
-
-#~ msgid "TCU defense"
-#~ msgstr "Защита TCU"
-
-#~ msgid "Yes"
-#~ msgstr "Да"
-
-#~ msgid "No"
-#~ msgstr "Нет"
-
-#~ msgid "Type"
-#~ msgstr "Тип"
-
-#~ msgid "Active campaign"
-#~ msgstr "Активная кампания"
-
-#, fuzzy
-#~| msgid "Sovereignty campaigns"
-#~ msgid "Total campaigns:"
-#~ msgstr "Опс по суверенитету"
-
-#, fuzzy
-#~| msgid "Timers upcoming (< 4hrs):"
-#~ msgid "Upcoming campaigns (< 4hrs):"
-#~ msgstr "Ближайшие таймеры (<4ч.):"
-
-#, fuzzy
-#~| msgid "Active campaign"
-#~ msgid "Active campaigns:"
-#~ msgstr "Активная кампания"
-
-#~ msgid "Sovereignty Timers"
-#~ msgstr "Таймеры суверенитета"
-
-#, python-brace-format
-#~ msgid "Sovereignty Timer v{__version__}"
-#~ msgstr "Таймеры суверенитета v{__version__}"
-
-#~ msgid "Timers total:"
-#~ msgstr "Всего таймеров:"
-
-#~ msgid "Timers active:"
-#~ msgstr "Активные таймеры:"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr ","
-
-#~ msgctxt "Thousands separator"
-#~ msgid ","
-#~ msgstr " "
-
-#~ msgid "No data available in this table"
-#~ msgstr "Данные в таблице отсутствуют"
-
-#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
-#~ msgid "Showing _END_ entries"
-#~ msgstr "Отображаются _END_ записей"
-
-#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-#~ msgid "(filtered from _MAX_ total entries)"
-#~ msgstr "(отфильтрованы из _MAX_ записей)"
-
-#~ msgid "No records available"
-#~ msgstr "Записи недоступны"
-
-#~ msgid "Processing …"
-#~ msgstr "Обработка …"
-
-#~ msgid "Nothing found, sorry …"
-#~ msgstr "Ничего не найдено …"
-
-#~ msgid "Search …"
-#~ msgstr "Поиск…"
-
-#~ msgid "First"
-#~ msgstr "Первый"
-
-#~ msgid "Last"
-#~ msgstr "Последний"
-
-#~ msgid "Next"
-#~ msgstr "Следующий"
-
-#~ msgid "Previous"
-#~ msgstr "Предыдущий"
-
-#~ msgid ": activate to sort column ascending"
-#~ msgstr ": активируйте для сортировки по возрастанию"
-
-#~ msgid ": activate to sort column descending"
-#~ msgstr ": активируйте для сортировки по убыванию"

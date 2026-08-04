@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
 "PO-Revision-Date: 2026-07-07 08:31+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: German <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/de/>\n"
@@ -35,23 +35,23 @@ msgstr "Allianz"
 msgid "Alliances"
 msgstr "Allianzen"
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr "Souveränitäts-Struktur"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 msgid "Sovereignty structures"
 msgstr "Souveränitäts-Strukturen"
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr "Sov Hub Verteidigung"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 msgid "Sovereignty campaign"
 msgstr "Souveränitäts-Kampagne"
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 msgid "Sovereignty campaigns"
 msgstr "Souveränitäts-Kampagnen"
 
@@ -134,92 +134,3 @@ msgstr "Angreifer machen Fortschritte"
 #: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "Keine Seite hat bisher Fortschritte gemacht"
-
-#~ msgid "TCU defense"
-#~ msgstr "TCU Verteidigung"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nein"
-
-#~ msgid "Type"
-#~ msgstr "Typ"
-
-#~ msgid "Active campaign"
-#~ msgstr "Aktive Kampagne"
-
-#~ msgid "Upcoming <small class=\"text-muted\">(< 4hrs)</small>"
-#~ msgstr "Demnächst <small class=\"text-muted\">(< 4 Std.)</small>"
-
-#~ msgid "Total campaigns:"
-#~ msgstr "Alle Kampagnen:"
-
-#~ msgid "Upcoming campaigns (< 4hrs):"
-#~ msgstr "Bevorstehende Kampagnen (< 4 Stunden):"
-
-#~ msgid "Active campaigns:"
-#~ msgstr "Aktive Kampagnen:"
-
-#~ msgid "Sovereignty Timers"
-#~ msgstr "Souveränitäts-Timer"
-
-#, python-brace-format
-#~ msgid "Sovereignty Timer v{__version__}"
-#~ msgstr "Souveränitäts-Timer v{__version__}"
-
-#~ msgid "Timers total:"
-#~ msgstr "Alle Timer:"
-
-#~ msgid "Timers active:"
-#~ msgstr "Aktive Timer:"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr ","
-
-#~ msgctxt "Thousands separator"
-#~ msgid ","
-#~ msgstr "."
-
-#~ msgid "No data available in this table"
-#~ msgstr "In dieser Tabelle sind keine Daten verfügbar"
-
-#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
-#~ msgid "Showing _END_ entries"
-#~ msgstr "Zeige _END_ Einträge"
-
-#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-#~ msgid "(filtered from _MAX_ total entries)"
-#~ msgstr "(gefiltert von _MAX_ Einträgen)"
-
-#~ msgid "No records available"
-#~ msgstr "Keine Datensätze vorhanden"
-
-#~ msgid "Processing …"
-#~ msgstr "Verarbeite …"
-
-#~ msgid "Nothing found, sorry …"
-#~ msgstr "Nichts gefunden, tut mir leid …"
-
-#~ msgid "Search …"
-#~ msgstr "Suche …"
-
-#~ msgid "First"
-#~ msgstr "Erster"
-
-#~ msgid "Last"
-#~ msgstr "Letzter"
-
-#~ msgid "Next"
-#~ msgstr "Nächster"
-
-#~ msgid "Previous"
-#~ msgstr "Vorheriger"
-
-#~ msgid ": activate to sort column ascending"
-#~ msgstr ": aktivieren, um die Spalte aufsteigend zu sortieren"
-
-#~ msgid ": activate to sort column descending"
-#~ msgstr ": aktivieren, um die Spalte absteigend zu sortieren"

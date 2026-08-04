@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
 "PO-Revision-Date: 2026-07-07 08:31+0000\n"
 "Last-Translator: Zigor Fernandez Moreno <sietehierros@gmail.com>\n"
 "Language-Team: Spanish <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/es/>\n"
@@ -36,27 +36,27 @@ msgstr ""
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr "Temporizador de Soberanía"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 #, fuzzy
 #| msgid "Sovereignty Timers"
 msgid "Sovereignty structures"
 msgstr "Temporizadores de Soberanía"
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaign"
 msgstr "Lista de Campañas de Soberanía"
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 #, fuzzy
 #| msgid "Sovereignty Campaign List"
 msgid "Sovereignty campaigns"
@@ -143,54 +143,3 @@ msgstr "Progreso del Atacante"
 #: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "Ninguna de las partes ha hecho ningún progreso todavía"
-
-#~ msgid "TCU defense"
-#~ msgstr "Defensa del TCU"
-
-#~ msgid "Yes"
-#~ msgstr "Si"
-
-#~ msgid "No"
-#~ msgstr "No"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
-
-#~ msgid "Active campaign"
-#~ msgstr "Campaña activa"
-
-#, fuzzy
-#~| msgid "Sovereignty Campaign List"
-#~ msgid "Total campaigns:"
-#~ msgstr "Lista de Campañas de Soberanía"
-
-#, fuzzy
-#~| msgid "Timers Upcoming (< 4hrs):"
-#~ msgid "Upcoming campaigns (< 4hrs):"
-#~ msgstr "Temporizadores Próximos (< 4hrs):"
-
-#, fuzzy
-#~| msgid "Active Campaign"
-#~ msgid "Active campaigns:"
-#~ msgstr "Campaña activa"
-
-#~ msgid "Sovereignty Timers"
-#~ msgstr "Temporizadores de Soberanía"
-
-#, python-brace-format
-#~ msgid "Sovereignty Timer v{__version__}"
-#~ msgstr "Temporizadores de Soberanía v{__version__}"
-
-#, fuzzy
-#~| msgid "Timers Total:"
-#~ msgid "Timers total:"
-#~ msgstr "Total de Temporizadores:"
-
-#, fuzzy
-#~| msgid "Timers Active:"
-#~ msgid "Timers active:"
-#~ msgstr "Temporizadores Activos:"
-
-#~ msgctxt "Decimal separator"
-#~ msgid "."
-#~ msgstr ","

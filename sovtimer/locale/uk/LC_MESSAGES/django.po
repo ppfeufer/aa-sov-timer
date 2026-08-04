@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
-"PO-Revision-Date: 2026-07-07 08:31+0000\n"
-"Last-Translator: \"Andrii M.\" <elfleg0las88@gmail.com>\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
+"PO-Revision-Date: 2026-07-10 14:24+0000\n"
+"Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Ukrainian <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
@@ -38,29 +38,29 @@ msgstr "Аліянс"
 msgid "Alliances"
 msgstr "Ал'янси"
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr "Структура суверенітету"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 msgid "Sovereignty structures"
 msgstr "Структури суверенітету"
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr "Захист хабу суверенітету"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 msgid "Sovereignty campaign"
 msgstr "Кампанія суверенітету"
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 msgid "Sovereignty campaigns"
 msgstr "Кампанії суверенітету"
 
 #: sovtimer/templates/sovtimer/partials/common/spinner.html:8
 msgid "Loading…"
-msgstr "Завантаження…"
+msgstr "Завантажуємо…"
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:6
 msgid "Sovereignty campaign list"
@@ -137,81 +137,3 @@ msgstr "Прогрес атакуючих"
 #: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "Жодна з сторін ще не зробила прогресу"
-
-#~ msgid "TCU defense"
-#~ msgstr "Захист ТКУ"
-
-#~ msgid "Yes"
-#~ msgstr "Так"
-
-#~ msgid "No"
-#~ msgstr "Номер"
-
-#~ msgid "Type"
-#~ msgstr "Тип"
-
-#~ msgid "Active campaign"
-#~ msgstr "активна кампанія"
-
-#~ msgid "Total campaigns:"
-#~ msgstr "Усього кампаній:"
-
-#~ msgid "Upcoming campaigns (< 4hrs):"
-#~ msgstr "Найближчі таймери (< 4 годин):"
-
-#~ msgid "Active campaigns:"
-#~ msgstr "Активні кампанії:"
-
-#~ msgid "Sovereignty Timers"
-#~ msgstr "Таймери суверенітету"
-
-#, python-brace-format
-#~ msgid "Sovereignty Timer v{__version__}"
-#~ msgstr "Таймера суверенітету v{__version__}"
-
-#~ msgid "Timers total:"
-#~ msgstr "Таймерів усього:"
-
-#~ msgid "Timers active:"
-#~ msgstr "Активні таймери:"
-
-#~ msgid "No data available in this table"
-#~ msgstr "Немає даних у цій таблиці"
-
-#~ msgctxt "Keep _END_ as it is. It will be replaced by a number."
-#~ msgid "Showing _END_ entries"
-#~ msgstr "Показано _END_ записів"
-
-#~ msgctxt "Keep _MAX_ as it is. It will be replaced by a number."
-#~ msgid "(filtered from _MAX_ total entries)"
-#~ msgstr "(відфільтровано з _MAX_ загальних записів)"
-
-#~ msgid "No records available"
-#~ msgstr "Записів не знайдено"
-
-#~ msgid "Processing …"
-#~ msgstr "Обробка …"
-
-#~ msgid "Nothing found, sorry …"
-#~ msgstr "Нічого не знайдено, вибачте …"
-
-#~ msgid "Search …"
-#~ msgstr "Пошук …"
-
-#~ msgid "First"
-#~ msgstr "Перший"
-
-#~ msgid "Last"
-#~ msgstr "Останній"
-
-#~ msgid "Next"
-#~ msgstr "Далі"
-
-#~ msgid "Previous"
-#~ msgstr "Назад"
-
-#~ msgid ": activate to sort column ascending"
-#~ msgstr ": активуйте щоб сортувати за зростанням"
-
-#~ msgid ": activate to sort column descending"
-#~ msgstr ": активуйте щоб сортувати за спаданням"
