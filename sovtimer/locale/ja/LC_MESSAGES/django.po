@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
 "PO-Revision-Date: 2026-07-07 08:31+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Japanese <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ja/>\n"
@@ -37,23 +37,23 @@ msgstr "アライアンス"
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 msgid "Sovereignty structures"
 msgstr "領有権ストラクチャ"
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr "領有権ハブの防衛"
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 msgid "Sovereignty campaign"
 msgstr "領有権キャンペーン"
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 msgid "Sovereignty campaigns"
 msgstr "領有権キャンペーン"
 
@@ -136,34 +136,3 @@ msgstr "攻撃側が進展中"
 #: sovtimer/views.py:155
 msgid "Neither side has made any progress yet"
 msgstr "両サイドとも未着手"
-
-#~ msgid "TCU defense"
-#~ msgstr "TCUの防衛"
-
-#~ msgid "Yes"
-#~ msgstr "はい"
-
-#~ msgid "No"
-#~ msgstr "いいえ"
-
-#~ msgid "Type"
-#~ msgstr "タイプ"
-
-#~ msgid "Active campaign"
-#~ msgstr "アクティブなキャンペーン"
-
-#~ msgid "Total campaigns:"
-#~ msgstr "全てのキャンペーン"
-
-#~ msgid "Upcoming campaigns (< 4hrs):"
-#~ msgstr "4時間以内に開始のキャンペーン:"
-
-#~ msgid "Active campaigns:"
-#~ msgstr "アクティブなキャンペーン:"
-
-#~ msgid "Sovereignty Timers"
-#~ msgstr "領有権タイマー"
-
-#, python-brace-format
-#~ msgid "Sovereignty Timer v{__version__}"
-#~ msgstr "領有権タイマー v{__version__}"
