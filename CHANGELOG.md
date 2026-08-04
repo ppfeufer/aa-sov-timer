@@ -13,18 +13,23 @@ Highlighting:
 https://docs.github.com/assets/cb-41128/mw-1440/images/help/writing/alerts-rendered.webp
 
 > [!NOTE]
+>
 > Highlights information that users should take into account, even when skimming.
 
 > [!TIP]
+>
 > Optional information to help a user be more successful.
 
 > [!IMPORTANT]
+>
 > Crucial information necessary for users to succeed.
 
 > [!WARNING]
+>
 > Urgent info that needs immediate user attention to avoid problems.
 
 > [!CAUTION]
+>
 > Advised about risks or negative outcomes of certain actions.
 -->
 
@@ -44,6 +49,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.1.0] - 2026-08-04
+
 > [!IMPORTANT]
 >
 > **This version needs Alliance Auth v5.2.0 or newer!**
@@ -55,7 +62,8 @@ Section Order:
 
 - Use `pk` instead of `id` when referring to the primary key of a model instance, since `id` is not guaranteed to be the primary key in Django.
 - Migrated to Alliance Auth proxy models for `Permission`, `User` and `Group`
-- CSS modernized
+- CSS modernized (If you have an older browser that can't handle the new CSS, update your browser…)
+- Translations updated
 
 ## [5.0.1] - 2026-07-07
 
@@ -1133,5 +1141,6 @@ And restart your supervisor.
 [4.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.1.0...v4.2.0 "v4.2.0"
 [5.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.2.0...v5.0.0 "v5.0.0"
 [5.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.0...v5.0.1 "v5.0.1"
+[5.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.1...v5.1.0 "v5.1.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.0...HEAD "In Development"

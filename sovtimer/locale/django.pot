@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA Sov Timer 5.0.1\n"
+"Project-Id-Version: AA Sov Timer 5.1.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-07-07 10:23+0200\n"
+"POT-Creation-Date: 2026-08-04 06:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,23 +35,23 @@ msgstr ""
 msgid "Alliances"
 msgstr ""
 
-#: sovtimer/models.py:161
+#: sovtimer/models.py:159
 msgid "Sovereignty structure"
 msgstr ""
 
-#: sovtimer/models.py:162
+#: sovtimer/models.py:160
 msgid "Sovereignty structures"
 msgstr ""
 
-#: sovtimer/models.py:242
+#: sovtimer/models.py:240
 msgid "Sov Hub defense"
 msgstr ""
 
-#: sovtimer/models.py:270
+#: sovtimer/models.py:268
 msgid "Sovereignty campaign"
 msgstr ""
 
-#: sovtimer/models.py:271
+#: sovtimer/models.py:269
 msgid "Sovereignty campaigns"
 msgstr ""
 
