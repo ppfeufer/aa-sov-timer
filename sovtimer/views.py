@@ -123,8 +123,10 @@ def dashboard_data(  # pylint: disable=too-many-statements too-many-locals
         region_name = region.name
         region_name_html = f'<a href="{region_url}" target="_blank" rel="noopener noreferer">{region_name}</a>'
 
-        # Activity defense multiplier (fast lookup)
-        structure_adm = occupancy_by_system.get(campaign.structure.solar_system_id, 1)
+        # Activity defense multiplier (fast lookup) formatted with one decimal
+        structure_adm = (
+            f"{occupancy_by_system.get(campaign.structure.solar_system_id, 1):.1f}"
+        )
 
         # Start time and remaining seconds (use timezone-aware now)
         start_time = campaign.start_time

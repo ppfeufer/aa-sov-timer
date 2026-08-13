@@ -238,7 +238,7 @@ class TestDashboardData(BaseTestCase):
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(len(response.json()), 1)
-        self.assertEqual(response.json()[0]["adm"], 1)
+        self.assertEqual(response.json()[0]["adm"], "1.0")
 
     @patch("sovtimer.views.Campaign.Type")
     @patch("sovtimer.views.timezone.now")
