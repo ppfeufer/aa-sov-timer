@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AA Sov Timer 2.2.1\n"
 "Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-08-04 06:48+0200\n"
+"POT-Creation-Date: 2026-08-13 20:04+0200\n"
 "PO-Revision-Date: 2026-07-20 10:25+0000\n"
 "Last-Translator: Hugo REGIBO <hugo@hugoregibo.be>\n"
 "Language-Team: French <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/fr/>\n"
@@ -130,14 +130,14 @@ msgstr "Voulez-vous aider à traduire cette application dans votre langue ou am�
 msgid "Join our team of translators!"
 msgstr "Rejoignez notre équipe de traducteurs !"
 
-#: sovtimer/views.py:147
+#: sovtimer/views.py:149
 msgid "Defenders making progress"
 msgstr "Les défenseurs progressent"
 
-#: sovtimer/views.py:151
+#: sovtimer/views.py:153
 msgid "Attackers making progress"
 msgstr "Les attaquants progressent"
 
-#: sovtimer/views.py:155
+#: sovtimer/views.py:157
 msgid "Neither side has made any progress yet"
 msgstr "Aucun camp n’a encore fait de progrès."
