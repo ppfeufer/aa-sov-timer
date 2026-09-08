@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: AA Sovereignty Timer 5.1.1\n"
-"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-09-08 09:28+0200\n"
+"Project-Id-Version: AA Sovereignty Timer\n"
+"Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sovereignty-timer/\n"
+"POT-Creation-Date: 2026-09-08 17:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,9 +80,7 @@ msgid "Active"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:57
-msgid ""
-"The campaign list is automatically updated every 30 seconds. Progress for "
-"any active campaigns will be shown as <i>Previous - Trend - Current</i>."
+msgid "The campaign list is automatically updated every 30 seconds. Progress for any active campaigns will be shown as <i>Previous - Trend - Current</i>."
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/dashboard/table.html:64
@@ -118,9 +116,7 @@ msgid "Progress"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:5
-msgid ""
-"Do you want to help translate this app into your language or improve the "
-"existing translation?"
+msgid "Do you want to help translate this app into your language or improve the existing translation?"
 msgstr ""
 
 #: sovtimer/templates/sovtimer/partials/footer/app-translation-footer.html:8
