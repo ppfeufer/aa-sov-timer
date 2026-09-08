@@ -1,5 +1,6 @@
 {
-    "name": "aa-sov-timer",
+    "name": "@ppfeufer/aa-sov-timer",
+    "version": "5.1.0",
     "type": "module",
     "devDependencies": {
         "@eslint/js": "^10.0.1",
