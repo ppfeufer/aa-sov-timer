@@ -51,6 +51,7 @@ Section Order:
 
 ### Changed
 
+- Redis cache key to a better format
 - Show ADM with always 1 decimal
 
 ## [5.1.0] - 2026-08-04
