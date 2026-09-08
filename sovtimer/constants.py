@@ -17,5 +17,5 @@ class Constants:
     TASK_ESI_MAX_RETRIES = 5
     TASK_DEFAULT_RETRY_DELAY = 180  # Retry after 3 minutes
 
-    TASK_STRUCTURE_CACHE_KEY = "sov_structures_task_run"
+    TASK_STRUCTURE_CACHE_KEY = "aa-sovereignty-timer:tasks:update_sov_structures:run"
     TASK_STRUCTURE_CACHE_TTL = 300
