@@ -49,6 +49,8 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.1.1] - 2026-09-08
+
 ### Changed
 
 - Redis cache key to a better format
@@ -1147,5 +1149,6 @@ And restart your supervisor.
 [5.0.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v4.2.0...v5.0.0 "v5.0.0"
 [5.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.0...v5.0.1 "v5.0.1"
 [5.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.1...v5.1.0 "v5.1.0"
+[5.1.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.0...v5.1.1 "v5.1.1"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.1...HEAD "In Development"
