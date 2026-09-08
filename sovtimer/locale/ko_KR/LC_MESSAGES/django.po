@@ -8,9 +8,9 @@
 # SiO4 <hohoit0078@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
-"Project-Id-Version: AA Sov Timer 2.2.1\n"
-"Report-Msgid-Bugs-To: https://github.com/ppfeufer/aa-sov-timer/issues\n"
-"POT-Creation-Date: 2026-09-08 09:28+0200\n"
+"Project-Id-Version: AA Sovereignty Timer\n"
+"Report-Msgid-Bugs-To: https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sovereignty-timer/\n"
+"POT-Creation-Date: 2026-09-08 17:18+0200\n"
 "PO-Revision-Date: 2026-07-13 03:40+0000\n"
 "Last-Translator: Peter Pfeufer <info@ppfeufer.de>\n"
 "Language-Team: Korean <https://weblate.ppfeufer.de/projects/alliance-auth-apps/aa-sov-timer/ko/>\n"
