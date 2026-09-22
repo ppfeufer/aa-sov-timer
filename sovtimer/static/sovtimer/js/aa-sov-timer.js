@@ -49,7 +49,7 @@ $(document).ready(() => {
      * @private
      */
     const _removeSearchFromColumnControl = () => {
-        return sovtimerSettings.dataTables.columnControl.map((control, index) => index === 1 ? { ...control, content: [] } : control);
+        return sovtimerSettings.dataTables.columnControl.map((control, index) => index === 1 ? {...control, content: []} : control);
     };
 
     /**
@@ -59,7 +59,7 @@ $(document).ready(() => {
      * @private
      */
     const _removeColumnControl = () => { // eslint-disable-line no-unused-vars
-        return sovtimerSettings.dataTables.columnControl.map((control) => ({ ...control, content: [] }));
+        return sovtimerSettings.dataTables.columnControl.map((control) => ({...control, content: []}));
     };
 
     /**
@@ -135,33 +135,33 @@ $(document).ready(() => {
                     // Column: 0 - System
                     {
                         data: {
-                            display: d => d.solar_system.display,
-                            sort: d => d.solar_system.sort,
-                            filter: d => d.solar_system.sort
+                            display: (d) => d.solar_system.display,
+                            sort: (d) => d.solar_system.sort,
+                            filter: (d) => d.solar_system.sort
                         }
                     },
                     // Column: 1 - Constellation
                     {
                         data: {
-                            display: d => d.constellation.display,
-                            sort: d => d.constellation.sort,
-                            filter: d => d.constellation.sort
+                            display: (d) => d.constellation.display,
+                            sort: (d) => d.constellation.sort,
+                            filter: (d) => d.constellation.sort
                         }
                     },
                     // Column: 2 - Region
                     {
                         data: {
-                            display: d => d.region.display,
-                            sort: d => d.region.sort,
-                            filter: d => d.region.sort
+                            display: (d) => d.region.display,
+                            sort: (d) => d.region.sort,
+                            filter: (d) => d.region.sort
                         }
                     },
                     // Column: 3 - Defender
                     {
                         data: {
-                            display: d => d.defender.display,
-                            sort: d => d.defender.sort,
-                            filter: d => d.defender.sort
+                            display: (d) => d.defender.display,
+                            sort: (d) => d.defender.sort,
+                            filter: (d) => d.defender.sort
                         }
                     },
                     // Column: 4 - Activity Defense Multiplier
@@ -171,25 +171,25 @@ $(document).ready(() => {
                     // Column: 5 - Start Time
                     {
                         data: {
-                            display: d => d.start_time ? moment(d.start_time).utc().format(sovtimerSettings.datetimeFormat.datetimeLong) : '',
-                            sort: d => d.start_time ? moment(d.start_time).unix() : 0,
-                            filter: d => d.start_time || ''
+                            display: (d) => d.start_time ? moment(d.start_time).utc().format(sovtimerSettings.datetimeFormat.datetimeLong) : '',
+                            sort: (d) => d.start_time ? moment(d.start_time).unix() : 0,
+                            filter: (d) => d.start_time || ''
                         }
                     },
                     // Column: 6 - Remaining Time
                     {
                         data: {
-                            display: d => d.remaining_time.display,
-                            sort: d => d.remaining_time.seconds,
-                            filter: d => d.remaining_time.seconds
+                            display: (d) => d.remaining_time.display,
+                            sort: (d) => d.remaining_time.seconds,
+                            filter: (d) => d.remaining_time.seconds
                         }
                     },
                     // Column: 7 - Campaign Progress
                     {
                         data: {
-                            display: d => d.campaign_progress.display,
-                            sort: d => d.campaign_progress.current,
-                            filter: d => d.campaign_status
+                            display: (d) => d.campaign_progress.display,
+                            sort: (d) => d.campaign_progress.current,
+                            filter: (d) => d.campaign_status
                         }
                     }
                 ],
@@ -202,7 +202,7 @@ $(document).ready(() => {
                         targets: [6, 7],
                         type: 'float',
                         width: 175
-                    },
+                    }
                 ],
                 order: [[5, 'asc']],
                 createdRow: (row, data) => {
@@ -328,8 +328,8 @@ $(document).ready(() => {
                     // Define filters
                     const _filters = [
                         ['#aa-sovtimer-filter-total-campaigns', () => true],
-                        ['#aa-sovtimer-filter-upcoming-campaigns', rowData => rowData.campaign_status === 'upcoming'],
-                        ['#aa-sovtimer-filter-active-campaigns', rowData => rowData.campaign_status === 'active']
+                        ['#aa-sovtimer-filter-upcoming-campaigns', (rowData) => rowData.campaign_status === 'upcoming'],
+                        ['#aa-sovtimer-filter-active-campaigns', (rowData) => rowData.campaign_status === 'active']
                     ];
 
                     _filters.forEach(([selector, predicate]) => _filterCampaigns(selector, predicate));
