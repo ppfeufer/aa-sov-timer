@@ -29,15 +29,15 @@ class TypeCheckingImportBehavior(BaseTestCase):
         """
 
         # Preserve any existing modules to restore later
-        orig_httpx = sys.modules.get("httpx")
+        orig_httpx2 = sys.modules.get("httpx2")
         orig_esi = sys.modules.get("esi")
         orig_esi_stubs = sys.modules.get("esi.stubs")
 
         # Inject placeholder modules so the imports inside TYPE_CHECKING succeed
-        sys.modules["httpx"] = types.ModuleType("httpx")
+        sys.modules["httpx2"] = types.ModuleType("httpx2")
         sys.modules["esi"] = types.ModuleType("esi")
         sys.modules["esi.stubs"] = types.ModuleType("esi.stubs")
-        sys.modules["httpx"].Response = object()
+        sys.modules["httpx2"].Response = object()
         sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
 
         with patch.object(typing, "TYPE_CHECKING", True):
@@ -45,17 +45,17 @@ class TypeCheckingImportBehavior(BaseTestCase):
 
             self.assertIn("Response", models.__dict__)
             self.assertIn("SovereigntyCampaignsGetItem", models.__dict__)
-            self.assertIs(models.__dict__["Response"], sys.modules["httpx"].Response)
+            self.assertIs(models.__dict__["Response"], sys.modules["httpx2"].Response)
             self.assertIs(
                 models.__dict__["SovereigntyCampaignsGetItem"],
                 sys.modules["esi.stubs"].SovereigntyCampaignsGetItem,
             )
 
         # Restore original modules and reload the module to leave global state unchanged
-        if orig_httpx is None:
-            del sys.modules["httpx"]
+        if orig_httpx2 is None:
+            del sys.modules["httpx2"]
         else:
-            sys.modules["httpx"] = orig_httpx
+            sys.modules["httpx2"] = orig_httpx2
 
         if orig_esi_stubs is None:
             del sys.modules["esi.stubs"]
@@ -78,15 +78,15 @@ class TypeCheckingImportBehavior(BaseTestCase):
         """
 
         # Preserve any existing modules to restore later
-        orig_httpx = sys.modules.get("httpx")
+        orig_httpx2 = sys.modules.get("httpx2")
         orig_esi = sys.modules.get("esi")
         orig_esi_stubs = sys.modules.get("esi.stubs")
 
         # Inject placeholder modules so imports would succeed if executed
-        sys.modules["httpx"] = types.ModuleType("httpx")
+        sys.modules["httpx2"] = types.ModuleType("httpx2")
         sys.modules["esi"] = types.ModuleType("esi")
         sys.modules["esi.stubs"] = types.ModuleType("esi.stubs")
-        sys.modules["httpx"].Response = object()
+        sys.modules["httpx2"].Response = object()
         sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
 
         with patch.object(typing, "TYPE_CHECKING", False):
@@ -96,10 +96,10 @@ class TypeCheckingImportBehavior(BaseTestCase):
             self.assertNotIn("SovereigntyCampaignsGetItem", models.__dict__)
 
         # Restore original modules and reload the module to leave global state unchanged
-        if orig_httpx is None:
-            del sys.modules["httpx"]
+        if orig_httpx2 is None:
+            del sys.modules["httpx2"]
         else:
-            sys.modules["httpx"] = orig_httpx
+            sys.modules["httpx2"] = orig_httpx2
 
         if orig_esi_stubs is None:
             del sys.modules["esi.stubs"]

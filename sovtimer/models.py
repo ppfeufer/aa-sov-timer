@@ -22,7 +22,7 @@ from sovtimer.providers.esi import ESIHandler
 
 if TYPE_CHECKING:
     # Third Party
-    from httpx import Response
+    from httpx2 import Response
 
     # Alliance Auth
     from esi.stubs import SovereigntyCampaignsGetItem
