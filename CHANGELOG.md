@@ -49,9 +49,19 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.2.0] - 2026-10-04
+
+> [!IMPORTANT]
+>
+> **This version needs Alliance Auth v5.5.0 or newer!**
+>
+> Please make sure to update your Alliance Auth instance **before** you install this
+> version; otherwise, an update to Alliance Auth will be pulled in unsupervised.
+
 ### Changed
 
 - Switch to `httpx2`
+- Translations updated
 
 ## [5.1.1] - 2026-09-08
 
@@ -1154,5 +1164,6 @@ And restart your supervisor.
 [5.0.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.0...v5.0.1 "v5.0.1"
 [5.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.1...v5.1.0 "v5.1.0"
 [5.1.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.0...v5.1.1 "v5.1.1"
+[5.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.1...v5.2.0 "v5.2.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.1...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.2.0...HEAD "In Development"
