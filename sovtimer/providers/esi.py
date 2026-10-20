@@ -11,7 +11,13 @@ from httpx2 import Response
 
 # Alliance Auth
 from allianceauth.services.hooks import get_extension_logger
-from esi.exceptions import HTTPClientError, HTTPNotModified
+from esi.exceptions import (
+    ESIBucketLimitException,
+    ESIErrorLimitException,
+    HTTPClientError,
+    HTTPNotModified,
+    HTTPServerError,
+)
 from esi.openapi_clients import ESIClientProvider, EsiOperation
 
 # AA Sovereignty Timer
@@ -127,8 +133,12 @@ class ESIHandler:
             )
 
             esi_result = None
-        except (HTTPClientError, RequestError) as exc:
+        except (HTTPClientError, HTTPServerError, RequestError) as exc:
             logger.error(msg=f"Error while fetching data from ESI: {str(exc)}")
+
+            esi_result = None
+        except (ESIErrorLimitException, ESIBucketLimitException) as exc:
+            logger.warning(msg=f"ESI rate limit hit, request not sent: {str(exc)}")
 
             esi_result = None
 

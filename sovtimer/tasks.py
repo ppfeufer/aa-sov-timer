@@ -97,7 +97,7 @@ def update_sov_campaigns(use_etags: bool = True, force_refresh: bool = False) ->
         use_etags=use_etags, force_refresh=force_refresh
     )
 
-    # Exit early if no campaigns are returned
+    # Exit early if no campaigns result is returned
     if campaigns_from_esi is None:
         return
 
@@ -195,7 +195,7 @@ def update_sov_structures(  # pylint: disable=too-many-locals
         use_etags=use_etags, force_refresh=force_refresh
     )
 
-    # Exit early if no structures are returned
+    # Exit early if no structures result is returned
     if structures_from_esi is None:
         return
 

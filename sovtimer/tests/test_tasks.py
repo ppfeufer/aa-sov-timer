@@ -14,19 +14,21 @@ from sovtimer.tasks import (
 )
 from sovtimer.tests import BaseTestCase
 
+MODULE = "sovtimer.tasks"
+
 
 class TestUpdateSovStructures(BaseTestCase):
     """
     Test the update_sov_structures task
     """
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_returns_early_and_makes_no_db_calls_when_esi_returns_none(
         self,
         mock_get_sov_structures,
@@ -75,8 +77,8 @@ class TestUpdateSovStructures(BaseTestCase):
         mock_bulk_create.assert_not_called()
         mock_exclude.assert_not_called()
 
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
-    @patch("sovtimer.tasks.cache.get")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
     def test_skips_update_when_cache_not_expired(
         self, mock_cache_get, mock_get_sov_structures
     ):
@@ -87,13 +89,13 @@ class TestUpdateSovStructures(BaseTestCase):
         mock_cache_get.assert_called_once_with(Constants.TASK_STRUCTURE_CACHE_KEY)
         mock_get_sov_structures.assert_not_called()
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_processes_structure_with_default_vulnerability(
         self,
         mock_get_sov_structures,
@@ -164,13 +166,13 @@ class TestUpdateSovStructures(BaseTestCase):
         self.assertEqual(created[0].structure_id, 1001)
         self.assertEqual(created[0].vulnerability_occupancy_level, 1)
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_skips_structure_if_hub_id_missing(
         self,
         mock_get_sov_structures,
@@ -235,13 +237,13 @@ class TestUpdateSovStructures(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].structure_id, 1002)
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_skips_duplicate_structure_ids(
         self,
         mock_get_sov_structures,
@@ -310,13 +312,13 @@ class TestUpdateSovStructures(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].structure_id, 1003)
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_development_getitem_raises_attribute_error_defaults_to_one(
         self,
         mock_get_sov_structures,
@@ -378,13 +380,13 @@ class TestUpdateSovStructures(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].vulnerability_occupancy_level, 1)
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_development_multiplier_value_is_used_when_present(
         self,
         mock_get_sov_structures,
@@ -442,13 +444,13 @@ class TestUpdateSovStructures(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].vulnerability_occupancy_level, 0.33)
 
-    @patch("sovtimer.tasks.cache.get")
-    @patch("sovtimer.tasks.cache.set")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.bulk_create")
-    @patch("sovtimer.tasks.SovereigntyStructure.objects.exclude")
-    @patch("sovtimer.tasks.SolarSystem.objects.filter")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.SovereigntyStructure.get_sov_structures_from_esi")
+    @patch(MODULE + ".cache.get")
+    @patch(MODULE + ".cache.set")
+    @patch(MODULE + ".SovereigntyStructure.objects.bulk_create")
+    @patch(MODULE + ".SovereigntyStructure.objects.exclude")
+    @patch(MODULE + ".SolarSystem.objects.filter")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".SovereigntyStructure.get_sov_structures_from_esi")
     def test_sovereignty_hub_not_dict_results_in_no_vulnerability_window(
         self,
         mock_get_sov_structures,
@@ -520,10 +522,10 @@ class TestUpdateSovCampaigns(BaseTestCase):
     Test the update_sov_campaigns task
     """
 
-    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
-    @patch("sovtimer.tasks.Campaign.objects.all")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".Campaign.get_sov_campaigns_from_esi")
+    @patch(MODULE + ".Campaign.objects.bulk_create")
+    @patch(MODULE + ".Campaign.objects.all")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
     def test_progress_previous_uses_previous_progress_when_scores_equal(
         self,
         mock_bulk_get_or_create,
@@ -576,10 +578,10 @@ class TestUpdateSovCampaigns(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].progress_previous, 0.55)
 
-    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
-    @patch("sovtimer.tasks.Campaign.objects.all")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".Campaign.get_sov_campaigns_from_esi")
+    @patch(MODULE + ".Campaign.objects.bulk_create")
+    @patch(MODULE + ".Campaign.objects.all")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
     def test_progress_previous_uses_previous_defender_score_when_scores_differ(
         self,
         mock_bulk_get_or_create,
@@ -633,10 +635,10 @@ class TestUpdateSovCampaigns(BaseTestCase):
         # progress_previous should equal the existing defender_score (0.75)
         self.assertEqual(created[0].progress_previous, 0.75)
 
-    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
-    @patch("sovtimer.tasks.Campaign.objects.all")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".Campaign.get_sov_campaigns_from_esi")
+    @patch(MODULE + ".Campaign.objects.bulk_create")
+    @patch(MODULE + ".Campaign.objects.all")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
     def test_progress_previous_defaults_to_campaign_defender_score_when_no_previous(
         self,
         mock_bulk_get_or_create,
@@ -686,10 +688,10 @@ class TestUpdateSovCampaigns(BaseTestCase):
         self.assertEqual(len(created), 1)
         self.assertEqual(created[0].progress_previous, 0.65)
 
-    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
-    @patch("sovtimer.tasks.Campaign.objects.all")
+    @patch(MODULE + ".Campaign.get_sov_campaigns_from_esi")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".Campaign.objects.bulk_create")
+    @patch(MODULE + ".Campaign.objects.all")
     def test_returns_early_and_makes_no_db_calls_when_esi_returns_none(
         self,
         mock_campaign_all,
@@ -725,10 +727,10 @@ class TestUpdateSovCampaigns(BaseTestCase):
         mock_campaign_all.assert_not_called()
         mock_bulk_create.assert_not_called()
 
-    @patch("sovtimer.tasks.Campaign.get_sov_campaigns_from_esi")
-    @patch("sovtimer.tasks.Alliance.bulk_get_or_create_from_esi")
-    @patch("sovtimer.tasks.Campaign.objects.bulk_create")
-    @patch("sovtimer.tasks.Campaign.objects.all")
+    @patch(MODULE + ".Campaign.get_sov_campaigns_from_esi")
+    @patch(MODULE + ".Alliance.bulk_get_or_create_from_esi")
+    @patch(MODULE + ".Campaign.objects.bulk_create")
+    @patch(MODULE + ".Campaign.objects.all")
     def test_handles_empty_list_from_esi_and_performs_empty_bulk_create(
         self,
         mock_campaign_all,
@@ -781,9 +783,9 @@ class TestRunSovCampaignUpdates(BaseTestCase):
     Test the run_sov_campaign_updates task
     """
 
-    @patch("sovtimer.tasks.chain")
-    @patch("sovtimer.tasks.update_sov_structures.si")
-    @patch("sovtimer.tasks.update_sov_campaigns.si")
+    @patch(MODULE + ".chain")
+    @patch(MODULE + ".update_sov_structures.si")
+    @patch(MODULE + ".update_sov_campaigns.si")
     def test_runs_both_tasks_in_sequence(
         self, mock_update_campaigns, mock_update_structures, mock_chain
     ):
@@ -812,9 +814,9 @@ class TestRunSovCampaignUpdates(BaseTestCase):
         mock_update_campaigns.return_value.set.assert_called_once_with(priority=6)
         mock_chain.return_value.apply_async.assert_called_once()
 
-    @patch("sovtimer.tasks.chain")
-    @patch("sovtimer.tasks.update_sov_structures.si")
-    @patch("sovtimer.tasks.update_sov_campaigns.si")
+    @patch(MODULE + ".chain")
+    @patch(MODULE + ".update_sov_structures.si")
+    @patch(MODULE + ".update_sov_campaigns.si")
     def test_handles_no_priority_set(
         self, mock_update_campaigns, mock_update_structures, mock_chain
     ):
@@ -837,10 +839,10 @@ class TestRunSovCampaignUpdates(BaseTestCase):
         mock_update_campaigns.return_value.set.assert_called_once_with(priority=6)
         mock_chain.return_value.apply_async.assert_called_once()
 
-    @patch("sovtimer.tasks.logger.info")
-    @patch("sovtimer.tasks.chain")
-    @patch("sovtimer.tasks.update_sov_structures.si")
-    @patch("sovtimer.tasks.update_sov_campaigns.si")
+    @patch(MODULE + ".logger.info")
+    @patch(MODULE + ".chain")
+    @patch(MODULE + ".update_sov_structures.si")
+    @patch(MODULE + ".update_sov_campaigns.si")
     def test_logs_start_of_update_process(
         self,
         mock_update_campaigns,
