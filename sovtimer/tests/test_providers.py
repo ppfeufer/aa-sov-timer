@@ -22,6 +22,8 @@ from sovtimer.providers.applogger import AppLogger
 from sovtimer.providers.esi import ESIHandler
 from sovtimer.tests import BaseTestCase
 
+MODULE = "sovtimer.providers"
+
 
 class TestTypingTypeCheckingIfCondition(BaseTestCase):
     """
@@ -50,7 +52,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
             sys.modules["esi.stubs"] = fake_stubs
 
             with patch.object(typing, "TYPE_CHECKING", True):
-                providers = importlib.import_module("sovtimer.providers.esi")
+                providers = importlib.import_module(MODULE + ".esi")
                 importlib.reload(providers)
 
                 self.assertTrue(hasattr(providers, "AllianceDetail"))
@@ -60,7 +62,7 @@ class TestTypingTypeCheckingIfCondition(BaseTestCase):
             sys.modules.update(original_sys_modules)
 
             try:
-                importlib.reload(importlib.import_module("sovtimer.providers.esi"))
+                importlib.reload(importlib.import_module(MODULE + ".esi"))
             except Exception:
                 pass
 
@@ -197,6 +199,85 @@ class TestESIHandlerResult(BaseTestCase):
             result = ESIHandler.result(operation=operation)
             self.assertIsNone(result)
 
+    def test_returns_none_on_esi_error_limit_exception(self):
+        """
+        Test returns `None` when an ESI error limit exception is raised.
+
+        :return:
+        :rtype:
+        """
+
+        fake_error_limit_exception = type("FakeErrorLimitException", (Exception,), {})
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.side_effect = fake_error_limit_exception("error limit hit")
+
+        with (
+            patch(
+                MODULE + ".esi.ESIErrorLimitException",
+                fake_error_limit_exception,
+            ),
+            patch(MODULE + ".esi.logger.warning") as mock_warning,
+        ):
+            result = ESIHandler.result(operation=operation)
+
+        self.assertIsNone(result)
+        mock_warning.assert_called_once()
+        self.assertIn(
+            "ESI rate limit hit, request not sent",
+            mock_warning.call_args.kwargs["msg"],
+        )
+
+    def test_returns_none_on_esi_bucket_limit_exception(self):
+        """
+        Test returns `None` when an ESI bucket limit exception is raised.
+
+        :return:
+        :rtype:
+        """
+
+        fake_bucket_limit_exception = type("FakeBucketLimitException", (Exception,), {})
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.side_effect = fake_bucket_limit_exception("bucket limit hit")
+
+        with (
+            patch(
+                MODULE + ".esi.ESIBucketLimitException",
+                fake_bucket_limit_exception,
+            ),
+            patch(MODULE + ".esi.logger.warning") as mock_warning,
+        ):
+            result = ESIHandler.result(operation=operation)
+
+        self.assertIsNone(result)
+        mock_warning.assert_called_once()
+        self.assertIn(
+            "ESI rate limit hit, request not sent",
+            mock_warning.call_args.kwargs["msg"],
+        )
+
+    def test_returns_none_tuple_on_esi_bucket_limit_when_return_response_true(self):
+        """
+        Test returns `(None, None)` when a bucket limit exception is raised and `return_response` is true.
+
+        :return:
+        :rtype:
+        """
+
+        fake_bucket_limit_exception = type("FakeBucketLimitException", (Exception,), {})
+        operation = MagicMock()
+        operation.operation = MagicMock(operationId="GetSomething")
+        operation.result.side_effect = fake_bucket_limit_exception("bucket limit hit")
+
+        with patch(
+            MODULE + ".esi.ESIBucketLimitException",
+            fake_bucket_limit_exception,
+        ):
+            result = ESIHandler.result(operation=operation, return_response=True)
+
+        self.assertEqual(result, (None, None))
+
     def test_passes_extra_kwargs_to_operation_result(self):
         """
         Test passes extra kwargs to operation result.
@@ -242,8 +323,8 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
-            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
+            patch(MODULE + ".esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}, {"campaign_id": 2}]
 
@@ -266,9 +347,9 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.esi", new=MagicMock()),
             patch(
-                "sovtimer.providers.esi.ESIHandler.result",
+                MODULE + ".esi.ESIHandler.result",
                 side_effect=Exception("Error"),
             ) as mock_result,
         ):
@@ -291,9 +372,9 @@ class TestESIHandlerGetSovereigntyCampaigns(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
-            patch("sovtimer.providers.esi.logger.debug") as mock_logger,
-            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
+            patch(MODULE + ".esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.logger.debug") as mock_logger,
+            patch(MODULE + ".esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"campaign_id": 1}]
 
@@ -307,8 +388,8 @@ class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
     Test the ESIHandler.get_alliances_alliance_id method.
     """
 
-    @patch("sovtimer.providers.esi.esi", new=MagicMock())
-    @patch("sovtimer.providers.esi.ESIHandler.result")
+    @patch(MODULE + ".esi.esi", new=MagicMock())
+    @patch(MODULE + ".esi.ESIHandler.result")
     def test_returns_alliance_data_when_operation_succeeds(self, mock_result):
         """
         Test that the method returns alliance data when the ESI operation succeeds.
@@ -330,8 +411,8 @@ class TestESIHandlerGetAlliancesAllianceId(BaseTestCase):
         self.assertIn("operation", called_kwargs)
         self.assertFalse(called_kwargs.get("force_refresh"))
 
-    @patch("sovtimer.providers.esi.esi", new=MagicMock())
-    @patch("sovtimer.providers.esi.ESIHandler.result")
+    @patch(MODULE + ".esi.esi", new=MagicMock())
+    @patch(MODULE + ".esi.ESIHandler.result")
     def test_passes_force_refresh_to_result_operation(self, mock_result):
         """
         Test that the force_refresh parameter is passed correctly to the ESIHandler.result method.
@@ -370,8 +451,8 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
-            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
+            patch(MODULE + ".esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"system_id": 1}, {"system_id": 2}]
 
@@ -394,9 +475,9 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.esi", new=MagicMock()),
             patch(
-                "sovtimer.providers.esi.ESIHandler.result",
+                MODULE + ".esi.ESIHandler.result",
                 side_effect=Exception("Error"),
             ) as mock_result,
         ):
@@ -417,9 +498,9 @@ class TestESIHandlerGetSovereigntySystems(BaseTestCase):
         """
 
         with (
-            patch("sovtimer.providers.esi.esi", new=MagicMock()),
-            patch("sovtimer.providers.esi.logger.debug") as mock_logger,
-            patch("sovtimer.providers.esi.ESIHandler.result") as mock_result,
+            patch(MODULE + ".esi.esi", new=MagicMock()),
+            patch(MODULE + ".esi.logger.debug") as mock_logger,
+            patch(MODULE + ".esi.ESIHandler.result") as mock_result,
         ):
             mock_result.return_value = [{"system_id": 1}]
 

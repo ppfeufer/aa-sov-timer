@@ -13,6 +13,8 @@ from unittest.mock import MagicMock, patch
 from sovtimer.models import Alliance, Campaign, SovereigntyStructure, logger
 from sovtimer.tests import BaseTestCase
 
+MODULE = "sovtimer.models"
+
 
 class TypeCheckingImportBehavior(BaseTestCase):
     """
@@ -41,7 +43,7 @@ class TypeCheckingImportBehavior(BaseTestCase):
         sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
 
         with patch.object(typing, "TYPE_CHECKING", True):
-            models = importlib.reload(importlib.import_module("sovtimer.models"))
+            models = importlib.reload(importlib.import_module(MODULE))
 
             self.assertIn("Response", models.__dict__)
             self.assertIn("SovereigntyCampaignsGetItem", models.__dict__)
@@ -67,7 +69,7 @@ class TypeCheckingImportBehavior(BaseTestCase):
         else:
             sys.modules["esi"] = orig_esi
 
-        importlib.reload(importlib.import_module("sovtimer.models"))
+        importlib.reload(importlib.import_module(MODULE))
 
     def test_does_not_import_type_checking_symbols_when_flag_is_false(self):
         """
@@ -90,7 +92,7 @@ class TypeCheckingImportBehavior(BaseTestCase):
         sys.modules["esi.stubs"].SovereigntyCampaignsGetItem = object()
 
         with patch.object(typing, "TYPE_CHECKING", False):
-            models = importlib.reload(importlib.import_module("sovtimer.models"))
+            models = importlib.reload(importlib.import_module(MODULE))
 
             self.assertNotIn("Response", models.__dict__)
             self.assertNotIn("SovereigntyCampaignsGetItem", models.__dict__)
@@ -111,7 +113,7 @@ class TypeCheckingImportBehavior(BaseTestCase):
         else:
             sys.modules["esi"] = orig_esi
 
-        importlib.reload(importlib.import_module("sovtimer.models"))
+        importlib.reload(importlib.import_module(MODULE))
 
 
 class TestAlliance(BaseTestCase):
@@ -119,9 +121,9 @@ class TestAlliance(BaseTestCase):
     Test cases for the Alliance model
     """
 
-    @patch("sovtimer.models.ESIHandler.get_alliances_alliance_id")
-    @patch("sovtimer.models.Alliance.objects.bulk_create")
-    @patch("sovtimer.models.Alliance.objects.filter")
+    @patch(MODULE + ".ESIHandler.get_alliances_alliance_id")
+    @patch(MODULE + ".Alliance.objects.bulk_create")
+    @patch(MODULE + ".Alliance.objects.filter")
     def test_returns_all_alliances_when_all_ids_exist(
         self, mock_filter, mock_bulk_create, mock_get_alliance
     ):
@@ -158,9 +160,9 @@ class TestAlliance(BaseTestCase):
         mock_bulk_create.assert_not_called()
         mock_get_alliance.assert_not_called()
 
-    @patch("sovtimer.models.ESIHandler.get_alliances_alliance_id")
-    @patch("sovtimer.models.Alliance.objects.bulk_create")
-    @patch("sovtimer.models.Alliance.objects.filter")
+    @patch(MODULE + ".ESIHandler.get_alliances_alliance_id")
+    @patch(MODULE + ".Alliance.objects.bulk_create")
+    @patch(MODULE + ".Alliance.objects.filter")
     def test_creates_new_alliances_when_some_ids_do_not_exist(
         self, mock_filter, mock_bulk_create, mock_get_alliance
     ):
@@ -209,9 +211,9 @@ class TestAlliance(BaseTestCase):
         mock_get_alliance.assert_any_call(alliance_id=3, force_refresh=False)
         mock_bulk_create.assert_called_once()
 
-    @patch("sovtimer.models.ESIHandler.get_alliances_alliance_id")
-    @patch("sovtimer.models.Alliance.objects.bulk_create")
-    @patch("sovtimer.models.Alliance.objects.filter")
+    @patch(MODULE + ".ESIHandler.get_alliances_alliance_id")
+    @patch(MODULE + ".Alliance.objects.bulk_create")
+    @patch(MODULE + ".Alliance.objects.filter")
     def test_skips_creation_when_esi_returns_no_data(
         self, mock_filter, mock_bulk_create, mock_get_alliance
     ):
@@ -249,7 +251,7 @@ class TestSovereigntyStructure(BaseTestCase):
     Test cases for the SovereigntyStructure model
     """
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_systems")
     def test_returns_none_when_esihandler_returns_none(self, mock_get):
         """
         Test that none is returned when ESI returns None
@@ -269,7 +271,7 @@ class TestSovereigntyStructure(BaseTestCase):
         self.assertIsNone(result)
         mock_get.assert_called_once_with(use_etags=False, force_refresh=False)
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_systems")
     def test_returns_parsed_structure_list_when_esihandler_returns_data(self, mock_get):
         """
         Test that data is returned when ESI returns parsed data
@@ -328,7 +330,7 @@ class TestSovereigntyStructure(BaseTestCase):
         self.assertEqual(structure["development"]["activity_defense_multiplier"], 0.5)
         mock_get.assert_called_once_with(use_etags=True, force_refresh=True)
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_systems")
     def test_skips_systems_without_alliance_and_continues_processing_others(
         self, mock_get
     ):
@@ -395,7 +397,7 @@ class TestSovereigntyStructure(BaseTestCase):
         self.assertEqual(result[0]["solar_system_id"], 4001)
         mock_get.assert_called_once_with(use_etags=True, force_refresh=False)
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_systems")
     def test_skips_system_when_development_raises_attribute_error(self, mock_get):
         """
         Test skips system when system development is raises AttributeError and continues processing others
@@ -481,7 +483,7 @@ class TestSovereigntyStructure(BaseTestCase):
         self.assertEqual(len(result), 0)
         mock_get.assert_called_once_with(use_etags=True, force_refresh=False)
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_systems")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_systems")
     def test_handles_system_with_no_alliance_field_gracefully(self, mock_get):
         """
         Test handles system with no alliance field gracefully
@@ -515,7 +517,7 @@ class TestCampaign(BaseTestCase):
     Test cases for the Campaign model
     """
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_campaigns")
     def test_returns_campaigns_when_esi_returns_data(self, mock_get_campaigns):
         """
         Test that campaigns are returned when ESI returns data
@@ -545,7 +547,7 @@ class TestCampaign(BaseTestCase):
             use_etags=True, force_refresh=False, return_response=False
         )
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_campaigns")
     def test_returns_empty_list_when_esi_returns_no_data(self, mock_get_campaigns):
         """
         Test that an empty list is returned when ESI returns no data for campaigns
@@ -565,7 +567,7 @@ class TestCampaign(BaseTestCase):
             use_etags=True, force_refresh=False, return_response=False
         )
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_campaigns")
     def test_logs_info_when_esi_returns_no_data(self, mock_get_campaigns):
         """
         Test that an info log is generated when ESI returns no data for campaigns
@@ -583,7 +585,7 @@ class TestCampaign(BaseTestCase):
 
         self.assertIn("No campaign changes found, nothing to update.", log.output[0])
 
-    @patch("sovtimer.models.ESIHandler.get_sovereignty_campaigns")
+    @patch(MODULE + ".ESIHandler.get_sovereignty_campaigns")
     def test_logs_debug_when_esi_returns_data(self, mock_get_campaigns):
         """
         Test that a debug log is generated when ESI returns data for campaigns

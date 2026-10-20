@@ -17,6 +17,8 @@ from django.utils.timezone import now
 from sovtimer.tests import BaseTestCase
 from sovtimer.views import _fmt_float_to_percentage
 
+MODULE = "sovtimer.views"
+
 
 class TestHelperFmtFloatToPercentage(BaseTestCase):
     """
@@ -44,7 +46,7 @@ class TestDashboard(BaseTestCase):
     Test the dashboard view
     """
 
-    @patch("sovtimer.views.logger")
+    @patch(MODULE + ".logger")
     def test_dashboard_renders_correct_template(self, mock_logger):
         """
         Test that the dashboard view renders the correct template
@@ -66,7 +68,7 @@ class TestDashboard(BaseTestCase):
         self.assertTemplateUsed(response, "sovtimer/dashboard.html")
         mock_logger.info.assert_called_once_with(msg="Module called by testuser")
 
-    @patch("sovtimer.views.logger")
+    @patch(MODULE + ".logger")
     def test_dashboard_logs_anonymous_user(self, mock_logger):
         """
         Test that the dashboard view logs AnonymousUser
@@ -88,7 +90,7 @@ class TestDashboardData(BaseTestCase):
     Test the dashboard_data view
     """
 
-    @patch("sovtimer.views.Campaign.objects.select_related")
+    @patch(MODULE + ".Campaign.objects.select_related")
     def test_returns_empty_response_when_no_campaign_system_ids(
         self, mock_campaign_select_related
     ):
@@ -112,9 +114,9 @@ class TestDashboardData(BaseTestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.json(), [])
 
-    @patch("sovtimer.views.Campaign.Type")
-    @patch("sovtimer.views.Campaign.objects.select_related")
-    @patch("sovtimer.views.SovereigntyStructure.objects.filter")
+    @patch(MODULE + ".Campaign.Type")
+    @patch(MODULE + ".Campaign.objects.select_related")
+    @patch(MODULE + ".SovereigntyStructure.objects.filter")
     def test_dashboard_data_includes_active_campaigns(
         self, mock_structure_filter, mock_campaign_select_related, mock_campaign_type
     ):
@@ -179,9 +181,9 @@ class TestDashboardData(BaseTestCase):
         self.assertEqual(response.json()[0]["defender"]["sort"], "Alliance A")
         self.assertEqual(response.json()[0]["campaign_status"], "active")
 
-    @patch("sovtimer.views.Campaign.Type")
-    @patch("sovtimer.views.Campaign.objects.select_related")
-    @patch("sovtimer.views.SovereigntyStructure.objects.filter")
+    @patch(MODULE + ".Campaign.Type")
+    @patch(MODULE + ".Campaign.objects.select_related")
+    @patch(MODULE + ".SovereigntyStructure.objects.filter")
     def test_dashboard_data_handles_missing_vulnerability_levels(
         self, mock_structure_filter, mock_campaign_select_related, mock_campaign_type
     ):
@@ -240,10 +242,10 @@ class TestDashboardData(BaseTestCase):
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["adm"], "1.0")
 
-    @patch("sovtimer.views.Campaign.Type")
-    @patch("sovtimer.views.timezone.now")
-    @patch("sovtimer.views.Campaign.objects.select_related")
-    @patch("sovtimer.views.SovereigntyStructure.objects.filter")
+    @patch(MODULE + ".Campaign.Type")
+    @patch(MODULE + ".timezone.now")
+    @patch(MODULE + ".Campaign.objects.select_related")
+    @patch(MODULE + ".SovereigntyStructure.objects.filter")
     def test_campaign_status_is_upcoming_when_within_timeframe(
         self,
         mock_structure_filter,
@@ -314,9 +316,9 @@ class TestDashboardData(BaseTestCase):
         self.assertEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]["campaign_status"], "upcoming")
 
-    @patch("sovtimer.views.Campaign.Type")
-    @patch("sovtimer.views.Campaign.objects.select_related")
-    @patch("sovtimer.views.SovereigntyStructure.objects.filter")
+    @patch(MODULE + ".Campaign.Type")
+    @patch(MODULE + ".Campaign.objects.select_related")
+    @patch(MODULE + ".SovereigntyStructure.objects.filter")
     def test_sets_attackers_progress_when_previous_progress_is_higher(
         self, mock_structure_filter, mock_campaign_select_related, mock_campaign_type
     ):
