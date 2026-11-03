@@ -49,11 +49,17 @@ Section Order:
 
 <!-- Your changes go here -->
 
+## [5.3.0] - 2026-11-03
+
 ### Changed
 
 - ESI error handling improved to catch and `HTTPError`, `ESIErrorLimitException` and
   `ESIBucketLimitException` which can be thrown by `django-esi` when ESI is
   unavailable or rate limited.
+
+### Removed
+
+- Support for Python 3.10
 
 ## [5.2.0] - 2026-10-04
 
@@ -1171,5 +1177,6 @@ And restart your supervisor.
 [5.1.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.0.1...v5.1.0 "v5.1.0"
 [5.1.1]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.0...v5.1.1 "v5.1.1"
 [5.2.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.1.1...v5.2.0 "v5.2.0"
+[5.3.0]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.2.0...v5.3.0 "v5.3.0"
 [alliance auth 3.0.0 release notes]: https://gitlab.com/allianceauth/allianceauth/-/tags/v3.0.0 "Alliance Auth 3.0.0 release notes"
-[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.2.0...HEAD "In Development"
+[in development]: https://github.com/ppfeufer/aa-sov-timer/compare/v5.3.0...HEAD "In Development"
