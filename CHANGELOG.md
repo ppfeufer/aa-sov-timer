@@ -53,9 +53,9 @@ Section Order:
 
 ### Changed
 
-- ESI error handling improved to catch and `HTTPError`, `ESIErrorLimitException` and
-  `ESIBucketLimitException` which can be thrown by `django-esi` when ESI is
-  unavailable or rate limited.
+- ESI error handling improved to catch `HTTPError`, `ESIErrorLimitException` and
+  `ESIBucketLimitException`, which can be thrown by `django-esi` when ESI is
+  unavailable or rate-limited.
 
 ### Removed
 
