@@ -13,6 +13,17 @@ $(document).ready(() => {
         campaignsActive: $('.aa-sovtimer-campaigns-active')
     };
 
+    const dtColumn = {
+        system: 0,
+        constellation: 1,
+        region: 2,
+        defender: 3,
+        adm: 4,
+        startTime: 5,
+        remainingTime: 6,
+        campaignProgress: 7
+    };
+
     /**
      * Bootstrap tooltip
      *
@@ -195,16 +206,26 @@ $(document).ready(() => {
                 ],
                 columnDefs: [
                     {
-                        targets: [4, 5, 6, 7],
+                        targets: [
+                            dtColumn.adm,
+                            dtColumn.startTime,
+                            dtColumn.remainingTime,
+                            dtColumn.campaignProgress
+                        ],
                         columnControl: _removeSearchFromColumnControl()
                     },
                     {
-                        targets: [6, 7],
+                        targets: [
+                            dtColumn.remainingTime,
+                            dtColumn.campaignProgress
+                        ],
                         type: 'float',
                         width: 175
                     }
                 ],
-                order: [[5, 'asc']],
+                order: [
+                    [dtColumn.startTime, 'asc']
+                ],
                 createdRow: (row, data) => {
                     // Add a class for upcoming or active campaigns
                     $(row).addClass(`aa-sovtimer-${data.campaign_status}-campaign`);
